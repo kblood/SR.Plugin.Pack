@@ -32,7 +32,6 @@ public class Cheats : ISrPlugin
     // AgentAI state debugging
     
 
-
     /// <summary>
     /// Plugin initialization 
     /// </summary>

@@ -39,11 +39,6 @@ d:\Unity3D\Satellite Reign\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.pdb
 D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.CoreCompileInputs.cache
 b:\Git\SR.Plugin.Pack\Cheats\bin\Debug\Cheats.dll
 b:\Git\SR.Plugin.Pack\Cheats\bin\Debug\Cheats.pdb
-b:\Git\SR.Plugin.Pack\Cheats\bin\Debug\JsonFx.Json.dll
-b:\Git\SR.Plugin.Pack\Cheats\bin\Debug\Ionic.Zip.Reduced.dll
-b:\Git\SR.Plugin.Pack\Cheats\bin\Debug\NATTraversalForUNET.dll
-b:\Git\SR.Plugin.Pack\Cheats\bin\Debug\Open.Nat.dll
-b:\Git\SR.Plugin.Pack\Cheats\bin\Debug\System.Threading.dll
 b:\Git\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csprojAssemblyReference.cache
 b:\Git\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.CoreCompileInputs.cache
 b:\Git\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.CopyComplete

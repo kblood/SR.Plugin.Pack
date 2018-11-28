@@ -27,11 +27,6 @@ D:\Unity3D\Satellite Reign\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.pdb
 D:\Unity3D\Satellite Reign\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.CoreCompileInputs.cache
 b:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\ChangeLooks.dll
 b:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\ChangeLooks.pdb
-b:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\JsonFx.Json.dll
-b:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\Ionic.Zip.Reduced.dll
-b:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\NATTraversalForUNET.dll
-b:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\Open.Nat.dll
-b:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\System.Threading.dll
 b:\Git\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csprojAssemblyReference.cache
 b:\Git\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.CoreCompileInputs.cache
 b:\Git\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.CopyComplete
