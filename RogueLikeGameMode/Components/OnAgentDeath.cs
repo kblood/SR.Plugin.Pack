@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace RogueLikeGameMode.Components
+namespace UltimateIronmanGameMode.Components
 {
     class OnAgentDeath : MonoBehaviour
     {
