@@ -100,7 +100,7 @@ namespace UltimateIronmanGameMode
 
         void StopSaves()
         {
-            if (SaveGame.CurrentUser.UserConfiguration.IronmanMode)
+            if (!SaveGame.CurrentUser.UserConfiguration.IronmanMode)
                 return;
 
             System.Collections.Generic.List<AgentAI> agents = AgentAI.GetAgents();

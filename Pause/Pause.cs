@@ -25,7 +25,7 @@ public class Pause : ISrPlugin
     {
         if (Manager.Get().GameInProgress)
         {
-            if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.Pause))
+            if (Input.GetKeyDown(KeyCode.Pause))
             {
                 if (m_TacticalPauseTimeScaler.Paused)
                 {

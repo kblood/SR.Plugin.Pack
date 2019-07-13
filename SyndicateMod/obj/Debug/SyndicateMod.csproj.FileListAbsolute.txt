@@ -1,0 +1,7 @@
+B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\SyndicateMod.dll
+B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\SyndicateMod.pdb
+B:\Git\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.csproj.CoreCompileInputs.cache
+B:\Git\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.csproj.CopyComplete
+B:\Git\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.dll
+B:\Git\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.pdb
+B:\Git\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.csprojAssemblyReference.cache
