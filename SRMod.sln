@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateIronManGameMode", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyndicateMod", "SyndicateMod\SyndicateMod.csproj", "{AE4E93BC-DE5A-424B-8756-702D0CCA1C69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyFix", "KeyFix\KeyFix.csproj", "{C9D93367-9DD2-4873-9583-F183D8F1FDCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{AE4E93BC-DE5A-424B-8756-702D0CCA1C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE4E93BC-DE5A-424B-8756-702D0CCA1C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE4E93BC-DE5A-424B-8756-702D0CCA1C69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9D93367-9DD2-4873-9583-F183D8F1FDCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9D93367-9DD2-4873-9583-F183D8F1FDCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9D93367-9DD2-4873-9583-F183D8F1FDCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9D93367-9DD2-4873-9583-F183D8F1FDCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

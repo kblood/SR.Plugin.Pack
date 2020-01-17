@@ -27,7 +27,6 @@ D:\Unity3D\Satellite Reign\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.pdb
 D:\Unity3D\Satellite Reign\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.CoreCompileInputs.cache
 b:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\ChangeLooks.dll
 b:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\ChangeLooks.pdb
-b:\Git\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csprojAssemblyReference.cache
 b:\Git\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.CoreCompileInputs.cache
 b:\Git\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.CopyComplete
 b:\Git\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.dll

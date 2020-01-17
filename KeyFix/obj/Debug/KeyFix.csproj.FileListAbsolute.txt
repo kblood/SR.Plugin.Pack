@@ -1,0 +1,7 @@
+B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\KeyFix.dll
+B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\KeyFix.pdb
+B:\Git\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.csprojAssemblyReference.cache
+B:\Git\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.csproj.CoreCompileInputs.cache
+B:\Git\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.csproj.CopyComplete
+B:\Git\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.dll
+B:\Git\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.pdb

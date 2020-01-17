@@ -39,7 +39,6 @@ d:\Unity3D\Satellite Reign\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.pdb
 D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.CoreCompileInputs.cache
 b:\Git\SR.Plugin.Pack\Cheats\bin\Debug\Cheats.dll
 b:\Git\SR.Plugin.Pack\Cheats\bin\Debug\Cheats.pdb
-b:\Git\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csprojAssemblyReference.cache
 b:\Git\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.CoreCompileInputs.cache
 b:\Git\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.CopyComplete
 b:\Git\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.dll

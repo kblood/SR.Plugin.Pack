@@ -1,7 +1,10 @@
-﻿using System;
+﻿using SyndicateMod.Services;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +14,7 @@ namespace SyndicateMod
     {
 
         bool weaponsUpdated = false;
+        int debug = 0;
 
         /// <summary>
         /// Plugin initialization 
@@ -25,8 +29,19 @@ namespace SyndicateMod
         /// </summary>
         public void Update()
         {
+            if (!weaponsUpdated)
+            {
+                WeaponChanges();
+                weaponsUpdated = true;
+            }
+
             if (Manager.Get().GameInProgress)
             {
+                if (debug > 0)
+                    DebugOptions.ms_DebugEnabled = true;
+                if (debug == 1)
+                    DebugOptions.ms_DebugEnabledParanoid = true;
+
                 if (!weaponsUpdated)
                 {
                     WeaponChanges();
@@ -49,30 +64,82 @@ namespace SyndicateMod
                 {
                     var units = GetSelectUnits();
 
-                    var agents = AgentAI.GetAgents();
+                    //var agents = AgentAI.GetAgents();
+                    //var abils = agents.Where(a => a.GetClass() == AgentAI.AgentClass.Hacker).FirstOrDefault()?.m_Abilities.AllAbilities().Select(a => a.GetID()).ToArray();
+                    //DMMap minimap -AddSimpleIcon to add minimap
 
-                    var abils = agents.Where(a => a.GetClass() == AgentAI.AgentClass.Hacker).FirstOrDefault()?.m_Abilities.AllAbilities().Select(a => a.GetID()).ToArray();
+                    var ent = units.Where(e => e.m_IsControllable == false && e.IsVIP == false).FirstOrDefault();
 
-                    var Soldier = AgentAI.GetAgent(AgentAI.AgentClass.Soldier);
-                    var Hacker = AgentAI.GetAgent(AgentAI.AgentClass.Hacker);
-                    var Support = AgentAI.GetAgent(AgentAI.AgentClass.Support);
-                    var Assassin = AgentAI.GetAgent(AgentAI.AgentClass.Assassin);
+                    if (ent != null)
+                        Manager.GetUIManager().ShowMessagePopup("Found " + ent.m_Identity.GetFullName());
 
-                    foreach (var selectedAgent in agents.Where(u => u.IsSelected()))
+                    if (ent)
                     {
-                        if (selectedAgent.m_Class != AgentAI.AgentClass.NONE)
-                            selectedAgent.m_Class = AgentAI.AgentClass.NONE;
+                        Manager.GetUIManager().ShowMessagePopup("Found " + ent.m_Identity.GetFullName() + ". Applying VIP status.");
+                        ent.m_Identity.SetRandomIdentity();
+                        MakeVIP(ent);
+                        ent.name = "Peter Molyneux";
+                        ent.m_Identity.name = "Peter Molyneux";
+                        Manager.GetUIManager().ShowMessagePopup("Made " + ent.m_Identity.GetFullName() + " VIP.");
                     }
 
-                    AddAbilitiesToUnits(units, abils);
+                    var names = IdentityManager.Get().m_NamesXML.text;
+                    Manager.GetUIManager().ShowWarningPopup(names);
 
-                    ToggleWeaponOfUnits(units, WeaponType.B_minigun);
+                    XmlDocument xmlDocument = new XmlDocument();
+                    xmlDocument.LoadXml(names);
+                    //xmlDocument.Save("TestFileDoc.xml");
 
-                    Soldier.m_Class = AgentAI.AgentClass.Soldier;
-                    Hacker.m_Class = AgentAI.AgentClass.Hacker;
-                    Support.m_Class = AgentAI.AgentClass.Support;
-                    Assassin.m_Class = AgentAI.AgentClass.Assassin;
+                    IdentityManager.Get().GetName(1, out string first, out string last);
+                    //Manager.GetUIManager().ShowWarningPopup(first + " " + last);
+
+#pragma warning disable CS0618 // Type or member is obsolete
+                    Manager.GetUIManager().GetEventPopUpUi().AddMessage("Name is now: " + first + " " + last, null, null, 50f, false);
+#pragma warning restore CS0618 // Type or member is obsolete
+
+                    //bool flag = .Shift IsDown();
+                    //bool flag2 = .Ctrl IsDown();
+                    //bool flag3 = .Alt IsDown();
+
+                    //var fileManager = new FileManager();
+                    //byte[] bytes = Encoding.Default.GetBytes(xmlDocument.OuterXml);
+                    //fileManager.SaveData("TestFileDoc2.xml", bytes);
+
+                    //var icons = Manager.GetMiniMap().Icons;
+                    //icons = Manager.GetMiniMapUi().MapCameraViewUi.DmMap.ic
+
+                    //var Soldier = AgentAI.GetAgent(AgentAI.AgentClass.Soldier);
+                    //var Hacker = AgentAI.GetAgent(AgentAI.AgentClass.Hacker);
+                    //var Support = AgentAI.GetAgent(AgentAI.AgentClass.Support);
+                    //var Assassin = AgentAI.GetAgent(AgentAI.AgentClass.Assassin);
+
+                    //foreach (var selectedAgent in agents.Where(u => u.IsSelected()))
+                    //{
+                    //    if (selectedAgent.m_Class != AgentAI.AgentClass.NONE)
+                    //        selectedAgent.m_Class = AgentAI.AgentClass.NONE;
+                    //}
+
+                    //AddAbilitiesToUnits(units, abils);
+
+                    //ToggleWeaponOfUnits(units, WeaponType.B_minigun);
+
+                    //Soldier.m_Class = AgentAI.AgentClass.Soldier;
+                    //Hacker.m_Class = AgentAI.AgentClass.Hacker;
+                    //Support.m_Class = AgentAI.AgentClass.Support;
+                    //Assassin.m_Class = AgentAI.AgentClass.Assassin;
                 }
+
+                if (Input.GetKeyDown(KeyCode.ScrollLock) || Input.GetKeyDown(KeyCode.ScrollLock))
+                {
+                    if (debug < 2)
+                        debug++;
+                    else
+                        debug = 0;
+                    Manager.GetUIManager().ShowMessagePopup("Debug mode " + debug + " active\nDebug mode: description\n0: off\n1: debug\n2: paraniod debug");
+                    //if (debug == 3)
+                    //    Manager.GetUIManager().Show();
+                }
+
                 if (Input.GetKeyDown(KeyCode.Insert) || Input.GetKeyDown(KeyCode.Insert))
                 {
                     var units = GetSelectUnits();
@@ -112,53 +179,61 @@ namespace SyndicateMod
                                 remote++;
                             //if (abil.IsActive())
                         }
-
                     }
                     info += "\n Total: \n" + enabled + " enabled. " + instant + " instant" + passive + " passive" + ready + " ready" + allowed + " allowed" + remote + " remote";
                     Manager.GetUIManager().DoModalMessageBox("Abilities of selected unit", info, InputBoxUi.InputBoxTypes.MbInput);
                 }
                 if (Input.GetKeyDown(KeyCode.End) || Input.GetKeyDown(KeyCode.End))
                 {
-                    AddAbilityToSelectedUnits();
+                    AddAbilityToSelectedUnits(GetSelectUnits());
                 }
 
                 if (Input.GetKeyDown(KeyCode.PageUp) || Input.GetKeyDown(KeyCode.PageUp))
                 {
-                    Manager.GetUIManager().ShowMessagePopup("Listing weapons");
-                    var units = GetSelectUnits();
-
-                    string info = "\n";
-                    string[] aNames = new string[0];
-                    int[] aIds = new int[0];
-                    Manager.GetAbilityManager().GetAbilityNamesAndIDs(out aIds, out aNames);
-
-                    var weapons = Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>().ToList();
-
-                    for (int i = 0; i < 29; i++)
-                    {
-                        info += "(ID_"+ i + ":" + (WeaponType)i + ")";
-                    }
-                    //info = info.Substring(0, 230);
-                    bool userOk;
-
-                    Coroutine corot = null;
-                    Manager.GetUIManager().DoModalMessageBox("Add ability of selected units", "Pick weapon to add:" + info, InputBoxUi.InputBoxTypes.MbInput, null, null,
-                    delegate (bool b)
-                    {
-                        userOk = b;
-                        if (b)
-                        {
-                            var input = Manager.GetUIManager().InputValue();
-                            int id = 0;
-                            int.TryParse(input, out id);
-                            if(id > 0 || id < 28)
-                                ToggleWeaponOfUnits(units, (WeaponType)id);
-                        }
-                    },
-                    null, "put skill ID here");
+                    AddWeaponToSelectedUnits(GetSelectUnits());
                 }
 
+                // Hijack every non-controlled unit
+                if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Keypad5))
+                {
+                    List<AIEntity> units = new List<AIEntity>();
+                    foreach (AIEntity ae in AIEntity.FindObjectsOfType(typeof(AIEntity)))
+                    {
+                        if ((ae.IsHuman() || ae.IsMech()) && !ae.m_IsControllable)
+                        {
+                            units.Add(ae);
+                        }
+                    }
+
+                    ToggleControlOfUnits(units);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Keypad6))
+                {
+                    var units = GetSelectUnits();
+
+                    var FiveLives = units.Where(ae => ae.m_Identity.GetNameID() < 5)?.ToList();
+
+                    if (FiveLives != null && FiveLives.Any())
+                    {
+                        foreach (var dev in FiveLives)
+                            MakeVIP(dev);
+                    }
+                }
             }
+        }
+
+        public void MakeVIP(AIEntity unit)
+        {
+            unit.gameObject.AddComponent<VIP>();
+            VIP vip = unit.GetComponent<VIP>();
+            vip.VIPType = VIPType.InfoTarget;
+            unit.HasBeenScanned = false;
+        }
+
+        public List<AIEntity> GetSelectedUnits()
+        {
+            return Manager.GetInputControl().GetPlayerSelectedEntities();
         }
 
         public List<AIEntity> GetSelectUnits()
@@ -175,62 +250,189 @@ namespace SyndicateMod
             return selected;
         }
 
-        public void AddAbilityToSelectedUnits(int indexAt = 1)
+        public void AddWeaponToSelectedUnits(List<AIEntity> units, int indexAt = 0)
+        {
+            //Manager.GetUIManager().ShowMessagePopup("Listing weapons");
+
+            string info = "";
+
+            var weapons = Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>().ToList();
+
+            int skip = 16;
+            for (int i = indexAt; i < 29 && i < indexAt + skip; i++)
+            {
+                info += "\nID: " + i + " - " + (WeaponType)i;
+            }
+
+            string cancelButtonText = "Next";
+            if (indexAt + skip > 29)
+                cancelButtonText = "Cancel";
+
+            bool userOk = false;
+            string input = "";
+            Manager.GetUIManager().DoModalMessageBox("Toggle weapon of selected units", "Pick weapon to add:" + info, InputBoxUi.InputBoxTypes.MbInput, null, cancelButtonText,
+            delegate (bool b)
+            {
+                userOk = b;
+                if (b)
+                {
+                    input = Manager.GetUIManager().InputValue();
+                    int id = -1;
+                    int.TryParse(input, out id);
+                    if (id > 0 || id < 28)
+                        ToggleWeaponOfUnits(units, (WeaponType)id);
+                    Manager.ptr.EnableKeyCommands();
+                    Manager.GetUIManager().InputBoxUi.Hide();
+                    
+                }
+                else
+                {
+                    if(indexAt+ skip < 29)
+                    {
+                        AddWeaponToSelectedUnits(units, indexAt + skip);
+
+                        //Manager.GetInputControl().ResetIdleTime();
+                        
+                    }
+                    else
+                    {
+                        Manager.GetUIManager().InputBoxUi.Hide();
+                        Manager.ptr.EnableKeyCommands();
+                    }
+                }
+            },
+            null, "put weapon ID here");
+
+            //if (userOk)
+            //{
+            //    int id = -1;
+            //    int.TryParse(input, out id);
+            //    if (id > 0 || id < 28)
+            //        ToggleWeaponOfUnits(units, (WeaponType)id);
+            //    Manager.ptr.EnableGameCamera(true, true);
+            //    Manager.ptr.EnableKeyCommands();
+            //}
+            //else
+            //{
+            //    if (indexAt + skip < 29)
+            //    {
+            //        AddWeaponToSelectedUnits(units, indexAt + skip);
+
+            //        //Manager.GetInputControl().ResetIdleTime();
+
+            //    }
+            //    else
+            //    {
+            //        Manager.GetUIManager().InputBoxUi.Hide();
+            //        Manager.ptr.EnableKeyCommands();
+            //    }
+            //}
+        }
+
+        
+
+        SortedDictionary<int, string> _abilityDictionary;
+
+        public IEnumerator AddAbilityToSelectedUnits(List<AIEntity> units, int indexAt = 1)
         {
             Manager.GetUIManager().ShowMessagePopup("Getting skills");
-            var units = GetSelectUnits();
 
             string info = "ID and ability name:";
             string[] aNames = new string[0];
             int[] aIds = new int[0];
-            Manager.GetAbilityManager().GetAbilityNamesAndIDs(out aIds, out aNames);
+
+            if(_abilityDictionary == null || !_abilityDictionary.Any())
+            {
+                var abilMan = Manager.GetAbilityManager();
+                Manager.GetUIManager().ShowMessagePopup("Creating dictionary");
+                _abilityDictionary = new SortedDictionary<int, string>();
+                Manager.GetUIManager().ShowMessagePopup("Getting ids and names");
+                abilMan.GetAbilityNamesAndIDs(out aIds, out aNames);
+
+                foreach (int id in aIds)
+                {
+                    if (id < 0)
+                        continue;
+                    string name = "";
+                    Manager.GetUIManager().ShowMessagePopup("Get name of ability id " + id);
+                    if (abilMan.GetName(id).Contains("###"))
+                        continue;
+                    
+                    Manager.GetUIManager().ShowMessagePopup("Getting ability name of ability with id " + id);
+                    name = abilMan.GetAbilityName(id);
+
+
+                    Manager.GetUIManager().ShowMessagePopup("Adding ability id+name " + id +" "+ name + " to dictionary");
+                    if (!name.ToLower().Contains("obsolete"))
+                    {
+                        //if(!_abilityDictionary.ContainsKey(id))
+                            _abilityDictionary.Add(id, name);
+                    }
+                }
+            }
+            Manager.GetUIManager().ShowMessagePopup("Adding sorted keys to aids array");
+            aIds = _abilityDictionary.Keys.ToArray();
 
             Manager.GetUIManager().ShowMessagePopup("About to show skills");
 
-            for (int i = indexAt; i < aIds.Length && i < (indexAt +10); i++)
+            int skip = 13;
+
+            for (int i = indexAt; i < aIds.Length && i < (indexAt + skip); i++)
             {
                 //Manager.GetUIManager().ShowWarningPopup("Adding skill no: " + i + ": " + aIds[i] + ": " + aNames[i], 5);
-                if (aNames[i].ToLower().Contains("obsolete"))
-                {
-                    indexAt++;
-                    continue;
-                }
-                info += "\n" + aIds[i] + " : " + aNames[i];
+                
+                info += "\n" + aIds[i] + " : " + _abilityDictionary[aIds[i]];
             }
             Manager.GetUIManager().ShowMessagePopup("info text is " + info.Length + " long.", 8);
             if(info.Length > 400)
                 info = info.Substring(0, 400);
 
-            bool userOk;
-            Manager.GetUIManager().ShowWarningPopup("ModalMessageBox being created", 2);
-            //Coroutine corot = null;
-            Manager.GetUIManager().DoModalMessageBox("Add ability to selected units", info, InputBoxUi.InputBoxTypes.MbInput, null, "Next",
+            string cancelButtonText = "Next";
+            if (indexAt + skip > aIds.Length)
+                cancelButtonText = "Cancel";
+
+            bool boolOk = false;
+            string input = "";
+
+            yield return Manager.GetUIManager().DoModalMessageBox("Add ability to selected units", info, InputBoxUi.InputBoxTypes.MbInput, null, cancelButtonText,
             delegate (bool b)
             {
-                userOk = b;
                 //Manager.GetUIManager().ShowWarningPopup("Clicked message box " + b, 4);
+                boolOk = b;
                 if (b)
                 {
-                    var input = Manager.GetUIManager().InputValue();
-                    int id = 0;
-                    int.TryParse(input, out id);
-
-                    if(aIds.Contains(id))
-                    {
-                        foreach (var unit in units)
-                            AddAbilityToUnit(unit, id);
-
-                        //int[] ids = new int[1];
-                        //ids[0] = id;
-                        //AddAbilitiesToUnits(units, ids);
-                    }
-                }
-                else
-                {
-                    AddAbilityToSelectedUnits(indexAt+10);
+                    input = Manager.GetUIManager().InputValue();
                 }
             },
             null, "put skill ID here");
+
+            if(boolOk)
+            {
+                int id = 0;
+                int.TryParse(input, out id);
+
+                if (aIds.Contains(id))
+                {
+                    foreach (var unit in units)
+                        AddAbilityToUnit(unit, id);
+                }
+
+                Manager.ptr.EnableKeyCommands();
+            }
+            else
+            {
+                if (indexAt + skip < aIds.Length)
+                {
+                    var co = AddAbilityToSelectedUnits(units, indexAt + skip);
+                    //StartCoroutine(co);
+                }
+                    
+                else
+                {
+                    Manager.ptr.EnableKeyCommands();
+                }
+            }
+            yield break;
         }
 
         public void ToggleControlOfUnits(List<AIEntity> units)
@@ -267,12 +469,15 @@ namespace SyndicateMod
             }
         }
 
+        // DMMap minimap - AddSimpleIcon to add minimap icon that follows target AIentity
+
+
         public void ToggleWeaponOfUnits(List<AIEntity> units, WeaponType type)
         {
             //DebugOptions.ms_DebugEnabled = true;
             //DebugOptions.ms_DebugEnabledParanoid = true;
 
-            Manager.GetUIManager().ShowMessagePopup("Changing weapons of select units to " + type.ToString(), 6);
+            //Manager.GetUIManager().ShowMessagePopup("Changing weapons of select units to " + type.ToString(), 6);
             foreach (AIEntity ae in units)
             {
                 //ae.m_Weapons.NextWeaponCheat(1);
@@ -283,7 +488,7 @@ namespace SyndicateMod
                 //ae.m_Weapons.TogglePrimaryWeapon();
                 //ae.m_Weapons.NotifyWeaponChanged();
             }
-            Manager.GetUIManager().ShowWarningPopup("Changed weapons of select units to " + type.ToString());
+            //Manager.GetUIManager().ShowWarningPopup("Changed weapons of select units to " + type.ToString());
         }
 
         public void AddAbilityToUnit(AIEntity unit, int abilityId)
@@ -428,6 +633,10 @@ namespace SyndicateMod
                 //data.
             }
 
+            var allGear = Manager.GetItemManager().GetAllItems().Where(g => g.m_Slot == ItemSlotTypes.Gear);
+            var allAugs = Manager.GetItemManager().GetAllItems().Where(g => (int)g.m_Slot > 0 && (int)g.m_Slot < 5);
+            var allArmor = Manager.GetItemManager().GetAllItems().Where(g => g.m_GearSubCategory == ItemSubCategories.ArmorBody || g.m_GearSubCategory == ItemSubCategories.ArmorHead);
+
             Manager.GetUIManager().ShowMessagePopup("Setting all weapons to have range 60, infinite ammo, 100% accuracy");
 
             //foreach (WeaponData data in weaponManager.m_WeaponData)
@@ -474,6 +683,10 @@ namespace SyndicateMod
             weaponManager.m_WeaponData[(int)WeaponType.B_pistol].m_Ammo[(int)weaponManager.m_WeaponData[(int)WeaponType.B_pistol].m_DefaultAmmo].m_MaxBeamWidth = 1;
             weaponManager.m_WeaponData[(int)WeaponType.B_pistol].m_Ammo[(int)weaponManager.m_WeaponData[(int)WeaponType.B_pistol].m_DefaultAmmo].m_knockback_amount = 20;
             weaponManager.m_WeaponData[(int)WeaponType.B_pistol].m_Ammo[(int)weaponManager.m_WeaponData[(int)WeaponType.B_pistol].m_DefaultAmmo].m_ProjectilesPerShot = 20;
+            var item = Manager.GetItemManager().m_ItemDefinitions.First();
+            var mods = item.m_Modifiers;
+
+            
 
             Manager.GetUIManager().ShowMessagePopup("Pistol upgraded");
 
@@ -485,8 +698,62 @@ namespace SyndicateMod
             abil.Add(1);
             abil.Add(2);
 
+            //customItem.m_ID = Manager.GetItemManager().m_ItemDefinitions.Where(it => it.nam)
+
+            ItemManager.ItemData customItem = new ItemManager.ItemData();
+            customItem.m_ID = Manager.GetItemManager().m_ItemDefinitions.Count();
+            customItem.m_Slot = ItemSlotTypes.AugmentationLegs;
+            customItem.m_Modifiers = new ModifierData5L[] 
+            {
+                new ModifierData5L()
+                {
+                    m_Type = ModifierType.SpeedMultiplier,
+                    m_TimeOut = 1,
+                    m_Ammount = 2,
+                    m_AmountModifier = ModifierType.SpeedMultiplier
+                },
+                new ModifierData5L()
+                {
+                    m_Type = ModifierType.SprintEnergyCostMultiplier,
+                    m_TimeOut = 0,
+                    m_Ammount = 0.2f,
+                    m_AmountModifier = ModifierType.SprintEnergyCostMultiplier
+                },
+                new ModifierData5L()
+                {
+                    m_Type = ModifierType.SprintEnergyCostOffset,
+                    m_TimeOut = 0,
+                    m_Ammount = 1.0f,
+                    m_AmountModifier = ModifierType.SprintEnergyCostOffset
+                }
+            };
+            //Manager.GetItemManager().
+            Manager.GetAbilityManager().GetAbilityNamesAndIDs(out int[] ids, out string[] names);
+            //var test = AbilityManager.m_ALLAbilityData;
+            //Manager.GetAbilityManager().
+            customItem.m_AbilityIDs = new List<int>() { Manager.GetAbilityManager().m_AbilityHijack[0].m_ID, 2, 3};
+            customItem.m_PlayerHasBlueprints = true;
+            customItem.m_GearSubCategory = ItemSubCategories.Standard;
+            customItem.m_Cost = 64;
+            customItem.m_Count = 1;
+            customItem.m_PrototypeCost = 640;
+            customItem.m_WeaponType = WeaponType.None;
+
+
+            customItem.m_FriendlyName = "CustomItem";
+            string note = GoogleFu.LocalisationMaster.Instance.Rows[0]._NOTES;
+            //GoogleFu.LocalisationMaster.Instance.Rows[9]._NOTES = "new Wyvern INCO";
+            //GoogleFu.LocalisationMaster.Instance.Rows[9]._EN = "new Wyvern INCO";
+            Manager.GetItemManager().m_ItemDefinitions.Add(customItem);
+            var locations = Manager.GetLocationManager().m_Locations;
+            //locations[0].
+
+            var test = TextManager.Get().m_LocalisationXML;
+            TextManager.LocElement locElement = new TextManager.LocElement();
+
+
             //weaponManager.m_WeaponData[(int)WeaponType.].m_Abilities.ToList();
-            
+
 
             weaponManager.m_WeaponData[(int)WeaponType.B_pistol].m_Abilities = abil.ToArray();
             Manager.GetUIManager().ShowMessagePopup("Abilities added to pistol");

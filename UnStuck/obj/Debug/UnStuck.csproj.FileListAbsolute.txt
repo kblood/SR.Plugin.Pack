@@ -27,8 +27,8 @@ d:\Unity3D\Satellite Reign\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.pdb
 D:\Unity3D\Satellite Reign\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.csproj.CoreCompileInputs.cache
 b:\Git\SR.Plugin.Pack\UnStuck\bin\Debug\UnStuck.dll
 b:\Git\SR.Plugin.Pack\UnStuck\bin\Debug\UnStuck.pdb
-b:\Git\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.csprojAssemblyReference.cache
 b:\Git\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.csproj.CoreCompileInputs.cache
 b:\Git\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.csproj.CopyComplete
 b:\Git\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.dll
 b:\Git\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.pdb
+B:\Git\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.csprojAssemblyReference.cache

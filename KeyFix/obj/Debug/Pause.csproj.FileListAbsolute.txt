@@ -1,0 +1,34 @@
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\Pause.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\Pause.pdb
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\Assembly-CSharp-firstpass.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\Assembly-CSharp.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\UnityEngine.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\UnityEngine.Networking.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\UnityEngine.UI.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\JsonFx.Json.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\Ionic.Zip.Reduced.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\NATTraversalForUNET.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\Open.Nat.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\Mono.Security.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\bin\Debug\System.Threading.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\obj\Debug\Pause.csprojResolveAssemblyReference.cache
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\obj\Debug\Pause.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pause-cheats\Pause\obj\Debug\Pause.pdb
+D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Pause\bin\Debug\Pause.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Pause\bin\Debug\Pause.pdb
+D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Pause\bin\Debug\JsonFx.Json.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Pause\bin\Debug\Ionic.Zip.Reduced.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Pause\bin\Debug\NATTraversalForUNET.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Pause\bin\Debug\Open.Nat.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Pause\bin\Debug\System.Threading.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Pause\obj\Debug\Pause.csprojResolveAssemblyReference.cache
+D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Pause\obj\Debug\Pause.dll
+D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Pause\obj\Debug\Pause.pdb
+D:\Unity3D\Satellite Reign\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.CoreCompileInputs.cache
+b:\Git\SR.Plugin.Pack\Pause\bin\Debug\Pause.dll
+b:\Git\SR.Plugin.Pack\Pause\bin\Debug\Pause.pdb
+b:\Git\SR.Plugin.Pack\Pause\obj\Debug\Pause.csprojAssemblyReference.cache
+b:\Git\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.CoreCompileInputs.cache
+b:\Git\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.CopyComplete
+b:\Git\SR.Plugin.Pack\Pause\obj\Debug\Pause.dll
+b:\Git\SR.Plugin.Pack\Pause\obj\Debug\Pause.pdb
