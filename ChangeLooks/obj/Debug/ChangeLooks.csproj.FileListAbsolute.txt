@@ -31,3 +31,9 @@ b:\Git\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.CoreCompileInputs
 b:\Git\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.CopyComplete
 b:\Git\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.dll
 b:\Git\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.pdb
+B:\Git\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csprojAssemblyReference.cache
+B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\Assembly-CSharp-firstpass.dll
+B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\Assembly-CSharp.dll
+B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.dll
+B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.Networking.dll
+B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.UI.dll

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Xml;
 using UnityEngine;
@@ -222,6 +223,13 @@ namespace SyndicateMod
                 }
             }
         }
+
+        public void AddNewCustomItem()
+        {
+            //typeof(AbilityThrowProjectile).GetField("m_Range", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(ability, fogRange * 3);
+            //asdasd
+        }
+
 
         public void MakeVIP(AIEntity unit)
         {
@@ -686,7 +694,6 @@ namespace SyndicateMod
             var item = Manager.GetItemManager().m_ItemDefinitions.First();
             var mods = item.m_Modifiers;
 
-            
 
             Manager.GetUIManager().ShowMessagePopup("Pistol upgraded");
 
@@ -697,6 +704,11 @@ namespace SyndicateMod
             //abil.Add(Manager.GetAbilityManager().m_AbilityHackTarget[2].m_ID);
             abil.Add(1);
             abil.Add(2);
+
+            //m_FastLanguageLookup
+            typeof(AbilityThrowProjectile).GetField("m_Range", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(abil, 3 * 3);
+
+
 
             //customItem.m_ID = Manager.GetItemManager().m_ItemDefinitions.Where(it => it.nam)
 

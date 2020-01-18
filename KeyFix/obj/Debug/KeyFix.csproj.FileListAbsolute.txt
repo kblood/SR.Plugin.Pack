@@ -5,3 +5,8 @@ B:\Git\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.csproj.CoreCompileInputs.cache
 B:\Git\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.csproj.CopyComplete
 B:\Git\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.dll
 B:\Git\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.pdb
+B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\Assembly-CSharp-firstpass.dll
+B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\Assembly-CSharp.dll
+B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.dll
+B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.Networking.dll
+B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.UI.dll
