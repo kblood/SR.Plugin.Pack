@@ -20,13 +20,20 @@ namespace SyndicateMod
         int debug = 0;
         private bool runonce = false;
 
+        bool active = false;
+
         /// <summary>
         /// Plugin initialization 
         /// </summary>
         public void Initialize()
         {
             Debug.Log("Initializing Satellite Reign Syndicate mod");
-            _instance = this;
+            //            _instance = this;
+
+            if (!active)
+                active = true;
+            else
+                active = false;
         }
 
         /// <summary>
@@ -34,6 +41,9 @@ namespace SyndicateMod
         /// </summary>
         public void Update()
         {
+            if (!active)
+                return;
+
             //if (!weaponsUpdated)
             //{
             //    WeaponChanges();
@@ -338,12 +348,12 @@ namespace SyndicateMod
             }
         }
 
-        private static SyndicateMod _instance;
+        //private static SyndicateMod _instance;
 
-        public static SyndicateMod Get()
-        {
-            return _instance;
-        }
+        //public static SyndicateMod Get()
+        //{
+        //    return _instance;
+        //}
 
         public static void ShowMessage(string text)
         {

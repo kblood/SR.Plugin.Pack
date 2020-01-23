@@ -9,3 +9,4 @@ B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.UI.dll
+B:\Git\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.csprojAssemblyReference.cache
