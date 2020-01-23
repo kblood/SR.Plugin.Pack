@@ -21,7 +21,7 @@ public class ModManager : ISrPlugin
     /// </summary>
     public void Initialize()
     {
-        Start();
+        Debug.Log("Initializing Satellite Reign Mod Manager mod");
     }
 
     public List<SrPlugin> LoadedPlugins
@@ -37,39 +37,41 @@ public class ModManager : ISrPlugin
     /// </summary>
     public void Update()
     {        
-        if (Input.GetKeyDown(KeyCode.Delete))
+        if (Input.GetKeyDown(KeyCode.Asterisk))
         {
-            if (active){
-                // unload
-                active = false;
-                m_LoadedPlugins = new List<SrPlugin>();
-                
-                Manager.GetUIManager().ShowMessagePopup("--- unload ManagedMods plugins");
+            // If there is any mods loaded, the unload them, otherwise load them.
+            if (m_LoadedPlugins.Any())
+            {
+                // Make a string with all mod names
+                string modsUnloaded = m_LoadedPlugins.Select(m => "Unloading " + m.Plugin.GetName()).Aggregate((x,y) => x +". " +y);
 
+                // unload
+                m_LoadedPlugins.Clear();
+                
+                Manager.GetUIManager().ShowMessagePopup("--- Unload ManagedMods plugins. " + modsUnloaded, 10);
             }
-            else{
+            else
+            {
                 //load
-                this.Start();
-                Manager.GetUIManager().ShowMessagePopup("+++ load ManagedMods plugins");
+                LoadPlugins();
+
+                // Make a string with all mod names
+                string modsUnloaded = m_LoadedPlugins.Select(m => "Loading " + m.Plugin.GetName()).Aggregate((x, y) => x + ". " + y);
+
+                Manager.GetUIManager().ShowMessagePopup("+++ Load ManagedMods plugins." + modsUnloaded, 10);
             }            
         }
-
-        if (!active)
-            return;
 
         foreach (SrPlugin srPlugin in this.LoadedPlugins)
         {
             srPlugin.Plugin.Update();
         }
-
-
     }
 
     public string GetName()
     {
         return "Mod Manager.";
     }
-
 
     public string PluginPath
     {
@@ -79,13 +81,6 @@ public class ModManager : ISrPlugin
         }
     }
 
-    public void Start()
-    {        
-        this.LoadPlugins();
-        active = true;
-    }
-
-    // Token: 0x06003594 RID: 13716 RVA: 0x00166B28 File Offset: 0x00164D28
     private void LoadPlugins()
     {
         Debug.LogFormat("Searching for mods in folder {0}", new object[]
@@ -102,7 +97,6 @@ public class ModManager : ISrPlugin
         }
     }
 
-    // Token: 0x06003595 RID: 13717 RVA: 0x00166B90 File Offset: 0x00164D90
     private void LoadPlugin(string _pluginFileName)
     {
         
