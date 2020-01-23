@@ -4,10 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Xml;
 using UnityEngine;
-using UnityEngine.UI;
+
+using System.Globalization;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SyndicateMod
 {
@@ -16,6 +18,7 @@ namespace SyndicateMod
 
         bool weaponsUpdated = false;
         int debug = 0;
+        private bool runonce = false;
 
         /// <summary>
         /// Plugin initialization 
@@ -23,6 +26,7 @@ namespace SyndicateMod
         public void Initialize()
         {
             Debug.Log("Initializing Satellite Reign Syndicate mod");
+            _instance = this;
         }
 
         /// <summary>
@@ -30,14 +34,20 @@ namespace SyndicateMod
         /// </summary>
         public void Update()
         {
-            if (!weaponsUpdated)
-            {
-                WeaponChanges();
-                weaponsUpdated = true;
-            }
+            //if (!weaponsUpdated)
+            //{
+            //    WeaponChanges();
+            //    weaponsUpdated = true;
+            //}
 
             if (Manager.Get().GameInProgress)
             {
+                if (!runonce)
+                {
+                    //Test();
+                    runonce = true;
+                }
+
                 if (debug > 0)
                     DebugOptions.ms_DebugEnabled = true;
                 if (debug == 1)
@@ -143,6 +153,8 @@ namespace SyndicateMod
 
                 if (Input.GetKeyDown(KeyCode.Insert) || Input.GetKeyDown(KeyCode.Insert))
                 {
+                    Test2();
+
                     var units = GetSelectUnits();
                     var selectedUnit = units.FirstOrDefault();
                     if (selectedUnit == null)
@@ -186,12 +198,114 @@ namespace SyndicateMod
                 }
                 if (Input.GetKeyDown(KeyCode.End) || Input.GetKeyDown(KeyCode.End))
                 {
-                    AddAbilityToSelectedUnits(GetSelectUnits());
+                    Manager.GetUIManager().ShowSubtitle("Running Test 1. Change pistol text without replacing fastlanglookup.", 5);
+                    try
+                    {
+                        SaveDataTest();
+                        //Test();
+                    }
+                    catch (Exception e)
+                    {
+                        Manager.GetUIManager().DoModalMessageBox("Error running test 1", e.Message, InputBoxUi.InputBoxTypes.MbOk);
+                    }
+                    //SaveDataTest();
+
+                    //AddAbilityToSelectedUnits(GetSelectUnits());
                 }
 
                 if (Input.GetKeyDown(KeyCode.PageUp) || Input.GetKeyDown(KeyCode.PageUp))
                 {
-                    AddWeaponToSelectedUnits(GetSelectUnits());
+                    //AddWeaponToSelectedUnits(GetSelectUnits());
+
+                    //var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
+                    //FileManager.SaveObjectAsJson(langLookup, "test2");
+
+                    Manager.GetUIManager().DoModalMessageBox("SaveTest", "Savetest to save some language stuff", InputBoxUi.InputBoxTypes.MbOk);
+
+                    try
+                    {
+                        //var abilities = Manager.GetAbilityManager().m_AbilityData; //.GetFieldValue<Dictionary<int, Ability.AbilityData>>("m_ALLAbilityData");
+                                                                                   //abilities.Any();
+                        Manager.GetAbilityManager().GetAbilityNamesAndIDs(out var ids, out var names);
+                        //abilities = Manager.GetAbilityManager().GetFieldValue<Dictionary<int, Ability.AbilityData>>("__ALLAbilityData");
+
+                        List<string> values = new List<string>();
+                        foreach (var id in ids)
+                        {
+                            string name = Manager.GetAbilityManager().GetName(id);
+                            values.Add($"Ability id: {id} Name: {name}");
+
+                            if (id > 0 && !name.Contains("###"))
+                            {
+                                var a = Manager.GetAbilityManager().GetData(id);
+                                try
+                                {
+                                    values.Add($@"m_Name:{a.m_Name} energyCostWhen: {a.m_EnergyCostWhen} m_UseAmmoWhen: {a.m_UseAmmoWhen} m_TargetRange:{a.m_TargetRange}");
+                                    values.Add($@"m_WeaponCheckMask:{a.m_WeaponCheckMask}");
+                                    values.Add($@"m_Range:{a.m_Range} m_OnMove: {a.m_OnMove?.Select(om => om.ToString()).Aggregate((x, y) => x + "," + y)} m_RangeModifier: {a.m_RangeModifier}");
+                                    values.Add($@"m_RemoveModifiersWhen:{a.m_RemoveModifiersWhen}");
+                                    values.Add($@"m_RequiresWeaponCheck:{a.m_RequiresWeaponCheck} m_RequiresAgentSelected: {a.m_RequiresAgentSelected} ...");
+                                }
+                                catch (Exception e)
+                                {
+                                    // maybe do something?
+                                }
+                                //try
+                                //{
+                                //    values.Add($@"m_Name:{a.m_Name} energyCostWhen: {a.m_EnergyCostWhen} m_UseAmmoWhen: {a.m_UseAmmoWhen} m_TargetRange:{a.m_TargetRange}");
+                                //    values.Add($@"m_WeaponCheckMask:{a.m_WeaponCheckMask} m_TargetEffectTimeOuts: {string.Join(",", a.m_TargetEffectTimeOuts?.Select(s => s.ToString()).ToArray())} m_TargetEffects: {string.Join(",", a.m_TargetEffects?.Select(s => s.ToString()).ToArray())} m_RemoveModifiersWhen:{a.m_RemoveModifiersWhen}");
+                                //    values.Add($@"m_Range:{a.m_Range} m_OnMove: {a.m_OnMove?.Select(om => om.ToString()).Aggregate((x, y) => x + "," + y)} m_RangeModifier: {a.m_RangeModifier}");
+                                //    values.Add($@"m_RemoveModifiersWhen:{a.m_RemoveModifiersWhen} m_MyEffects: {a.m_MyEffects?.Select(om => om.ToString())?.Aggregate((x, y) => x + "," + y)} m_MyEffectTimeOuts:{a.m_MyEffectTimeOuts?.Select(om => om.ToString())?.Aggregate((x, y) => x + "," + y)}");
+                                //    values.Add($@"m_Modifiers: {a.m_Modifiers?.Select(m => $@"m_Ammount:{m.m_Ammount} m_AmountModifier:{m.m_AmountModifier} m_TimeOut:{m.m_TimeOut} m_Type:{m.m_Type}").Aggregate((x, y) => x + "," + y)}");
+                                //    values.Add($@"m_ModifiersTarget: {a.m_ModifiersTarget?.Select(m => $@"m_Ammount:{m.m_Ammount} m_AmountModifier:{m.m_AmountModifier} m_TimeOut:{m.m_TimeOut} m_Type:{m.m_Type}").Aggregate((x, y) => x + "," + y)}");
+                                //    values.Add($@"m_RequiresWeaponCheck:{a.m_RequiresWeaponCheck} m_RequiresAgentSelected: {a.m_RequiresAgentSelected} ...");
+                                //    values.Add($"End of Ability index: {a.m_ID} Name: { a.Name}");
+                                //}
+                                //catch (Exception e)
+                                //{
+                                //    // maybe do something?
+                                //}
+
+                                //values.Add($@"KEY: {x.Key} TOKEN: {x.Value.m_token} m_Translation 0: {x.Value.m_Translations[0]}");
+                                //values.Add(x.Value.m_Translations[i]);
+                            }
+                        }
+
+                        Manager.GetUIManager().ShowMessagePopup("Saving abilities, 5");
+
+                        FileManager.SaveList(values, Manager.GetPluginManager().PluginPath + $@"\Abilities.txt");
+
+                    }
+                    catch (Exception e)
+                    {
+                        Manager.GetUIManager().ShowMessagePopup("m_ALLAbilityData: " + e.Message, 15);
+                    }
+
+                    try
+                    {
+                        SaveDataTest2();
+                    }
+                    catch (Exception e)
+                    {
+                        Manager.GetUIManager().DoModalMessageBox("Error __ALLAbilityData", e.Message, InputBoxUi.InputBoxTypes.MbOk);
+                    }
+
+                    
+                    
+                    //var data = GenericsHelper.GetNamesAndValuesAsString(typeof(Ability.AbilityData), abilities.First().Value);
+
+
+                    //output = FileManager.SaveObjectAsJson(langLookup, "test2");
+                    //Manager.GetUIManager().ShowMessagePopup("stuff 1", 5);
+
+                    //var output = FileManager.Test();
+
+                    //Manager.GetUIManager().ShowMessagePopup("stuff 2", 10);
+
+                    ////output += " " +FileManager.SaveObjectAsJson("test", "C:\\Temp\\WriteLines", "txt");
+
+                    //Manager.GetUIManager().ShowMessagePopup("stuff 3 " + output, 10);
+
                 }
 
                 // Hijack every non-controlled unit
@@ -224,10 +338,360 @@ namespace SyndicateMod
             }
         }
 
-        public void AddNewCustomItem()
+        private static SyndicateMod _instance;
+
+        public static SyndicateMod Get()
+        {
+            return _instance;
+        }
+
+        public static void ShowMessage(string text)
+        {
+            Manager.GetUIManager().ShowMessagePopup(text, 5);
+            //Manager.GetUIManager().man (text, 10);
+            Manager.GetUIManager().ShowSubtitle(text, 10);
+            //Get().setEntityInfo("Show Message", text);
+        }
+
+        public void Test()
         {
             //typeof(AbilityThrowProjectile).GetField("m_Range", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(ability, fogRange * 3);
-            //asdasd
+            //FileManager.SaveObjectAsJson("test", "test");
+            //FileManager.SaveObjectAsJson(Manager.GetPluginManager(), Manager.GetPluginManager().PluginPath+ "PluginManager");
+            var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
+
+            int itemNumber = 64;
+            string name = @"Lincoln P97 Enchanced";
+            string company = @"Caldor Inc.";
+            string description = @"Wassup! This standard-issue ballistic pistol is the sidearm of choice for nearly all security forces. The current design is the 7th in the series, and while it is renowned for its reliability and low - cost, the last 3 designs are criticized to have been mere cosmetic changes, with the manufacturer accused of spending more time and money marketing the new look rather than practically improving the design of the weapon.
+Regardless, it's fast, reliable, cheap, and uses standard micro-round bullets, making it a must-have for anyone who wants to shoot things. Also some changes by Caldor.";
+
+            langLookup[$"ITEM_{itemNumber}_NAME"].m_Translations[2] = name;
+            langLookup[$"ITEM_{itemNumber}_COMPANY"].m_Translations[2] = company;
+            langLookup[$"ITEM_{itemNumber}_DESCRIPTION"].m_Translations[2] = description;
+
+//            string hijackText = @"TOKEN: SKILL_HIJACK_TITLE TXT: Hijack
+// TOKEN: SKILL_HIJACK_00 TXT: Hijack the neural implants of other citizens, giving you full control of them. Upgrades allow more simultaneous hijacks and stronger targets.
+//Each hijacked unit reduces energy regeneration. Better-equipped units require higher energy rates to maintain, so be wary of how many people you are hijacking.  Hijacking too many targets simultaneously will result in slower reaction times and lowered weapon accuracy in the hijacked unit.";
+
+            langLookup[$"SKILL_HIJACK_TITLE"].m_Translations[2] = "Persuade";
+            langLookup[$"SKILL_HIJACK_00"].m_Translations[2] = @"Persuade the neural implants of other citizens, giving you full control of them. Upgrades allow more simultaneous hijacks and stronger targets. Each hijacked unit reduces energy regeneration. Better-equipped units require higher energy rates to maintain, so be wary of how many people you are hijacking.  Hijacking too many targets simultaneously will result in slower reaction times and lowered weapon accuracy in the hijacked unit.";
+
+            var translations = langLookup[$"SKILL_HIJACK_00"].m_Translations;
+
+            TextManager.LocElement loc = new TextManager.LocElement();
+            loc.m_token = "SKILL_HIJACK_01";
+            loc.m_Translations = translations.ToList().Select(t => t).ToArray();
+            //langLookup[$"SKILL_HIJACK_00"]
+            loc.m_Translations[2] = loc.m_Translations[2].Replace("Hijack", "Persuade");
+            loc.m_Translations[2] = loc.m_Translations[2].Replace("hijack", "hersuade");
+            langLookup.Add("SKILL_HIJACK_01", loc);
+
+            //ReflectionExtensions.SetMemberValue(TextManager.Get(), "m_FastLanguageLookup", langLookup);
+
+            //           string pistolDescription = @"TOKEN: ITEM_64_NAME TXT: Lincoln P97
+            // TOKEN: ITEM_64_COMPANY TXT: Lincoln Ballistics
+            // TOKEN: ITEM_64_DESCRIPTION TXT: This standard-issue ballistic pistol is the sidearm of choice for nearly all security forces.
+            //The current design is the 7th in the series, and while it is renowned for its reliability and low - cost, the last 3 designs are criticized to have been mere cosmetic changes, with the manufacturer accused of spending more time and money marketing the new look rather than practically improving the design of the weapon.
+            //Regardless, it's fast, reliable, cheap, and uses standard micro-round bullets, making it a must-have for anyone who wants to shoot things.";
+
+
+            //langLookup.First().Value = new TextManager.LocElement() { m_token = "", m_Translations = new string[] { } };
+
+            //langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
+
+            //FileManager.SaveObjectAsJson(langLookup, "localizationfile2");
+
+            //FileManager.SaveObjectAsJson(Manager.GetAchievements(), "StatsAndArchievements");
+
+            //var abilities = Manager.GetAbilityManager().GetFieldValue<Dictionary<int, Ability.AbilityData>>("m_ALLAbilityData");
+
+            //FileManager.SaveObjectAsJson(abilities, "Abilities");
+            //FileManager.SaveObjectAsJson(Manager.GetPluginManager(), "PluginManager");
+        }
+
+        public void Test2()
+        {
+            if(Manager.GetPluginManager().LoadedPlugins.Any())
+            {
+                Manager.GetPluginManager().LoadedPlugins.Clear();
+            }
+            else
+            {
+                Manager.GetPluginManager().Start();
+            }
+
+
+        }
+
+        public void SaveDataTest()
+        {
+            var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
+
+            var langs = Enum.GetValues(typeof(TextManager.Language)).Cast<TextManager.Language>().ToList();
+
+            for (int i = 1; i < langs.Count() - 1; i++)
+            {
+                List<string> values = new List<string>();
+                foreach (var x in langLookup)
+                {
+                    values.Add($@"KEY: {x.Key} TOKEN: {x.Value.m_token} m_Translation 0: {x.Value.m_Translations[0]}");
+                    values.Add(x.Value.m_Translations[i]);
+                }
+
+                FileManager.SaveList(values, Manager.GetPluginManager().PluginPath + $@"\LangLoolupList_{langs[i]}.txt");
+            }
+
+
+            //typeof(AbilityThrowProjectile).GetField("m_Range", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(ability, fogRange * 3);
+            Manager.GetUIManager().ShowMessagePopup("Getting fast lang dict", 5);
+
+            //langLookup = (Dictionary<string, TextManager.LocElement>)TextManager.Get().GetMemberValue("m_FastLanguageLookup"); // .GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
+
+            if (langLookup == null || !langLookup.Any())
+                langLookup = (Dictionary<string, TextManager.LocElement>)ReflectionExtensions.GetMemberValue(TextManager.Get(), "m_FastLanguageLookup");
+
+            if (langLookup == null || !langLookup.Any())
+                ShowMessage("No lang data");
+
+            //FileManager.SaveObjectAsJson(langLookup, "localizationfile1");
+            //langLookup.
+        }
+
+        public void SaveDataTest2()
+        {
+            //var abilities = Manager.GetAbilityManager().m_AbilityData; //.GetFieldValue<Dictionary<int, Ability.AbilityData>>("m_ALLAbilityData");
+                                                                       //abilities.Any();
+            Manager.GetAbilityManager().GetAbilityNamesAndIDs(out var ids, out var names);
+            //abilities = Manager.GetAbilityManager().GetFieldValue<Dictionary<int, Ability.AbilityData>>("__ALLAbilityData");
+
+            List<string> values = new List<string>();
+            foreach (var id in ids)
+            {
+
+                string name = Manager.GetAbilityManager().GetName(id);
+                values.Add($"Ability id: {id} Name: {name}");
+
+                //if (id > 0)
+                //    values.Add($"Ability id: {id} Name: {names[0]}");
+                //else
+                //    values.Add($"Ability id: {id} Name: {Manager.GetAbilityManager().GetName(id)}");
+
+                if (id > 0 && !name.Contains("###"))
+                {
+                    var a = Manager.GetAbilityManager().GetData(id);
+
+                    try
+                    {
+                        values.Add($@"m_Name:{a.m_Name} energyCostWhen: {a.m_EnergyCostWhen} m_UseAmmoWhen: {a.m_UseAmmoWhen} m_TargetRange:{a.m_TargetRange}");
+                        values.Add($@"m_WeaponCheckMask:{a.m_WeaponCheckMask} m_TargetEffectTimeOuts: {string.Join(",", a.m_TargetEffectTimeOuts?.Select(s => s.ToString()).ToArray())} m_TargetEffects: {string.Join(",", a.m_TargetEffects?.Select(s => s.ToString()).ToArray())} m_RemoveModifiersWhen:{a.m_RemoveModifiersWhen}");
+                        values.Add($@"m_Range:{a.m_Range} m_OnMove: {a.m_OnMove?.Select(om => om.ToString()).Aggregate((x, y) => x + "," + y)} m_RangeModifier: {a.m_RangeModifier}");
+                        values.Add($@"m_RemoveModifiersWhen:{a.m_RemoveModifiersWhen} m_MyEffects: {a.m_MyEffects?.Select(om => om.ToString())?.Aggregate((x, y) => x + "," + y)} m_MyEffectTimeOuts:{a.m_MyEffectTimeOuts?.Select(om => om.ToString())?.Aggregate((x, y) => x + "," + y)}");
+                        values.Add($@"m_Modifiers: {a.m_Modifiers?.Select(m => $@"m_Ammount:{m.m_Ammount} m_AmountModifier:{m.m_AmountModifier} m_TimeOut:{m.m_TimeOut} m_Type:{m.m_Type}").Aggregate((x, y) => x + "," + y)}");
+                        values.Add($@"m_ModifiersTarget: {a.m_ModifiersTarget?.Select(m => $@"m_Ammount:{m.m_Ammount} m_AmountModifier:{m.m_AmountModifier} m_TimeOut:{m.m_TimeOut} m_Type:{m.m_Type}").Aggregate((x, y) => x + "," + y)}");
+                        values.Add($@"m_RequiresWeaponCheck:{a.m_RequiresWeaponCheck} m_RequiresAgentSelected: {a.m_RequiresAgentSelected} ...");
+                        values.Add($"End of Ability index: {a.m_ID} Name: { a.Name}");
+                    }
+                    catch
+                    {
+
+                    }
+                    
+
+                    //values.Add($@"KEY: {x.Key} TOKEN: {x.Value.m_token} m_Translation 0: {x.Value.m_Translations[0]}");
+                    //values.Add(x.Value.m_Translations[i]);
+                }
+
+            }
+
+            Manager.GetUIManager().ShowMessagePopup("Saving abilities, 5");
+
+            FileManager.SaveList(values, Manager.GetPluginManager().PluginPath + $@"\Abilities2.txt");
+
+            //List<string> values = new List<string>();
+            //foreach (var a in abilities)
+            //{
+            //    values.Add($"Ability index: {a.Key} Name: {a.Value?.Name}");
+
+            //    //values.Add($@"m_Name:{a.Value?.m_Name} energyCostWhen: {a.Value?.m_EnergyCostWhen.ToString()} m_UseAmmoWhen: {a.Value?.m_UseAmmoWhen} m_TargetRange:{a.Value?.m_TargetRange}");
+            //    //values.Add($@"m_WeaponCheckMask:{a.Value.m_WeaponCheckMask} m_TargetEffectTimeOuts: {string.Join(",", a.Value?.m_TargetEffectTimeOuts?.Select(s => s.ToString()).ToArray())} 
+            //    //m_TargetEffects: {string.Join(",", a.Value.m_TargetEffects?.Select(s => s.ToString()).ToArray())} m_RemoveModifiersWhen:{a.Value.m_RemoveModifiersWhen}");
+            //    //values.Add($@"m_Range:{a.Value?.m_Range} m_OnMove: {a.Value?.m_OnMove.Select(om => om.ToString()).Aggregate((x, y) => x + "," + y)} m_RangeModifier: {a.Value?.m_RangeModifier}");
+            //    //values.Add($@"m_RemoveModifiersWhen:{a.Value?.m_RemoveModifiersWhen} m_MyEffects: {a.Value?.m_MyEffects?.Select(om => om.ToString())?.Aggregate((x, y) => x + "," + y)} m_MyEffectTimeOuts:{a.Value?.m_MyEffectTimeOuts?.Select(om => om.ToString())?.Aggregate((x, y) => x + "," + y)}");
+            //    //values.Add($@"m_Modifiers: {a.Value?.m_Modifiers?.Select(m => $@"m_Ammount:{m.m_Ammount} m_AmountModifier:{m.m_AmountModifier} m_TimeOut:{m.m_TimeOut} m_Type:{m.m_Type}").Aggregate((x, y) => x + "," + y)}");
+            //    //values.Add($@"m_ModifiersTarget: {a.Value?.m_ModifiersTarget?.Select(m => $@"m_Ammount:{m.m_Ammount} m_AmountModifier:{m.m_AmountModifier} m_TimeOut:{m.m_TimeOut} m_Type:{m.m_Type}").Aggregate((x, y) => x + "," + y)}");
+            //    //values.Add($@"m_RequiresWeaponCheck:{a.Value?.m_RequiresWeaponCheck} m_RequiresAgentSelected: {a.Value?.m_RequiresAgentSelected} ...");
+            //    //values.Add($"End of Ability index: {a.Key} Name: { a.Value.Name}");
+
+            //    //values.Add($@"KEY: {x.Key} TOKEN: {x.Value.m_token} m_Translation 0: {x.Value.m_Translations[0]}");
+            //    //values.Add(x.Value.m_Translations[i]);
+            //}
+
+
+
+            //typeof(AbilityThrowProjectile).GetField("m_Range", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(ability, fogRange * 3);
+
+
+            //FileManager.SaveObjectAsJson(langLookup, "localizationfile1");
+            //langLookup.
+        }
+
+        public void LoadDataTest()
+        {
+            var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
+
+            Manager.GetUIManager().ShowMessagePopup("Loading localization take 2", 5);
+            var localization = TextManager.Get().m_LocalisationXML.text;
+
+            Array values = Enum.GetValues(typeof(TextManager.Language));
+            List<string> list = new List<string>();
+            foreach (object obj in values)
+            {
+                list.Add(obj.ToString().ToLower());
+            }
+            langLookup.Clear();
+
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(Manager.GetPluginManager().PluginPath + @"\CustLang1.xml"); // TextManager.Get().m_LocalisationXML.text
+            XmlNodeList elementsByTagName = xmlDocument.GetElementsByTagName("row");
+            foreach (object obj2 in elementsByTagName)
+            {
+                XmlNode xmlNode = (XmlNode)obj2;
+                TextManager.LocElement locElement = new TextManager.LocElement();
+                locElement.m_token = xmlNode.Attributes.GetNamedItem("name").Value;  //get_ItemOf("name").Value;
+                foreach (object obj3 in xmlNode.ChildNodes)
+                {
+                    XmlNode xmlNode2 = (XmlNode)obj3;
+                    //string text = xmlNode2.Attributes.get_ItemOf("name").Value.ToLower();
+                    string text = xmlNode2.Attributes.GetNamedItem("name").Value.ToLower();
+                    string innerText = xmlNode2.InnerText;
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        if (list[i].Equals(text))
+                        {
+                            locElement.m_Translations[i] = innerText;
+                            break;
+                        }
+                    }
+                }
+                if (langLookup.ContainsKey(locElement.m_token))
+                {
+                    Debug.LogError(" duplicate key " + locElement.m_token + " found in localisation text");
+                }
+                else
+                {
+                    langLookup.Add(locElement.m_token, locElement);
+                }
+            }
+            return;
+
+            //Manager.GetUIManager().ShowWarningPopup(localization);
+
+            Manager.GetUIManager().ShowMessagePopup("Loading localization", 5);
+
+            //XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(localization);
+
+            Manager.GetUIManager().ShowMessagePopup("Saving localization with xml", 5);
+            xmlDocument.Save("TestFileDoc.xml");
+
+            Manager.GetUIManager().ShowMessagePopup("Encoding localization xml to bytes", 5);
+            var fileManager = new FileManager();
+            byte[] bytes = Encoding.UTF8.GetBytes(xmlDocument.OuterXml);
+
+            Manager.GetUIManager().ShowMessagePopup("Saving bytes", 5);
+
+            FileManager.SaveData(bytes);
+            FileManager.SaveData(bytes, "TestFileDoc3.xml");
+
+            Manager.GetUIManager().ShowMessagePopup(@"Saving bytes with pluginPath " + Manager.GetPluginManager().PluginPath, 5);
+
+            Manager.GetUIManager().ShowWarningPopup(Manager.GetPluginManager().PluginPath, 8);
+
+            FileManager.SaveData(bytes, Manager.GetPluginManager().PluginPath + @"\TestFileDoc3.xml");
+
+
+            //Manager.GetQuestManager().
+            
+            
+            Manager.GetUIManager().ShowMessagePopup("Getting fast lang lookup dict from TextManager", 5);
+
+
+            //FileManager.SaveObjectAsJson(langLookup, "localizationfile2");
+
+            //FileManager.SaveObjectAsJson(Manager.GetAchievements(), "StatsAndArchievements");
+
+            Manager.GetUIManager().ShowMessagePopup("Getting abilities dict", 5);
+
+            List<string> datalist = new List<string>();
+
+            var abilities = ReflectionExtensions.GetFieldValue<Dictionary<int, Ability.AbilityData>>(Manager.GetAbilityManager(), "m_ALLAbilityData");
+
+            Manager.GetUIManager().ShowMessagePopup("test", 5);
+
+            FileManager.SaveList(new List<string> { "test1", "test2" }, Manager.GetPluginManager().PluginPath + @"\TestList.txt");
+
+            Manager.GetUIManager().ShowMessagePopup("Abilities names and values 1", 5);
+
+            Manager.GetUIManager().ShowMessagePopup("Abilities names and values 2 : " + abilities == null ? "is null": abilities.Any().ToString(), 5);
+
+            datalist = abilities?.Select(a => "ID: " + a.Key + " Names: " + a.Value?.Name).ToList();
+
+            Manager.GetUIManager().ShowMessagePopup("Saving Abilities names and values", 5);
+
+            FileManager.SaveList(datalist, @"C:\Temp\abilityList.txt");
+
+            Manager.GetUIManager().ShowMessagePopup("Getting names and values as strings", 5);
+
+            var data = GenericsHelper.GetNamesAndValuesAsString(typeof(Ability.AbilityData), abilities.First().Value);
+
+            Manager.GetUIManager().ShowMessagePopup("Saving Abilities names and types", 5);
+
+
+            datalist = data.Select(x => x.Key + " has value " + x.Value.ToString()).ToList();
+
+            Manager.GetUIManager().ShowMessagePopup("Done", 5);
+
+
+            //var namesAndTypesAbil = GenericsHelper.GetNamesAndTypes(typeof(Dictionary<int, Ability.AbilityData>));
+
+            //Manager.GetUIManager().ShowMessagePopup("LangLookup names and types", 5);
+
+            //var namesAndTypesLangLookup = GenericsHelper.GetNamesAndTypes(typeof(Dictionary<string, TextManager.LocElement>));
+
+            //Manager.GetUIManager().ShowMessagePopup("Saving names and types of abilities", 5);
+
+            //List<string> datalist = new List<string>();
+
+            //datalist = namesAndTypesAbil.Select(x => x.Key + " is of type " + x.Value.ToString()).ToList();
+
+            //FileManager.SaveList(datalist, @"C:\Temp\abilityTypeList.txt");
+
+            //Manager.GetUIManager().ShowMessagePopup("Saving names and types of FastLangLookup", 5);
+
+            //datalist = namesAndTypesLangLookup.Select(x => x.Key + " is of type " + x.Value.ToString()).ToList();
+
+            //FileManager.SaveList(datalist, @"C:\Temp\FastLangLookupTypeList.txt");
+
+            //Manager.GetUIManager().ShowMessagePopup("LangLookup names and values", 5);
+
+            //var namesAndValuesLangLookup = GenericsHelper.GetNamesAndValues(typeof(Dictionary<string, TextManager.LocElement>), langLookup);
+
+            //Manager.GetUIManager().ShowMessagePopup("abilities names and values", 5);
+
+            //var namesAndValuesAbil = GenericsHelper.GetNamesAndValues(typeof(Dictionary<int, Ability.AbilityData>), abilities);
+
+            //Manager.GetUIManager().ShowMessagePopup("Saving names and values of abilities", 5);
+
+            //datalist = namesAndValuesAbil.Select(x => x.Key + " is of type " + x.Value.ToString()).ToList();
+
+            //FileManager.SaveList(datalist, @"C:\Temp\abilityValueList.txt");
+
+            //Manager.GetUIManager().ShowMessagePopup("Saving names and values of FastLangLookup", 5);
+
+            //datalist = namesAndValuesLangLookup.Select(x => x.Key + " is of type " + x.Value.ToString()).ToList();
+
+            //FileManager.SaveList(datalist, @"C:\Temp\FastLangLookupValueList.txt");
         }
 
 
@@ -814,6 +1278,39 @@ namespace SyndicateMod
             //        Manager.GetUIManager().ShowMessagePopup("Weapon changes in progress end of loop " + loop);
             //    }
             //    Manager.GetUIManager().ShowMessagePopup("Weapon changes done");
+        }
+
+        // Custom info shown in a entity popup
+        public EntityInfoPanel setEntityInfo(string title, string info)
+        {
+            AIEntity ai = null;
+            foreach (AIEntity a in AIEntity.FindObjectsOfType(typeof(AIEntity)))
+            {
+                if (a.IsSelected() && !a.m_IsControllable)
+                {
+                    ai = a;
+                }
+                if (ai == null && a.IsAddedToWorld && !a.m_IsControllable)
+                {
+                    ai = a;
+                }
+            }
+            ai.m_Selectable.SetSelected(false);
+            ai.CurrentlySelected();
+
+            ai.m_Selectable.SetSelected(true);
+
+            EntityInfoPanel ui = (EntityInfoPanel)EntityInfoPanel.FindObjectOfType(typeof(EntityInfoPanel));
+
+            ui.m_DetailText.Text = info; // + "(GUI m_DetailText)";
+            ui.m_DetailText.m_Text.text = info; // + "(GUI m_Text)";
+            ui.name = title; // + "(GUI name)";
+            ui.m_SummaryText.text = title; // + "(GUI m_SummaryText)";
+                                           //ui.m_BuyButton.enabled = true;
+            if (!ui.IsVisible())
+                ui.Show();
+
+            return ui;
         }
 
         /// <summary>

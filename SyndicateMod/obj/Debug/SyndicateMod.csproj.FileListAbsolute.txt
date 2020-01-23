@@ -4,7 +4,6 @@ B:\Git\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.csproj.CoreCompileInpu
 B:\Git\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.csproj.CopyComplete
 B:\Git\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.dll
 B:\Git\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.pdb
-B:\Git\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.csprojAssemblyReference.cache
 B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\Assembly-CSharp-firstpass.dll
 B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.dll

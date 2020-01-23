@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\FileManager.cs" />
+    <Compile Include="Services\GenericsHelper.cs" />
     <Compile Include="Services\ReflectionExtensions.cs" />
     <Compile Include="SyndicateMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

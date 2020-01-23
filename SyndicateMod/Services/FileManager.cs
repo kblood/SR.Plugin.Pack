@@ -10,15 +10,15 @@ namespace SyndicateMod.Services
     {
         string fileName = "MyFile.txt";
 
-        public bool SaveData(string FileName, byte[] Data)
+        public static bool SaveData(byte[] Data, string FileName = @"C:\temp\TestFileDoc.xml")
         {
             BinaryWriter Writer = null;
-            string Name = @"C:\temp\yourfile.name";
+            string Name = @"C:\temp\TestFileDoc.xml";
 
             try
             {
                 // Create a new stream to write to the file
-                Writer = new BinaryWriter(File.OpenWrite(Name));
+                Writer = new BinaryWriter(File.OpenWrite(FileName));
 
                 // Writer raw data                
                 Writer.Write(Data);
@@ -32,6 +32,120 @@ namespace SyndicateMod.Services
             }
 
             return true;
+        }
+
+        static public string SaveText(string text, string fileName = @"WriteLines.txt")
+        {
+            List<string> someList = new List<string>();
+
+            someList.Add(text);
+
+            // WriteAllLines creates a file, writes a collection of strings to the file,
+            // and then closes the file.  You do NOT need to call Flush() or Close().
+            //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", lines);
+            System.IO.File.WriteAllLines(@"d:\Games\SteamLibrary\steamapps\common\SatelliteReign\Mods\" + fileName, someList.ToArray());
+
+            DirectoryInfo d = new DirectoryInfo(@".\");//Assuming Test is your Folder
+
+            //DirectoryInfo d2 = new DirectoryInfo(@".\");//Assuming Test is your Folder
+
+            //System.IO.File.WriteAllLines(d.FullName + "\test.txt", lines.ToArray());
+
+            return d.FullName;
+        }
+
+        static public string SaveList(List<string> stringsToSave, string fileNameWithPath = @"C:\Temp\WriteLines.txt")
+        {
+            // WriteAllLines creates a file, writes a collection of strings to the file,
+            // and then closes the file.  You do NOT need to call Flush() or Close().
+            //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", lines);
+            System.IO.File.WriteAllLines(fileNameWithPath, stringsToSave.ToArray());
+
+            DirectoryInfo d = new DirectoryInfo(@".\");//Assuming Test is your Folder
+
+            //DirectoryInfo d2 = new DirectoryInfo(@".\");//Assuming Test is your Folder
+
+            //System.IO.File.WriteAllLines(d.FullName + "\test.txt", lines.ToArray());
+
+            return d.FullName;
+        }
+
+        static public string Test(string saveText = "", string fileNameWithPath = @"C:\Temp\WriteLines.txt")
+        {
+
+
+            // Example #1: Write an array of strings to a file.
+            // Create a string array that consists of three lines.
+            List<string> lines = new List<string> { "First line", "Second line", "Third line" };
+
+            if(!string.IsNullOrEmpty(saveText))
+            {
+                lines.Add(saveText);
+            }
+
+            // WriteAllLines creates a file, writes a collection of strings to the file,
+            // and then closes the file.  You do NOT need to call Flush() or Close().
+            //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", lines);
+            System.IO.File.WriteAllLines(fileNameWithPath, lines.ToArray());
+
+            var linesList = lines.ToList();
+
+            DirectoryInfo d = new DirectoryInfo(@".\");//Assuming Test is your Folder
+
+            //DirectoryInfo d2 = new DirectoryInfo(@".\");//Assuming Test is your Folder
+
+            //System.IO.File.WriteAllLines(d.FullName + "\test.txt", lines.ToArray());
+
+            return d.FullName;
+        }
+
+        //static public string SaveObjectAsJson(object dataObject, string fileName = "data", string fileExtension = "json")
+        //{
+        //    //File.Create($@"{fileName}.{fileExtension}");
+        //    // @"C:\Temp\WriteLines.txt"
+        //    try
+        //    {
+        //        //using (StreamWriter file = File.CreateText($@"{fileName}.{fileExtension}"))
+        //        using (StreamWriter file = File.CreateText(@"C:\Temp\WriteLines.txt"))
+        //        {
+        //            JsonSerializer serializer = new JsonSerializer();
+        //            //serialize object directly into file stream
+        //            serializer.Serialize(file, dataObject);
+        //        }
+        //        return "OK";
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return e.Message;
+        //    }
+        //}
+
+        //static public T LoadFileAsClassObject<T>(string fileName)
+        //{
+        //    try
+        //    {
+        //        using (StreamReader file = new StreamReader($"{fileName}"))
+        //        {
+        //            string json = file.ReadToEnd();
+        //            T arc = JsonConvert.DeserializeObject<T>(json);
+
+        //            return arc;
+        //        }
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return default(T);
+        //        //throw e;
+        //    }
+        //}
+
+        static public string[] GetJsonFileNames()
+        {
+            DirectoryInfo d = new DirectoryInfo(@".\");//Assuming Test is your Folder
+            FileInfo[] Files = d.GetFiles("*.json"); //Getting Text files
+
+            return Files.Select(f => f.FullName).ToArray();
         }
 
         /// <summary>
