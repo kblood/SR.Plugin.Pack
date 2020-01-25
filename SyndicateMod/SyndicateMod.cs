@@ -87,10 +87,12 @@ namespace SyndicateMod
                 {
                     var units = GetSelectUnits();
 
+                    AddWeaponToSelectedUnits(units, 0);
+
                     //var agents = AgentAI.GetAgents();
                     //var abils = agents.Where(a => a.GetClass() == AgentAI.AgentClass.Hacker).FirstOrDefault()?.m_Abilities.AllAbilities().Select(a => a.GetID()).ToArray();
                     //DMMap minimap -AddSimpleIcon to add minimap
-
+                    /*
                     var ent = units.Where(e => e.m_IsControllable == false && e.IsVIP == false).FirstOrDefault();
 
                     if (ent != null)
@@ -119,7 +121,7 @@ namespace SyndicateMod
 #pragma warning disable CS0618 // Type or member is obsolete
                     Manager.GetUIManager().GetEventPopUpUi().AddMessage("Name is now: " + first + " " + last, null, null, 50f, false);
 #pragma warning restore CS0618 // Type or member is obsolete
-
+*/
                     //bool flag = .Shift IsDown();
                     //bool flag2 = .Ctrl IsDown();
                     //bool flag3 = .Alt IsDown();
@@ -312,7 +314,7 @@ namespace SyndicateMod
             //}
         }
 
-        private IEnumerator ModalMessageBoxRoutine(string titleText, string messageText, InputBoxUi.InputBoxTypes messsageBoxType, string okText = null, string cancelText = null, Action<bool> ok = null, Func<string> messageTextFunc = null, string inputText = "")
+        private IEnumerator ModalMessageBoxRoutine(string titleText, string mesageText, InputBoxUi.InputBoxTypes messsageBoxType, string okText = null, string cancelText = null, Action<bool> ok = null, Func<string> messageTextFunc = null, string inputText = "")
         {
             if (Manager.GetUIManager().m_InputBoxUi.isActiveAndEnabled)
             {
@@ -323,7 +325,7 @@ namespace SyndicateMod
             Manager.GetUIManager().InputControlUi.gameObject.SetActive(false);
             Manager.ptr.DisableKeyCommands();
             Manager.GetUIManager().m_InputBoxUi.InputBoxType = messsageBoxType;
-            Manager.GetUIManager().m_InputBoxUi.InputFieldLabelText = messageText;
+            Manager.GetUIManager().m_InputBoxUi.InputFieldLabelText = mesageText;
             Manager.GetUIManager().m_InputBoxUi.InputFieldLabelTextFunc = messageTextFunc;
             Manager.GetUIManager().m_InputBoxUi.TitleText = titleText;
             Manager.GetUIManager().m_InputBoxUi.InputText = inputText;
