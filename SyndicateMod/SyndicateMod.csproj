@@ -59,9 +59,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomUI\InputBoxUi_V2.cs" />
     <Compile Include="Services\FileManager.cs" />
     <Compile Include="Services\GenericsHelper.cs" />
+    <Compile Include="Services\ObjectiveEventHandler.cs" />
     <Compile Include="Services\ReflectionExtensions.cs" />
+    <Compile Include="Services\SREditor.cs" />
+    <Compile Include="Services\SRInfoHelper.cs" />
     <Compile Include="SyndicateMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
