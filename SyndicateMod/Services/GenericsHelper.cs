@@ -16,6 +16,149 @@ namespace SyndicateMod.Services
 {
     public class GenericsHelper
     {
+        public static Dictionary<string, Object> GetNamesAndValues(Type type, Object obj, ref List<string> output, ref List<object> checkedObjects)
+        {
+            // get all public static properties of MyClass type
+            PropertyInfo[] propertyInfos;
+
+            propertyInfos = type.GetProperties();
+
+            Dictionary<string, Object> propertyValues = new Dictionary<string, object>();
+            //List<object> propertyValues = new List<object>();
+
+            output.Add("Getting properties and values from " + obj.ToString());
+
+            checkedObjects.Add(obj);
+
+            if (obj.GetType() == typeof(Transform))
+            {
+                Transform transform = (Transform)obj;
+
+                if(transform.childCount > 0)
+                {
+                    List<Transform> children = new List<Transform>();
+                    foreach(Transform t in transform)
+                    {
+                        children.Add(t);
+                    }
+
+                    propertyValues.Add("Children", children);
+                }
+
+                var components = transform.GetComponents<Component>();
+                
+                if(components != null && components.Count() > 0)
+                {
+                    propertyValues.Add("Components", components);
+                }
+            }
+
+            foreach (var propertyInfo in propertyInfos)
+            {
+                try
+                {
+                    Type currentType = propertyInfo.PropertyType;
+
+                    if (propertyInfo.PropertyType.IsGenericType && propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    {
+                        currentType = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
+                    }
+
+                    if(checkedObjects.Contains(propertyInfo.GetValue(obj, null)))
+                    {
+                        output.Add("Property" + propertyInfo.Name + " of type " + propertyInfo.GetType() + " already serialized. Skipping to avoid recursion.");
+                        continue;
+                    }
+                    else
+                    {
+                        checkedObjects.Add(propertyInfo.GetValue(obj, null));
+                    }
+
+                    if (propertyInfo.Name == "gameObject" || propertyInfo.Name == "transform" || propertyInfo.Name == "parent" || propertyInfo.Name == "root")
+                    {
+                        //output[output.Count - 1] += ". Skipping recursive property.";
+                        output.Add("Skipping recursive property " + propertyInfo.Name + " of type " + propertyInfo.GetType());
+                        continue;
+                    }
+
+                    if (!currentType.Namespace.StartsWith("System"))
+                    {
+                        if (currentType.IsEnum)
+                        {
+                            if (propertyInfo.GetValue(obj, null) == null)
+                                propertyValues.Add(propertyInfo.Name, Convert.DBNull);
+                            else
+                            {
+                                int val = (int)propertyInfo.GetValue(obj, null);
+                                propertyValues.Add(propertyInfo.Name, val);
+                            }
+                        }
+                        else if (currentType.IsValueType && !currentType.IsEnum)
+                        {
+                            if (propertyInfo.GetValue(obj, null) == null)
+                                propertyValues.Add(propertyInfo.Name, Convert.DBNull);
+                            else
+                            {
+                                string val = propertyInfo.GetValue(obj, null).ToString();
+                                propertyValues.Add(propertyInfo.Name, val);
+                            }
+                        }
+                        else
+                        {
+                            Dictionary<string, Object> subValues = GetNamesAndValues(propertyInfo.PropertyType, propertyInfo.GetValue(obj, null), ref output, ref checkedObjects);
+
+                            foreach (var value in subValues)
+                            {
+                                if (value.Value == null)
+                                    propertyValues.Add(propertyInfo.Name + "_" + value.Key, Convert.DBNull);
+                                else
+                                    propertyValues.Add(propertyInfo.Name + "_" + value.Key, value.Value);
+                            }
+                            //propertyValues.AddRange(propertyInfo.Name, subValues);
+                        }
+                    }
+                    else
+                    {
+                        if (obj != null)
+                        {
+                            var value = propertyInfo.GetValue(obj, null);
+                            if (value == null || (propertyInfo.PropertyType == typeof(DateTime) && value.ToString() == DateTime.MinValue.ToString()))
+                                propertyValues.Add(propertyInfo.Name, Convert.DBNull);
+                            else
+                            {
+                                propertyValues.Add(propertyInfo.Name, value);
+
+                                bool isCollection = propertyInfo.PropertyType.GetInterfaces()
+                                    .Any(x => x == typeof(IEnumerable));
+
+                                if (isCollection)
+                                {
+                                    Type itemType = propertyInfo.PropertyType.GetGenericArguments()[0];
+                                    output.Add("Added Collection" + propertyInfo.Name + " of type " + propertyInfo.GetType() + " and contains values of type " + itemType);
+                                }
+                                else
+                                {
+                                    output.Add("Added " + propertyInfo.Name + " of type " + propertyInfo.GetType());
+                                }
+                            }
+                        }
+                        else
+                        {
+                            propertyValues.Add(propertyInfo.Name, Convert.DBNull);
+                        }
+                    }
+                }
+                catch(Exception e)
+                {
+                    output.Add("Caught exception: " +e.Message);
+                }
+            }
+
+            
+
+            return propertyValues;
+        }
+
         public static Dictionary<string, Type> GetNamesAndTypes(Transform transform)
         {
             // get all public static properties of MyClass type
@@ -40,7 +183,7 @@ namespace SyndicateMod.Services
 
                         output.Add("Checking property " + propertyInfo.Name + " that is class type " + currentType);
 
-                        if(propertyInfo.Name == "gameObject" || propertyInfo.Name == "transform" || propertyInfo.Name =="parent" || propertyInfo.Name == "root" || currentType == transform.GetType())
+                        if (propertyInfo.Name == "gameObject" || propertyInfo.Name == "transform" || propertyInfo.Name =="parent" || propertyInfo.Name == "root" || currentType == transform.GetType())
                         {
                             output[output.Count - 1] += ". Skipping recursive property.";
                             continue;
@@ -284,82 +427,7 @@ namespace SyndicateMod.Services
             return propertyNamesAndTypes;
         }
 
-        public static Dictionary<string, Object> GetNamesAndValues(Type type, Object obj)
-        {
-            // get all public static properties of MyClass type
-            PropertyInfo[] propertyInfos;
 
-            propertyInfos = type.GetProperties();
-
-            Dictionary<string, Object> propertyValues = new Dictionary<string, object>();
-            //List<object> propertyValues = new List<object>();
-
-            foreach (var propertyInfo in propertyInfos)
-            {
-                //if (propertyInfo.GetMethod.GetParameters() != null && propertyInfo.GetMethod.GetParameters().Length > 0)
-                //    continue;
-
-                Type currentType = propertyInfo.PropertyType;
-                if (propertyInfo.PropertyType.IsGenericType && propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                {
-                    currentType = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
-                }
-
-                if (!currentType.Namespace.StartsWith("System"))
-                {
-                    if (currentType.IsEnum)
-                    {
-                        if (propertyInfo.GetValue(obj, null) == null)
-                            propertyValues.Add(propertyInfo.Name, Convert.DBNull);
-                        else
-                        {
-                            int val = (int)propertyInfo.GetValue(obj, null);
-                            propertyValues.Add(propertyInfo.Name, val);
-                        }
-                    }
-                    else if (currentType.IsValueType && !currentType.IsEnum)
-                    {
-                        if (propertyInfo.GetValue(obj, null) == null)
-                            propertyValues.Add(propertyInfo.Name, Convert.DBNull);
-                        else
-                        {
-                            string val = propertyInfo.GetValue(obj, null).ToString();
-                            propertyValues.Add(propertyInfo.Name, val);
-                        }
-                    }
-                    else
-                    {
-                        Dictionary<string, Object> subValues = GetNamesAndValues(propertyInfo.PropertyType, propertyInfo.GetValue(obj, null));
-
-                        foreach (var value in subValues)
-                        {
-                            if (value.Value == null)
-                                propertyValues.Add(propertyInfo.Name + "_" + value.Key, Convert.DBNull);
-                            else
-                                propertyValues.Add(propertyInfo.Name + "_" + value.Key, value.Value);
-
-                        }
-                        //propertyValues.AddRange(propertyInfo.Name, subValues);
-                    }
-                }
-                else
-                {
-                    if (obj != null)
-                    {
-                        var value = propertyInfo.GetValue(obj, null);
-                        if (value == null || (propertyInfo.PropertyType == typeof(DateTime) && value.ToString() == DateTime.MinValue.ToString()))
-                            propertyValues.Add(propertyInfo.Name, Convert.DBNull);
-                        else
-                            propertyValues.Add(propertyInfo.Name, value);
-                    }
-                    else
-                    {
-                        propertyValues.Add(propertyInfo.Name, Convert.DBNull);
-                    }
-                }
-            }
-            return propertyValues;
-        }
 
         public static Dictionary<string, Type> GetNamesAndTypes(Type type, List<string> namespaceStartsWith)
         {
@@ -419,82 +487,82 @@ namespace SyndicateMod.Services
             return propertyNamesAndTypes;
         }
 
-        public static Dictionary<string, Object> GetNamesAndValues(Type type, Object obj, List<string> namespaceStartsWith)
-        {
-            // get all public static properties of MyClass type
-            PropertyInfo[] propertyInfos;
+        //public static Dictionary<string, Object> GetNamesAndValues(Type type, Object obj, List<string> namespaceStartsWith)
+        //{
+        //    // get all public static properties of MyClass type
+        //    PropertyInfo[] propertyInfos;
 
-            propertyInfos = type.GetProperties();
+        //    propertyInfos = type.GetProperties();
 
-            Dictionary<string, Object> propertyValues = new Dictionary<string, object>();
-            //List<object> propertyValues = new List<object>();
+        //    Dictionary<string, Object> propertyValues = new Dictionary<string, object>();
+        //    //List<object> propertyValues = new List<object>();
 
-            foreach (var propertyInfo in propertyInfos)
-            {
-                //if (propertyInfo.GetMethod.GetParameters() != null && propertyInfo.GetMethod.GetParameters().Length > 0)
-                //    continue;
+        //    foreach (var propertyInfo in propertyInfos)
+        //    {
+        //        //if (propertyInfo.GetMethod.GetParameters() != null && propertyInfo.GetMethod.GetParameters().Length > 0)
+        //        //    continue;
 
-                Type currentType = propertyInfo.PropertyType;
-                if (propertyInfo.PropertyType.IsGenericType && propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                {
-                    currentType = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
-                }
+        //        Type currentType = propertyInfo.PropertyType;
+        //        if (propertyInfo.PropertyType.IsGenericType && propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+        //        {
+        //            currentType = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
+        //        }
 
-                if (namespaceStartsWith.Where(ns => currentType.Namespace.StartsWith(ns)).Any() || currentType.Namespace.StartsWith("RPSOAPServiceReference"))
-                {
-                    if (currentType.IsEnum)
-                    {
-                        if (propertyInfo.GetValue(obj, null) == null)
-                            propertyValues.Add(propertyInfo.Name, Convert.DBNull);
-                        else
-                        {
-                            int val = (int)propertyInfo.GetValue(obj, null);
-                            propertyValues.Add(propertyInfo.Name, val);
-                        }
-                    }
-                    else if (currentType.IsValueType && !currentType.IsEnum)
-                    {
-                        if (propertyInfo.GetValue(obj, null) == null)
-                            propertyValues.Add(propertyInfo.Name, Convert.DBNull);
-                        else
-                        {
-                            string val = propertyInfo.GetValue(obj, null).ToString();
-                            propertyValues.Add(propertyInfo.Name, val);
-                        }
-                    }
-                    else
-                    {
-                        Dictionary<string, Object> subValues = GetNamesAndValues(propertyInfo.PropertyType, propertyInfo.GetValue(obj, null), namespaceStartsWith);
+        //        if (namespaceStartsWith.Where(ns => currentType.Namespace.StartsWith(ns)).Any() || currentType.Namespace.StartsWith("RPSOAPServiceReference"))
+        //        {
+        //            if (currentType.IsEnum)
+        //            {
+        //                if (propertyInfo.GetValue(obj, null) == null)
+        //                    propertyValues.Add(propertyInfo.Name, Convert.DBNull);
+        //                else
+        //                {
+        //                    int val = (int)propertyInfo.GetValue(obj, null);
+        //                    propertyValues.Add(propertyInfo.Name, val);
+        //                }
+        //            }
+        //            else if (currentType.IsValueType && !currentType.IsEnum)
+        //            {
+        //                if (propertyInfo.GetValue(obj, null) == null)
+        //                    propertyValues.Add(propertyInfo.Name, Convert.DBNull);
+        //                else
+        //                {
+        //                    string val = propertyInfo.GetValue(obj, null).ToString();
+        //                    propertyValues.Add(propertyInfo.Name, val);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                Dictionary<string, Object> subValues = GetNamesAndValues(propertyInfo.PropertyType, propertyInfo.GetValue(obj, null), namespaceStartsWith);
 
-                        foreach (var value in subValues)
-                        {
-                            if (value.Value == null)
-                                propertyValues.Add(propertyInfo.Name + "_" + value.Key, Convert.DBNull);
-                            else
-                                propertyValues.Add(propertyInfo.Name + "_" + value.Key, value.Value);
+        //                foreach (var value in subValues)
+        //                {
+        //                    if (value.Value == null)
+        //                        propertyValues.Add(propertyInfo.Name + "_" + value.Key, Convert.DBNull);
+        //                    else
+        //                        propertyValues.Add(propertyInfo.Name + "_" + value.Key, value.Value);
 
-                        }
-                        //propertyValues.AddRange(propertyInfo.Name, subValues);
-                    }
-                }
-                else
-                {
-                    if (obj != null)
-                    {
-                        var value = propertyInfo.GetValue(obj, null);
-                        if (value == null || (propertyInfo.PropertyType == typeof(DateTime) && value.ToString() == DateTime.MinValue.ToString()))
-                            propertyValues.Add(propertyInfo.Name, Convert.DBNull);
-                        else
-                            propertyValues.Add(propertyInfo.Name, value);
-                    }
-                    else
-                    {
-                        propertyValues.Add(propertyInfo.Name, Convert.DBNull);
-                    }
-                }
-            }
-            return propertyValues;
-        }
+        //                }
+        //                //propertyValues.AddRange(propertyInfo.Name, subValues);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            if (obj != null)
+        //            {
+        //                var value = propertyInfo.GetValue(obj, null);
+        //                if (value == null || (propertyInfo.PropertyType == typeof(DateTime) && value.ToString() == DateTime.MinValue.ToString()))
+        //                    propertyValues.Add(propertyInfo.Name, Convert.DBNull);
+        //                else
+        //                    propertyValues.Add(propertyInfo.Name, value);
+        //            }
+        //            else
+        //            {
+        //                propertyValues.Add(propertyInfo.Name, Convert.DBNull);
+        //            }
+        //        }
+        //    }
+        //    return propertyValues;
+        //}
         /*
         public static IEnumerable<String> GetNames(IEnumerable<Object> objects, string nameProperty = "Name")
         {

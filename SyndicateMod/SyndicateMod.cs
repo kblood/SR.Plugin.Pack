@@ -167,7 +167,28 @@ namespace SyndicateMod
 
                 if (Input.GetKeyDown(KeyCode.Insert) || Input.GetKeyDown(KeyCode.Insert))
                 {
-                    var infos = GenericsHelper.GetNamesAndTypes(Manager.GetUIManager().InputBoxUi.transform);
+                    //GenericsHelper.CheckedObjects.Clear();
+
+                    List<string> output = new List<string>();
+                    List<object> checkedObjects = new List<object>();
+
+                    var infoObject = Manager.GetUIManager().InputBoxUi.transform;
+
+                    var infos = GenericsHelper.GetNamesAndValues(infoObject.GetType(), infoObject, ref output, ref checkedObjects);
+                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ObjectInfo_{infoObject.name}.txt");
+
+                    infos.Select(i => "Name: " + i.Key + " Value: " + i.Value).ToList();
+                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ObjectData_{infoObject.name}.txt");
+
+                    var infoObject2 = Manager.GetUIManager().InputBoxUi;
+
+                    infos = GenericsHelper.GetNamesAndValues(infoObject.GetType(), infoObject, ref output, ref checkedObjects);
+                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ObjectInfo2_{infoObject2}.txt");
+
+                    infos.Select(i => "Name: " + i.Key + " Value: " + i.Value).ToList();
+                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ObjectData2_InputBoxUi.txt");
+
+                    //var infos = GenericsHelper.GetNamesAndTypes(Manager.GetUIManager().InputBoxUi.transform);
 
                     return;
                     Test2();
