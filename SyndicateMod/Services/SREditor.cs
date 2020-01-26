@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static System.Collections.Specialized.BitVector32;
 
 namespace SyndicateMod.Services
 {
@@ -28,6 +29,23 @@ namespace SyndicateMod.Services
             return mButton;
         }
 
+        //public static void Save()
+        //{
+        //    PrefabUtility
+        //    var go = Section.activeGameObject;
+
+        //    var mt = go.GetComponent<MeshFilter>.mesh;
+        //    var word1 = Random.Range(0, pent.length - 1);
+        //    AssetDatabase.CreateAsset(mt, "Assets/savedplat/assets/" + "-= " + writeName + mt.vertices.length + pent[word1] + "_ " + ".asset");
+
+
+        //    var prefab = EditorUtility.CreateEmptyPrefab("Assets/savedplat/prefabs/" + "-= " + writeName + mt.vertices.length + pent[word1] + "_ " + ".prefab");
+        //    EditorUtility.ReplacePrefab(go, prefab);
+        //    AssetDatabase.Refresh();
+
+        //    var comptime = System.DateTime.Now.ToString("MM-dd_HH:mm:ss");
+        //    print("saved " + "-= " + writeName + mt.vertices.length + pent[word1] + ".files......  time was: " + comptime);
+        //}
 
         public static void EditItemDescription()
         {

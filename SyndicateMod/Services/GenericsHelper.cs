@@ -8,12 +8,96 @@ using System.Text;
 using System.Reflection;
 using System.Linq;
 using System.Collections;
+using UnityEngine.Events;
+using UnityEngine;
+using Object = System.Object;
 
 namespace SyndicateMod.Services
 {
     public class GenericsHelper
     {
-        public static Dictionary<string, string> GetNamesAndValuesAsString(Type type, Object obj)
+        public static Dictionary<string, Type> GetNamesAndTypes(Transform transform)
+        {
+            // get all public static properties of MyClass type
+            PropertyInfo[] propertyInfos;
+            Dictionary<string, Type> propertyNamesAndTypes = new Dictionary<string, Type>();
+
+            List<string> output = new List<string>();
+
+            TryGetStringList(ref output, 
+                delegate
+                {
+                    output.Add("Getting properties from transform " + transform.name);
+
+                    propertyInfos = transform.GetType().GetProperties();
+
+                    foreach (var propertyInfo in propertyInfos)
+                    {
+                        //if (propertyInfo.GetGetMethod.GetParameters() != null && propertyInfo.GetMethod.GetParameters().Length > 0)
+                        //    continue;
+
+                        Type currentType = propertyInfo.PropertyType;
+
+                        output.Add("Checking property " + propertyInfo.Name + " that is class type " + currentType);
+
+                        if(propertyInfo.Name == "gameObject" || propertyInfo.Name == "transform" || propertyInfo.Name =="parent" || propertyInfo.Name == "root" || currentType == transform.GetType())
+                        {
+                            output[output.Count - 1] += ". Skipping recursive property.";
+                            continue;
+                        }
+
+                        if (propertyInfo.PropertyType.IsGenericType && propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                        {
+                            currentType = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
+                        }
+
+                        if (!currentType.Namespace.StartsWith("System"))
+                        {
+                            if (currentType.IsEnum)
+                            {
+                                propertyNamesAndTypes.Add(propertyInfo.Name, typeof(int));
+                            }
+                            else if (currentType.IsValueType && !currentType.IsEnum)
+                            {
+                                propertyNamesAndTypes.Add(propertyInfo.Name, typeof(string));
+                            }
+                            else
+                            {
+                                Dictionary<string, Type> subNamesAndTypes = GetNamesAndTypes(currentType).ToDictionary(p => propertyInfo.Name + "_" + p.Key, p => p.Value); // .Select(n => (propertyInfo.Name + "_" + n)).ToArray();
+                                foreach (var d in subNamesAndTypes)
+                                    propertyNamesAndTypes.Add(d.Key, d.Value);
+                            }
+                        }
+                        else
+                        {
+                            propertyNamesAndTypes.Add(propertyInfo.Name, currentType);
+                        }
+                    }
+                });
+
+            // sort properties by name
+            //Array.Sort(propertyInfos,
+            //        delegate (PropertyInfo propertyInfo1, PropertyInfo propertyInfo2)
+            //        { return propertyInfo1.Name.CompareTo(propertyInfo2.Name); });
+
+            FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\TransformInfo_{transform.name}.txt");
+
+            return propertyNamesAndTypes;
+        }
+
+        public static void TryGetStringList(ref List<string> output, UnityAction action)
+        {
+            try
+            {
+                action.Invoke(); 
+            }
+            catch (Exception e)
+            {
+                output.Add(e.Message);
+            }
+        }
+
+        public static Dictionary<string, string> GetNamesAndValuesAsString(Type type, System.Object obj)
         {
             SyndicateMod.ShowMessage("Test message");
 
@@ -144,8 +228,6 @@ namespace SyndicateMod.Services
             return propertyValues;
         }
 
-
-
         public static Dictionary<string, Type> GetNamesAndTypes(Type type)
         {
             // get all public static properties of MyClass type
@@ -169,6 +251,11 @@ namespace SyndicateMod.Services
                 if (propertyInfo.PropertyType.IsGenericType && propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
                     currentType = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
+                }
+
+                if (propertyInfo.Name == "gameObject" || propertyInfo.Name == "transform" || propertyInfo.Name == "parent" || propertyInfo.Name == "root")
+                {
+                    continue;
                 }
 
                 if (!currentType.Namespace.StartsWith("System"))

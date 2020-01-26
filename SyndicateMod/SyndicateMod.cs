@@ -17,7 +17,6 @@ namespace SyndicateMod
 {
     public class SyndicateMod : ISrPlugin
     {
-
         bool weaponsUpdated = false;
         int debug = 0;
         private bool runonce = false;
@@ -58,6 +57,7 @@ namespace SyndicateMod
                 {
                     //Test();
                     runonce = true;
+                    
                 }
 
                 if (debug > 0)
@@ -167,6 +167,9 @@ namespace SyndicateMod
 
                 if (Input.GetKeyDown(KeyCode.Insert) || Input.GetKeyDown(KeyCode.Insert))
                 {
+                    var infos = GenericsHelper.GetNamesAndTypes(Manager.GetUIManager().InputBoxUi.transform);
+
+                    return;
                     Test2();
 
                     var units = GetSelectUnits();
@@ -290,7 +293,7 @@ namespace SyndicateMod
         public void Test()
         {
             //((MonoBehaviour)Manager.Get()).StartCoroutine
-            Manager.Get().StartCoroutine(ModalMessageBoxRoutine("Test", "Test", InputBoxUi.InputBoxTypes.MbOk, "Test", "Cancel", 
+            Manager.Get().StartCoroutine(ModalMessageBoxRoutine("Test", "Test", InputBoxUi.InputBoxTypes.MbOkcancel, "Test2", "Cancel", 
                 delegate (bool b)
                 {
                     if(b)
@@ -331,9 +334,18 @@ namespace SyndicateMod
             Manager.GetUIManager().m_InputBoxUi.InputText = inputText;
             Manager.GetUIManager().m_InputBoxUi.OkButtonText.text = (okText ?? TextManager.GetLoc("BUTTON_OK", true, false));
             Manager.GetUIManager().m_InputBoxUi.CancelButtonText.text = (cancelText ?? TextManager.GetLoc("BUTTON_CANCEL", true, false));
+
+            var newButton = UnityEngine.Object.Instantiate(Manager.GetUIManager().m_InputBoxUi.m_CancelButtonContainer);
+            Manager.GetUIManager().m_InputBoxUi.m_CancelButtonContainer = newButton;
+            newButton.transform.SetParent(Manager.GetUIManager().m_InputBoxUi.CancelButton.transform.parent);
+            GameObject.Destroy(Manager.GetUIManager().m_InputBoxUi.CancelButton);
+            newButton.ButtonText.text = "Haxxors2";
+            newButton.GetComponentInChildren<Text>().text = "Haxxors";
+
             Manager.GetUIManager().m_InputBoxUi.Show(Manager.GameActive);
             Manager.GetUIManager().m_InputBoxUi.transform.SetAsLastSibling();
             Manager.GetUIManager().ToggleEverything(true);
+
             yield return Manager.GetUIManager().WaitForActive(Manager.GetUIManager().m_InputBoxUi.gameObject, false);
             Utils.SafeInvoke<bool>(ok, Manager.GetUIManager().m_InputBoxUi.IsOk());
             Manager.GetUIManager().InputControlUi.gameObject.SetActive(inputControlEnabled);
