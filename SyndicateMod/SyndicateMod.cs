@@ -172,13 +172,20 @@ namespace SyndicateMod
                     List<string> output = new List<string>();
                     List<object> checkedObjects = new List<object>();
 
-                    var infoObject = Manager.GetUIManager().InputBoxUi.transform;
+                    //var infoObject = Manager.GetUIManager().InputBoxUi.transform;
+                    var infoObject = Manager.GetItemManager().GetAllItems();
 
-                    var infos = GenericsHelper.GetNamesAndValues(infoObject.GetType(), infoObject, ref output, ref checkedObjects);
-                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ObjectInfo_{infoObject.name}.txt");
+                    Dictionary<string, object> infos = new Dictionary<string, object>();
 
-                    infos.Select(i => "Name: " + i.Key + " Value: " + i.Value).ToList();
-                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ObjectData_{infoObject.name}.txt");
+                    foreach(var item in infoObject)
+                    {
+                        infos = GenericsHelper.GetNamesAndValues(infoObject.GetType(), infoObject, ref output, ref checkedObjects);
+                    }
+                    
+                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ItemData.txt");
+
+                    output = infos.Select(i => "Name: " + i.Key + " Value: " + i.Value).ToList();
+                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\Itemdata2.txt");
 
                     var infoObject2 = Manager.GetUIManager().InputBoxUi;
 
@@ -240,7 +247,29 @@ namespace SyndicateMod
                     try
                     {
                         SaveDataTest();
-                        //Test();
+
+                        //List<string> output = new List<string>();
+                        //Button button = null;
+
+                        //try
+                        //{
+                        //    button = SREditor.CreateButton(delegate { Manager.GetUIManager().ShowMessagePopup("It worked!", 10); }, ref output);
+                        //}
+                        //catch(Exception e)
+                        //{
+                        //    output.Add("Exception thrown when trying to create button. Message: "+e.Message);
+                        //}
+                        //FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ButtonTest.txt");
+
+                        //if(button != null)
+                        //{
+                        //    output.AddRange(SRInfoHelper.GetFullTransformHierchy(button.transform));
+                        //    output.AddRange(SRInfoHelper.GetTransformData(button.transform));
+                        //}
+
+                        //FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ButtonTest.txt");
+
+                        //SaveDataTest();
                     }
                     catch (Exception e)
                     {
@@ -303,13 +332,7 @@ namespace SyndicateMod
             //Get().setEntityInfo("Show Message", text);
         }
 
-        static InputBoxUi_V2 inputBoxUi_V2;
-
-        public InputBoxUi_V2 m_InputBoxUi { get { return inputBoxUi_V2; } }
-
-        static InputBoxUi original;
-
-        private Button testButton;
+        
 
         public void Test()
         {
@@ -318,10 +341,10 @@ namespace SyndicateMod
                 delegate (bool b)
                 {
                     if(b)
-                        SaveDataTest();
+                        Manager.GetUIManager().DoModalMessageBox("You pressed the OK button", "Other InputBoxUsedNow", InputBoxUi.InputBoxTypes.MbOkcancel);
                     else
                     {
-                        Manager.GetUIManager().ShowMessagePopup("It worked", 10);
+                        Manager.GetUIManager().ShowMessagePopup("You pressed cancel", 10);
                     }
                 }
             ));
@@ -338,94 +361,102 @@ namespace SyndicateMod
             //}
         }
 
-        private IEnumerator ModalMessageBoxRoutine(string titleText, string mesageText, InputBoxUi.InputBoxTypes messsageBoxType, string okText = null, string cancelText = null, Action<bool> ok = null, Func<string> messageTextFunc = null, string inputText = "")
+        static InputBoxUi_V2 inputBoxUi_V2;
+
+        public InputBoxUi_V2 m_InputBoxUi { get { return inputBoxUi_V2; } }
+
+        static InputBoxUi new_InputBoxUi;
+
+        private Button testButton;
+
+        private IEnumerator ModalMessageBoxRoutine(string titleText, string messageText, InputBoxUi.InputBoxTypes messageBoxType, string okText = null, string cancelText = null, Action<bool> ok = null, Func<string> messageTextFunc = null, string inputText = "")
         {
             if (Manager.GetUIManager().m_InputBoxUi.isActiveAndEnabled)
             {
                 Manager.GetUIManager().m_InputBoxUi.Hide();
                 yield return null;
             }
-            bool inputControlEnabled = Manager.GetUIManager().InputControlUi.gameObject.activeSelf;
-            Manager.GetUIManager().InputControlUi.gameObject.SetActive(false);
-            Manager.ptr.DisableKeyCommands();
-            Manager.GetUIManager().m_InputBoxUi.InputBoxType = messsageBoxType;
-            Manager.GetUIManager().m_InputBoxUi.InputFieldLabelText = mesageText;
-            Manager.GetUIManager().m_InputBoxUi.InputFieldLabelTextFunc = messageTextFunc;
-            Manager.GetUIManager().m_InputBoxUi.TitleText = titleText;
-            Manager.GetUIManager().m_InputBoxUi.InputText = inputText;
-            Manager.GetUIManager().m_InputBoxUi.OkButtonText.text = (okText ?? TextManager.GetLoc("BUTTON_OK", true, false));
-            Manager.GetUIManager().m_InputBoxUi.CancelButtonText.text = (cancelText ?? TextManager.GetLoc("BUTTON_CANCEL", true, false));
-
-            var newButton = UnityEngine.Object.Instantiate(Manager.GetUIManager().m_InputBoxUi.m_CancelButtonContainer);
-            Manager.GetUIManager().m_InputBoxUi.m_CancelButtonContainer = newButton;
-            newButton.transform.SetParent(Manager.GetUIManager().m_InputBoxUi.CancelButton.transform.parent);
-            GameObject.Destroy(Manager.GetUIManager().m_InputBoxUi.CancelButton);
-            newButton.ButtonText.text = "Haxxors2";
-            newButton.GetComponentInChildren<Text>().text = "Haxxors";
-
-            Manager.GetUIManager().m_InputBoxUi.Show(Manager.GameActive);
-            Manager.GetUIManager().m_InputBoxUi.transform.SetAsLastSibling();
-            Manager.GetUIManager().ToggleEverything(true);
-
-            yield return Manager.GetUIManager().WaitForActive(Manager.GetUIManager().m_InputBoxUi.gameObject, false);
-            Utils.SafeInvoke<bool>(ok, Manager.GetUIManager().m_InputBoxUi.IsOk());
-            Manager.GetUIManager().InputControlUi.gameObject.SetActive(inputControlEnabled);
-            Manager.GetUIManager().ToggleEverything(true);
-            Manager.ptr.EnableKeyCommands();
-            yield break;
-        }
-
-        public IEnumerator CoRoutineUITest(string titleText, string messageText, InputBoxUi.InputBoxTypes messageBoxType, string okText = null, string cancelText = null, Action<bool> ok = null, Func<string> messageTextFunc = null, string inputText = "")
-        {
-            if (inputBoxUi_V2 == null)
+            string info = "";
+            if(new_InputBoxUi == null)
             {
-                //var inputBox = UnityEngine.Object.Instantiate(Manager.GetUIManager().m_InputBoxUi);
-                original = Manager.GetUIManager().m_InputBoxUi;
-                inputBoxUi_V2 = new InputBoxUi_V2(Manager.GetUIManager().m_InputBoxUi);
-                Manager.GetUIManager().m_InputBoxUi = inputBoxUi_V2;
-            }
-
-            if (m_InputBoxUi.isActiveAndEnabled)
-            {
-                this.m_InputBoxUi.Hide();
+                new_InputBoxUi = UnityEngine.Object.Instantiate(Manager.GetUIManager().m_InputBoxUi);
+                info += "instantiated";
                 yield return null;
             }
+            else
+            {
+                var scale = new_InputBoxUi.GetComponent<CanvasScaler>();
+                var bg = new_InputBoxUi.transform.FindChildIncludingDeactivated("Bg");
+                var divider = new_InputBoxUi.transform.FindChildIncludingDeactivated("Divider");
+
+                if (scale != null && scale.scaleFactor == 1)
+                {
+                    info += "scaleFactor = 2";
+                    scale.scaleFactor = 2;
+                }
+                else if(bg != null)
+                {
+                    info += " destroying bg";
+                    GameObject.Destroy(bg.gameObject);
+                }
+                else if (divider)
+                {
+                    GameObject.Destroy(divider.gameObject);
+                    info += " destroying divider";
+                }
+
+                var children = SRInfoHelper.GetAllChildren(new_InputBoxUi.transform);
+                info += " " + children.Count() + " children";
+                var title = children.Where(t => t.transform.name == "Title").First();
+                if(title != null && bg == null)
+                {
+                    info += " destroying title";
+                    GameObject.Destroy(title.gameObject);
+                }
+            }
+
+            if (new_InputBoxUi.isActiveAndEnabled)
+            {
+                info += " was active, hiding.";
+                new_InputBoxUi.Hide();
+                yield return null;
+            }
+            {
+                info += " was not active.";
+            }
+
             bool inputControlEnabled = Manager.GetUIManager().InputControlUi.gameObject.activeSelf;
             Manager.GetUIManager().InputControlUi.gameObject.SetActive(false);
             Manager.ptr.DisableKeyCommands();
 
-            this.m_InputBoxUi.InputBoxType = messageBoxType;
-            this.m_InputBoxUi.InputFieldLabelText = messageText;
-            this.m_InputBoxUi.InputFieldLabelTextFunc = messageTextFunc;
-            this.m_InputBoxUi.TitleText = titleText;
-            this.m_InputBoxUi.InputText = inputText;
-            this.m_InputBoxUi.OkButtonText.text = (okText ?? TextManager.GetLoc("BUTTON_OK", true, false));
-            this.m_InputBoxUi.CancelButtonText.text = (cancelText ?? TextManager.GetLoc("BUTTON_CANCEL", true, false));
-            this.m_InputBoxUi.Show(Manager.GameActive);
-            this.m_InputBoxUi.transform.SetAsLastSibling();
+            new_InputBoxUi.InputBoxType = messageBoxType;
+            new_InputBoxUi.InputFieldLabelText = messageText+ " children:"+new_InputBoxUi.transform.childCount + "info: "+ info;
+            new_InputBoxUi.InputFieldLabelTextFunc = messageTextFunc;
+            new_InputBoxUi.TitleText = titleText + new_InputBoxUi.transform.name;
+            new_InputBoxUi.InputText = inputText;
+            new_InputBoxUi.OkButtonText.text = (okText ?? TextManager.GetLoc("BUTTON_OK", true, false));
+            new_InputBoxUi.CancelButtonText.text = (cancelText ?? TextManager.GetLoc("BUTTON_CANCEL", true, false));
 
-            inputBoxUi_V2.AddButton
-            ("Test", delegate ()
-                {
-                    SaveDataTest();
-                }
-            );
+            /*
+            var newButton = UnityEngine.Object.Instantiate(new_InputBoxUi.m_CancelButtonContainer);
+            new_InputBoxUi.m_CancelButtonContainer = newButton;
+            newButton.transform.SetParent(new_InputBoxUi.CancelButton.transform.parent);
+            GameObject.Destroy(new_InputBoxUi.CancelButton);
+            newButton.ButtonText.text = "Haxxors2";
+            newButton.GetComponentInChildren<Text>().text = "Haxxors";
+            var newButton2 = SREditor.CreateButton(delegate { Manager.GetUIManager().ShowMessagePopup("Great Success!"); });
+            */
 
+            new_InputBoxUi.Show(Manager.GameActive);
+            new_InputBoxUi.transform.SetAsLastSibling();
             Manager.GetUIManager().ToggleEverything(true);
-            yield return Manager.GetUIManager().WaitForActive(this.m_InputBoxUi.gameObject, false);
-            Utils.SafeInvoke<bool>(ok, this.m_InputBoxUi.IsOk());
+
+            yield return Manager.GetUIManager().WaitForActive(new_InputBoxUi.gameObject, false);
+            Utils.SafeInvoke<bool>(ok, new_InputBoxUi.IsOk());
             Manager.GetUIManager().InputControlUi.gameObject.SetActive(inputControlEnabled);
             Manager.GetUIManager().ToggleEverything(true);
             Manager.ptr.EnableKeyCommands();
-            //yield 0;
-
-            //inputBoxUi_V2.gameObject.SetActive(true);
-
-            //inputBoxUi_V2.Show(Manager.GameActive);
-
-            //inputBoxUi_V2.transform.SetAsLastSibling();
             yield break;
-
         }
 
         public void Test2()
@@ -444,8 +475,9 @@ namespace SyndicateMod
         {
             Transform transform = Manager.GetUIManager().m_InputBoxUi.transform;
 
-            var output = SRInfoHelper.GetFullTransformHierchy(transform);
-            output.AddRange(SRInfoHelper.GetTransformData(transform));
+            List<string> output = new List<string>();
+            //var output = SRInfoHelper.GetFullTransformHierchy(transform);
+            output = SRInfoHelper.GetTransformData(transform, true, true);
 
             FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\{transform.name}.txt");
 
@@ -456,18 +488,17 @@ namespace SyndicateMod
             FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\Abilities.txt");
 
             transform = Manager.GetSkillManager().transform;
-            output = SRInfoHelper.GetFullTransformHierchy(transform);
-            output.AddRange(SRInfoHelper.GetTransformData(transform));
+            output = SRInfoHelper.GetTransformData(transform, true, true);
             FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\{transform.name}.txt");
 
             transform = Manager.GetCloneManager().transform;
-            output = SRInfoHelper.GetFullTransformHierchy(transform);
-            output.AddRange(SRInfoHelper.GetTransformData(transform));
+            output = SRInfoHelper.GetTransformData(transform, true, true);
             FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\{transform.name}.txt");
 
             transform = Manager.GetAbilityManager().transform;
-            output = SRInfoHelper.GetFullTransformHierchy(transform);
-            output.AddRange(SRInfoHelper.GetTransformData(transform));
+            output = SRInfoHelper.GetTransformData(transform, true, true);
+            
+            //output.AddRange(SRInfoHelper.GetTransformData(transform));
             FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\{transform.name}.txt");
         }
 
@@ -544,6 +575,42 @@ namespace SyndicateMod
 
             //FileManager.SaveObjectAsJson(langLookup, "localizationfile1");
             //langLookup.
+        }
+
+        public void EnumTest()
+        {
+            var values = Enum.GetNames(typeof(WeaponType)).ToList();
+
+            var dict = values.Select(v => new { key = values.IndexOf(v), value = v });
+            Dictionary<int, string> enumBody = new Dictionary<int, string>();
+            foreach (var t in dict)
+            {
+                if (!enumBody.ContainsKey(t.key))
+                    enumBody.Add(t.key, t.value);
+            }
+
+            enumBody.Remove(enumBody.Count - 1);
+            enumBody.Remove(enumBody.Count - 1);
+
+            enumBody.Add(enumBody.Count, "New WeaponType");
+            enumBody.Add(enumBody.Count, "Max");
+
+            SREditor.UpdateEnum(typeof(WeaponType), enumBody);
+
+            values = Enum.GetNames(typeof(WeaponType)).ToList();
+
+            dict = values.Select(v => new { key = values.IndexOf(v), value = v });
+
+            List<string> output = new List<string>();
+
+            foreach (var t in dict)
+            {
+                output.Add(t.key + " " + t.value);
+            }
+
+            FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\WeaponTypes.txt");
+
+            Manager.GetUIManager().ShowMessagePopup(output.Aggregate((x, y) => x + ", " + y));
         }
 
         public void LoadDataTest()
@@ -704,7 +771,6 @@ namespace SyndicateMod
             //FileManager.SaveList(datalist, @"C:\Temp\FastLangLookupValueList.txt");
         }
 
-
         public void MakeVIP(AIEntity unit)
         {
             unit.gameObject.AddComponent<VIP>();
@@ -774,7 +840,6 @@ namespace SyndicateMod
                         AddWeaponToSelectedUnits(units, indexAt + skip);
 
                         //Manager.GetInputControl().ResetIdleTime();
-                        
                     }
                     else
                     {

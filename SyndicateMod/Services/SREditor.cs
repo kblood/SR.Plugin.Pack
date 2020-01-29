@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,24 +13,74 @@ namespace SyndicateMod.Services
 {
     public static class SREditor
     {
-        public static Button CreateButton(UnityAction method)
+        public static Button CreateButton(UnityAction method, ref List<string> output)
         {
-            GameObject mCanvas = GameObject.Find("Canvas");
+            output.Add("Finding Canvas");
+            GameObject mCanvas = new GameObject();
+            mCanvas.AddComponent<Canvas>();
+            mCanvas.AddComponent<RectTransform>();
+            mCanvas.AddComponent<CanvasScaler>();
 
             GameObject button = new GameObject();
 
+            output.Add("Adding components");
             button.AddComponent<CanvasRenderer>();
             button.AddComponent<RectTransform>();
+
             Button mButton = button.AddComponent<Button>();
+
+            output.Add("Adding setting image");
+
             Image mImage = button.AddComponent<Image>();
             mButton.targetGraphic = mImage;
 
-            button.transform.position = new Vector3(0, 0, 0);
+            //output.Add("Setting canvas as parent");
+
+
             button.transform.SetParent(mCanvas.transform);
+            button.transform.position = new Vector3(0, 0, 0);
+
             button.GetComponent<Button>().onClick.AddListener(method);
             return mButton;
         }
 
+        public static List<string> UpdateEnum(Type enumType, Dictionary<int, string> enumBody)
+        {
+            // sample "file":
+            //string fileContent = @"
+            //                        btn1 = 0,
+            //                        btn2 = 1,
+            //                        btn3 = 2,
+            //                        ";
+            //var enumBody = fileContent.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+            //    .Select(line => new { bothToken = line.Trim().Trim(',').Split('=') })
+            //    .Where(x => x.bothToken.Length == 2)
+            //    .Select(x => new { Name = x.bothToken[0].Trim(), Value = int.Parse(x.bothToken[1].Trim()) });
+
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            AssemblyName asmName = new AssemblyName("EnumAssembly");
+            AssemblyBuilder asmBuilder = currentDomain.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.RunAndSave);
+            ModuleBuilder mb = asmBuilder.DefineDynamicModule(asmName.Name, asmName.Name + ".dll");
+            string enumTypeName = string.Format("{0}.{1}", enumType.Namespace, enumType.Name);
+            EnumBuilder eb = mb.DefineEnum(enumTypeName, TypeAttributes.Public, typeof(int));
+            foreach (var element in enumBody)
+            {
+                FieldBuilder fb1 = eb.DefineLiteral(element.Value, element.Key);
+            }
+
+            { FieldBuilder fb2 = eb.DefineLiteral("None", enumBody.Count - 1); }
+
+            Type eType = eb.CreateType();
+
+            List<string> output = new List<string>();
+
+            foreach (object obj in Enum.GetValues(eType))
+            {
+                Console.WriteLine("{0}.{1} = {2}", eType, obj, ((int)obj));
+                output.Add($"{eType}.{obj} = {((int)obj)}");
+            }
+            return output;
+        }
         //public static void Save()
         //{
         //    PrefabUtility

@@ -65,9 +65,14 @@ namespace SyndicateMod.Services
             return transformName;
         }
 
-        public static List<string> GetTransformData(Transform transform)
+        public static List<string> GetTransformData(Transform transform, bool componentInfo = false, bool isRoot = true)
         {
             List<string> output = new List<string>();
+
+            if(isRoot)
+            {
+                output.AddRange(GetFullTransformHierchy(transform));
+            }
 
             try
             {
@@ -79,7 +84,7 @@ namespace SyndicateMod.Services
                 }
                 else
                 {
-                    output[output.Count-1] += " No parent.";
+                    output[output.Count - 1] += " No parent.";
                 }
 
                 List<Component> components = new List<Component>();
@@ -88,12 +93,267 @@ namespace SyndicateMod.Services
                 output.Add(components.Count + " components on " + transform.name + ":");
                 //string info = "";
                 // Get all components and list them
-                output.AddRange(components.Select(c => "Component "+components.IndexOf(c)+" name: " + c.ToString()));
+                if(componentInfo)
+                {
+                    foreach (var c in components)
+                    {
+                        output.Add(transform.name + " component " + components.IndexOf(c) + " name: " + c.ToString());
+                        try
+                        {
+                            output.AddRange(GetComponentInfo(c));
+                        }
+                        catch(Exception e)
+                        {
+                            output.Add("Exception thrown: " + e.Message);
+                        }
+                    }
+                }
+                else
+                    output.AddRange(components.Select(c => "Component " + components.IndexOf(c) + " name: " + c.ToString()));
+
                 //components.Select(c => c.ToString().Remove(0, 14)).Aggregate((x,y) => x +"," +y);
                 foreach (Transform t in transform)
                 {
                     try
                     {
+                        output.AddRange(GetTransformData(t, componentInfo, false));
+                    }
+                    catch (Exception e)
+                    {
+                        output.Add("*** Exception cast while trying to get data from child transform " + t.name);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                output.Add("*** Exception cast " + e.Message + ". Current transform name is " + transform.name);
+            }
+
+            return output;
+        }
+
+        public static List<string> GetComponentInfo(Component component)
+        {
+            List<string> output = new List<string>();
+
+            if (component.GetType() == typeof(UnityEngine.RectTransform))
+            {
+                var c = (RectTransform)component;
+                output.Add("RectTransform component name:" + c.name);
+                output.Add("rect:" + c.rect);
+                output.Add("anchoredPosition:" + c.anchoredPosition);
+                output.Add("anchoredPosition3D:" + c.anchoredPosition3D);
+                output.Add("anchorMax:" + c.anchorMax);
+                output.Add("anchorMin:" + c.anchorMin);
+                output.Add("pivot:" + c.pivot);
+                output.Add("sizeDelta:" + c.sizeDelta);
+                output.Add("offsetMax:" + c.offsetMax);
+                output.Add("offsetMin:" + c.offsetMin);
+
+                output.Add("eulerAngles:" + c.eulerAngles);
+                output.Add("position:" + c.position);
+                output.Add("rotation:" + c.rotation);
+
+                output.Add("lossyScale:" + c.lossyScale);
+                output.Add("localEulerAngles:" + c.localEulerAngles);
+                output.Add("localPosition:" + c.localPosition);
+                output.Add("localRotation:" + c.localRotation);
+                output.Add("localScale:" + c.localScale);
+                output.Add("localToWorldMatrix:" + c.localToWorldMatrix);
+            }
+            else if (component.GetType() == typeof(UnityEngine.Canvas))
+            {
+                var c = (Canvas)component;
+                output.Add("Canvas component name:" + c.name);
+                output.Add("isRootCanvas:" + c.isRootCanvas);
+                output.Add("pixelPerfect:" + c.pixelPerfect);
+                output.Add("sortingOrder:" + c.sortingOrder);
+                output.Add("sortingLayerName:" + c.sortingLayerName);
+                output.Add("sortingLayerID:" + c.sortingLayerID);
+
+                output.Add("overridePixelPerfect:" + c.overridePixelPerfect);
+                output.Add("overrideSorting:" + c.overrideSorting);
+
+                output.Add("tag:" + c.tag);
+                output.Add("scaleFactor:" + c.scaleFactor);
+                output.Add("renderMode:" + c.renderMode);
+                output.Add("renderOrder:" + c.renderOrder);
+                output.Add("referencePixelsPerUnit:" + c.referencePixelsPerUnit);
+                output.Add("planeDistance:" + c.planeDistance);
+                output.Add("sortingGridNormalizedSize:" + c.sortingGridNormalizedSize);
+            }
+            else if (component.GetType() == typeof(UnityEngine.UI.HorizontalLayoutGroup))
+            {
+                var c = (UnityEngine.UI.HorizontalLayoutGroup)component;
+                output.Add("Canvas component name:" + c.name);
+                output.Add("childAlignment:" + c.childAlignment);
+                output.Add("childForceExpandHeight:" + c.childForceExpandHeight);
+                output.Add("childForceExpandWidth:" + c.childForceExpandWidth);
+                output.Add("flexibleHeight:" + c.flexibleHeight);
+                output.Add("flexibleWidth:" + c.flexibleWidth);
+
+                output.Add("layoutPriority:" + c.layoutPriority);
+                output.Add("minHeight:" + c.minHeight);
+                output.Add("minWidth:" + c.minWidth);
+
+                output.Add("padding:" + c.padding);
+                output.Add("preferredHeight:" + c.preferredHeight);
+                output.Add("preferredWidth:" + c.preferredWidth);
+                output.Add("useGUILayout:" + c.useGUILayout);
+            }
+            else if (component.GetType() == typeof(UnityEngine.UI.VerticalLayoutGroup))
+            {
+                var c = (UnityEngine.UI.VerticalLayoutGroup)component;
+                output.Add("Canvas component name:" + c.name);
+                output.Add("childAlignment:" + c.childAlignment);
+                output.Add("childForceExpandHeight:" + c.childForceExpandHeight);
+                output.Add("childForceExpandWidth:" + c.childForceExpandWidth);
+                output.Add("flexibleHeight:" + c.flexibleHeight);
+                output.Add("flexibleWidth:" + c.flexibleWidth);
+
+                output.Add("layoutPriority:" + c.layoutPriority);
+                output.Add("minHeight:" + c.minHeight);
+                output.Add("minWidth:" + c.minWidth);
+
+                output.Add("padding:" + c.padding);
+                output.Add("preferredHeight:" + c.preferredHeight);
+                output.Add("preferredWidth:" + c.preferredWidth);
+                output.Add("useGUILayout:" + c.useGUILayout);
+            }
+            else if (component.GetType() == typeof(UnityEngine.UI.LayoutElement))
+            {
+                var c = (UnityEngine.UI.LayoutElement)component;
+                output.Add("Canvas component name:" + c.name);
+                output.Add("flexibleHeight:" + c.flexibleHeight);
+                output.Add("flexibleWidth:" + c.flexibleWidth);
+
+                output.Add("layoutPriority:" + c.layoutPriority);
+                output.Add("minHeight:" + c.minHeight);
+                output.Add("minWidth:" + c.minWidth);
+
+                output.Add("preferredHeight:" + c.preferredHeight);
+                output.Add("preferredWidth:" + c.preferredWidth);
+                output.Add("useGUILayout:" + c.useGUILayout);
+            }
+            else if (component.GetType() == typeof(UnityEngine.UI.ContentSizeFitter))
+            {
+                var c = (UnityEngine.UI.ContentSizeFitter)component;
+                output.Add("Canvas component name:" + c.name);
+                output.Add("verticalFit:" + c.verticalFit);
+                output.Add("horizontalFit:" + c.horizontalFit);
+                output.Add("useGUILayout:" + c.useGUILayout);
+            }
+            else if (component.GetType() == typeof(UnityEngine.UI.Image))
+            {
+                var c = (UnityEngine.UI.Image)component;
+                output.Add("Canvas component name:" + c.name);
+                output.Add("color:" + c.color);
+                output.Add(GetMaterialInfo(c.material));
+                output.Add("depth:" + c.depth);
+                output.Add("flexibleHeight:" + c.flexibleHeight);
+                output.Add("flexibleWidth:" + c.flexibleWidth);
+                output.Add("layoutPriority:" + c.layoutPriority);
+                output.Add("minHeight:" + c.minHeight);
+                output.Add("minWidth:" + c.minWidth);
+                output.Add("preferredHeight:" + c.preferredHeight);
+                output.Add("preferredWidth:" + c.preferredWidth);
+                output.Add("useGUILayout:" + c.useGUILayout);
+            }
+            else if (component.GetType() == typeof(UnityEngine.CanvasRenderer))
+            {
+                var c = (CanvasRenderer)component;
+                output.Add("Canvas component name:" + c.name);
+                output.Add("materialCount:" + c.materialCount);
+                output.Add("popMaterialCount:" + c.popMaterialCount);
+                output.Add("relativeDepth:" + c.relativeDepth);
+                output.Add("absoluteDepth:" + c.absoluteDepth);
+                output.Add("cull:" + c.cull);
+
+                output.Add("hasPopInstruction:" + c.hasPopInstruction);
+                output.Add("hasRectClipping:" + c.hasRectClipping);
+
+                output.Add("tag:" + c.tag);
+            }
+            else if (component.GetType() == typeof(UnityEngine.UI.Text))
+            {
+                var c = (UnityEngine.UI.Text)component;
+                output.Add("Canvas component name:" + c.name);
+                output.Add(GetMaterialInfo(c.material));
+                output.Add(GetMaterialInfo(c.materialForRendering));
+                output.Add("flexibleHeight:" + c.flexibleHeight);
+                output.Add("flexibleWidth:" + c.flexibleWidth);
+
+                output.Add("layoutPriority:" + c.layoutPriority);
+                output.Add("minHeight:" + c.minHeight);
+                output.Add("minWidth:" + c.minWidth);
+
+                output.Add("padding:" + c.pixelsPerUnit);
+                output.Add("preferredHeight:" + c.preferredHeight);
+                output.Add("preferredWidth:" + c.preferredWidth);
+                output.Add("useGUILayout:" + c.useGUILayout);
+                output.Add("tag:" + c.tag);
+            }
+            return output;
+        }
+
+        public static string GetMaterialInfo(Material material)
+        {
+            string info = "";
+            info += "Material name: " + material.name;
+            info += " Texture name: " + material.mainTexture.name;
+            info += " Shader name: " + material.shader.name;
+
+            return info;
+        }
+
+        public static string GetVector3Info(Vector3 vector3)
+        {
+            string info = "";
+
+            info = $"x:{vector3.x}, y:{vector3.y}, z:{vector3.z}";
+
+            return info;
+        }
+
+        public static string GetVector2Info(Vector2 vector2)
+        {
+            string info = "";
+
+            return info;
+        }
+
+        public static List<Transform> GetAllChildren(Transform transform)
+        {
+            List<string> output = new List<string>();
+            List<Transform> transforms = new List<Transform>();
+
+            try
+            {
+                output.Add("Transform information about transform named: " + transform.name + ". It has " + transform.childCount + " child transforms.");
+
+                if (transform.parent != null)
+                {
+                    output.Add("Parent transform named: " + transform.parent.name);
+                }
+                else
+                {
+                    output[output.Count - 1] += " No parent.";
+                }
+
+                List<Component> components = new List<Component>();
+                components.AddRange(transform.GetComponents(typeof(Component)));
+
+                output.Add(components.Count + " components on " + transform.name + ":");
+                //string info = "";
+                // Get all components and list them
+                output.AddRange(components.Select(c => "Component " + components.IndexOf(c) + " name: " + c.ToString()));
+                //components.Select(c => c.ToString().Remove(0, 14)).Aggregate((x,y) => x +"," +y);
+                foreach (Transform t in transform)
+                {
+                    try
+                    {
+                        transforms.Add(t);
+                        transforms.AddRange(GetAllChildren(t));
                         output.AddRange(GetTransformData(t));
                     }
                     catch (Exception e)
@@ -102,12 +362,12 @@ namespace SyndicateMod.Services
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 output.Add("*** Exception cast " + e.Message + ". Current transform name is " + transform.name);
             }
-
-            return output;
+            FileManager.SaveList(output, Manager.GetPluginManager().PluginPath+ @"\debugtext.txt");
+            return transforms;
         }
 
         public static void SaveLangData()

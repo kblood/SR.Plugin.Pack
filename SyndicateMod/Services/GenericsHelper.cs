@@ -28,7 +28,7 @@ namespace SyndicateMod.Services
 
             output.Add("Getting properties and values from " + obj.ToString());
 
-            checkedObjects.Add(obj);
+            //checkedObjects.Add(obj);
 
             if (obj.GetType() == typeof(Transform))
             {
