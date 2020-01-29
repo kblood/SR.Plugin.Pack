@@ -300,8 +300,17 @@ namespace SyndicateMod.Services
         {
             string info = "";
             info += "Material name: " + material.name;
-            info += " Texture name: " + material.mainTexture.name;
-            info += " Shader name: " + material.shader.name;
+            if(material.mainTexture != null)
+            {
+                info += " Texture name: " + material.mainTexture.name;
+                info += " mainTextureOffset: " + material.mainTextureOffset;
+                info += " mainTextureScale: " + material.mainTextureScale;
+            }
+
+            if (material.shader != null)
+            {
+                info += " Shader name: " + material.shader.name;
+            }
 
             return info;
         }

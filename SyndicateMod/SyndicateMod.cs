@@ -366,6 +366,7 @@ namespace SyndicateMod
         public InputBoxUi_V2 m_InputBoxUi { get { return inputBoxUi_V2; } }
 
         static InputBoxUi new_InputBoxUi;
+        static Transform newButtons;
 
         private Button testButton;
 
@@ -389,30 +390,48 @@ namespace SyndicateMod
                 var bg = new_InputBoxUi.transform.FindChildIncludingDeactivated("Bg");
                 var divider = new_InputBoxUi.transform.FindChildIncludingDeactivated("Divider");
 
-                if (scale != null && scale.scaleFactor == 1)
-                {
-                    info += "scaleFactor = 2";
-                    scale.scaleFactor = 2;
-                }
-                else if(bg != null)
-                {
-                    info += " destroying bg";
-                    GameObject.Destroy(bg.gameObject);
-                }
-                else if (divider)
-                {
-                    GameObject.Destroy(divider.gameObject);
-                    info += " destroying divider";
-                }
+                //if (scale != null && scale.scaleFactor == 1)
+                //{
+                //    info += "scaleFactor = 2";
+                //    scale.scaleFactor = 2;
+                //}
+                //else if(bg != null)
+                //{
+                //    info += " destroying bg";
+                //    GameObject.Destroy(bg.gameObject);
+                //}
+                //else if (divider)
+                //{
+                //    GameObject.Destroy(divider.gameObject);
+                //    info += " destroying divider";
+                //}
 
                 var children = SRInfoHelper.GetAllChildren(new_InputBoxUi.transform);
                 info += " " + children.Count() + " children";
                 var title = children.Where(t => t.transform.name == "Title").First();
-                if(title != null && bg == null)
+                var content = children.Where(t => t.transform.name == "content").First();
+                var Buttons = children.Where(t => t.transform.name == "Buttons").First();
+
+                var layout = content.GetComponent<VerticalLayoutGroup>();
+
+                if (layout != null && newButtons == null)
                 {
-                    info += " destroying title";
-                    GameObject.Destroy(title.gameObject);
+                    layout.childForceExpandHeight = true;
+                    yield return null;
+                    var newDivider = UnityEngine.Object.Instantiate(divider);
+                    newDivider.SetParent(content);
+                    divider.localPosition = divider.localPosition;
+                    newButtons = UnityEngine.Object.Instantiate(Buttons);
+                    newButtons.SetParent(content);
+                    newButtons.localPosition = Buttons.localPosition;
+                    yield return null;
+
                 }
+                //if(title != null && bg == null)
+                //{
+                //    info += " destroying title";
+                //    GameObject.Destroy(title.gameObject);
+                //}
             }
 
             if (new_InputBoxUi.isActiveAndEnabled)
@@ -421,6 +440,7 @@ namespace SyndicateMod
                 new_InputBoxUi.Hide();
                 yield return null;
             }
+            else
             {
                 info += " was not active.";
             }
