@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using UnityEngine;
 
 namespace SyndicateMod.Services
 {
@@ -34,7 +35,7 @@ namespace SyndicateMod.Services
             return true;
         }
 
-        static public string SaveText(string text, string fileName = @"WriteLines.txt")
+        static public void SaveText(string text, string fileName = @"WriteLines.txt")
         {
             List<string> someList = new List<string>();
 
@@ -43,15 +44,15 @@ namespace SyndicateMod.Services
             // WriteAllLines creates a file, writes a collection of strings to the file,
             // and then closes the file.  You do NOT need to call Flush() or Close().
             //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", lines);
-            System.IO.File.WriteAllLines(@"d:\Games\SteamLibrary\steamapps\common\SatelliteReign\Mods\" + fileName, someList.ToArray());
+            System.IO.File.WriteAllText(Manager.GetPluginManager().PluginPath + @"\" + fileName, text);
 
-            DirectoryInfo d = new DirectoryInfo(@".\");//Assuming Test is your Folder
+            //DirectoryInfo d = new DirectoryInfo(@".\");//Assuming Test is your Folder
 
             //DirectoryInfo d2 = new DirectoryInfo(@".\");//Assuming Test is your Folder
 
             //System.IO.File.WriteAllLines(d.FullName + "\test.txt", lines.ToArray());
 
-            return d.FullName;
+            //return d.FullName;
         }
 
         static public string SaveList(List<string> stringsToSave, string fileNameWithPath = @"C:\Temp\WriteLines.txt")
@@ -97,6 +98,33 @@ namespace SyndicateMod.Services
             //System.IO.File.WriteAllLines(d.FullName + "\test.txt", lines.ToArray());
 
             return d.FullName;
+        }
+
+        static public List<string> JSONSaver(System.Object obj)
+        {
+            List<string> output = new List<string>();
+
+            try
+            {
+                string json = JsonUtility.ToJson(obj);
+                output.Add(json);
+                System.IO.File.WriteAllText(Manager.GetPluginManager().PluginPath + @"\" + obj.GetType().ToString(), json);
+            }
+            catch(Exception e)
+            {
+                output.Add(e.Message);
+            }
+
+            return output;
+        }
+
+        static public T JSONLoad<T>()
+        {
+            string json = System.IO.File.ReadAllText(Manager.GetPluginManager().PluginPath + @"\" + typeof(T));
+
+            T obj = JsonUtility.FromJson<T>(json);
+
+            return obj;
         }
 
         //static public string SaveObjectAsJson(object dataObject, string fileName = "data", string fileExtension = "json")

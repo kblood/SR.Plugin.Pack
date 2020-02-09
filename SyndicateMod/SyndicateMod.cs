@@ -246,6 +246,16 @@ namespace SyndicateMod
                     Manager.GetUIManager().ShowSubtitle("Running Test 1. Change pistol text without replacing fastlanglookup.", 5);
                     try
                     {
+                        var info = FileManager.JSONSaver(Manager.GetUIManager().m_InputBoxUi);
+
+                        var boxui = FileManager.JSONLoad<InputBoxUi>();
+
+                        if(boxui != null)
+                        {
+                            info.AddRange(SRInfoHelper.GetTransformData(boxui.transform, true, true));
+                            FileManager.SaveList(info, Manager.GetPluginManager().PluginPath + @"\JsonObjectLoaded.txt");
+                        }
+
                         SaveDataTest();
 
                         //List<string> output = new List<string>();
@@ -326,9 +336,9 @@ namespace SyndicateMod
 
         public static void ShowMessage(string text)
         {
-            Manager.GetUIManager().ShowMessagePopup(text, 5);
+            Manager.GetUIManager().ShowMessagePopup(text, 30);
             //Manager.GetUIManager().man (text, 10);
-            Manager.GetUIManager().ShowSubtitle(text, 10);
+            Manager.GetUIManager().ShowSubtitle(text, 30);
             //Get().setEntityInfo("Show Message", text);
         }
 
@@ -337,6 +347,18 @@ namespace SyndicateMod
         public void Test()
         {
             //((MonoBehaviour)Manager.Get()).StartCoroutine
+
+            List<SRModButtonElement> buttons = new List<SRModButtonElement>();
+
+            for(int i = 0; i<4; i++)
+            {
+                buttons.Add(new SRModButtonElement("TestButton" + i, delegate { ShowMessage("Great Succes: " + i); }, "TestDescription 1"));
+            }
+
+            Manager.Get().StartCoroutine(ModalVerticalButtonsRoutine("VerticalButtonUI Test", buttons));
+
+
+            /*
             Manager.Get().StartCoroutine(ModalMessageBoxRoutine("Test", "Test", InputBoxUi.InputBoxTypes.MbOkcancel, "Test2", "Cancel", 
                 delegate (bool b)
                 {
@@ -348,6 +370,8 @@ namespace SyndicateMod
                     }
                 }
             ));
+            */
+
             //if (testButton = null)
             //{
             //    testButton = SREditor.CreateButton(SaveDataTest);
@@ -366,6 +390,9 @@ namespace SyndicateMod
         public InputBoxUi_V2 m_InputBoxUi { get { return inputBoxUi_V2; } }
 
         static InputBoxUi new_InputBoxUi;
+
+        static SRModVerticalButtonsUI VerticalButtonsUi;
+
         static Transform newButtons;
 
         private Button testButton;
@@ -378,7 +405,7 @@ namespace SyndicateMod
                 yield return null;
             }
             string info = "";
-            if(new_InputBoxUi == null)
+            if (new_InputBoxUi == null)
             {
                 new_InputBoxUi = UnityEngine.Object.Instantiate(Manager.GetUIManager().m_InputBoxUi);
                 info += "instantiated";
@@ -450,7 +477,7 @@ namespace SyndicateMod
             Manager.ptr.DisableKeyCommands();
 
             new_InputBoxUi.InputBoxType = messageBoxType;
-            new_InputBoxUi.InputFieldLabelText = messageText+ " children:"+new_InputBoxUi.transform.childCount + "info: "+ info;
+            new_InputBoxUi.InputFieldLabelText = messageText + " children:" + new_InputBoxUi.transform.childCount + "info: " + info;
             new_InputBoxUi.InputFieldLabelTextFunc = messageTextFunc;
             new_InputBoxUi.TitleText = titleText + new_InputBoxUi.transform.name;
             new_InputBoxUi.InputText = inputText;
@@ -476,6 +503,101 @@ namespace SyndicateMod
             Manager.GetUIManager().InputControlUi.gameObject.SetActive(inputControlEnabled);
             Manager.GetUIManager().ToggleEverything(true);
             Manager.ptr.EnableKeyCommands();
+            yield break;
+        }
+
+        private IEnumerator ModalVerticalButtonsRoutine(string titleText, List<SRModButtonElement> buttons)
+        {
+            string info = "";
+
+            if (VerticalButtonsUi == null)
+            {
+                try
+                {
+                    var newInputBoxUi = UnityEngine.Object.Instantiate(Manager.GetUIManager().m_InputBoxUi);
+                    VerticalButtonsUi = new SRModVerticalButtonsUI(newInputBoxUi);
+                    VerticalButtonsUi.InputBoxUi.InputBoxType = InputBoxUi.InputBoxTypes.MbOk;
+                }
+                catch(Exception e)
+                {
+                    info += " error thrown " + e.Message + " when ";
+                }
+                info += "instantiated";
+                yield return null;
+            }
+
+            if (Manager.GetUIManager().m_InputBoxUi.isActiveAndEnabled)
+            {
+                Manager.GetUIManager().m_InputBoxUi.Hide();
+                yield return null;
+            }
+            if (new_InputBoxUi != null && new_InputBoxUi.isActiveAndEnabled)
+            {
+                new_InputBoxUi.Hide();
+                yield return null;
+            }
+            if (VerticalButtonsUi != null && VerticalButtonsUi.InputBoxUi.isActiveAndEnabled)
+            {
+                VerticalButtonsUi.InputBoxUi.Hide();
+                yield return null;
+            }
+
+            bool inputControlEnabled = Manager.GetUIManager().InputControlUi.gameObject.activeSelf;
+            Manager.GetUIManager().InputControlUi.gameObject.SetActive(false);
+            Manager.ptr.DisableKeyCommands();
+
+            //new_InputBoxUi.InputBoxType = messageBoxType;
+            //new_InputBoxUi.InputFieldLabelText = messageText + " children:" + new_InputBoxUi.transform.childCount + "info: " + info;
+            //new_InputBoxUi.InputFieldLabelTextFunc = messageTextFunc;
+            //new_InputBoxUi.TitleText = titleText + new_InputBoxUi.transform.name;
+            //new_InputBoxUi.InputText = inputText;
+            //new_InputBoxUi.OkButtonText.text = (okText ?? TextManager.GetLoc("BUTTON_OK", true, false));
+            //new_InputBoxUi.CancelButtonText.text = (cancelText ?? TextManager.GetLoc("BUTTON_CANCEL", true, false));
+
+            /*
+            var newButton = UnityEngine.Object.Instantiate(new_InputBoxUi.m_CancelButtonContainer);
+            new_InputBoxUi.m_CancelButtonContainer = newButton;
+            newButton.transform.SetParent(new_InputBoxUi.CancelButton.transform.parent);
+            GameObject.Destroy(new_InputBoxUi.CancelButton);
+            newButton.ButtonText.text = "Haxxors2";
+            newButton.GetComponentInChildren<Text>().text = "Haxxors";
+            var newButton2 = SREditor.CreateButton(delegate { Manager.GetUIManager().ShowMessagePopup("Great Success!"); });
+            */
+
+            //new_InputBoxUi.Show(Manager.GameActive);
+            //new_InputBoxUi.transform.SetAsLastSibling();
+
+            var inputboxui = VerticalButtonsUi.InputBoxUi;
+
+            inputboxui.Show(Manager.GameActive);
+            inputboxui.transform.SetAsLastSibling();
+            inputboxui.TitleText = titleText;
+            inputboxui.CancelButtonText.text = ("Cancel" ?? TextManager.GetLoc("BUTTON_CANCEL", true, false));
+
+            Manager.GetUIManager().ToggleEverything(true);
+            yield return 0;
+
+            try
+            {
+                VerticalButtonsUi.SetButtons(buttons, ref info);
+            }
+            catch(Exception e)
+            {
+                info += " Exception thrown: " + e.Message;
+                ShowMessage(info);
+                FileManager.SaveText(info, "errors.log");
+            }
+
+            VerticalButtonsUi.InputBoxUi.gameObject.SetActive(true);
+
+            yield return Manager.GetUIManager().WaitForActive(VerticalButtonsUi.InputBoxUi.gameObject, false);
+            //Utils.SafeInvoke<bool>(ok, VerticalButtonsUi.InputBoxUi.IsOk());
+            Manager.GetUIManager().InputControlUi.gameObject.SetActive(inputControlEnabled);
+            Manager.GetUIManager().ToggleEverything(true);
+            Manager.ptr.EnableKeyCommands();
+
+            ShowMessage(info + " all done");
+
             yield break;
         }
 
