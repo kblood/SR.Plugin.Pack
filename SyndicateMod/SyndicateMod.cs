@@ -352,7 +352,18 @@ namespace SyndicateMod
 
             for(int i = 0; i<4; i++)
             {
-                buttons.Add(new SRModButtonElement("TestButton" + i, delegate { ShowMessage("Great Succes: " + i); }, "TestDescription 1"));
+                {
+                    int x = i;
+                    buttons.Add(new SRModButtonElement("TestButton " + i, 
+                        delegate 
+                        {
+                            ShowMessage("Great Succes: "+x);
+                            Manager.GetUIManager().ShowMessagePopup($"TestPopUp {x}");
+
+                            VerticalButtonsUi.Buttons[x].Text.text += "!";
+
+                        }, "TestDescription " + i));
+                }
             }
 
             Manager.Get().StartCoroutine(ModalVerticalButtonsRoutine("VerticalButtonUI Test", buttons));
@@ -516,7 +527,7 @@ namespace SyndicateMod
                 {
                     var newInputBoxUi = UnityEngine.Object.Instantiate(Manager.GetUIManager().m_InputBoxUi);
                     VerticalButtonsUi = new SRModVerticalButtonsUI(newInputBoxUi);
-                    VerticalButtonsUi.InputBoxUi.InputBoxType = InputBoxUi.InputBoxTypes.MbOk;
+                    VerticalButtonsUi.InputBoxUi.InputBoxType = InputBoxUi.InputBoxTypes.MbOkcancel;
                 }
                 catch(Exception e)
                 {
@@ -572,6 +583,7 @@ namespace SyndicateMod
             inputboxui.Show(Manager.GameActive);
             inputboxui.transform.SetAsLastSibling();
             inputboxui.TitleText = titleText;
+            inputboxui.OkButtonText.text = ("Ok" ?? TextManager.GetLoc("BUTTON_OK", true, false));
             inputboxui.CancelButtonText.text = ("Cancel" ?? TextManager.GetLoc("BUTTON_CANCEL", true, false));
 
             Manager.GetUIManager().ToggleEverything(true);
@@ -585,19 +597,41 @@ namespace SyndicateMod
             {
                 info += " Exception thrown: " + e.Message;
                 ShowMessage(info);
-                FileManager.SaveText(info, "errors.log");
             }
 
             VerticalButtonsUi.InputBoxUi.gameObject.SetActive(true);
 
+            //foreach (var b in VerticalButtonsUi.Buttons)
+            //{
+            //    b.DescriptionText.text = b.Description;
+
+            //    foreach (var butt in b.Container.GetComponentsInChildren<Button>())
+            //    {
+            //        butt.onClick.RemoveAllListeners();
+            //        butt.onClick.AddListener(b.Action);
+            //    }
+
+            //    foreach (var t in b.Container.GetChild(2).GetComponentsInChildren<Text>())
+            //    {
+            //        t.text = b.ButtonText;
+            //    }
+            //    //var prefb = b.Container.GetComponent<PrefabButton>();
+            //    //prefb.Button.onClick.RemoveAllListeners();
+            //    //prefb.Button.onClick.AddListener(b.Action);
+            //    //prefb.ButtonText.text = b.ButtonText;
+            //}
+
             yield return Manager.GetUIManager().WaitForActive(VerticalButtonsUi.InputBoxUi.gameObject, false);
+
             //Utils.SafeInvoke<bool>(ok, VerticalButtonsUi.InputBoxUi.IsOk());
             Manager.GetUIManager().InputControlUi.gameObject.SetActive(inputControlEnabled);
             Manager.GetUIManager().ToggleEverything(true);
             Manager.ptr.EnableKeyCommands();
+            FileManager.SaveText(info, "errors.log");
 
             ShowMessage(info + " all done");
-
+            FileManager.SaveText(info, "errors.log");
+            SRInfoHelper.GetAllChildren(VerticalButtonsUi.InputBoxUi.transform);
             yield break;
         }
 

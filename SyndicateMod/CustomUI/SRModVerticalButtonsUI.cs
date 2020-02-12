@@ -44,12 +44,13 @@ namespace SyndicateMod.CustomUI
             
             for(int i = 0; i < buttons.Count(); i++)
             {
-                if(i+1 < Buttons.Count())
+                var newButton = buttons[i];
+
+                if (i+1 < Buttons.Count())
                 {
                     info += " Updating existing button " + i;
 
                     var oldButton = Buttons[i];
-                    var newButton = buttons[i];
 
                     oldButton.Text.text = newButton.ButtonText;
                     oldButton.DescriptionText.text = newButton.Description;
@@ -59,11 +60,9 @@ namespace SyndicateMod.CustomUI
                 }
                 else
                 {
-                    var newButton = buttons[i];
-
                     if(Buttons.Count() == 0)
                     {
-                        info += " Adding first button " + i;
+                        //info += " Adding first button " + i;
 
                         var children = SRInfoHelper.GetAllChildren(InputBoxUi.transform);
                         var container = UnityEngine.Object.Instantiate(CancelButtonLayout);
@@ -72,21 +71,25 @@ namespace SyndicateMod.CustomUI
                         var descriptiontext = children.Where(t => t.transform.name == "TitleText").First();
                         descriptiontext = UnityEngine.Object.Instantiate(descriptiontext);
 
-                        info += " child count "+container.childCount;
+                        //info += " child count "+container.childCount;
 
                         var OkButton = newButton.Container.GetChild(0);
+                        var Cancel = newButton.Container.GetChild(2);
+
+                        // Destroy gameobjects and components that will be in the way
                         GameObject.DestroyImmediate(OkButton.gameObject);
+                        GameObject.DestroyImmediate(Cancel.GetComponent<PrefabButton>());
+                        GameObject.DestroyImmediate(Cancel.GetLastChild().gameObject);
 
-                        info += " test1 " ;
-                        
+                        //info += " test1 " ;
+
                         newButton.DescriptionText = descriptiontext.GetComponent<Text>();
-
-                        info += " test2 ";
-
+                        //info += " test2 ";
+                        // Make sure the description textbox is on the left of the divider
                         descriptiontext.SetParent(newButton.Container);
                         descriptiontext.SetSiblingIndex(0);
 
-                        info += " test3 ";
+                        //info += " test3 ";
                     }
                     else
                     {
@@ -97,37 +100,33 @@ namespace SyndicateMod.CustomUI
                     }
                     info += ". Child count for newbutton container: " + newButton.Container.childCount;
                     var child0 = newButton.Container.GetChild(0);
-                    info += " Child0 " + child0.name;
+                    //info += " Child0 " + child0.name;
                     var child1 = newButton.Container.GetChild(1);
-                    info += " Child1 " + child1.name;
+                    //info += " Child1 " + child1.name;
                     var child2 = newButton.Container.GetChild(2);
-                    info += " Child2 " + child2.name;
+                    //info += " Child2 " + child2.name;
 
-                    newButton.Button = child2.GetComponent<PrefabButton>().Button;
-                    newButton.Text = child2.GetComponent<PrefabButton>().ButtonText;
+                    newButton.Button = child2.GetComponentInChildren<Button>();
+                    newButton.Text = child2.GetComponentInChildren<Text>();
                     newButton.DescriptionText = child0.GetComponent<Text>();
-                    info += " Last stuff for button: " + i;
 
+                    // Place the button on the content part of the UiBox
                     newButton.Container.SetParent(Content);
                     int index = newButton.Container.GetSiblingIndex();
-                    info += " Current index: " + index;
+                    //info += " Current index: " + index;
 
+                    // Place this button above the divider for the Ok and cancel buttons (and below all previously added buttons)
                     newButton.Container.SetSiblingIndex(Content.childCount - 3);
 
-                    index = newButton.Container.GetSiblingIndex();
-                    info += " Current index: " + index;
-                    //container.SetSiblingIndex(4);
-
-                    info += " X ";
-                    newButton.Text.text = newButton.ButtonText;
-                    info += " Y ";
                     newButton.DescriptionText.text = newButton.Description;
-                    info += " Z ";
-
-                    Buttons.Add(newButton);
-                    newButton.Button.onClick.RemoveAllListeners();
+                    newButton.Text.text = newButton.ButtonText;
+                    //info += " Z ";
+                    //newButton.Button.onClick.RemoveAllListeners();
                     newButton.Button.onClick.AddListener(newButton.Action);
+                    Buttons.Add(newButton);
+
                     newButton.Container.gameObject.SetActive(true);
+                    //newButton.Container.ActivateChildren();
                 }
             }
 
