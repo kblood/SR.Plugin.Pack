@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyndicateMod", "SyndicateMo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyFix", "KeyFix\KeyFix.csproj", "{C9D93367-9DD2-4873-9583-F183D8F1FDCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModManager", "ModManagerMod\ModManager.csproj", "{F434784C-711E-4CE9-AD15-3404F84EA705}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRModManager", "ModManagerMod\SRModManager.csproj", "{F434784C-711E-4CE9-AD15-3404F84EA705}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

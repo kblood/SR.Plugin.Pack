@@ -1,11 +1,1 @@
-B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\ModManager.dll
-B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\ModManager.pdb
-B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\Assembly-CSharp-firstpass.dll
-B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\Assembly-CSharp.dll
-B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.dll
-B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.Networking.dll
-B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.UI.dll
 B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\ModManager.csproj.CoreCompileInputs.cache
-B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\ModManager.csproj.CopyComplete
-B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\ModManager.dll
-B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\ModManager.pdb

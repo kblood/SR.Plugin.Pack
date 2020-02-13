@@ -48,4 +48,3 @@ B:\Git\SR.Plugin.Pack\Cheats\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.UI.dll
-B:\Git\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csprojAssemblyReference.cache

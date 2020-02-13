@@ -1,0 +1,11 @@
+B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.csproj.CoreCompileInputs.cache
+B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\SRModManager.dll
+B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\SRModManager.pdb
+B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\Assembly-CSharp-firstpass.dll
+B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\Assembly-CSharp.dll
+B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.dll
+B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.Networking.dll
+B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.UI.dll
+B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.csproj.CopyComplete
+B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.dll
+B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.pdb

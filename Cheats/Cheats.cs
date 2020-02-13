@@ -30,7 +30,6 @@ public class Cheats : ISrPlugin
     //public static event Func<string> writtenText;
 
     // AgentAI state debugging
-    
 
     /// <summary>
     /// Plugin initialization 
@@ -42,8 +41,8 @@ public class Cheats : ISrPlugin
         cheatMode = false;
         timer = TimeManager.GameTime + 10;
         aTimer = TimeManager.GameTime + 30;
-        cctvs = new Dictionary<CctvCamera, District>();
-        ProgressionManager.Get().OnDistrictChange += RescanCameras();
+        //cctvs = new Dictionary<CctvCamera, District>();
+        //ProgressionManager.Get().OnDistrictChange += RescanCameras();
         //ProgressionManager.OnDistrictChangeDelegate() += RescanCameras();
         
         //WeaponChanges();
@@ -498,8 +497,10 @@ public class Cheats : ISrPlugin
             }
 
             //Show mod info
+            /*
             if (Input.GetKeyDown(KeyCode.RightWindows) || Input.GetKeyDown(KeyCode.RightCommand) || Input.GetKeyDown(KeyCode.RightAlt) || Input.GetKeyDown(KeyCode.Pause))
                 ShowModsInfo();
+            */
 
             //if (Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.Asterisk) || Input.GetKeyDown(KeyCode.Home))
             //    ChangeShader();

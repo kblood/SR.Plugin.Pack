@@ -68,6 +68,7 @@
     <Compile Include="Services\ReflectionExtensions.cs" />
     <Compile Include="Services\SREditor.cs" />
     <Compile Include="Services\SRInfoHelper.cs" />
+    <Compile Include="Services\UIHelper.cs" />
     <Compile Include="SyndicateMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

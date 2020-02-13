@@ -7,8 +7,8 @@
     <ProjectGuid>{F434784C-711E-4CE9-AD15-3404F84EA705}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ModManager</RootNamespace>
-    <AssemblyName>ModManager</AssemblyName>
+    <RootNamespace>SRModManager</RootNamespace>
+    <AssemblyName>SRModManager</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -58,7 +58,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModManager.cs" />
+    <Compile Include="CustomUI\SRModButtonElement.cs" />
+    <Compile Include="CustomUI\SRModVerticalButtonsUI.cs" />
+    <Compile Include="SRModManager.cs" />
+    <Compile Include="Services\UIHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
