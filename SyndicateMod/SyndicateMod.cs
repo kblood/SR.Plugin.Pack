@@ -167,79 +167,108 @@ namespace SyndicateMod
 
                 if (Input.GetKeyDown(KeyCode.Insert) || Input.GetKeyDown(KeyCode.Insert))
                 {
+                    List<string> output = new List<string>();
+                    output = SRInfoHelper.GetItemInfo();
+
+                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ItemData2.txt");
+                    output = SRInfoHelper.GetAbilityInfo();
+
+                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\AbilityData2.txt");
+
+                    output = SRInfoHelper.GetAbilityEnum();
+                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\AbilityEnum.txt");
+
                     //GenericsHelper.CheckedObjects.Clear();
 
-                    List<string> output = new List<string>();
-                    List<object> checkedObjects = new List<object>();
+                    var stealthGenv3 = SREditor.CopyItem(133);
+                    List<ModifierData5L> modifiers = new List<ModifierData5L>();
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.StealthEnergyDrainPercent, 0.5f));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.EnergyMaxOffset, 65));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.EnergyRegenRateMultiplier, 2));
+                    stealthGenv3.m_Modifiers = modifiers.ToArray();
+                    SREditor.EditItemDescription(stealthGenv3.m_ID, "Stealth Generator: Mk III(Energon)", @"The Mark III stealth generator uses a new discoveries in quantum science to improve its design and cooling, while also making it smaller. 
 
-                    //var infoObject = Manager.GetUIManager().InputBoxUi.transform;
-                    var infoObject = Manager.GetItemManager().GetAllItems();
+Its able to maintain the quantum photonic diffraction process for a longer period of time but is also able to store energy and boosts energy regen by adding an AA Energon Storage Cell to it and an energy generator.");
 
-                    Dictionary<string, object> infos = new Dictionary<string, object>();
+                    var ironManChest = SREditor.CopyItem(37);
+                    modifiers = new List<ModifierData5L>();
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.HealthRegenRate, 2));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.HealthOffset, 65));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.Armor, 65));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.Shield, 65));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.ShieldRegenRate, 2));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.ShieldRadius, 8));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.PoisonDamageRecievedMultiplier, 0));
+                    ironManChest.m_Modifiers = modifiers.ToArray();
 
-                    foreach(var item in infoObject)
-                    {
-                        infos = GenericsHelper.GetNamesAndValues(infoObject.GetType(), infoObject, ref output, ref checkedObjects);
-                    }
-                    
-                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ItemData.txt");
+                    if (!ironManChest.m_AbilityIDs.Any())
+                        ironManChest.m_AbilityIDs = new List<int>();
+                    ironManChest.m_AbilityIDs.Add((int)AbilityEnum.Aug_Chest_Self_Destruct);
+                    if (!ironManChest.m_AbilityMasks.Any())
+                        ironManChest.m_AbilityMasks = new List<int>();
+                    ironManChest.m_AbilityMasks.Add(-1);
 
-                    output = infos.Select(i => "Name: " + i.Key + " Value: " + i.Value).ToList();
-                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\Itemdata2.txt");
+                    SREditor.EditItemDescription(ironManChest.m_ID, "Ironman Chest", @"This chest augmentation is a marvel of science and engineering. 
 
-                    var infoObject2 = Manager.GetUIManager().InputBoxUi;
+It replaces the lungs with iron lungs and it modifies shield, armor and health to regen faster and have a higher capacity. This powerful mix does make it unstable and might cause you to explode.");
 
-                    infos = GenericsHelper.GetNamesAndValues(infoObject.GetType(), infoObject, ref output, ref checkedObjects);
-                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ObjectInfo2_{infoObject2}.txt");
+                    var quantumBrain = SREditor.CopyItem(126);
+                    modifiers = new List<ModifierData5L>();
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.AccuracyOffset, 0.2f));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.DodgeOffset, 0.2f));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.AbilityCooldownSpeedMultiplier, 1.5f));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.DroneCountIncrease, 5));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.PoisonDamageRecievedMultiplier, 0));
+                    quantumBrain.m_Modifiers = modifiers.ToArray();
+                    if (!quantumBrain.m_AbilityIDs.Any())
+                        quantumBrain.m_AbilityIDs = new List<int>();
+                    quantumBrain.m_AbilityIDs.Add((int)AbilityEnum.Scramble);
+                    if (!quantumBrain.m_AbilityMasks.Any())
+                        quantumBrain.m_AbilityMasks = new List<int>();
+                    quantumBrain.m_AbilityMasks.Add(-1);
+                    SREditor.EditItemDescription(quantumBrain.m_ID, "Quantum Brain", @"This augmentation replaces the brain with a new type of quantum processor and the eyes with biomechanical cameras. 
+Combined it allows for much better reaction times, accuracy and helps abilities to be cooldown faster, but also stops jamming from affecting it, as it operates on different frequiences. It also adds a poison filter to the mouth.
+If this was not enough, it leaves enough processing power to also control 5 drones.
+Sideeffects: Tongue and vocal cords have to be removed and the user also loses hearing and sense of smell. Small price to pay to become post human.");
 
-                    infos.Select(i => "Name: " + i.Key + " Value: " + i.Value).ToList();
-                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ObjectData2_InputBoxUi.txt");
+                    var sprintLegsv3 = SREditor.CopyItem(101);
+                    modifiers = new List<ModifierData5L>();
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.SprintEnergyCostMultiplier, 0.2f));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.EnergyRegenRateMultiplier, 0.90f));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.SpeedOffset, 0.5f));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.KnockbackResistanceOffset, 20));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.Penalty_HeavyWeaponSpeedMod, 0));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.UseHighVent, 1));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.GearSlotIncrease, 1));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.WeaponCountIncrease, 1));
+                    sprintLegsv3.m_Modifiers = modifiers.ToArray();
+                    SREditor.EditItemDescription(sprintLegsv3.m_ID, "Super Sprint Legs v4", @"These legs are a bit bulky, but they add stability and speed unlike any other mod, enables the use of high vents, removes heavy weapon penalties.
 
-                    //var infos = GenericsHelper.GetNamesAndTypes(Manager.GetUIManager().InputBoxUi.transform);
+As a very welcome bonus the legs also contain an extra gear slot and weapon slot");
 
-                    return;
-                    Test2();
+                    var AtlasArmsV3 = SREditor.CopyItem(113);
+                    modifiers = new List<ModifierData5L>();
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.PoisonValveStrength, 1));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.CanUseZipline, 1));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.UseHighVent, 1));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.WeaponCountIncrease, 1));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.Penalty_HeavyWeaponMod, 0));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.Armor, 50));
+                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.HealthOffset, 50));
+                    AtlasArmsV3.m_Modifiers = modifiers.ToArray();
 
-                    var units = GetSelectUnits();
-                    var selectedUnit = units.FirstOrDefault();
-                    if (selectedUnit == null)
-                        return;
+                    if (!AtlasArmsV3.m_AbilityIDs.Any())
+                        AtlasArmsV3.m_AbilityIDs = new List<int>();
+                    AtlasArmsV3.m_AbilityIDs.Add((int)AbilityEnum.Sword_Slash);
+                    if (!AtlasArmsV3.m_AbilityMasks.Any())
+                        AtlasArmsV3.m_AbilityMasks = new List<int>();
+                    AtlasArmsV3.m_AbilityMasks.Add(-1);
 
-                    string[] aNames = new string[0];
-                    int[] aIds = new int[0];
-                    selectedUnit.GetAbilities().m_AbilityManager.GetAbilityNamesAndIDs(out aIds, out aNames);
+                    SREditor.EditItemDescription(AtlasArmsV3.m_ID, "Atlas: Full Arm Replacements V2", @"These arms enables the to turn poison valves, use ziplines, high vents, adds an extra weaponslot and makes up for heavy weapon penalties.
 
-                    string info = "";
-                    int enabled = 0; int instant = 0; int passive = 0;
-                    int ready = 0; int allowed = 0; int remote = 0;
+To sweeten the deal, the arms have built in retractable blades as well.");
 
-                    foreach (Ability abil in selectedUnit.GetAbilities().AllAbilities())
-                    {
-                        info += "\nAbility: " + abil.m_Name + " id: " + abil.GetID() + " uid: " + abil.GetUID();
-                    }
-
-                    for (int i = 0; i < aIds.Length; i++)
-                    {
-                        Ability abil = selectedUnit.GetAbilities().GetAbility(aIds[i]);
-                        if (abil != null)
-                        {
-                            if (abil.IsEnabled)
-                                enabled++;
-                            if (abil.isInstant)
-                                instant++;
-                            if (abil.isPassive)
-                                passive++;
-                            if (abil.IsReady())
-                                ready++;
-                            if (abil.IsAllowed())
-                                allowed++;
-                            if (abil.IsRemoteAbility())
-                                remote++;
-                            //if (abil.IsActive())
-                        }
-                    }
-                    info += "\n Total: \n" + enabled + " enabled. " + instant + " instant" + passive + " passive" + ready + " ready" + allowed + " allowed" + remote + " remote";
-                    Manager.GetUIManager().DoModalMessageBox("Abilities of selected unit", info, InputBoxUi.InputBoxTypes.MbInput);
+                    ShowMessage("items added?");
                 }
                 if (Input.GetKeyDown(KeyCode.End) || Input.GetKeyDown(KeyCode.End))
                 {

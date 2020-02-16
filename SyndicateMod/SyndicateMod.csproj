@@ -59,9 +59,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomUI\InputBoxUi_V2.cs" />
     <Compile Include="CustomUI\SRModButtonElement.cs" />
     <Compile Include="CustomUI\SRModVerticalButtonsUI.cs" />
+    <Compile Include="HelperEnums.cs" />
     <Compile Include="Services\FileManager.cs" />
     <Compile Include="Services\GenericsHelper.cs" />
     <Compile Include="Services\ObjectiveEventHandler.cs" />

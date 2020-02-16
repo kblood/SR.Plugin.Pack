@@ -14,6 +14,149 @@ namespace SyndicateMod.Services
 {
     public static class SRInfoHelper
     {
+        public static List<string> GetItemInfo()
+        {
+            List<string> output = new List<string>();
+
+            var allItems = Manager.GetItemManager().GetAllItems();
+
+            foreach(var item in allItems.OrderBy(i => i.m_ID))
+            {
+                try
+                {
+                    output.Add($"***** ID: {item.m_ID} m_FriendlyName: {item.m_FriendlyName} locName: {item.m_LocName} slot: {item.m_Slot} weapontype: {item.m_WeaponType}");
+                    output.Add($"m_ResearchCost: {item.m_ResearchCost} m_Cost: {item.m_Cost} m_BlueprintCost: {item.m_BlueprintCost} m_PrototypeCost: {item.m_PrototypeCost}");
+                    output.Add($"m_Description: {item.m_Description}");
+                    try { output.Add($"Ability IDs: " + item.m_AbilityIDs.Select(a => a + ":" + Manager.GetAbilityManager().GetAbilityName(a)).Aggregate((x, y) => x + "," + y)); } catch { }
+                    try { output.Add($"AbilityMasks: " + item.m_AbilityMasks.Select(a => a.ToString()).Aggregate((x, y) => x + "," + y)); } catch { }
+                    try { output.Add($@"Modifiers:
+" + item.m_Modifiers.Select(m => $"Type:{m.m_Type} Timeout:{m.m_TimeOut} AmountType:{m.m_AmountModifier} Amount: {m.m_Ammount}").Aggregate((x, y) => x + @",
+" + y)); } catch { }
+                    output.Add("");
+
+                }
+                catch (Exception e)
+                {
+                    output.Add("Exception caught. Message: " + e.Message);
+                }
+            }
+
+            return output;
+        }
+
+        public static List<string> GetAbilityEnum()
+        {
+            List<string> output = new List<string>();
+
+            Manager.GetAbilityManager().GetAbilityNamesAndIDs(out int[] ids, out string[] names);
+
+            output.Add(@"public enum AbilityEnum");
+            output.Add(@"{");
+            foreach (var id in ids.OrderBy(i => i))
+            {
+                try
+                {
+                    string name = Manager.GetAbilityManager().GetName(id);
+                    var a = Manager.GetAbilityManager().GetData(id);
+
+                    if (name.Contains("###"))
+                    {
+                        output.Add($"{a.m_Name.Replace(" ", "_")} = {id},");
+                    }
+                    else
+                    {
+                        output.Add($"{name.Replace(" ", "_")} = {id},");
+                    }
+                }
+                catch (Exception e){ output.Add("Exception caught: " + e.Message); }
+            }
+            output.Add(@"}");
+            return output;
+        }
+
+        public static List<string> GetAbilityInfo()
+        {
+            List<string> output = new List<string>();
+
+            Manager.GetAbilityManager().GetAbilityNamesAndIDs(out int[] ids, out string[] names);
+
+            foreach (var id in ids.OrderBy(i => i))
+            {
+
+                string name = Manager.GetAbilityManager().GetName(id);
+                output.Add($"Ability id: {id} Name: {name}");
+
+                //if (id > 0)
+                //    values.Add($"Ability id: {id} Name: {names[0]}");
+                //else
+                //    values.Add($"Ability id: {id} Name: {Manager.GetAbilityManager().GetName(id)}");
+
+                if (id > 0)// && !name.Contains("###"))
+                {
+                    var a = Manager.GetAbilityManager().GetData(id);
+
+                    try
+                    {
+                        output.Add($@"m_ID{a.m_ID} m_Name:{a.m_Name} energyCostWhen: {a.m_EnergyCostWhen} m_UseAmmoWhen: {a.m_UseAmmoWhen} m_TargetRange:{a.m_TargetRange}");
+                        try
+                        {
+                            output.Add($@"m_WeaponCheckMask:{a.m_WeaponCheckMask} m_TargetEffectTimeOuts: {string.Join(",", a.m_TargetEffectTimeOuts?.Select(s => s.ToString()).ToArray())} m_TargetEffects: {string.Join(",", a.m_TargetEffects?.Select(s => s.ToString()).ToArray())} m_RemoveModifiersWhen:{a.m_RemoveModifiersWhen}");
+                        } catch (Exception e){ output.Add("Exception caught: "+ e.Message); }
+                        //try
+                        //{
+                        //    output.Add($@"m_WeaponCheckMask:{a.m_WeaponCheckMask} m_TargetEffectTimeOuts: {string.Join(",", a.m_TargetEffectTimeOuts?.Select(s => s.ToString()).ToArray())} m_TargetEffects: {string.Join(",", a.m_TargetEffects?.Select(s => s.ToString()).ToArray())} m_RemoveModifiersWhen:{a.m_RemoveModifiersWhen}");
+                        //} catch { }
+                        try
+                        {
+                            output.Add($@"m_Range:{a.m_Range} m_OnMove: {a.m_OnMove?.Select(om => om.ToString()).Aggregate((x, y) => x + "," + y)} m_RangeModifier: {a.m_RangeModifier}");
+                        }
+                        catch (Exception e) { output.Add("Exception caught: " + e.Message); }
+
+                        try
+                        {
+                            output.Add($@"m_Modifiers: {a.m_Modifiers?.Select(m => $@"m_Type:{m.m_Type} m_Ammount:{m.m_Ammount} m_AmountModifier:{m.m_AmountModifier} m_TimeOut:{m.m_TimeOut}").Aggregate((x, y) => x + @",
+" + y)}");
+                        }
+                        catch (Exception e) { output.Add("Exception caught: " + e.Message); }
+                        try
+                        {
+                            output.Add($@"m_ModifiersTarget: {a.m_ModifiersTarget?.Select(m => $@"m_Type:{m.m_Type} m_Ammount:{m.m_Ammount} m_AmountModifier:{m.m_AmountModifier} m_TimeOut:{m.m_TimeOut} ").Aggregate((x, y) => x + @",
+" + y)}");
+                        }
+                        catch (Exception e) { output.Add("Exception caught: " + e.Message); }
+                        try
+                        {
+                            output.Add($@"m_RemoveModifiersWhen:{a.m_RemoveModifiersWhen}");
+                        }
+                        catch (Exception e) { output.Add("Exception caught: " + e.Message); }
+                        try
+                        {
+                            output.Add($@"m_MyEffects: {a.m_MyEffects?.Select(om => om.ToString())?.Aggregate((x, y) => x + "," + y)} m_MyEffectTimeOuts:{a.m_MyEffectTimeOuts?.Select(om => om.ToString())?.Aggregate((x, y) => x + "," + y)}");
+                        } catch (Exception e) { output.Add("Exception caught: " + e.Message); }
+
+                        try
+                        {
+                            output.Add($@"m_RequiresWeaponCheck:{a.m_RequiresWeaponCheck} m_RequiresAgentSelected: {a.m_RequiresAgentSelected} ...");
+                        }
+                        catch (Exception e) { output.Add("Exception caught: " + e.Message); }
+                        output.Add($"End of Ability index: {a.m_ID} Name: { a.Name}");
+                        output.Add($"");
+
+                    }
+                    catch
+                    {
+
+                    }
+
+                    //values.Add($@"KEY: {x.Key} TOKEN: {x.Value.m_token} m_Translation 0: {x.Value.m_Translations[0]}");
+                    //values.Add(x.Value.m_Translations[i]);
+                }
+
+            }
+
+            return output;
+        }
+
         public static List<string> GetFullTransformHierchy(Transform transform)
         {
             List<string> output = new List<string>();
