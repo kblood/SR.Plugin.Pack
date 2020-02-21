@@ -28,8 +28,21 @@ namespace SyndicateMod
         /// </summary>
         public void Initialize()
         {
+            SRInfoHelper.Log("Initializing Satellite Reign Syndicate mod");
             Debug.Log("Initializing Satellite Reign Syndicate mod");
             //            _instance = this;
+
+            //Manager.GetAudioManager().FadeVolume(1, 0.1f, 0.2f);
+            //Manager.GetAudioManager().StopAllMusic(true);
+
+            if (!Manager.GetItemManager().m_ItemDefinitions.Where(i => i.m_ID == 147).Any())
+            {
+                SRInfoHelper.Log("Adding items(Initialize)");
+                Debug.Log("Adding items");
+                AddItemsTest();
+                weaponsUpdated = true;
+            }
+            Manager.GetAudioManager().StopAllMusic(true);
 
             if (!active)
                 active = true;
@@ -43,7 +56,44 @@ namespace SyndicateMod
         public void Update()
         {
             if (!active)
+            {
+                Debug.Log("Update before active?");
+
                 return;
+            }
+
+            if (!Manager.GetItemManager().m_ItemDefinitions.Where(i => i.m_ID == 147).Any())
+            {
+                SRInfoHelper.Log("Adding items(update)");
+                AddItemsTest();
+                weaponsUpdated = true;
+                //runonce = true;
+                //UIHelper.ShowMessage("Added new items", 0);
+            }
+
+            if (!Manager.Get().LoadingApplication && !runonce)
+            {
+
+                if(Manager.GetAudioManager().IsMusicPlaying())
+                {
+                    SRInfoHelper.Log("Music is playing");
+                    runonce = true;
+                }
+                //if (Manager.GetItemManager().m_ItemDefinitions.Max(i => i.m_ID) < 146)
+                //{
+                //    AddItemsTest();
+                //    runonce = true;
+                //    //UIHelper.ShowMessage("Added new items", 0);
+                //}
+            }
+
+            if (Manager.GetAudioManager().IsLoginMusicPlaying())
+            {
+                SRInfoHelper.Log("Login music is playing");
+                Manager.GetAudioManager().StopAllMusic();
+                SRInfoHelper.Log("Login music stopped?");
+                UIHelper.ShowMessage("Login music stopped.");
+            }
 
             //if (!weaponsUpdated)
             //{
@@ -53,13 +103,6 @@ namespace SyndicateMod
 
             if (Manager.Get().GameInProgress)
             {
-                if (!runonce)
-                {
-                    //Test();
-                    runonce = true;
-                    
-                }
-
                 if (debug > 0)
                     DebugOptions.ms_DebugEnabled = true;
                 if (debug == 1)
@@ -67,7 +110,9 @@ namespace SyndicateMod
 
                 if (!weaponsUpdated)
                 {
-                    WeaponChanges();
+                    SRInfoHelper.Log("Adding items(game in progress)");
+                    //WeaponChanges();
+                    AddItemsTest();
                     weaponsUpdated = true;
                 }
 
@@ -169,10 +214,12 @@ namespace SyndicateMod
                 {
                     List<string> output = new List<string>();
                     output = SRInfoHelper.GetItemInfo();
-
                     FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ItemData2.txt");
-                    output = SRInfoHelper.GetAbilityInfo();
 
+                    output = SRInfoHelper.GetWeaponInfo();
+                    FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\WeaponsData.txt");
+
+                    output = SRInfoHelper.GetAbilityInfo();
                     FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\AbilityData2.txt");
 
                     output = SRInfoHelper.GetAbilityEnum();
@@ -180,95 +227,7 @@ namespace SyndicateMod
 
                     //GenericsHelper.CheckedObjects.Clear();
 
-                    var stealthGenv3 = SREditor.CopyItem(133);
-                    List<ModifierData5L> modifiers = new List<ModifierData5L>();
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.StealthEnergyDrainPercent, 0.5f));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.EnergyMaxOffset, 65));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.EnergyRegenRateMultiplier, 2));
-                    stealthGenv3.m_Modifiers = modifiers.ToArray();
-                    SREditor.EditItemDescription(stealthGenv3.m_ID, "Stealth Generator: Mk III(Energon)", @"The Mark III stealth generator uses a new discoveries in quantum science to improve its design and cooling, while also making it smaller. 
-
-Its able to maintain the quantum photonic diffraction process for a longer period of time but is also able to store energy and boosts energy regen by adding an AA Energon Storage Cell to it and an energy generator.");
-
-                    var ironManChest = SREditor.CopyItem(37);
-                    modifiers = new List<ModifierData5L>();
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.HealthRegenRate, 2));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.HealthOffset, 65));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.Armor, 65));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.Shield, 65));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.ShieldRegenRate, 2));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.ShieldRadius, 8));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.PoisonDamageRecievedMultiplier, 0));
-                    ironManChest.m_Modifiers = modifiers.ToArray();
-
-                    if (!ironManChest.m_AbilityIDs.Any())
-                        ironManChest.m_AbilityIDs = new List<int>();
-                    ironManChest.m_AbilityIDs.Add((int)AbilityEnum.Aug_Chest_Self_Destruct);
-                    if (!ironManChest.m_AbilityMasks.Any())
-                        ironManChest.m_AbilityMasks = new List<int>();
-                    ironManChest.m_AbilityMasks.Add(-1);
-
-                    SREditor.EditItemDescription(ironManChest.m_ID, "Ironman Chest", @"This chest augmentation is a marvel of science and engineering. 
-
-It replaces the lungs with iron lungs and it modifies shield, armor and health to regen faster and have a higher capacity. This powerful mix does make it unstable and might cause you to explode.");
-
-                    var quantumBrain = SREditor.CopyItem(126);
-                    modifiers = new List<ModifierData5L>();
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.AccuracyOffset, 0.2f));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.DodgeOffset, 0.2f));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.AbilityCooldownSpeedMultiplier, 1.5f));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.DroneCountIncrease, 5));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.PoisonDamageRecievedMultiplier, 0));
-                    quantumBrain.m_Modifiers = modifiers.ToArray();
-                    if (!quantumBrain.m_AbilityIDs.Any())
-                        quantumBrain.m_AbilityIDs = new List<int>();
-                    quantumBrain.m_AbilityIDs.Add((int)AbilityEnum.Scramble);
-                    if (!quantumBrain.m_AbilityMasks.Any())
-                        quantumBrain.m_AbilityMasks = new List<int>();
-                    quantumBrain.m_AbilityMasks.Add(-1);
-                    SREditor.EditItemDescription(quantumBrain.m_ID, "Quantum Brain", @"This augmentation replaces the brain with a new type of quantum processor and the eyes with biomechanical cameras. 
-Combined it allows for much better reaction times, accuracy and helps abilities to be cooldown faster, but also stops jamming from affecting it, as it operates on different frequiences. It also adds a poison filter to the mouth.
-If this was not enough, it leaves enough processing power to also control 5 drones.
-Sideeffects: Tongue and vocal cords have to be removed and the user also loses hearing and sense of smell. Small price to pay to become post human.");
-
-                    var sprintLegsv3 = SREditor.CopyItem(101);
-                    modifiers = new List<ModifierData5L>();
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.SprintEnergyCostMultiplier, 0.2f));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.EnergyRegenRateMultiplier, 0.90f));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.SpeedOffset, 0.5f));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.KnockbackResistanceOffset, 20));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.Penalty_HeavyWeaponSpeedMod, 0));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.UseHighVent, 1));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.GearSlotIncrease, 1));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.WeaponCountIncrease, 1));
-                    sprintLegsv3.m_Modifiers = modifiers.ToArray();
-                    SREditor.EditItemDescription(sprintLegsv3.m_ID, "Super Sprint Legs v4", @"These legs are a bit bulky, but they add stability and speed unlike any other mod, enables the use of high vents, removes heavy weapon penalties.
-
-As a very welcome bonus the legs also contain an extra gear slot and weapon slot");
-
-                    var AtlasArmsV3 = SREditor.CopyItem(113);
-                    modifiers = new List<ModifierData5L>();
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.PoisonValveStrength, 1));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.CanUseZipline, 1));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.UseHighVent, 1));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.WeaponCountIncrease, 1));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.Penalty_HeavyWeaponMod, 0));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.Armor, 50));
-                    modifiers.Add(SREditor.CreateNewModifer(ModifierType.HealthOffset, 50));
-                    AtlasArmsV3.m_Modifiers = modifiers.ToArray();
-
-                    if (!AtlasArmsV3.m_AbilityIDs.Any())
-                        AtlasArmsV3.m_AbilityIDs = new List<int>();
-                    AtlasArmsV3.m_AbilityIDs.Add((int)AbilityEnum.Sword_Slash);
-                    if (!AtlasArmsV3.m_AbilityMasks.Any())
-                        AtlasArmsV3.m_AbilityMasks = new List<int>();
-                    AtlasArmsV3.m_AbilityMasks.Add(-1);
-
-                    SREditor.EditItemDescription(AtlasArmsV3.m_ID, "Atlas: Full Arm Replacements V2", @"These arms enables the to turn poison valves, use ziplines, high vents, adds an extra weaponslot and makes up for heavy weapon penalties.
-
-To sweeten the deal, the arms have built in retractable blades as well.");
-
-                    ShowMessage("items added?");
+                    ShowMessage("data saved?");
                 }
                 if (Input.GetKeyDown(KeyCode.End) || Input.GetKeyDown(KeyCode.End))
                 {
@@ -397,236 +356,108 @@ To sweeten the deal, the arms have built in retractable blades as well.");
             }
 
             Manager.Get().StartCoroutine(UIHelper.ModalVerticalButtonsRoutine("VerticalButtonUI Test", buttons));
-
-            /*
-            Manager.Get().StartCoroutine(ModalMessageBoxRoutine("Test", "Test", InputBoxUi.InputBoxTypes.MbOkcancel, "Test2", "Cancel", 
-                delegate (bool b)
-                {
-                    if(b)
-                        Manager.GetUIManager().DoModalMessageBox("You pressed the OK button", "Other InputBoxUsedNow", InputBoxUi.InputBoxTypes.MbOkcancel);
-                    else
-                    {
-                        Manager.GetUIManager().ShowMessagePopup("You pressed cancel", 10);
-                    }
-                }
-            ));
-            */
-
-            //if (testButton = null)
-            //{
-            //    testButton = SREditor.CreateButton(SaveDataTest);
-            //    testButton.transform.SetAsLastSibling();
-                
-            //}
-            //else
-            //{
-            //    GameObject.Destroy(testButton);
-            //    testButton = null;
-            //}
         }
 
-        /*
-        private IEnumerator ModalMessageBoxRoutine(string titleText, string messageText, InputBoxUi.InputBoxTypes messageBoxType, string okText = null, string cancelText = null, Action<bool> ok = null, Func<string> messageTextFunc = null, string inputText = "")
+        public void AddItemsTest()
         {
-            if (Manager.GetUIManager().m_InputBoxUi.isActiveAndEnabled)
-            {
-                Manager.GetUIManager().m_InputBoxUi.Hide();
-                yield return null;
-            }
-            string info = "";
-            if (new_InputBoxUi == null)
-            {
-                new_InputBoxUi = UnityEngine.Object.Instantiate(Manager.GetUIManager().m_InputBoxUi);
-                info += "instantiated";
-                yield return null;
-            }
-            else
-            {
-                var scale = new_InputBoxUi.GetComponent<CanvasScaler>();
-                var bg = new_InputBoxUi.transform.FindChildIncludingDeactivated("Bg");
-                var divider = new_InputBoxUi.transform.FindChildIncludingDeactivated("Divider");
-
-                //if (scale != null && scale.scaleFactor == 1)
-                //{
-                //    info += "scaleFactor = 2";
-                //    scale.scaleFactor = 2;
-                //}
-                //else if(bg != null)
-                //{
-                //    info += " destroying bg";
-                //    GameObject.Destroy(bg.gameObject);
-                //}
-                //else if (divider)
-                //{
-                //    GameObject.Destroy(divider.gameObject);
-                //    info += " destroying divider";
-                //}
-
-                var children = SRInfoHelper.GetAllChildren(new_InputBoxUi.transform);
-                info += " " + children.Count() + " children";
-                var title = children.Where(t => t.transform.name == "Title").First();
-                var content = children.Where(t => t.transform.name == "content").First();
-                var Buttons = children.Where(t => t.transform.name == "Buttons").First();
-
-                var layout = content.GetComponent<VerticalLayoutGroup>();
-
-                if (layout != null && newButtons == null)
-                {
-                    layout.childForceExpandHeight = true;
-                    yield return null;
-                    var newDivider = UnityEngine.Object.Instantiate(divider);
-                    newDivider.SetParent(content);
-                    divider.localPosition = divider.localPosition;
-                    newButtons = UnityEngine.Object.Instantiate(Buttons);
-                    newButtons.SetParent(content);
-                    newButtons.localPosition = Buttons.localPosition;
-                    yield return null;
-
-                }
-                //if(title != null && bg == null)
-                //{
-                //    info += " destroying title";
-                //    GameObject.Destroy(title.gameObject);
-                //}
-            }
-
-            if (new_InputBoxUi.isActiveAndEnabled)
-            {
-                info += " was active, hiding.";
-                new_InputBoxUi.Hide();
-                yield return null;
-            }
-            else
-            {
-                info += " was not active.";
-            }
-
-            bool inputControlEnabled = Manager.GetUIManager().InputControlUi.gameObject.activeSelf;
-            Manager.GetUIManager().InputControlUi.gameObject.SetActive(false);
-            Manager.ptr.DisableKeyCommands();
-
-            new_InputBoxUi.InputBoxType = messageBoxType;
-            new_InputBoxUi.InputFieldLabelText = messageText + " children:" + new_InputBoxUi.transform.childCount + "info: " + info;
-            new_InputBoxUi.InputFieldLabelTextFunc = messageTextFunc;
-            new_InputBoxUi.TitleText = titleText + new_InputBoxUi.transform.name;
-            new_InputBoxUi.InputText = inputText;
-            new_InputBoxUi.OkButtonText.text = (okText ?? TextManager.GetLoc("BUTTON_OK", true, false));
-            new_InputBoxUi.CancelButtonText.text = (cancelText ?? TextManager.GetLoc("BUTTON_CANCEL", true, false));
-
-            /*
-            var newButton = UnityEngine.Object.Instantiate(new_InputBoxUi.m_CancelButtonContainer);
-            new_InputBoxUi.m_CancelButtonContainer = newButton;
-            newButton.transform.SetParent(new_InputBoxUi.CancelButton.transform.parent);
-            GameObject.Destroy(new_InputBoxUi.CancelButton);
-            newButton.ButtonText.text = "Haxxors2";
-            newButton.GetComponentInChildren<Text>().text = "Haxxors";
-            var newButton2 = SREditor.CreateButton(delegate { Manager.GetUIManager().ShowMessagePopup("Great Success!"); });
-            */
-
-            /*
-            new_InputBoxUi.Show(Manager.GameActive);
-            new_InputBoxUi.transform.SetAsLastSibling();
-            Manager.GetUIManager().ToggleEverything(true);
-
-            yield return Manager.GetUIManager().WaitForActive(new_InputBoxUi.gameObject, false);
-            Utils.SafeInvoke<bool>(ok, new_InputBoxUi.IsOk());
-            Manager.GetUIManager().InputControlUi.gameObject.SetActive(inputControlEnabled);
-            Manager.GetUIManager().ToggleEverything(true);
-            Manager.ptr.EnableKeyCommands();
-            yield break;
-        }*/
-
-            /*
-        private IEnumerator ModalVerticalButtonsRoutine(string titleText, List<SRModButtonElement> buttons)
-        {
-            string info = "";
-
-            if (VerticalButtonsUi == null)
-            {
-                try
-                {
-                    var newInputBoxUi = UnityEngine.Object.Instantiate(Manager.GetUIManager().m_InputBoxUi);
-                    VerticalButtonsUi = new SRModVerticalButtonsUI(newInputBoxUi);
-                    VerticalButtonsUi.InputBoxUi.InputBoxType = InputBoxUi.InputBoxTypes.MbOkcancel;
-                }
-                catch(Exception e)
-                {
-                    info += " error thrown " + e.Message + " when ";
-                    ShowMessage(info);
-                    FileManager.SaveText(info, "errors.log");
-                }
-                info += "instantiated";
-                yield return null;
-            }
-
-            if (Manager.GetUIManager().m_InputBoxUi.isActiveAndEnabled)
-            {
-                Manager.GetUIManager().m_InputBoxUi.Hide();
-                yield return null;
-            }
-            if (new_InputBoxUi != null && new_InputBoxUi.isActiveAndEnabled)
-            {
-                new_InputBoxUi.Hide();
-                yield return null;
-            }
-            if (VerticalButtonsUi != null && VerticalButtonsUi.InputBoxUi.isActiveAndEnabled)
-            {
-                VerticalButtonsUi.InputBoxUi.Hide();
-                yield return null;
-            }
-
-            bool inputControlEnabled = Manager.GetUIManager().InputControlUi.gameObject.activeSelf;
-            Manager.GetUIManager().InputControlUi.gameObject.SetActive(false);
-            Manager.ptr.DisableKeyCommands();
-
-            var inputboxui = VerticalButtonsUi.InputBoxUi;
-
-            inputboxui.Show(Manager.GameActive);
-            inputboxui.transform.SetAsLastSibling();
-            inputboxui.TitleText = titleText;
-            inputboxui.OkButtonText.text = ("Ok" ?? TextManager.GetLoc("BUTTON_OK", true, false));
-            inputboxui.CancelButtonText.text = ("Cancel" ?? TextManager.GetLoc("BUTTON_CANCEL", true, false));
-
-            Manager.GetUIManager().ToggleEverything(true);
-            yield return 0;
-
-            try
-            {
-                VerticalButtonsUi.SetButtons(buttons, ref info);
-            }
-            catch(Exception e)
-            {
-                info += " Exception thrown: " + e.Message;
-                ShowMessage(info);
-                FileManager.SaveText(info, "errors.log");
-            }
-
-            VerticalButtonsUi.InputBoxUi.gameObject.SetActive(true);
-
-            yield return Manager.GetUIManager().WaitForActive(VerticalButtonsUi.InputBoxUi.gameObject, false);
-
-            //Utils.SafeInvoke<bool>(ok, VerticalButtonsUi.InputBoxUi.IsOk());
-            Manager.GetUIManager().InputControlUi.gameObject.SetActive(inputControlEnabled);
-            Manager.GetUIManager().ToggleEverything(true);
-            Manager.ptr.EnableKeyCommands();
-            //FileManager.SaveText(info, "errors.log");
-
-            //ShowMessage(info + " all done");
             
-            //SRInfoHelper.GetAllChildren(VerticalButtonsUi.InputBoxUi.transform);
-            yield break;
-        }
-        */
-        public void Test2()
-        {
-            //if(Manager.GetPluginManager().LoadedPlugins.Any())
-            //{
-            //    Manager.GetPluginManager().LoadedPlugins.Clear();
-            //}
-            //else
-            //{
-            //    Manager.GetPluginManager().Start();
-            //}
+            var stealthGenv3 = SREditor.CopyItem(133);
+            List<ModifierData5L> modifiers = new List<ModifierData5L>();
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.StealthEnergyDrainPercent, 0.5f));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.EnergyMaxOffset, 65));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.EnergyRegenRateMultiplier, 2));
+            stealthGenv3.m_Modifiers = modifiers.ToArray();
+            SREditor.EditItemDescription(stealthGenv3.m_ID, "Stealth Generator: Mk III(Energon)", @"The Mark III stealth generator uses a new discoveries in quantum science to improve its design and cooling, while also making it smaller. 
+
+Its able to maintain the quantum photonic diffraction process for a longer period of time but is also able to store energy and boosts energy regen by adding an AA Energon Storage Cell to it and an energy generator.");
+
+            var ironManChest = SREditor.CopyItem(37);
+            modifiers = new List<ModifierData5L>();
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.HealthRegenRate, 2));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.HealthOffset, 65));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.Armor, 65));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.Shield, 65));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.ShieldRegenRate, 2));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.ShieldRadius, 8));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.PoisonDamageRecievedMultiplier, 0));
+            ironManChest.m_Modifiers = modifiers.ToArray();
+
+            if (!ironManChest.m_AbilityIDs.Any())
+                ironManChest.m_AbilityIDs = new List<int>();
+            ironManChest.m_AbilityIDs.Add((int)AbilityEnum.Aug_Chest_Self_Destruct);
+            if (!ironManChest.m_AbilityMasks.Any())
+                ironManChest.m_AbilityMasks = new List<int>();
+            ironManChest.m_AbilityMasks.Add(-1);
+
+            SREditor.EditItemDescription(ironManChest.m_ID, "Ironman Chest", @"This chest augmentation is a marvel of science and engineering. 
+
+It replaces the lungs with iron lungs and it modifies shield, armor and health to regen faster and have a higher capacity. This powerful mix does make it unstable and might cause you to explode.");
+
+            var quantumBrain = SREditor.CopyItem(126);
+            modifiers = new List<ModifierData5L>();
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.AccuracyOffset, 0.2f));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.DodgeOffset, 0.2f));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.AbilityCooldownSpeedMultiplier, 1.5f));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.DroneCountIncrease, 5));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.PoisonDamageRecievedMultiplier, 0));
+            quantumBrain.m_Modifiers = modifiers.ToArray();
+            if (!quantumBrain.m_AbilityIDs.Any())
+                quantumBrain.m_AbilityIDs = new List<int>();
+            quantumBrain.m_AbilityIDs.Add((int)AbilityEnum.Scramble);
+            if (!quantumBrain.m_AbilityMasks.Any())
+                quantumBrain.m_AbilityMasks = new List<int>();
+            quantumBrain.m_AbilityMasks.Add(-1);
+            SREditor.EditItemDescription(quantumBrain.m_ID, "Quantum Brain", @"This augmentation replaces the brain with a new type of quantum processor and the eyes with biomechanical cameras. 
+Combined it allows for much better reaction times, accuracy and helps abilities to be cooldown faster, but also stops jamming from affecting it, as it operates on different frequiences. It also adds a poison filter to the mouth.
+If this was not enough, it leaves enough processing power to also control 5 drones.
+Sideeffects: Tongue and vocal cords have to be removed and the user also loses hearing and sense of smell. Small price to pay to become post human.");
+
+            var sprintLegsv3 = SREditor.CopyItem(101);
+            modifiers = new List<ModifierData5L>();
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.SprintEnergyCostMultiplier, 0.2f));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.EnergyRegenRateMultiplier, 0.90f));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.SpeedOffset, 0.5f));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.KnockbackResistanceOffset, 20));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.Penalty_HeavyWeaponSpeedMod, 0));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.UseHighVent, 1));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.GearSlotIncrease, 1));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.WeaponCountIncrease, 1));
+            sprintLegsv3.m_Modifiers = modifiers.ToArray();
+            SREditor.EditItemDescription(sprintLegsv3.m_ID, "Super Sprint Legs v4", @"These legs are a bit bulky, but they add stability and speed unlike any other mod, enables the use of high vents, removes heavy weapon penalties.
+
+As a very welcome bonus the legs also contain an extra gear slot and weapon slot");
+
+            var AtlasArmsV3 = SREditor.CopyItem(113);
+            modifiers = new List<ModifierData5L>();
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.PoisonValveStrength, 1));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.CanUseZipline, 1));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.UseHighVent, 1));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.WeaponCountIncrease, 1));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.Penalty_HeavyWeaponMod, 0));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.Armor, 50));
+            modifiers.Add(SREditor.CreateNewModifer(ModifierType.HealthOffset, 50));
+            AtlasArmsV3.m_Modifiers = modifiers.ToArray();
+
+            if (!AtlasArmsV3.m_AbilityIDs.Any())
+                AtlasArmsV3.m_AbilityIDs = new List<int>();
+            AtlasArmsV3.m_AbilityIDs.Add((int)AbilityEnum.Sword_Slash);
+            if (!AtlasArmsV3.m_AbilityMasks.Any())
+                AtlasArmsV3.m_AbilityMasks = new List<int>();
+            AtlasArmsV3.m_AbilityMasks.Add(-1);
+
+            SREditor.EditItemDescription(AtlasArmsV3.m_ID, "Atlas: Full Arm Replacements V2", @"These arms enables the to turn poison valves, use ziplines, high vents, adds an extra weaponslot and makes up for heavy weapon penalties.
+
+To sweeten the deal, the arms have built in retractable blades as well.");
+
+            //WeaponData[] weaponData = Manager.GetWeaponManager().m_WeaponData;
+            //var weapon = weaponData.Where(w => w.m_Template.m_Weapon.Name().Contains("Minigun") && w.m_BulletType == WeaponBulletType.Projectile && w.m_DefaultAmmo == WeaponAmmoType.standard).First();
+
+            //var minigunV2 = SREditor.CopyItem(75);
+            //minigunV2.m_AbilityIDs.Clear();
+            //minigunV2.m_AbilityMasks.Clear();
+
+            //SREditor.EditItemDescription(minigunV2.m_ID, "Ballistic Minigun", @"Syndicate minigun bulletsprayer");
+
         }
 
         public void SaveDataTest()

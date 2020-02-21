@@ -13,17 +13,21 @@ namespace SyndicateMod.Services
 
         static InputBoxUi new_InputBoxUi;
 
-        public static void ShowMessage(string text, int seconds = 30, int messagetypes = 0)
+        public static void ShowMessage(string text, int seconds = 30, int messagetypes = 1)
         {
             if (messagetypes < 1)
             {
-                Manager.GetUIManager().ShowMessagePopup(text, seconds);
+                Manager.GetUIManager().ShowWarningPopup(text, seconds);
             }
             if (messagetypes < 2)
             {
+                Manager.GetUIManager().ShowMessagePopup(text, seconds);
+            }
+            if (messagetypes < 3)
+            {
                 Manager.GetUIManager().ShowSubtitle(text, seconds);
             }
-            if (messagetypes == 2)
+            if (messagetypes == 3)
             {
                 Manager.GetUIManager().ShowMessagePopup(text, seconds);
             }

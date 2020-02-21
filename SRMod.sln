@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyFix", "KeyFix\KeyFix.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRModManager", "ModManagerMod\SRModManager.csproj", "{F434784C-711E-4CE9-AD15-3404F84EA705}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoIntroMusic", "NoIntroMusic\NoIntroMusic.csproj", "{874AABB7-9B6C-4E2A-8609-47E389A5DD94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{F434784C-711E-4CE9-AD15-3404F84EA705}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F434784C-711E-4CE9-AD15-3404F84EA705}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F434784C-711E-4CE9-AD15-3404F84EA705}.Release|Any CPU.Build.0 = Release|Any CPU
+		{874AABB7-9B6C-4E2A-8609-47E389A5DD94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{874AABB7-9B6C-4E2A-8609-47E389A5DD94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{874AABB7-9B6C-4E2A-8609-47E389A5DD94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{874AABB7-9B6C-4E2A-8609-47E389A5DD94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

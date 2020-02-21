@@ -44,6 +44,55 @@ namespace SyndicateMod.Services
             return output;
         }
 
+        public static List<string> GetWeaponInfo()
+        {
+            List<string> output = new List<string>();
+
+            var allItems = Manager.GetWeaponManager().m_WeaponData;
+
+            foreach (var item in allItems.OrderBy(i => i.m_Name))
+            {
+                try
+                {
+                    output.Add($"***** m_Name: {item.m_Name} m_Range: {item.m_Range} m_ShootWhileChangeTarget: {item.m_ShootWhileChangeTarget} m_BulletType: {item.m_BulletType} m_Class: {item.m_Class}");
+                    output.Add($"m_DefaultAmmo: {item.m_DefaultAmmo} m_InfiniteAmmo: {item.m_InfiniteAmmo} m_MaxAccuracy: {item.m_MaxAccuracy} m_MinAccuracy:{item.m_MinAccuracy} ");
+                    try { output.Add($"m_Template: {item.m_Template?.name} m_Weapon: {item.m_Template.m_Weapon.Name()}"); } catch { }
+
+                    try { output.Add($"m_MechTemplate: {item.m_MechTemplate?.name} m_HudeSprite: {item.m_HudeSprite?.name}"); } catch { }
+                    try { output.Add($"Ability IDs: " + item.m_Abilities.Select(a => a + ":" + Manager.GetAbilityManager().GetAbilityName(a)).Aggregate((x, y) => x + "," + y)); } catch { }
+                    try { output.Add($"AbilityMasks: " + item.m_AbilityMasks.Select(a => a.ToString()).Aggregate((x, y) => x + "," + y)); } catch { }
+                    try { output.Add($@"Modifiers:
+" + item.m_Modifiers.Select(m => $"Type:{m.m_Type} Timeout:{m.m_TimeOut} AmountType:{m.m_AmountModifier} Amount: {m.m_Ammount}").Aggregate((x, y) => x + @",
+" + y)); } catch { }
+                    var weapon = item.m_Template.m_Weapon;
+                    try { output.Add($"m_ChanceToGibOnDie: {weapon.m_ChanceToGibOnDie} m_ChanceToGibOnHurt: {weapon.m_ChanceToGibOnHurt} m_ChargeEveryShot: {weapon.m_ChargeEveryShot}"); } catch { }
+                    try { output.Add($"m_ChargeTime: {weapon.m_ChargeTime} m_ChargeTimer: {weapon.m_ChargeTimer} m_Delayed: {weapon.m_Delayed}"); } catch { }
+                    try { output.Add($"m_FireMagicPlaceboSuppressionBullets: {weapon.m_FireMagicPlaceboSuppressionBullets} m_ShootWhileChangeTarget: {weapon.m_ShootWhileChangeTarget}"); } catch { }
+
+                    var ammoAttachments = item.m_Ammo;
+                    try { output.Add($"ammoAttachments: " + ammoAttachments.Select(a => $"Ammoattachment:{a} m_ammo_from_pack:{a.m_ammo_from_pack} m_armor_pierce:{a.m_armor_pierce} m_AutoReloadTime: {a.m_AutoReloadTime} " +
+                    $"m_burstMax: {a.m_burstMax} m_burstMin: {a.m_burstMin} m_ChanceToCallReinforcements: {a.m_ChanceToCallReinforcements} m_ChargeEveryShot: {a.m_ChargeEveryShot}" +
+                    $"m_ChargeTime: {a.m_ChargeTime} m_CritChance: {a.m_CritChance} m_CritDamageMultiplier: {a.m_CritDamageMultiplier} m_DamageRadius: {a.m_DamageRadius}").Aggregate((x, y) => x + @",
+" + y)); } catch { }
+
+                    output.Add("");
+                }
+                catch (Exception e)
+                {
+                    output.Add("Exception caught. Message: " + e.Message);
+                }
+            }
+
+            return output;
+        }
+
+        public static void Log(string log)
+        {
+            var loglist = FileManager.LoadList(Manager.GetPluginManager().PluginPath + @"\logfile.log");
+            loglist.Add($"{DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss")} : {log}");
+            FileManager.SaveList(loglist, Manager.GetPluginManager().PluginPath + @"\logfile.log");
+        }
+
         public static List<string> GetAbilityEnum()
         {
             List<string> output = new List<string>();

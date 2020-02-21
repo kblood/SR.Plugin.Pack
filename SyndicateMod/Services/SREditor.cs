@@ -100,11 +100,23 @@ namespace SyndicateMod.Services
 
         public static ItemManager.ItemData CopyItem(int itemNumber)
         {
-            ItemManager.ItemData sourceItem = Manager.GetItemManager().GetAllItems().Where(i => i.m_ID == itemNumber).First();
+            var itemManager = Manager.Get().m_ItemManager_template.GetComponent<ItemManager>();
+
+            if(Manager.GetItemManager() != null || Manager.GetItemManager().GetAllItems() != null || Manager.GetItemManager().GetAllItems().Count > 60)
+            {
+                itemManager = Manager.GetItemManager();
+                SRInfoHelper.Log($"Adding item copy of item {itemNumber} to m_ItemManager");
+            }
+            else
+            {
+                SRInfoHelper.Log($"Adding item copy of item {itemNumber} to m_ItemManager_template");
+            }
+
+            ItemManager.ItemData sourceItem = itemManager.GetAllItems().Where(i => i.m_ID == itemNumber).First();
 
             ItemManager.ItemData newItem = new ItemManager.ItemData();
 
-            int newitemNumber = Manager.GetItemManager().GetAllItems().Max(i => i.m_ID)+1;
+            int newitemNumber = itemManager.GetAllItems().Max(i => i.m_ID)+1;
 
             newItem.m_ID = newitemNumber;
             //energyGeneratorV2.m_AbilityIDs.Add();

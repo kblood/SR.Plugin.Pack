@@ -71,6 +71,17 @@ namespace SyndicateMod.Services
             return d.FullName;
         }
 
+        // ReadAllLines loads all lines of text from a file
+        static public List<string> LoadList(string fileNameWithPath = @"C:\Temp\WriteLines.txt")
+        {
+            List<string> list = new List<string>();
+
+            if (System.IO.File.Exists(fileNameWithPath))
+                list = System.IO.File.ReadAllLines(fileNameWithPath).ToList();
+
+            return list;
+        }
+
         static public string Test(string saveText = "", string fileNameWithPath = @"C:\Temp\WriteLines.txt")
         {
 
