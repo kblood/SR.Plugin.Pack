@@ -14,6 +14,8 @@ namespace SyndicateMod.Services
 {
     public static class SRInfoHelper
     {
+        public static bool isLogging = true;
+
         public static List<string> GetItemInfo()
         {
             List<string> output = new List<string>();
@@ -88,9 +90,12 @@ namespace SyndicateMod.Services
 
         public static void Log(string log)
         {
-            var loglist = FileManager.LoadList(Manager.GetPluginManager().PluginPath + @"\logfile.log");
-            loglist.Add($"{DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss")} : {log}");
-            FileManager.SaveList(loglist, Manager.GetPluginManager().PluginPath + @"\logfile.log");
+            if(isLogging)
+            {
+                var loglist = FileManager.LoadList(Manager.GetPluginManager().PluginPath + @"\logfile.log");
+                loglist.Add($"{DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss")} : {log}");
+                FileManager.SaveList(loglist, Manager.GetPluginManager().PluginPath + @"\logfile.log");
+            }
         }
 
         public static List<string> GetAbilityEnum()

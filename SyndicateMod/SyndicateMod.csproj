@@ -61,16 +61,24 @@
   <ItemGroup>
     <Compile Include="CustomUI\SRModButtonElement.cs" />
     <Compile Include="CustomUI\SRModVerticalButtonsUI.cs" />
+    <Compile Include="DTOs\ItemData.cs" />
+    <Compile Include="DTOs\ItemDataList.cs" />
+    <Compile Include="DTOs\Sprite.cs" />
+    <Compile Include="DTOs\TranslationsDTO.cs" />
+    <Compile Include="DTOs\XMLCollection.cs" />
     <Compile Include="HelperEnums.cs" />
     <Compile Include="Services\FileManager.cs" />
     <Compile Include="Services\GenericsHelper.cs" />
+    <Compile Include="Services\ImageHelper.cs" />
     <Compile Include="Services\ObjectiveEventHandler.cs" />
     <Compile Include="Services\ReflectionExtensions.cs" />
     <Compile Include="Services\SREditor.cs" />
     <Compile Include="Services\SRInfoHelper.cs" />
+    <Compile Include="Services\SRMapper.cs" />
     <Compile Include="Services\UIHelper.cs" />
     <Compile Include="SyndicateMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

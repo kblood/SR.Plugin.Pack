@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using UnityEngine;
+using System.Xml.Serialization;
+using SyndicateMod.DTOs;
 
 namespace SyndicateMod.Services
 {
@@ -33,6 +35,141 @@ namespace SyndicateMod.Services
             }
 
             return true;
+        }
+
+        static public void SaveAsXML(List<TranslationElementDTO> data, string fileName)
+        {
+            TranslationsDTO list = new TranslationsDTO() { Translations = data };
+
+            // Create an instance of System.Xml.Serialization.XmlSerializer
+            XmlSerializer serializer = new XmlSerializer(list.GetType());
+
+            // Create an instance of System.IO.TextWriter 
+            // to save the serialized object to disk
+            using (TextWriter textWriter = new StreamWriter($@"C:\Temp\{fileName}"))
+            {
+                // Serialize the employeeList object
+                serializer.Serialize(textWriter, list);
+            }
+        }
+
+        static public void SaveAsXML(List<ItemData> data, string fileName)
+        {
+            ItemDataList list = new ItemDataList();
+
+            list.Items = data;
+
+            // Create an instance of System.Xml.Serialization.XmlSerializer
+            XmlSerializer serializer = new XmlSerializer(list.GetType());
+
+            // Create an instance of System.IO.TextWriter 
+            // to save the serialized object to disk
+            using (TextWriter textWriter = new StreamWriter($@"C:\Temp\{fileName}"))
+            {
+                // Serialize the employeeList object
+                serializer.Serialize(textWriter, list);
+            }
+        }
+
+        static public List<TranslationElementDTO> LoadTranslationsXML(string fileName)
+        {
+            TranslationsDTO list = new TranslationsDTO();
+
+            // Create an instance of System.Xml.Serialization.XmlSerializer
+            XmlSerializer serializer = new XmlSerializer(list.GetType());
+
+            // Create an instance of System.IO.TextReader 
+            // to load the serialized data from disk
+            using (TextReader textReader = new StreamReader($@"C:\Temp\{fileName}"))
+            {
+                // Assign the deserialized object to the new employeeList object
+                list = (TranslationsDTO)serializer.Deserialize(textReader);
+            }
+
+            return list.Translations;
+        }
+
+        static public List<ItemData> LoadXML(string fileName)
+        {
+            ItemDataList list = new ItemDataList();
+
+            // Create an instance of System.Xml.Serialization.XmlSerializer
+            XmlSerializer serializer = new XmlSerializer(list.GetType());
+
+            // Create an instance of System.IO.TextReader 
+            // to load the serialized data from disk
+            using (TextReader textReader = new StreamReader($@"C:\Temp\{fileName}"))
+            {
+                // Assign the deserialized object to the new employeeList object
+                list = (ItemDataList)serializer.Deserialize(textReader);
+            }
+
+            return list.Items;
+        }
+
+        public static string SaveTextureToFile(Texture2D texture)
+        {
+            string fileName = Manager.GetPluginManager().PluginPath + @"\" + texture.name + ".png";
+            if (File.Exists(fileName))
+                return fileName;
+
+            Color32[] pixelBlock = null;
+            try
+            {
+                pixelBlock = texture.GetPixels32();
+            }
+            catch (UnityException _e)
+            {
+                texture.filterMode = FilterMode.Point;
+                RenderTexture rt = RenderTexture.GetTemporary(texture.width, texture.height);
+                rt.filterMode = FilterMode.Point;
+                RenderTexture.active = rt;
+                Graphics.Blit(texture, rt);
+                Texture2D img2 = new Texture2D(texture.width, texture.height);
+                img2.ReadPixels(new Rect(0, 0, texture.width, texture.height), 0, 0);
+                img2.Apply();
+                RenderTexture.active = null;
+                texture = img2;
+                pixelBlock = texture.GetPixels32();
+            }
+
+            var bytes = texture.EncodeToPNG();
+            using (var file = File.Create(fileName))
+            {
+                var binary = new BinaryWriter(file);
+                binary.Write(bytes);
+            }
+            return fileName;
+        }
+
+        public static Texture2D LoadTextureFromFile(string fileName)
+        {
+            SRInfoHelper.Log("Loading " + fileName);
+
+            string filePath = Manager.GetPluginManager().PluginPath + @"\" + fileName;
+            if (File.Exists(filePath))
+            {
+                SRInfoHelper.Log("File " + fileName + " exists");
+                Vector2Int imgSize = ImageHeader.GetDimensions(filePath);
+                SRInfoHelper.Log("Image size " + imgSize.x + " "+ imgSize.y);
+
+                var bytes = File.ReadAllBytes(filePath);
+                SRInfoHelper.Log("Loading bytes into image");
+                Texture2D tmpTexture = new Texture2D(imgSize.x, imgSize.y);
+                tmpTexture.LoadImage(bytes);
+                SRInfoHelper.Log("Loaded bytes into image");
+                tmpTexture.name = fileName.Replace(".png", "");
+                return tmpTexture;
+                //Texture2D texture = new Texture2D(tmpTexture.width, tmpTexture.height);
+                //SRInfoHelper.Log("Loading bytes into image");
+                //texture.LoadImage(bytes);
+                //return texture;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         static public void SaveText(string text, string fileName = @"WriteLines.txt")

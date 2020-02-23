@@ -30,24 +30,84 @@ namespace SyndicateMod
         {
             SRInfoHelper.Log("Initializing Satellite Reign Syndicate mod");
             Debug.Log("Initializing Satellite Reign Syndicate mod");
-            //            _instance = this;
 
-            //Manager.GetAudioManager().FadeVolume(1, 0.1f, 0.2f);
-            //Manager.GetAudioManager().StopAllMusic(true);
+            SRInfoHelper.isLogging = false;
 
-            if (!Manager.GetItemManager().m_ItemDefinitions.Where(i => i.m_ID == 147).Any())
+            //if (!Manager.GetItemManager().m_ItemDefinitions.Where(i => i.m_ID == 147).Any())
+            //{
+            //    SRInfoHelper.Log("Adding items(Initialize)");
+            //    Debug.Log("Adding items");
+
+            //    AddItemsTest();
+            //    weaponsUpdated = true;
+            //}
+
+            //if (!active)
+            //    active = true;
+            //else
+            //    active = false;
+
+            //try
+            //{
+            //    var data = Manager.GetItemManager().m_ItemDefinitions.OrderBy(d => d.m_ID).Select(d => SRMapper.ReflectionObjectBuilder<DTOs.ItemData>(d)).ToList();
+            //    var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
+
+            //    var mappedTranslations = langLookup.OrderBy(l => l.Key).Select(l => new DTOs.TranslationElementDTO() { Key = l.Key, Element = l.Value }).ToList();
+
+            //    try
+            //    {
+            //        FileManager.SaveAsXML(data, "ItemData.xml");
+            //        FileManager.SaveAsXML(mappedTranslations, "Translations.xml");
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        SRInfoHelper.Log("Exception thrown while serializing: " + e.Message);
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    SRInfoHelper.isLogging = true;
+            //    SRInfoHelper.Log("Exception thrown while mapping. Message: " + e.Message + " --InnerException: " + e.InnerException);
+            //}
+
+            try
             {
-                SRInfoHelper.Log("Adding items(Initialize)");
-                Debug.Log("Adding items");
-                AddItemsTest();
-                weaponsUpdated = true;
-            }
-            Manager.GetAudioManager().StopAllMusic(true);
+                SRInfoHelper.isLogging = false;
 
-            if (!active)
-                active = true;
-            else
-                active = false;
+                var translations = FileManager.LoadTranslationsXML("Translations.xml");
+                var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
+
+                //Dictionary<string, TextManager.LocElement> valuePairs = new Dictionary<string, TextManager.LocElement>();
+                foreach (var e in translations)
+                {
+                    //valuePairs.Add(e.Key, e.Element);
+                    if(langLookup.ContainsKey(e.Key))
+                    {
+                        langLookup[e.Key] = e.Element;
+                    }
+                    else
+                    {
+                        langLookup.Add(e.Key, e.Element);
+                    }
+                }
+                SRInfoHelper.Log("Updated LangLookup with new translations");
+
+                var items = FileManager.LoadXML("ItemData.xml");
+
+                var remappedItems = items.Select(d => SRMapper.ReflectionObjectBuilder<ItemManager.ItemData>(d)).ToList();
+
+                Manager.GetItemManager().m_ItemDefinitions = remappedItems;
+            }
+            catch (Exception e)
+            {
+                SRInfoHelper.isLogging = true;
+                SRInfoHelper.Log("Exception thrown while serializing: " + e.Message + " inner: " + e.InnerException);
+            }
+
+            SRInfoHelper.isLogging = true;
+
+            //Manager.GetUIManager().ShowBlank(TextManager.GetLoc("EXITING_APPLICATION", true, false));
+            //Application.Quit();
         }
 
         /// <summary>
@@ -73,12 +133,17 @@ namespace SyndicateMod
 
             if (!Manager.Get().LoadingApplication && !runonce)
             {
+                //var user = SaveGame.GetUsers().First();
+                //SaveGame.CurrentUser = user;
 
-                if(Manager.GetAudioManager().IsMusicPlaying())
-                {
-                    SRInfoHelper.Log("Music is playing");
-                    runonce = true;
-                }
+                //Manager.GetInputControl().LoadGame(SaveGame.Load(0));
+                //Manager.Get().DoNewGame();
+                runonce = true;
+
+                //if (Manager.GetAudioManager().IsMusicPlaying())
+                //{
+                //    SRInfoHelper.Log("Music is playing");
+                //}
                 //if (Manager.GetItemManager().m_ItemDefinitions.Max(i => i.m_ID) < 146)
                 //{
                 //    AddItemsTest();
@@ -133,70 +198,6 @@ namespace SyndicateMod
                     var units = GetSelectUnits();
 
                     AddWeaponToSelectedUnits(units, 0);
-
-                    //var agents = AgentAI.GetAgents();
-                    //var abils = agents.Where(a => a.GetClass() == AgentAI.AgentClass.Hacker).FirstOrDefault()?.m_Abilities.AllAbilities().Select(a => a.GetID()).ToArray();
-                    //DMMap minimap -AddSimpleIcon to add minimap
-                    /*
-                    var ent = units.Where(e => e.m_IsControllable == false && e.IsVIP == false).FirstOrDefault();
-
-                    if (ent != null)
-                        Manager.GetUIManager().ShowMessagePopup("Found " + ent.m_Identity.GetFullName());
-
-                    if (ent)
-                    {
-                        Manager.GetUIManager().ShowMessagePopup("Found " + ent.m_Identity.GetFullName() + ". Applying VIP status.");
-                        ent.m_Identity.SetRandomIdentity();
-                        MakeVIP(ent);
-                        ent.name = "Peter Molyneux";
-                        ent.m_Identity.name = "Peter Molyneux";
-                        Manager.GetUIManager().ShowMessagePopup("Made " + ent.m_Identity.GetFullName() + " VIP.");
-                    }
-
-                    var names = IdentityManager.Get().m_NamesXML.text;
-                    Manager.GetUIManager().ShowWarningPopup(names);
-
-                    XmlDocument xmlDocument = new XmlDocument();
-                    xmlDocument.LoadXml(names);
-                    //xmlDocument.Save("TestFileDoc.xml");
-
-                    IdentityManager.Get().GetName(1, out string first, out string last);
-                    //Manager.GetUIManager().ShowWarningPopup(first + " " + last);
-
-#pragma warning disable CS0618 // Type or member is obsolete
-                    Manager.GetUIManager().GetEventPopUpUi().AddMessage("Name is now: " + first + " " + last, null, null, 50f, false);
-#pragma warning restore CS0618 // Type or member is obsolete
-*/
-                    //bool flag = .Shift IsDown();
-                    //bool flag2 = .Ctrl IsDown();
-                    //bool flag3 = .Alt IsDown();
-
-                    //var fileManager = new FileManager();
-                    //byte[] bytes = Encoding.Default.GetBytes(xmlDocument.OuterXml);
-                    //fileManager.SaveData("TestFileDoc2.xml", bytes);
-
-                    //var icons = Manager.GetMiniMap().Icons;
-                    //icons = Manager.GetMiniMapUi().MapCameraViewUi.DmMap.ic
-
-                    //var Soldier = AgentAI.GetAgent(AgentAI.AgentClass.Soldier);
-                    //var Hacker = AgentAI.GetAgent(AgentAI.AgentClass.Hacker);
-                    //var Support = AgentAI.GetAgent(AgentAI.AgentClass.Support);
-                    //var Assassin = AgentAI.GetAgent(AgentAI.AgentClass.Assassin);
-
-                    //foreach (var selectedAgent in agents.Where(u => u.IsSelected()))
-                    //{
-                    //    if (selectedAgent.m_Class != AgentAI.AgentClass.NONE)
-                    //        selectedAgent.m_Class = AgentAI.AgentClass.NONE;
-                    //}
-
-                    //AddAbilitiesToUnits(units, abils);
-
-                    //ToggleWeaponOfUnits(units, WeaponType.B_minigun);
-
-                    //Soldier.m_Class = AgentAI.AgentClass.Soldier;
-                    //Hacker.m_Class = AgentAI.AgentClass.Hacker;
-                    //Support.m_Class = AgentAI.AgentClass.Support;
-                    //Assassin.m_Class = AgentAI.AgentClass.Assassin;
                 }
 
                 if (Input.GetKeyDown(KeyCode.ScrollLock) || Input.GetKeyDown(KeyCode.ScrollLock))
@@ -212,6 +213,25 @@ namespace SyndicateMod
 
                 if (Input.GetKeyDown(KeyCode.Insert) || Input.GetKeyDown(KeyCode.Insert))
                 {
+                    try
+                    {
+                        var data = Manager.GetItemManager().m_ItemDefinitions.Select(d => SRMapper.ReflectionObjectBuilder<DTOs.ItemData>(d)).ToList();
+
+                        try
+                        {
+                            FileManager.SaveAsXML(data, "ItemData.xml");
+                        }
+                        catch (Exception e)
+                        {
+                            SRInfoHelper.Log("Exception thrown while serializing: " + e.Message);
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        SRInfoHelper.Log("Exception thrown while mapping: " + e.Message);
+                    }
+                    //FileManager.SaveAsXML(Manager.GetItemManager().m_ItemDefinitions, "ItemData.xml");
+                    /*
                     List<string> output = new List<string>();
                     output = SRInfoHelper.GetItemInfo();
                     FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\ItemData2.txt");
@@ -224,7 +244,7 @@ namespace SyndicateMod
 
                     output = SRInfoHelper.GetAbilityEnum();
                     FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\AbilityEnum.txt");
-
+                    */
                     //GenericsHelper.CheckedObjects.Clear();
 
                     ShowMessage("data saved?");
