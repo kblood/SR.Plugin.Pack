@@ -61,9 +61,11 @@
   <ItemGroup>
     <Compile Include="CustomUI\SRModButtonElement.cs" />
     <Compile Include="CustomUI\SRModVerticalButtonsUI.cs" />
+    <Compile Include="DTOs\GameObjectDTO.cs" />
     <Compile Include="DTOs\ItemData.cs" />
     <Compile Include="DTOs\ItemDataList.cs" />
     <Compile Include="DTOs\Sprite.cs" />
+    <Compile Include="DTOs\TransformDTO.cs" />
     <Compile Include="DTOs\TranslationsDTO.cs" />
     <Compile Include="DTOs\XMLCollection.cs" />
     <Compile Include="HelperEnums.cs" />

@@ -33,6 +33,11 @@ namespace SyndicateMod
 
             SRInfoHelper.isLogging = false;
 
+            if (!active)
+                active = true;
+            else
+                active = false;
+
             //if (!Manager.GetItemManager().m_ItemDefinitions.Where(i => i.m_ID == 147).Any())
             //{
             //    SRInfoHelper.Log("Adding items(Initialize)");
@@ -41,11 +46,6 @@ namespace SyndicateMod
             //    AddItemsTest();
             //    weaponsUpdated = true;
             //}
-
-            //if (!active)
-            //    active = true;
-            //else
-            //    active = false;
 
             //try
             //{
@@ -72,8 +72,6 @@ namespace SyndicateMod
 
             try
             {
-                SRInfoHelper.isLogging = false;
-
                 var translations = FileManager.LoadTranslationsXML("Translations.xml");
                 var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
 
@@ -94,6 +92,8 @@ namespace SyndicateMod
 
                 var items = FileManager.LoadXML("ItemData.xml");
 
+                SRInfoHelper.isLogging = false;
+
                 var remappedItems = items.Select(d => SRMapper.ReflectionObjectBuilder<ItemManager.ItemData>(d)).ToList();
 
                 Manager.GetItemManager().m_ItemDefinitions = remappedItems;
@@ -105,7 +105,7 @@ namespace SyndicateMod
             }
 
             SRInfoHelper.isLogging = true;
-
+            SRInfoHelper.Log("Initialized");
             //Manager.GetUIManager().ShowBlank(TextManager.GetLoc("EXITING_APPLICATION", true, false));
             //Application.Quit();
         }
@@ -118,6 +118,7 @@ namespace SyndicateMod
             if (!active)
             {
                 Debug.Log("Update before active?");
+                SRInfoHelper.Log("Update before active?");
 
                 return;
             }
@@ -138,6 +139,8 @@ namespace SyndicateMod
 
                 //Manager.GetInputControl().LoadGame(SaveGame.Load(0));
                 //Manager.Get().DoNewGame();
+                SRInfoHelper.Log("Run once");
+
                 runonce = true;
 
                 //if (Manager.GetAudioManager().IsMusicPlaying())
@@ -152,13 +155,13 @@ namespace SyndicateMod
                 //}
             }
 
-            if (Manager.GetAudioManager().IsLoginMusicPlaying())
-            {
-                SRInfoHelper.Log("Login music is playing");
-                Manager.GetAudioManager().StopAllMusic();
-                SRInfoHelper.Log("Login music stopped?");
-                UIHelper.ShowMessage("Login music stopped.");
-            }
+            //if (Manager.GetAudioManager().IsLoginMusicPlaying())
+            //{
+            //    SRInfoHelper.Log("Login music is playing");
+            //    Manager.GetAudioManager().StopAllMusic();
+            //    SRInfoHelper.Log("Login music stopped?");
+            //    UIHelper.ShowMessage("Login music stopped.");
+            //}
 
             //if (!weaponsUpdated)
             //{
@@ -173,11 +176,16 @@ namespace SyndicateMod
                 if (debug == 1)
                     DebugOptions.ms_DebugEnabledParanoid = true;
 
-                if (!weaponsUpdated)
+                if (!weaponsUpdated && !Manager.GetItemManager().m_ItemDefinitions.Where(i => i.m_ID == 147).Any())
                 {
+                    SRInfoHelper.isLogging = true;
                     SRInfoHelper.Log("Adding items(game in progress)");
                     //WeaponChanges();
                     AddItemsTest();
+                    weaponsUpdated = true;
+                }
+                else if(!weaponsUpdated)
+                {
                     weaponsUpdated = true;
                 }
 
@@ -213,21 +221,30 @@ namespace SyndicateMod
 
                 if (Input.GetKeyDown(KeyCode.Insert) || Input.GetKeyDown(KeyCode.Insert))
                 {
+                    SRInfoHelper.Log("Grabbing game object");
+                    UIHelper.ShowMessage("Grabbing game object");
                     try
                     {
-                        var data = Manager.GetItemManager().m_ItemDefinitions.Select(d => SRMapper.ReflectionObjectBuilder<DTOs.ItemData>(d)).ToList();
+                        var go = Manager.GetUIManager().UiCanvas.transform.gameObject;
+
+                        SRInfoHelper.Log("Mapping game object" + go);
+                        UIHelper.ShowMessage("Mapping game object" + go);
+
+                        var goDTO = SRMapper.Map(go);
 
                         try
                         {
-                            FileManager.SaveAsXML(data, "ItemData.xml");
+                            FileManager.SaveAsXML(goDTO, goDTO.name+ ".xml");
                         }
                         catch (Exception e)
                         {
+                            SRInfoHelper.isLogging = true;
                             SRInfoHelper.Log("Exception thrown while serializing: " + e.Message);
                         }
                     }
                     catch(Exception e)
                     {
+                        SRInfoHelper.isLogging = true;
                         SRInfoHelper.Log("Exception thrown while mapping: " + e.Message);
                     }
                     //FileManager.SaveAsXML(Manager.GetItemManager().m_ItemDefinitions, "ItemData.xml");
@@ -477,7 +494,6 @@ To sweeten the deal, the arms have built in retractable blades as well.");
             //minigunV2.m_AbilityMasks.Clear();
 
             //SREditor.EditItemDescription(minigunV2.m_ID, "Ballistic Minigun", @"Syndicate minigun bulletsprayer");
-
         }
 
         public void SaveDataTest()

@@ -37,6 +37,20 @@ namespace SyndicateMod.Services
             return true;
         }
 
+        static public void SaveAsXML<T>(T data, string fileName)
+        {
+            // Create an instance of System.Xml.Serialization.XmlSerializer
+            XmlSerializer serializer = new XmlSerializer(data.GetType());
+
+            // Create an instance of System.IO.TextWriter 
+            // to save the serialized object to disk
+            using (TextWriter textWriter = new StreamWriter($@"C:\Temp\{fileName}"))
+            {
+                // Serialize the employeeList object
+                serializer.Serialize(textWriter, data);
+            }
+        }
+
         static public void SaveAsXML(List<TranslationElementDTO> data, string fileName)
         {
             TranslationsDTO list = new TranslationsDTO() { Translations = data };
@@ -147,6 +161,7 @@ namespace SyndicateMod.Services
             SRInfoHelper.Log("Loading " + fileName);
 
             string filePath = Manager.GetPluginManager().PluginPath + @"\" + fileName;
+
             if (File.Exists(filePath))
             {
                 SRInfoHelper.Log("File " + fileName + " exists");
@@ -169,7 +184,6 @@ namespace SyndicateMod.Services
             {
                 return null;
             }
-
         }
 
         static public void SaveText(string text, string fileName = @"WriteLines.txt")
@@ -180,32 +194,18 @@ namespace SyndicateMod.Services
 
             // WriteAllLines creates a file, writes a collection of strings to the file,
             // and then closes the file.  You do NOT need to call Flush() or Close().
-            //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", lines);
             System.IO.File.WriteAllText(Manager.GetPluginManager().PluginPath + @"\" + fileName, text);
-
-            //DirectoryInfo d = new DirectoryInfo(@".\");//Assuming Test is your Folder
-
-            //DirectoryInfo d2 = new DirectoryInfo(@".\");//Assuming Test is your Folder
-
-            //System.IO.File.WriteAllLines(d.FullName + "\test.txt", lines.ToArray());
-
-            //return d.FullName;
         }
 
         static public string SaveList(List<string> stringsToSave, string fileNameWithPath = @"C:\Temp\WriteLines.txt")
         {
             // WriteAllLines creates a file, writes a collection of strings to the file,
             // and then closes the file.  You do NOT need to call Flush() or Close().
-            //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", lines);
             System.IO.File.WriteAllLines(fileNameWithPath, stringsToSave.ToArray());
 
-            DirectoryInfo d = new DirectoryInfo(@".\");//Assuming Test is your Folder
+            //DirectoryInfo d = new DirectoryInfo(@".\");//Assuming Test is your Folder
 
-            //DirectoryInfo d2 = new DirectoryInfo(@".\");//Assuming Test is your Folder
-
-            //System.IO.File.WriteAllLines(d.FullName + "\test.txt", lines.ToArray());
-
-            return d.FullName;
+            return fileNameWithPath;
         }
 
         // ReadAllLines loads all lines of text from a file
@@ -221,8 +221,6 @@ namespace SyndicateMod.Services
 
         static public string Test(string saveText = "", string fileNameWithPath = @"C:\Temp\WriteLines.txt")
         {
-
-
             // Example #1: Write an array of strings to a file.
             // Create a string array that consists of three lines.
             List<string> lines = new List<string> { "First line", "Second line", "Third line" };

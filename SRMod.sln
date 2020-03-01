@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRModManager", "ModManagerM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoIntroMusic", "NoIntroMusic\NoIntroMusic.csproj", "{874AABB7-9B6C-4E2A-8609-47E389A5DD94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SatelliteReignModdingTools", "SatelliteReignModdingTools\SatelliteReignModdingTools.csproj", "{F69B095B-5FF4-4779-AFFF-61264F305FD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadCustomData", "LoadCustomData\LoadCustomData.csproj", "{81F2F5B8-1EEF-48EB-A0AF-80BFF461A75B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{874AABB7-9B6C-4E2A-8609-47E389A5DD94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{874AABB7-9B6C-4E2A-8609-47E389A5DD94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{874AABB7-9B6C-4E2A-8609-47E389A5DD94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F69B095B-5FF4-4779-AFFF-61264F305FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F69B095B-5FF4-4779-AFFF-61264F305FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F69B095B-5FF4-4779-AFFF-61264F305FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F69B095B-5FF4-4779-AFFF-61264F305FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81F2F5B8-1EEF-48EB-A0AF-80BFF461A75B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81F2F5B8-1EEF-48EB-A0AF-80BFF461A75B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81F2F5B8-1EEF-48EB-A0AF-80BFF461A75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81F2F5B8-1EEF-48EB-A0AF-80BFF461A75B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

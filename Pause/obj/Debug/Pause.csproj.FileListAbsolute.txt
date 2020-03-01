@@ -31,7 +31,6 @@ b:\Git\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.CoreCompileInputs.cache
 b:\Git\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.CopyComplete
 b:\Git\SR.Plugin.Pack\Pause\obj\Debug\Pause.dll
 b:\Git\SR.Plugin.Pack\Pause\obj\Debug\Pause.pdb
-B:\Git\SR.Plugin.Pack\Pause\obj\Debug\Pause.csprojAssemblyReference.cache
 B:\Git\SR.Plugin.Pack\Pause\bin\Debug\Assembly-CSharp-firstpass.dll
 B:\Git\SR.Plugin.Pack\Pause\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.dll

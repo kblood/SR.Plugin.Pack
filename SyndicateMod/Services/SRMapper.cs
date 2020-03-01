@@ -2,19 +2,89 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using SystemLanguage = UnityEngine.SystemLanguage;
+using Language = TextManager.Language;
 
 namespace SyndicateMod.Services
 {
+
     public class SRMapper
     {
+        public static Dictionary<SystemLanguage, Language> SystemLangaugeMap;
+        public static Dictionary<Language, CultureInfo> LanguageCultureInfo;
+        public static Language[] NotLanguages;
+        public static CultureInfo DefaultCultureInfo;
+
         public static ItemData Map(ItemManager.ItemData itemData)
         {
             var mappedData = new ItemData();
 
             return mappedData;
+        }
+
+        public static GameObjectDTO Map(UnityEngine.GameObject gameObject)
+        {
+            var mappedData = new GameObjectDTO();
+
+            SRInfoHelper.Log("Mapping gameobject " + gameObject.name);
+
+            var goDTO = SRMapper.ReflectionObjectBuilder<DTOs.GameObjectDTO>(gameObject);
+
+            SRInfoHelper.Log("Mapping " + gameObject.name);
+
+
+            List<UnityEngine.Component> components = new List<UnityEngine.Component>();
+            components.AddRange(gameObject.transform.GetComponents(typeof(UnityEngine.Component)));
+
+            goDTO.transform.Components = components;
+
+            goDTO.transform.Children = new List<DTOs.GameObjectDTO>();
+            foreach (UnityEngine.Transform t in gameObject.transform)
+            {
+                try
+                {
+                    goDTO.transform.Children.Add(Map(t.gameObject));
+                }
+                catch (Exception e)
+                {
+                    SRInfoHelper.Log("Exception thrown: " + e.Message + " Inner: "+ e.InnerException);
+
+                }
+            }
+
+            return mappedData;
+        }
+
+        static public void LanguageMapper()
+        {
+            Dictionary<UnityEngine.SystemLanguage, Language> dictionary = new Dictionary<SystemLanguage, TextManager.Language>();
+            dictionary.Add(SystemLanguage.English, Language.EN);
+            dictionary.Add(SystemLanguage.Czech, Language.CZ);
+            dictionary.Add(SystemLanguage.French, Language.FR);
+            dictionary.Add(SystemLanguage.German, Language.GE);
+            dictionary.Add(SystemLanguage.Italian, Language.IT);
+            dictionary.Add(SystemLanguage.Russian, Language.RU);
+            dictionary.Add(SystemLanguage.Spanish, Language.SP);
+
+            DefaultCultureInfo = new CultureInfo("en-US");
+            Dictionary<Language, CultureInfo> dictionary2 = new Dictionary<Language, CultureInfo>();
+            dictionary2.Add(Language.EN, DefaultCultureInfo);
+            dictionary2.Add(Language.CZ, new CultureInfo("cs-CZ"));
+            dictionary2.Add(Language.FR, new CultureInfo("fr-FR"));
+            dictionary2.Add(Language.GE, new CultureInfo("de-DE"));
+            dictionary2.Add(Language.IT, new CultureInfo("it-IT"));
+            dictionary2.Add(Language.RU, new CultureInfo("ru-RU"));
+            dictionary2.Add(Language.SP, new CultureInfo("ru-RU"));
+            LanguageCultureInfo = dictionary2;
+            NotLanguages = new TextManager.Language[]
+            {
+                TextManager.Language.id,
+                TextManager.Language.NOTES,
+                TextManager.Language.MAX
+            };
         }
 
         /// <summary>
