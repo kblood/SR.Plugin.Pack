@@ -9,3 +9,15 @@ B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\KeyFix\bin\Debug\KeyFix.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\KeyFix\bin\Debug\KeyFix.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\KeyFix\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\KeyFix\bin\Debug\Assembly-CSharp.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.csproj.CoreCompileInputs.cache
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.csproj.CopyComplete
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.csprojAssemblyReference.cache

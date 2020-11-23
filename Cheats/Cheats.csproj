@@ -59,18 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cheats.cs" />
-    <Compile Include="LightingSettingsHelper.cs" />
-    <Compile Include="LightingSettingsHepler.cs" />
-    <Compile Include="ResourceDB.cs" />
+    <Compile Include="CustomUI\CustomUIActions.cs" />
+    <Compile Include="CustomUI\SRModButtonElement.cs" />
+    <Compile Include="CustomUI\SRModVerticalButtonsUI.cs" />
+    <Compile Include="Services\UIHelper.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="LightScene\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Scenes\LightScene.unity" />
-    <None Include="Assets\Scenes\SRWorldStreamFull.unity" />
-    <None Include="LightScene.unity" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

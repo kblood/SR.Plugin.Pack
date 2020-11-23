@@ -36,3 +36,15 @@ B:\Git\SR.Plugin.Pack\UnStuck\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\UnStuck\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\UnStuck\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\UnStuck\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\UnStuck\bin\Debug\UnStuck.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\UnStuck\bin\Debug\UnStuck.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\UnStuck\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\UnStuck\bin\Debug\Assembly-CSharp.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\UnStuck\bin\Debug\UnityEngine.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\UnStuck\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\UnStuck\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.csproj.CoreCompileInputs.cache
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.csproj.CopyComplete
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.csprojAssemblyReference.cache

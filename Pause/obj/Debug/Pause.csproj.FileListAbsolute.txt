@@ -36,3 +36,15 @@ B:\Git\SR.Plugin.Pack\Pause\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\Pause.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\Pause.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\Assembly-CSharp.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.CoreCompileInputs.cache
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.CopyComplete
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\obj\Debug\Pause.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\obj\Debug\Pause.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\obj\Debug\Pause.csprojAssemblyReference.cache

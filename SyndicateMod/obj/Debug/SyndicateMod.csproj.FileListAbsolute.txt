@@ -9,3 +9,15 @@ B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SyndicateMod\bin\Debug\SyndicateMod.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SyndicateMod\bin\Debug\SyndicateMod.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SyndicateMod\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SyndicateMod\bin\Debug\Assembly-CSharp.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.csproj.CoreCompileInputs.cache
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.csproj.CopyComplete
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.csprojAssemblyReference.cache
