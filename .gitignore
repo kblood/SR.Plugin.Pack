@@ -10,6 +10,47 @@
 *.pidb
 *.booproj
 
+# Compiled files
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+*.bak
+*.tmp
+
+# Directories
+bin/
+obj/
+.vs/
+
+# Visual Studio files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build artifacts
+*.csproj.user
+*.csproj.nuget.g.props
+*.csproj.nuget.g.targets
+*.build.json
+
+# NuGet Packages
+packages/
+
+# Resharper files
+_ReSharper*/
+*.DotSettings.user
+
+# JetBrains Rider files
+.idea/
+.idea_modules/
+.Rider/
+
+# Project-specific folders (customize as needed)
+lib/
+
 # Unity3D generated meta files
 *.pidb.meta
 
@@ -17,11 +58,13 @@
 sysinfo.txt
 
 RogueLikeGameMode/obj/
-
 RogueLikeGameMode/\.vs/
-
 \.vs/
-
 SyndicateMod/obj/
-
 Pause/obj/
+
+# Include specific DLLs
+!Assembly-CSharp.dll
+!Assembly-CSharp-firstpass.dll
+!UnityEngine.dll
+!UnityEngine.UI.dll
