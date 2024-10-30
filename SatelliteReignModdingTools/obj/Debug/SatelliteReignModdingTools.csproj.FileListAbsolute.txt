@@ -13,6 +13,7 @@ B:\Git\SR.Plugin.Pack\SatelliteReignModdingTools\bin\Debug\UnityEngine.UI.dll
 B:\Git\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.csproj.CopyComplete
 B:\Git\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.exe
 B:\Git\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.pdb
+<<<<<<< HEAD
 B:\Git\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.csprojAssemblyReference.cache
 f:\Github\SR.Plugin.Pack\SatelliteReignModdingTools\bin\Debug\SatelliteReignModdingTools.exe.config
 f:\Github\SR.Plugin.Pack\SatelliteReignModdingTools\bin\Debug\SatelliteReignModdingTools.exe
@@ -30,3 +31,21 @@ f:\Github\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModd
 f:\Github\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.exe
 f:\Github\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.pdb
 F:\Github\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\Satellit.EBF6CF64.Up2Date
+=======
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\bin\Debug\SatelliteReignModdingTools.exe.config
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\bin\Debug\SatelliteReignModdingTools.exe
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\bin\Debug\SatelliteReignModdingTools.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\bin\Debug\Assembly-CSharp.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\bin\Debug\UnityEngine.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.ItemBrowser.resources
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.Properties.Resources.resources
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.csproj.GenerateResource.cache
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.csproj.CoreCompileInputs.cache
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.csproj.CopyComplete
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.exe
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\SatelliteReignModdingTools\obj\Debug\SatelliteReignModdingTools.csprojAssemblyReference.cache
+>>>>>>> 67656dee3de9c6e5e0ad7bddd7343b626eec928c

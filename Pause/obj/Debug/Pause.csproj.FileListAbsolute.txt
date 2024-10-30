@@ -36,6 +36,7 @@ B:\Git\SR.Plugin.Pack\Pause\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.UI.dll
+<<<<<<< HEAD
 f:\Github\SR.Plugin.Pack\Pause\bin\Debug\Pause.dll
 f:\Github\SR.Plugin.Pack\Pause\bin\Debug\Pause.pdb
 f:\Github\SR.Plugin.Pack\Pause\bin\Debug\Assembly-CSharp-firstpass.dll
@@ -48,3 +49,17 @@ f:\Github\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.CoreCompileInputs.cache
 f:\Github\SR.Plugin.Pack\Pause\obj\Debug\Pause.dll
 f:\Github\SR.Plugin.Pack\Pause\obj\Debug\Pause.pdb
 F:\Github\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.Up2Date
+=======
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\Pause.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\Pause.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\Assembly-CSharp.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.CoreCompileInputs.cache
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.CopyComplete
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\obj\Debug\Pause.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\obj\Debug\Pause.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Pause\obj\Debug\Pause.csprojAssemblyReference.cache
+>>>>>>> 67656dee3de9c6e5e0ad7bddd7343b626eec928c

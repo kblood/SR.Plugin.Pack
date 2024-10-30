@@ -9,6 +9,7 @@ B:\Git\SR.Plugin.Pack\LoadCustomData\bin\Debug\UnityEngine.UI.dll
 B:\Git\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.csproj.CopyComplete
 B:\Git\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.dll
 B:\Git\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.pdb
+<<<<<<< HEAD
 f:\Github\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.csproj.CoreCompileInputs.cache
 f:\Github\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.dll
 f:\Github\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.pdb
@@ -21,3 +22,17 @@ f:\Github\SR.Plugin.Pack\LoadCustomData\bin\Debug\UnityEngine.Networking.dll
 f:\Github\SR.Plugin.Pack\LoadCustomData\bin\Debug\UnityEngine.UI.dll
 F:\Github\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.csproj.AssemblyReference.cache
 F:\Github\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCust.AF5A35A2.Up2Date
+=======
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\LoadCustomData\bin\Debug\LoadCustomData.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\LoadCustomData\bin\Debug\LoadCustomData.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\LoadCustomData\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\LoadCustomData\bin\Debug\Assembly-CSharp.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\LoadCustomData\bin\Debug\UnityEngine.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\LoadCustomData\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\LoadCustomData\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.csproj.CoreCompileInputs.cache
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.csproj.CopyComplete
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.csprojAssemblyReference.cache
+>>>>>>> 67656dee3de9c6e5e0ad7bddd7343b626eec928c

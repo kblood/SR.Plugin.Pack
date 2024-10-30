@@ -10,6 +10,7 @@ B:\Git\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroMusic.csproj.CoreCompileInpu
 B:\Git\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroMusic.csproj.CopyComplete
 B:\Git\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroMusic.dll
 B:\Git\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroMusic.pdb
+<<<<<<< HEAD
 f:\Github\SR.Plugin.Pack\NoIntroMusic\bin\Debug\NoIntroMusic.dll
 f:\Github\SR.Plugin.Pack\NoIntroMusic\bin\Debug\NoIntroMusic.pdb
 f:\Github\SR.Plugin.Pack\NoIntroMusic\bin\Debug\Assembly-CSharp-firstpass.dll
@@ -22,3 +23,17 @@ f:\Github\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroMusic.dll
 f:\Github\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroMusic.pdb
 f:\Github\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroMusic.csproj.AssemblyReference.cache
 F:\Github\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroM.639DDD34.Up2Date
+=======
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\NoIntroMusic\bin\Debug\NoIntroMusic.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\NoIntroMusic\bin\Debug\NoIntroMusic.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\NoIntroMusic\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\NoIntroMusic\bin\Debug\Assembly-CSharp.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\NoIntroMusic\bin\Debug\UnityEngine.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\NoIntroMusic\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\NoIntroMusic\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroMusic.csproj.CoreCompileInputs.cache
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroMusic.csproj.CopyComplete
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroMusic.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroMusic.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\NoIntroMusic\obj\Debug\NoIntroMusic.csprojAssemblyReference.cache
+>>>>>>> 67656dee3de9c6e5e0ad7bddd7343b626eec928c

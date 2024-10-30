@@ -36,6 +36,7 @@ B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.UI.dll
+<<<<<<< HEAD
 f:\Github\SR.Plugin.Pack\ChangeLooks\bin\Debug\ChangeLooks.dll
 f:\Github\SR.Plugin.Pack\ChangeLooks\bin\Debug\ChangeLooks.pdb
 f:\Github\SR.Plugin.Pack\ChangeLooks\bin\Debug\Assembly-CSharp-firstpass.dll
@@ -48,3 +49,17 @@ f:\Github\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.CoreCompileInp
 f:\Github\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.dll
 f:\Github\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.pdb
 F:\Github\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLo.DCA7576C.Up2Date
+=======
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ChangeLooks\bin\Debug\ChangeLooks.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ChangeLooks\bin\Debug\ChangeLooks.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ChangeLooks\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ChangeLooks\bin\Debug\Assembly-CSharp.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.CoreCompileInputs.cache
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.CopyComplete
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csprojAssemblyReference.cache
+>>>>>>> 67656dee3de9c6e5e0ad7bddd7343b626eec928c

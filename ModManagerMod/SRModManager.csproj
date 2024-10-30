@@ -59,7 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomUI\SRModButtonElement.cs" />
+    <Compile Include="CustomUI\SRModVerticalDualButtonsUI .cs" />
     <Compile Include="CustomUI\SRModVerticalButtonsUI.cs" />
+    <Compile Include="Services\FileManager.cs" />
     <Compile Include="SRModManager.cs" />
     <Compile Include="Services\UIHelper.cs" />
   </ItemGroup>

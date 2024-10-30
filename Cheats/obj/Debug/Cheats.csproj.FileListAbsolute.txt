@@ -48,6 +48,7 @@ B:\Git\SR.Plugin.Pack\Cheats\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.UI.dll
+<<<<<<< HEAD
 f:\Github\SR.Plugin.Pack\Cheats\bin\Debug\Cheats.dll
 f:\Github\SR.Plugin.Pack\Cheats\bin\Debug\Cheats.pdb
 f:\Github\SR.Plugin.Pack\Cheats\bin\Debug\Assembly-CSharp-firstpass.dll
@@ -60,3 +61,16 @@ f:\Github\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.CoreCompileInputs.cache
 f:\Github\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.dll
 f:\Github\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.pdb
 F:\Github\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.Up2Date
+=======
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Cheats\bin\Debug\Cheats.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Cheats\bin\Debug\Cheats.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Cheats\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Cheats\bin\Debug\Assembly-CSharp.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.CoreCompileInputs.cache
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.CopyComplete
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.pdb
+>>>>>>> 67656dee3de9c6e5e0ad7bddd7343b626eec928c

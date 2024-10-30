@@ -9,6 +9,7 @@ B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.UI.dll
 B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.csproj.CopyComplete
 B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.dll
 B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.pdb
+<<<<<<< HEAD
 f:\Github\SR.Plugin.Pack\ModManagerMod\bin\Debug\SRModManager.dll
 f:\Github\SR.Plugin.Pack\ModManagerMod\bin\Debug\SRModManager.pdb
 f:\Github\SR.Plugin.Pack\ModManagerMod\bin\Debug\Assembly-CSharp-firstpass.dll
@@ -21,3 +22,17 @@ f:\Github\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.dll
 f:\Github\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.pdb
 f:\Github\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.csproj.AssemblyReference.cache
 F:\Github\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModMan.F24F171F.Up2Date
+=======
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ModManagerMod\bin\Debug\SRModManager.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ModManagerMod\bin\Debug\SRModManager.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ModManagerMod\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ModManagerMod\bin\Debug\Assembly-CSharp.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.UI.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.csproj.CoreCompileInputs.cache
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.csproj.CopyComplete
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.dll
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.pdb
+C:\Users\Caldor\source\repos\kblood\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.csprojAssemblyReference.cache
+>>>>>>> 67656dee3de9c6e5e0ad7bddd7343b626eec928c
