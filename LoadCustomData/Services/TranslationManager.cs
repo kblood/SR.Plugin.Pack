@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using SRMod.Services;
+using SRMod.DTOs;
 
 public class TranslationManager
 {
-    private const string TranslationFileName = "Translations.json";
-    private static string TranslationFilePath => Path.Combine(Application.persistentDataPath, TranslationFileName);
+    private const string TranslationFileName = "Translations.xml";
+    
+    private static string TranslationFilePath => Path.Combine(Manager.GetPluginManager().PluginPath, TranslationFileName);
+    //private static string TranslationFilePath => Path.Combine(Application.persistentDataPath, TranslationFileName);
 
     public static Dictionary<string, TextManager.LocElement> LoadTranslations()
     {
@@ -20,7 +23,8 @@ public class TranslationManager
         else
         {
             translations = LoadTranslationsFromGame();
-            SaveTranslationsToFile(translations);
+            var dtodata = translations.Select(t => new TranslationElementDTO(t.Key, t.Value)).ToList();
+            FileManager.SaveAsXML(dtodata, TranslationFilePath);
         }
 
         return translations;
@@ -45,30 +49,31 @@ public class TranslationManager
     {
         try
         {
+            SRInfoHelper.Log("Loading translations from game");
             var textManager = TextManager.Get();
             return textManager.GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"Error loading translations from game: {e.Message}");
+            SRInfoHelper.Log($"Error loading translations from game: {e.Message}");
             return new Dictionary<string, TextManager.LocElement>();
         }
     }
 
-    private static void SaveTranslationsToFile(Dictionary<string, TextManager.LocElement> translations)
-    {
-        try
-        {
-            TranslationData data = new TranslationData(translations);
-            string json = JsonUtility.ToJson(data, true);
-            File.WriteAllText(TranslationFilePath, json);
-            Debug.Log($"Translations saved to {TranslationFilePath}");
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Error saving translations to file: {e.Message}");
-        }
-    }
+    //private static void SaveTranslationsToFile(Dictionary<string, TextManager.LocElement> translations)
+    //{
+    //    try
+    //    {
+    //        TranslationData data = new TranslationData(translations);
+    //        string json = JsonUtility.ToJson(data, true);
+    //        File.WriteAllText(TranslationFilePath, json);
+    //        Debug.Log($"Translations saved to {TranslationFilePath}");
+    //    }
+    //    catch (System.Exception e)
+    //    {
+    //        Debug.LogError($"Error saving translations to file: {e.Message}");
+    //    }
+    //}
 }
 
 [System.Serializable]

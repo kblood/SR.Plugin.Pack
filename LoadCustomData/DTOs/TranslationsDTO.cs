@@ -16,5 +16,15 @@ namespace SRMod.DTOs
     {
         public string Key { get; set; }
         public TextManager.LocElement Element { get; set; }
+
+        public TranslationElementDTO()
+        {
+        }
+
+        public TranslationElementDTO(string key, TextManager.LocElement element)
+        {
+            Key = key;
+            Element = element;
+        }
     }
 }

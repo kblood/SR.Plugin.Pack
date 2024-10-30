@@ -72,7 +72,7 @@ namespace SatelliteReignModdingTools
             ItemSlotTypeDropDown.SelectedIndex = (int)activeItemData.m_Slot;
             GearSubTypeDropDown.SelectedIndex = (int)activeItemData.m_GearSubCategory;
             WeaponTypeDropDown.SelectedIndex = (int)activeItemData.m_WeaponType;
-            if(activeItemData.m_UIIconName != null)
+            if(!string.IsNullOrWhiteSpace( activeItemData.m_UIIconName))
             {
                 ItemIconImageBox.Image = FileManager.LoadImageFromFile(activeItemData.m_UIIconName);
                 ChangeImageColor(Color.White, Color.Aquamarine);
