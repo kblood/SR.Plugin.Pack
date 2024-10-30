@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 using UnityEngine;
 
-namespace LoadCustomDataMod.DTOs
+namespace SRMod.DTOs
 {
     public class TransformDTO
     {

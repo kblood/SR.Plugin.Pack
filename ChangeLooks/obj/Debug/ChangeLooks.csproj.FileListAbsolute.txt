@@ -36,3 +36,15 @@ B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\ChangeLooks\bin\Debug\ChangeLooks.dll
+f:\Github\SR.Plugin.Pack\ChangeLooks\bin\Debug\ChangeLooks.pdb
+f:\Github\SR.Plugin.Pack\ChangeLooks\bin\Debug\Assembly-CSharp-firstpass.dll
+f:\Github\SR.Plugin.Pack\ChangeLooks\bin\Debug\Assembly-CSharp.dll
+f:\Github\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.dll
+f:\Github\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.Networking.dll
+f:\Github\SR.Plugin.Pack\ChangeLooks\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.AssemblyReference.cache
+f:\Github\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.csproj.CoreCompileInputs.cache
+f:\Github\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.dll
+f:\Github\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLooks.pdb
+F:\Github\SR.Plugin.Pack\ChangeLooks\obj\Debug\ChangeLo.DCA7576C.Up2Date

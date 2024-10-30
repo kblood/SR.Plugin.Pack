@@ -75,6 +75,9 @@ namespace SyndicateMod
                 var translations = FileManager.LoadTranslationsXML("Translations.xml");
                 var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
 
+                var qinfo = SRInfoHelper.GetQuestInfo();
+                FileManager.SaveList(qinfo, Manager.GetPluginManager().PluginPath + $@"\QuestInfo.txt");
+
                 //Dictionary<string, TextManager.LocElement> valuePairs = new Dictionary<string, TextManager.LocElement>();
                 foreach (var e in translations)
                 {
@@ -268,20 +271,23 @@ namespace SyndicateMod
                 }
                 if (Input.GetKeyDown(KeyCode.End) || Input.GetKeyDown(KeyCode.End))
                 {
-                    Manager.GetUIManager().ShowSubtitle("Running Test 1. Change pistol text without replacing fastlanglookup.", 5);
+                    Manager.GetUIManager().ShowSubtitle("Running Test 1. Saving quest info.", 5);
                     try
                     {
-                        var info = FileManager.JSONSaver(Manager.GetUIManager().m_InputBoxUi);
+                        var qinfo = SRInfoHelper.GetQuestInfo();
+                        FileManager.SaveList(qinfo, Manager.GetPluginManager().PluginPath + $@"\QuestInfo.txt");
 
-                        var boxui = FileManager.JSONLoad<InputBoxUi>();
+                        //var info = FileManager.JSONSaver(Manager.GetUIManager().m_InputBoxUi);
 
-                        if(boxui != null)
-                        {
-                            info.AddRange(SRInfoHelper.GetTransformData(boxui.transform, true, true));
-                            FileManager.SaveList(info, Manager.GetPluginManager().PluginPath + @"\JsonObjectLoaded.txt");
-                        }
+                        //var boxui = FileManager.JSONLoad<InputBoxUi>();
 
-                        SaveDataTest();
+                        //if(boxui != null)
+                        //{
+                        //    info.AddRange(SRInfoHelper.GetTransformData(boxui.transform, true, true));
+                        //    FileManager.SaveList(info, Manager.GetPluginManager().PluginPath + @"\JsonObjectLoaded.txt");
+                        //}
+
+                        //SaveDataTest();
 
                         //List<string> output = new List<string>();
                         //Button button = null;

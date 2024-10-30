@@ -9,3 +9,15 @@ B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\KeyFix\bin\Debug\KeyFix.dll
+f:\Github\SR.Plugin.Pack\KeyFix\bin\Debug\KeyFix.pdb
+f:\Github\SR.Plugin.Pack\KeyFix\bin\Debug\Assembly-CSharp-firstpass.dll
+f:\Github\SR.Plugin.Pack\KeyFix\bin\Debug\Assembly-CSharp.dll
+f:\Github\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.dll
+f:\Github\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.Networking.dll
+f:\Github\SR.Plugin.Pack\KeyFix\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.csproj.AssemblyReference.cache
+f:\Github\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.csproj.CoreCompileInputs.cache
+f:\Github\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.dll
+f:\Github\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.pdb
+F:\Github\SR.Plugin.Pack\KeyFix\obj\Debug\KeyFix.csproj.Up2Date

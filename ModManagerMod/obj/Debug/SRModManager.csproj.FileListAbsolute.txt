@@ -9,3 +9,15 @@ B:\Git\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.UI.dll
 B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.csproj.CopyComplete
 B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.dll
 B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.pdb
+f:\Github\SR.Plugin.Pack\ModManagerMod\bin\Debug\SRModManager.dll
+f:\Github\SR.Plugin.Pack\ModManagerMod\bin\Debug\SRModManager.pdb
+f:\Github\SR.Plugin.Pack\ModManagerMod\bin\Debug\Assembly-CSharp-firstpass.dll
+f:\Github\SR.Plugin.Pack\ModManagerMod\bin\Debug\Assembly-CSharp.dll
+f:\Github\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.dll
+f:\Github\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.Networking.dll
+f:\Github\SR.Plugin.Pack\ModManagerMod\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.csproj.CoreCompileInputs.cache
+f:\Github\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.dll
+f:\Github\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.pdb
+f:\Github\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModManager.csproj.AssemblyReference.cache
+F:\Github\SR.Plugin.Pack\ModManagerMod\obj\Debug\SRModMan.F24F171F.Up2Date

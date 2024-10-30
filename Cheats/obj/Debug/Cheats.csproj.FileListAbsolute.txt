@@ -48,3 +48,15 @@ B:\Git\SR.Plugin.Pack\Cheats\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\Cheats\bin\Debug\Cheats.dll
+f:\Github\SR.Plugin.Pack\Cheats\bin\Debug\Cheats.pdb
+f:\Github\SR.Plugin.Pack\Cheats\bin\Debug\Assembly-CSharp-firstpass.dll
+f:\Github\SR.Plugin.Pack\Cheats\bin\Debug\Assembly-CSharp.dll
+f:\Github\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.dll
+f:\Github\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.Networking.dll
+f:\Github\SR.Plugin.Pack\Cheats\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.AssemblyReference.cache
+f:\Github\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.CoreCompileInputs.cache
+f:\Github\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.dll
+f:\Github\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.pdb
+F:\Github\SR.Plugin.Pack\Cheats\obj\Debug\Cheats.csproj.Up2Date

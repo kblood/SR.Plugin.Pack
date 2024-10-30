@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace LoadCustomDataMod.Services
+namespace SRMod.Services
 {
     public class Nameof<T>
     {
@@ -23,9 +23,6 @@ namespace LoadCustomDataMod.Services
     /// </summary>
     public static class ReflectionExtensions
     {
-            
-
-
         /// <summary>
         /// Gets the public or private member using reflection.
         /// </summary>

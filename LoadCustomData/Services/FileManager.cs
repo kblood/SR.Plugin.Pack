@@ -5,9 +5,9 @@ using System.Text;
 using System.IO;
 using UnityEngine;
 using System.Xml.Serialization;
-using LoadCustomDataMod.DTOs;
+using SRMod.DTOs;
 
-namespace LoadCustomDataMod.Services
+namespace SRMod.Services
 {
     public class FileManager
     {
@@ -77,30 +77,33 @@ namespace LoadCustomDataMod.Services
             }
         }
 
-        static public void SaveAsXML(List<ItemData> data, string fileName)
-        {
-            string fileWithPath = FilePathCheck(fileName);
+        //static public void SaveAsXML(List<ItemData> data, string fileName)
+        //{
+        //    string fileWithPath = FilePathCheck(fileName);
 
-            ItemDataList list = new ItemDataList();
+        //    ItemDataList list = new ItemDataList();
 
-            list.Items = data;
+        //    list.Items = data;
 
-            // Create an instance of System.Xml.Serialization.XmlSerializer
-            XmlSerializer serializer = new XmlSerializer(list.GetType());
+        //    // Create an instance of System.Xml.Serialization.XmlSerializer
+        //    XmlSerializer serializer = new XmlSerializer(list.GetType());
 
-            // Create an instance of System.IO.TextWriter 
-            // to save the serialized object to disk
-            using (TextWriter textWriter = new StreamWriter(fileWithPath))
-            {
-                // Serialize the employeeList object
-                serializer.Serialize(textWriter, list);
-            }
-        }
+        //    // Create an instance of System.IO.TextWriter 
+        //    // to save the serialized object to disk
+        //    using (TextWriter textWriter = new StreamWriter(fileWithPath))
+        //    {
+        //        // Serialize the employeeList object
+        //        serializer.Serialize(textWriter, list);
+        //    }
+        //}
 
         static public List<TranslationElementDTO> LoadTranslationsXML(string fileName)
         {
             string fileWithPath = FilePathCheck(fileName);
             SRInfoHelper.Log("Loading " + fileWithPath);
+            if (!File.Exists(fileWithPath))
+                return null;
+
             TranslationsDTO list = new TranslationsDTO();
 
             // Create an instance of System.Xml.Serialization.XmlSerializer
@@ -118,30 +121,29 @@ namespace LoadCustomDataMod.Services
             return list.Translations;
         }
 
-        static public List<ItemData> LoadXML(string fileName)
-        {
-            string fileWithPath = FilePathCheck(fileName);
-            SRInfoHelper.Log("Loading " + fileWithPath);
-            ItemDataList list = new ItemDataList();
+        //static public List<ItemData> LoadXML(string fileName)
+        //{
+        //    string fileWithPath = FilePathCheck(fileName);
+        //    SRInfoHelper.Log("Loading " + fileWithPath);
+        //    ItemDataList list = new ItemDataList();
 
-            // Create an instance of System.Xml.Serialization.XmlSerializer
-            XmlSerializer serializer = new XmlSerializer(list.GetType());
+        //    // Create an instance of System.Xml.Serialization.XmlSerializer
+        //    XmlSerializer serializer = new XmlSerializer(list.GetType());
 
-            // Create an instance of System.IO.TextReader 
-            // to load the serialized data from disk
-            if (File.Exists(fileWithPath))
-            using (TextReader textReader = new StreamReader(fileWithPath))
-            {
-                // Assign the deserialized object to the new employeeList object
-                list = (ItemDataList)serializer.Deserialize(textReader);
-            }
+        //    // Create an instance of System.IO.TextReader 
+        //    // to load the serialized data from disk
+        //    if (File.Exists(fileWithPath))
+        //    using (TextReader textReader = new StreamReader(fileWithPath))
+        //    {
+        //        // Assign the deserialized object to the new employeeList object
+        //        list = (ItemDataList)serializer.Deserialize(textReader);
+        //    }
 
-            return list.Items;
-        }
+        //    return list.Items;
+        //}
 
         public static string SaveTextureToFile(Texture2D texture)
         {
-            
             string fileName = FilePathCheck($@"icons\{texture.name}.png");
             if (File.Exists(fileName))
                 return fileName;
@@ -175,30 +177,23 @@ namespace LoadCustomDataMod.Services
             return fileName;
         }
 
-        public static Texture2D LoadTextureFromFile(string fileName)
+        public static Texture2D LoadTextureFromFile(string textureName)
         {
-            SRInfoHelper.Log("Loading " + fileName);
+            //SRInfoHelper.Log("Loading " + fileName);
 
-            string filePath = FilePathCheck($@"icons\{fileName}");
-            SRInfoHelper.Log("Loading " + filePath);
+            string filePath = FilePathCheck($@"icons\{textureName}.png");
+            //SRInfoHelper.Log("Loading " + filePath);
 
             if (File.Exists(filePath))
             {
-                SRInfoHelper.Log("File " + fileName + " exists");
                 Vector2Int imgSize = ImageHeader.GetDimensions(filePath);
-                SRInfoHelper.Log("Image size " + imgSize.x + " "+ imgSize.y);
+                //SRInfoHelper.Log("Image size " + imgSize.x + " "+ imgSize.y);
 
                 var bytes = File.ReadAllBytes(filePath);
-                SRInfoHelper.Log("Loading bytes into image");
                 Texture2D tmpTexture = new Texture2D(imgSize.x, imgSize.y);
                 tmpTexture.LoadImage(bytes);
-                SRInfoHelper.Log("Loaded bytes into image");
-                tmpTexture.name = fileName.Replace(".png", "");
+                tmpTexture.name = textureName.Replace(".png", "");
                 return tmpTexture;
-                //Texture2D texture = new Texture2D(tmpTexture.width, tmpTexture.height);
-                //SRInfoHelper.Log("Loading bytes into image");
-                //texture.LoadImage(bytes);
-                //return texture;
             }
             else
             {

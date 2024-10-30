@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace SyndicateMod.Services
+namespace SRMod.Services
 {
     public class Nameof<T>
     {

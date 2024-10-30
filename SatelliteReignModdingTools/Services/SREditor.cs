@@ -5,13 +5,13 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using SatelliteReignModdingTools;
-using SyndicateMod.DTOs;
+using SRMod.DTOs;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using static System.Collections.Specialized.BitVector32;
 
-namespace SyndicateMod.Services
+namespace SRMod.Services
 {
     public static class SREditor
     {
@@ -266,12 +266,12 @@ Regardless, it's fast, reliable, cheap, and uses standard micro-round bullets, m
             //FileManager.SaveObjectAsJson(Manager.GetPluginManager(), "PluginManager");
         }
 
-        public static ItemData CopyItem(ItemData activeItemData)
+        public static SerializableItemData CopyItem(SerializableItemData activeItemData)
         {
             int itemNumber = activeItemData.m_ID;
-            ItemData sourceItem = activeItemData;
+            SerializableItemData sourceItem = activeItemData;
 
-            ItemData newItem = new ItemData();
+            SerializableItemData newItem = new SerializableItemData();
 
             int newitemNumber = ItemBrowser.itemDTOs.Max(i => i.m_ID) + 1;
 
@@ -283,10 +283,10 @@ Regardless, it's fast, reliable, cheap, and uses standard micro-round bullets, m
             try { newItem.m_Cost = sourceItem.m_Cost; } catch { }
             try { newItem.m_GearSubCategory = sourceItem.m_GearSubCategory; } catch { }
             try { newItem.m_MinResearchersRequired = sourceItem.m_MinResearchersRequired; } catch { }
-            try { newItem.m_Modifiers = sourceItem.m_Modifiers.ToArray(); } catch { }
+            try { newItem.m_Modifiers = sourceItem.m_Modifiers; } catch { }
             try { newItem.m_PrereqID = sourceItem.m_PrereqID; } catch { }
             try { newItem.m_Slot = sourceItem.m_Slot; } catch { }
-            try { newItem.m_UIIcon = sourceItem.m_UIIcon; } catch { }
+            try { newItem.m_UIIconName = sourceItem.m_UIIconName; } catch { }
             try { newItem.m_BlueprintProgressionValue = sourceItem.m_BlueprintProgressionValue; } catch { }
             try { newItem.m_CurrentResearchCost = sourceItem.m_CurrentResearchCost; } catch { }
             try { newItem.m_Expanded = sourceItem.m_Expanded; } catch { }

@@ -9,3 +9,15 @@ B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\SyndicateMod\bin\Debug\SyndicateMod.dll
+f:\Github\SR.Plugin.Pack\SyndicateMod\bin\Debug\SyndicateMod.pdb
+f:\Github\SR.Plugin.Pack\SyndicateMod\bin\Debug\Assembly-CSharp-firstpass.dll
+f:\Github\SR.Plugin.Pack\SyndicateMod\bin\Debug\Assembly-CSharp.dll
+f:\Github\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.dll
+f:\Github\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.Networking.dll
+f:\Github\SR.Plugin.Pack\SyndicateMod\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.csproj.AssemblyReference.cache
+f:\Github\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.csproj.CoreCompileInputs.cache
+f:\Github\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.dll
+f:\Github\SR.Plugin.Pack\SyndicateMod\obj\Debug\SyndicateMod.pdb
+F:\Github\SR.Plugin.Pack\SyndicateMod\obj\Debug\Syndicat.F5AD7514.Up2Date

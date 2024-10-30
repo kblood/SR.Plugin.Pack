@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace SyndicateMod.Services
+namespace SRMod.Services
 {
     public class ObjectiveEventHandler : MonoBehaviour
     {

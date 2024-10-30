@@ -1,0 +1,1597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfSerializableEnemyEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>1</EnemyUID>
+    <EnemyName>Corp Basic Soldier</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_Soldier_01</m_Prefab_name>
+    <UseWardrobeOverride>true</UseWardrobeOverride>
+    <WardrobeOverride>CorpSoldier</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>10</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>0</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>2</EnemyUID>
+    <EnemyName>Corp Soldier</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_SoldierArmor_01</m_Prefab_name>
+    <UseWardrobeOverride>true</UseWardrobeOverride>
+    <WardrobeOverride>CorpSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.01</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.1</m_Progression>
+        <m_Count>6</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>12</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>8</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.65</m_Progression>
+        <m_Count>6</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>3</EnemyUID>
+    <EnemyName>Corp Heavy</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_HeavyArmor_01</m_Prefab_name>
+    <UseWardrobeOverride>true</UseWardrobeOverride>
+    <WardrobeOverride>CorpHeavy</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.25</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.35</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.45</m_Progression>
+        <m_Count>7</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.65</m_Progression>
+        <m_Count>4</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>0.9</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>4</EnemyUID>
+    <EnemyName>Corp Jammer</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_SoldierJammer</m_Prefab_name>
+    <UseWardrobeOverride>true</UseWardrobeOverride>
+    <WardrobeOverride>CorpSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides>
+      <WardrobeItemOverride>
+        <m_BodySlot>Chest</m_BodySlot>
+        <m_ID>170</m_ID>
+      </WardrobeItemOverride>
+    </m_WardrobeItemOverrides>
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>4</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>1.25</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds>
+      <int>67</int>
+    </ItemIds>
+    <AbilityOverrides>
+      <int>1377</int>
+    </AbilityOverrides>
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>5</EnemyUID>
+    <EnemyName>Corp Riot Shield</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_SoldierRiot</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>CorpRiotShield</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds>
+      <int>78</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>6</EnemyUID>
+    <EnemyName>Dracogen Biped Mech</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_Mech_Biped_01</m_Prefab_name>
+    <UseWardrobeOverride>true</UseWardrobeOverride>
+    <WardrobeOverride>MechBiped</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.6</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.7</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Police</GroupId>
+    <EnemyUID>7</EnemyUID>
+    <EnemyName>Patrol Police</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_Commander_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>Civilian</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.8</m_Progression>
+        <m_Count>7</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>WeaponCountIncrease</m_Type>
+        <m_Ammount>2</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>ShieldRegenRate</m_Type>
+        <m_Ammount>30</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>Shield</m_Type>
+        <m_Ammount>300</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>GearSlotIncrease</m_Type>
+        <m_Ammount>5</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>HijackerLevel</m_Type>
+        <m_Ammount>5</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>HackerLevel</m_Type>
+        <m_Ammount>5</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>SpeedOffset</m_Type>
+        <m_Ammount>50</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>SprintEnergyCostMultiplier</m_Type>
+        <m_Ammount>0</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>HardwireLevel</m_Type>
+        <m_Ammount>15</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>ShieldRadius</m_Type>
+        <m_Ammount>0</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds>
+      <int>30</int>
+      <int>88</int>
+      <int>44</int>
+      <int>45</int>
+      <int>63</int>
+      <int>84</int>
+      <int>75</int>
+      <int>66</int>
+      <int>78</int>
+    </ItemIds>
+    <AbilityOverrides>
+      <int>1392</int>
+      <int>1328</int>
+      <int>1326</int>
+      <int>1332</int>
+    </AbilityOverrides>
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>10</EnemyUID>
+    <EnemyName>Drone: Attack</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_Mech_Drone_01</m_Prefab_name>
+    <UseWardrobeOverride>true</UseWardrobeOverride>
+    <WardrobeOverride>DroneAttack</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.1</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>11</EnemyUID>
+    <EnemyName>Mini mech</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_Mech_Mini_01</m_Prefab_name>
+    <UseWardrobeOverride>true</UseWardrobeOverride>
+    <WardrobeOverride>MechMini</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.1</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>4</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>7</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>12</EnemyUID>
+    <EnemyName>Corp Commander</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_Commander_01</m_Prefab_name>
+    <UseWardrobeOverride>true</UseWardrobeOverride>
+    <WardrobeOverride>CorpCommander</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.15</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>4</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>2</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides>
+      <int>1370</int>
+    </AbilityOverrides>
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>14</EnemyUID>
+    <EnemyName>Soldier Plasma</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_SoldierArmor_02</m_Prefab_name>
+    <UseWardrobeOverride>true</UseWardrobeOverride>
+    <WardrobeOverride>CorpSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.6</m_Progression>
+        <m_Count>8</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>2</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds>
+      <int>74</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>15</EnemyUID>
+    <EnemyName>Soldier Laser</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_SoldierArmor_02</m_Prefab_name>
+    <UseWardrobeOverride>true</UseWardrobeOverride>
+    <WardrobeOverride>CorpSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.6</m_Progression>
+        <m_Count>8</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>2</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds>
+      <int>73</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>16</EnemyUID>
+    <EnemyName>Shielded Heavy</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_HeavyArmor_01</m_Prefab_name>
+    <UseWardrobeOverride>true</UseWardrobeOverride>
+    <WardrobeOverride>CorpHeavy</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.6</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.7</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.8</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>ShieldRegenRate</m_Type>
+        <m_Ammount>15</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>Shield</m_Type>
+        <m_Ammount>200</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds>
+      <int>77</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Russian</GroupId>
+    <EnemyUID>18</EnemyUID>
+    <EnemyName>Russian Basic Soldier</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>UZY_Soldier_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>RussianSoldier</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>10</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>0</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Russian</GroupId>
+    <EnemyUID>19</EnemyUID>
+    <EnemyName>Russian Soldier</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>UZY_SoldierArmor_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>RussianSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.1</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>12</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>8</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.65</m_Progression>
+        <m_Count>6</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Russian</GroupId>
+    <EnemyUID>20</EnemyUID>
+    <EnemyName>Russian Heavy</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>UZY_HeavyArmor_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>RussianHeavy</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.35</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.45</m_Progression>
+        <m_Count>7</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.65</m_Progression>
+        <m_Count>4</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>0.9</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Russian</GroupId>
+    <EnemyUID>21</EnemyUID>
+    <EnemyName>Russian Jammer</EnemyName>
+    <Spawnable>false</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>UZY_SoldierJammer</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>RussianSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides>
+      <WardrobeItemOverride>
+        <m_BodySlot>Chest</m_BodySlot>
+        <m_ID>170</m_ID>
+      </WardrobeItemOverride>
+    </m_WardrobeItemOverrides>
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>4</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds>
+      <int>67</int>
+    </ItemIds>
+    <AbilityOverrides>
+      <int>1377</int>
+    </AbilityOverrides>
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Russian</GroupId>
+    <EnemyUID>22</EnemyUID>
+    <EnemyName>Russian Riot Shield</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>UZY_SoldierRiot</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>RussianSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>6</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Russian</GroupId>
+    <EnemyUID>24</EnemyUID>
+    <EnemyName>Russian Commander</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>UZY_Commander_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>RussianCommander</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.15</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>4</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>1.35</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides>
+      <int>1370</int>
+    </AbilityOverrides>
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Russian</GroupId>
+    <EnemyUID>25</EnemyUID>
+    <EnemyName>Russian Drone Attack</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>UZY_Mech_Drone_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>RussianDroneAttack</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.1</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Russian</GroupId>
+    <EnemyUID>26</EnemyUID>
+    <EnemyName>Russian MiniMech</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>UZY_Mech_Mini_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>RussianMechMini</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.1</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>4</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>7</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Russian</GroupId>
+    <EnemyUID>27</EnemyUID>
+    <EnemyName>Russian Biped</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>UZY_Mech_Biped_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>RussianMechBiped</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.6</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.7</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides>
+      <WeaponType>P_Minigun</WeaponType>
+    </WeaponOverrides>
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Russian</GroupId>
+    <EnemyUID>29</EnemyUID>
+    <EnemyName>Russian Soldier Plasma</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>UZY_SoldierArmor_02</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>RussianSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>6</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.6</m_Progression>
+        <m_Count>10</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>2</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds>
+      <int>74</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Russian</GroupId>
+    <EnemyUID>30</EnemyUID>
+    <EnemyName>Russian Soldier Laser</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>UZY_SoldierArmor_02</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>RussianSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>6</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.6</m_Progression>
+        <m_Count>10</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>2</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds>
+      <int>73</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Eternals</GroupId>
+    <EnemyUID>31</EnemyUID>
+    <EnemyName>Eternals Basic Soldier</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>ETE_Soldier_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>EternalsSoldier</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>10</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>0</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Eternals</GroupId>
+    <EnemyUID>32</EnemyUID>
+    <EnemyName>Eternals Soldier</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>ETE_SoldierArmor_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>EternalsSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.1</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>12</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>8</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.65</m_Progression>
+        <m_Count>6</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Eternals</GroupId>
+    <EnemyUID>33</EnemyUID>
+    <EnemyName>Eternals Heavy</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>ETE_HeavyArmor_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>EternalsHeavy</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.25</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.35</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.45</m_Progression>
+        <m_Count>7</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.65</m_Progression>
+        <m_Count>4</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>0.9</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds>
+      <int>76</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Eternals</GroupId>
+    <EnemyUID>34</EnemyUID>
+    <EnemyName>Eternals Jammer</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>ETE_SoldierJammer</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>EternalsSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides>
+      <WardrobeItemOverride>
+        <m_BodySlot>Chest</m_BodySlot>
+        <m_ID>170</m_ID>
+      </WardrobeItemOverride>
+    </m_WardrobeItemOverrides>
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.25</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.35</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.45</m_Progression>
+        <m_Count>6</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>1.25</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds>
+      <int>69</int>
+    </ItemIds>
+    <AbilityOverrides>
+      <int>1377</int>
+    </AbilityOverrides>
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Eternals</GroupId>
+    <EnemyUID>35</EnemyUID>
+    <EnemyName>Eternals Riot Shield</EnemyName>
+    <Spawnable>false</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>ETE_SoldierRiot</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>EternalsSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>6</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>1.25</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds>
+      <int>78</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Eternals</GroupId>
+    <EnemyUID>36</EnemyUID>
+    <EnemyName>Eternals Commander</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>ETE_Commander_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>EternalsCommander</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.15</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>4</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>2</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides>
+      <int>1370</int>
+    </AbilityOverrides>
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Eternals</GroupId>
+    <EnemyUID>37</EnemyUID>
+    <EnemyName>Eternals Drone Attack</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>ETE_Mech_Drone_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>EternalsDroneAttack</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.1</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Eternals</GroupId>
+    <EnemyUID>38</EnemyUID>
+    <EnemyName>Eternals Mini Mech</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>ETE_Mech_Mini_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>EternalsMechMini</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.1</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.2</m_Progression>
+        <m_Count>4</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.3</m_Progression>
+        <m_Count>7</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Eternals</GroupId>
+    <EnemyUID>39</EnemyUID>
+    <EnemyName>Eternals Biped</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>ETE_Mech_Biped_01</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>EternalsMechBiped</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.6</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.7</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides>
+      <WeaponType>L_Minigun</WeaponType>
+    </WeaponOverrides>
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Eternals</GroupId>
+    <EnemyUID>42</EnemyUID>
+    <EnemyName>Eternals Soldier Plasma</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>ETE_SoldierArmor_02</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>EternalsSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>6</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.65</m_Progression>
+        <m_Count>10</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>2</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds>
+      <int>74</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Eternals</GroupId>
+    <EnemyUID>43</EnemyUID>
+    <EnemyName>Eternals Soldier Laser</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>ETE_SoldierArmor_02</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>EternalsSoldierArmor</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>6</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.65</m_Progression>
+        <m_Count>10</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>DamageMultiplier</m_Type>
+        <m_Ammount>2</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>Shield</m_Type>
+        <m_Ammount>150</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds>
+      <int>73</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Police</GroupId>
+    <EnemyUID>44</EnemyUID>
+    <EnemyName>Police shotgun</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>GEN_PatrolPolice</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>TEST</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds>
+      <int>78</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Police</GroupId>
+    <EnemyUID>45</EnemyUID>
+    <EnemyName>Police revolver</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>GEN_PatrolPolice</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>TEST</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds>
+      <int>65</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Corporate</GroupId>
+    <EnemyUID>46</EnemyUID>
+    <EnemyName>Corp Mini Mech Plasma</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>DRA_Mech_Mini_Plasma</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>MechMini</WardrobeOverride>
+    <m_WardrobeItemOverrides>
+      <WardrobeItemOverride>
+        <m_BodySlot>LowerBody</m_BodySlot>
+        <m_ID>340</m_ID>
+      </WardrobeItemOverride>
+    </m_WardrobeItemOverrides>
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.4</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.5</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>HealthOffset</m_Type>
+        <m_Ammount>60</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Russian</GroupId>
+    <EnemyUID>47</EnemyUID>
+    <EnemyName>Russian Mini Mech Plasma</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>UZY_Mech_Mini_Plasma</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>RussianMechMini</WardrobeOverride>
+    <m_WardrobeItemOverrides>
+      <WardrobeItemOverride>
+        <m_BodySlot>LowerBody</m_BodySlot>
+        <m_ID>340</m_ID>
+      </WardrobeItemOverride>
+    </m_WardrobeItemOverrides>
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.35</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.45</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Eternals</GroupId>
+    <EnemyUID>81</EnemyUID>
+    <EnemyName>Eternals Shielded Heavy</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>ETE_HeavyArmor_01</m_Prefab_name>
+    <UseWardrobeOverride>true</UseWardrobeOverride>
+    <WardrobeOverride>EternalsHeavy</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0.6</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.7</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.8</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>ShieldRegenRate</m_Type>
+        <m_Ammount>18</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>Shield</m_Type>
+        <m_Ammount>300</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides>
+      <WeaponType>L_Minigun</WeaponType>
+    </WeaponOverrides>
+    <ItemIds />
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
+    <GroupId>Police</GroupId>
+    <EnemyUID>82</EnemyUID>
+    <EnemyName>Patrol Police (Copy)</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>Civilian</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>1</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.7</m_Progression>
+        <m_Count>2</m_Count>
+      </EnemyCountKey>
+      <EnemyCountKey>
+        <m_Progression>0.8</m_Progression>
+        <m_Count>3</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers>
+      <SerializableModifierData>
+        <m_Type>WeaponCountIncrease</m_Type>
+        <m_Ammount>2</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>ShieldRegenRate</m_Type>
+        <m_Ammount>30</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>Shield</m_Type>
+        <m_Ammount>300</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>GearSlotIncrease</m_Type>
+        <m_Ammount>5</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>HijackerLevel</m_Type>
+        <m_Ammount>5</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>HackerLevel</m_Type>
+        <m_Ammount>5</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>SpeedOffset</m_Type>
+        <m_Ammount>50</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>SprintEnergyCostMultiplier</m_Type>
+        <m_Ammount>0</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>HardwireLevel</m_Type>
+        <m_Ammount>15</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+      <SerializableModifierData>
+        <m_Type>ShieldRadius</m_Type>
+        <m_Ammount>0</m_Ammount>
+        <m_AmountModifier>NONE</m_AmountModifier>
+        <m_TimeOut>0</m_TimeOut>
+      </SerializableModifierData>
+    </Modifiers>
+    <WeaponOverrides />
+    <ItemIds />
+    <AbilityOverrides />
+  </SerializableEnemyEntry>
+</ArrayOfSerializableEnemyEntry>

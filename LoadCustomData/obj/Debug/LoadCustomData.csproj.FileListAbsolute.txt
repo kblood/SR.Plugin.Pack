@@ -9,3 +9,15 @@ B:\Git\SR.Plugin.Pack\LoadCustomData\bin\Debug\UnityEngine.UI.dll
 B:\Git\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.csproj.CopyComplete
 B:\Git\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.dll
 B:\Git\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.pdb
+f:\Github\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.csproj.CoreCompileInputs.cache
+f:\Github\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.dll
+f:\Github\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.pdb
+f:\Github\SR.Plugin.Pack\LoadCustomData\bin\Debug\LoadCustomData.dll
+f:\Github\SR.Plugin.Pack\LoadCustomData\bin\Debug\LoadCustomData.pdb
+f:\Github\SR.Plugin.Pack\LoadCustomData\bin\Debug\Assembly-CSharp-firstpass.dll
+f:\Github\SR.Plugin.Pack\LoadCustomData\bin\Debug\Assembly-CSharp.dll
+f:\Github\SR.Plugin.Pack\LoadCustomData\bin\Debug\UnityEngine.dll
+f:\Github\SR.Plugin.Pack\LoadCustomData\bin\Debug\UnityEngine.Networking.dll
+f:\Github\SR.Plugin.Pack\LoadCustomData\bin\Debug\UnityEngine.UI.dll
+F:\Github\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.csproj.AssemblyReference.cache
+F:\Github\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCust.AF5A35A2.Up2Date

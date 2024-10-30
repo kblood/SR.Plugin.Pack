@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SyndicateMod.Services
+namespace SRMod.Services
 {
     public class UIHelper
     {

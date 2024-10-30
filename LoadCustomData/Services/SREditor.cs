@@ -9,7 +9,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using static System.Collections.Specialized.BitVector32;
 
-namespace LoadCustomDataMod.Services
+namespace SRMod.Services
 {
     public static class SREditor
     {

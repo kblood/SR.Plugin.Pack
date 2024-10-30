@@ -36,3 +36,15 @@ B:\Git\SR.Plugin.Pack\Pause\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\Pause\bin\Debug\Pause.dll
+f:\Github\SR.Plugin.Pack\Pause\bin\Debug\Pause.pdb
+f:\Github\SR.Plugin.Pack\Pause\bin\Debug\Assembly-CSharp-firstpass.dll
+f:\Github\SR.Plugin.Pack\Pause\bin\Debug\Assembly-CSharp.dll
+f:\Github\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.dll
+f:\Github\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.Networking.dll
+f:\Github\SR.Plugin.Pack\Pause\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.AssemblyReference.cache
+f:\Github\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.CoreCompileInputs.cache
+f:\Github\SR.Plugin.Pack\Pause\obj\Debug\Pause.dll
+f:\Github\SR.Plugin.Pack\Pause\obj\Debug\Pause.pdb
+F:\Github\SR.Plugin.Pack\Pause\obj\Debug\Pause.csproj.Up2Date

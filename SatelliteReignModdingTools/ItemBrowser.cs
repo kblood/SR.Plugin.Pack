@@ -1,5 +1,5 @@
-﻿using dto = SyndicateMod.DTOs;
-using SyndicateMod.Services;
+﻿using dto = SRMod.DTOs;
+using SRMod.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,10 +19,11 @@ namespace SatelliteReignModdingTools
     public partial class ItemBrowser : Form
     {
         public static List<dto.TranslationElementDTO> _translations = new List<dto.TranslationElementDTO>();
-        public static List<dto.ItemData> itemDTOs = new List<dto.ItemData>();
+        public static List<dto.SerializableItemData> itemDTOs = new List<dto.SerializableItemData>();
         static List<Models.Ability> abilities = new List<Models.Ability>();
-        static dto.ItemData activeItemData = new dto.ItemData();
-        static dto.ModifierData5L activeModifier;
+        static dto.SerializableItemData activeItemData = new dto.SerializableItemData();
+        static dto.SerializableModifierData activeModifier;
+        private const string _itemDataFileName = "itemDefinitions.xml";
 
         public static int activeLanguage = 2;
 
@@ -33,7 +34,7 @@ namespace SatelliteReignModdingTools
             InitializeComponent();
             ItemListBox.ClearSelected();
             _translations = FileManager.LoadTranslationsXML("Translations.xml", FileManager.ExecPath).ToList();
-            itemDTOs = FileManager.LoadItemDataXML("ItemData.xml", FileManager.ExecPath).OrderBy(i => i.m_ID).ToList();
+            itemDTOs = FileManager.LoadItemDataXML(_itemDataFileName, FileManager.ExecPath).OrderBy(i => i.m_ID).ToList();
             UpdateItemInfo();
 
             ItemSlotTypeDropDown.DataSource = Enum.GetValues(typeof(ItemSlotTypes)).Cast<ItemSlotTypes>().ToList().Take(8).ToList();
@@ -71,9 +72,9 @@ namespace SatelliteReignModdingTools
             ItemSlotTypeDropDown.SelectedIndex = (int)activeItemData.m_Slot;
             GearSubTypeDropDown.SelectedIndex = (int)activeItemData.m_GearSubCategory;
             WeaponTypeDropDown.SelectedIndex = (int)activeItemData.m_WeaponType;
-            if(activeItemData.m_UIIcon != null)
+            if(activeItemData.m_UIIconName != null)
             {
-                ItemIconImageBox.Image = FileManager.LoadImageFromFile(activeItemData.m_UIIcon.textureName);
+                ItemIconImageBox.Image = FileManager.LoadImageFromFile(activeItemData.m_UIIconName);
                 ChangeImageColor(Color.White, Color.Aquamarine);
             }
 
@@ -130,13 +131,19 @@ Timeout: {modifier.m_TimeOut}",
         {
             var itemAbilities = activeItemData.m_AbilityIDs?.Select
             (
-                abilityId => new
+                abilityId =>
                 {
-                    //Key = abilityId + ": " + _translations.Where(t => t.Key == "ABILITY_" + abilityId + "_NAME").FirstOrDefault()?.Element?.m_Translations[activeLanguage],
-                    //Name = _translations.Where(t => t.Key == "ABILITY_" + abilityId + "_NAME").FirstOrDefault()?.Element?.m_Translations[activeLanguage]
-                    Key = abilityId + ": " + abilities.Where(a => a.Id == abilityId).FirstOrDefault()?.Name,
-                    Name = abilities.Where(a => a.Id == abilityId).FirstOrDefault()?.Name,
-                    Value = abilities.Where(a => a.Id == abilityId).FirstOrDefault()
+                    var ability = abilities.Where(a => a.Id == abilityId).FirstOrDefault();
+                    if (ability == null)
+                        ability = new Models.Ability() { Id = abilityId };
+                    return new
+                    {
+                        //Key = abilityId + ": " + _translations.Where(t => t.Key == "ABILITY_" + abilityId + "_NAME").FirstOrDefault()?.Element?.m_Translations[activeLanguage],
+                        //Name = _translations.Where(t => t.Key == "ABILITY_" + abilityId + "_NAME").FirstOrDefault()?.Element?.m_Translations[activeLanguage]
+                        Key = abilityId + ": " + ability?.Name,
+                        Name = ability?.Name,
+                        Value = ability
+                    };
                 }
             )?.ToList();
 
@@ -151,7 +158,7 @@ Timeout: {modifier.m_TimeOut}",
         private void ChangeImageColor(Color oldColor, Color newColor)
         {
             using (Graphics g = Graphics.FromImage(ItemIconImageBox.Image))
-            using (Bitmap bmp = new Bitmap(FileManager.LoadImageFromFile(activeItemData.m_UIIcon.textureName)))
+            using (Bitmap bmp = new Bitmap(FileManager.LoadImageFromFile(activeItemData.m_UIIconName)))
             {
                 // Set the image attribute's color mappings
                 ColorMap[] colorMap = new ColorMap[1];
@@ -189,7 +196,7 @@ Timeout: {modifier.m_TimeOut}",
         {
             if (ItemListBox.SelectedItem != null)
             {
-                activeItemData = (dto.ItemData)ItemListBox.SelectedItem.GetMemberValue("Value");
+                activeItemData = (dto.SerializableItemData)ItemListBox.SelectedItem.GetMemberValue("Value");
                 ExtraNameTextBox.Clear();
                 ExtraDescriptionTextBox.Clear();
                 UpdateUI();
@@ -244,9 +251,12 @@ Timeout: {modifier.m_TimeOut}",
         {
             if (AbilityListBox.SelectedItem != null)
             {
+                var ability = (Models.Ability)AbilityListBox.SelectedItem.GetMemberValue("Value");
                 ExtraNameTextBox.Text = (string)AbilityListBox.SelectedItem.GetMemberValue("Name");
-                ExtraDescriptionTextBox.Text = ((Models.Ability)AbilityListBox.SelectedItem.GetMemberValue("Value"))?.Desc;
-                AbilityDropdown.SelectedItem = ((Models.Ability)AbilityListBox.SelectedItem.GetMemberValue("Value"));
+                ExtraDescriptionTextBox.Text = ability?.Desc;
+                AbilityDropdown.SelectedItem = ability;
+                int index = activeItemData.m_AbilityIDs.IndexOf(ability.Id);
+                AmountTextBox.Text = activeItemData.m_AbilityMasks[index].ToString();
                 //UpdateUI();
             }
         }
@@ -258,7 +268,7 @@ Timeout: {modifier.m_TimeOut}",
                 ExtraNameTextBox.Text = ModifierListBox.SelectedItem.GetMemberValue("Key")?.ToString();
                 ExtraDescriptionTextBox.Text = ModifierListBox.SelectedItem.GetMemberValue("Description")?.ToString();
                 ModifierDropdown.SelectedItem = (ModifierType)ModifierListBox.SelectedItem.GetMemberValue("Enum");
-                var modifier = (SyndicateMod.DTOs.ModifierData5L)ModifierListBox.SelectedItem.GetMemberValue("Modifier");
+                var modifier = (SRMod.DTOs.SerializableModifierData)ModifierListBox.SelectedItem.GetMemberValue("Modifier");
                 AmountTextBox.Text = modifier.m_Ammount.ToString();
                 //TimeOutTextBox.Text = modifier.m_TimeOut.ToString();
                 //MultiplierTypeDropDown.SelectedItem = ModifierDropdown.SelectedItem = modifier.m_AmountModifier;
@@ -271,7 +281,8 @@ Timeout: {modifier.m_TimeOut}",
 
         private void CopyItemButton_Click(object sender, EventArgs e)
         {
-            activeItemData = SREditor.CopyItem(activeItemData);
+            //activeItemData = new dto.SerializableItemData(SREditor.CopyItem(activeItemData.m_ID));
+            activeItemData = new dto.SerializableItemData(SREditor.CopyItem(activeItemData.m_ID));
             UpdateItemInfo();
             ItemListBox.SelectedIndex = itemDTOs.IndexOf(activeItemData);
             //UpdateUI();
@@ -320,9 +331,9 @@ Timeout: {modifier.m_TimeOut}",
             if(!activeItemData.m_Modifiers.Select(m => m.m_Type).Contains(type))
             {
                 var modifiers = activeItemData.m_Modifiers.ToList();
-                var newMod = new SyndicateMod.DTOs.ModifierData5L() { m_Type = type };
+                var newMod = new SRMod.DTOs.SerializableModifierData() { m_Type = type };
                 modifiers.Add(newMod);
-                activeItemData.m_Modifiers = modifiers.ToArray();
+                activeItemData.m_Modifiers = modifiers;
                 //UpdateUI();
                 UpdateModifierInfo();
 
@@ -337,7 +348,7 @@ Timeout: {modifier.m_TimeOut}",
             {
                 AmountTextBox.Text = amount.ToString();
                 oldAmountValue = amount;
-                var modifier = (SyndicateMod.DTOs.ModifierData5L)ModifierListBox.SelectedItem.GetMemberValue("Modifier");
+                var modifier = (SRMod.DTOs.SerializableModifierData)ModifierListBox.SelectedItem.GetMemberValue("Modifier");
                 modifier.m_Ammount = amount;
             }
             else
@@ -351,10 +362,10 @@ Timeout: {modifier.m_TimeOut}",
         {
             if(ModifierListBox.SelectedItem != null)
             {
-                var modifier = (dto.ModifierData5L)ModifierListBox.SelectedItem.GetMemberValue("Modifier");
+                var modifier = (dto.SerializableModifierData)ModifierListBox.SelectedItem.GetMemberValue("Modifier");
                 var modifiers = activeItemData.m_Modifiers.ToList();
                 modifiers.Remove(modifier);
-                activeItemData.m_Modifiers = modifiers.ToArray();
+                activeItemData.m_Modifiers = modifiers;
                 UpdateModifierInfo();
             }
             else
@@ -501,7 +512,8 @@ This item is one of the games original items, deleting it might cause problems f
 
             //dto.ItemDataList itemList = new dto.ItemDataList() { Items = itemDTOs };
             //FileManager.SaveAsXML(itemList, "ItemData.xml", FileManager.ExecPath + @"\");
-            FileManager.SaveAsXML(itemDTOs, "ItemData.xml", FileManager.ExecPath + @"\");
+            //FileManager.SaveAsXML(itemDTOs, "ItemData.xml", FileManager.ExecPath + @"\");
+            FileManager.SaveAsXML(itemDTOs, _itemDataFileName, FileManager.ExecPath + @"\");
 
             //var result = MessageBox.Show(FileManager.ExecPath, FileManager.ExecPath, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -509,7 +521,7 @@ This item is one of the games original items, deleting it might cause problems f
         private void loadAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _translations = FileManager.LoadTranslationsXML("Translations.xml", FileManager.ExecPath + @"\");
-            itemDTOs = FileManager.LoadItemDataXML("ItemData.xml", FileManager.ExecPath + @"\");
+            itemDTOs = FileManager.LoadItemDataXML(_itemDataFileName, FileManager.ExecPath + @"\");
             UpdateItemInfo();
             UpdateUI();
         }

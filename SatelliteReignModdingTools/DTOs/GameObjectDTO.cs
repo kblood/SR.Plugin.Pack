@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace SyndicateMod.DTOs
+namespace SRMod.DTOs
 {
     public class GameObjectDTO
     {

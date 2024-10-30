@@ -63,24 +63,38 @@
   <ItemGroup>
     <Compile Include="DTOs\GameObjectDTO.cs" />
     <Compile Include="DTOs\ItemData.cs" />
-    <Compile Include="DTOs\ItemDataList.cs" />
     <Compile Include="DTOs\Sprite.cs" />
     <Compile Include="DTOs\TransformDTO.cs" />
     <Compile Include="DTOs\TranslationsDTO.cs" />
     <Compile Include="DTOs\XMLCollection.cs" />
+    <Compile Include="EnemyBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnemyBrowser.Designer.cs">
+      <DependentUpon>EnemyBrowser.cs</DependentUpon>
+    </Compile>
     <Compile Include="ItemBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ItemBrowser.Designer.cs">
       <DependentUpon>ItemBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Ability.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FileManager.cs" />
     <Compile Include="Services\ImageHelper.cs" />
+    <Compile Include="Services\ItemDataManager.cs" />
     <Compile Include="Services\ObjectiveEventHandler.cs" />
     <Compile Include="Services\ReflectionExtensions.cs" />
+    <Compile Include="Services\SpawnCardManager.cs" />
+    <Compile Include="Services\SpriteSerializer.cs" />
     <Compile Include="Services\SREditor.cs" />
     <Compile Include="Services\SRInfoHelper.cs" />
     <Compile Include="Services\SRMapper.cs" />

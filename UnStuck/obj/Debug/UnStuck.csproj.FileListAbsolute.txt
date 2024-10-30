@@ -36,3 +36,15 @@ B:\Git\SR.Plugin.Pack\UnStuck\bin\Debug\Assembly-CSharp.dll
 B:\Git\SR.Plugin.Pack\UnStuck\bin\Debug\UnityEngine.dll
 B:\Git\SR.Plugin.Pack\UnStuck\bin\Debug\UnityEngine.Networking.dll
 B:\Git\SR.Plugin.Pack\UnStuck\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\UnStuck\bin\Debug\UnStuck.dll
+f:\Github\SR.Plugin.Pack\UnStuck\bin\Debug\UnStuck.pdb
+f:\Github\SR.Plugin.Pack\UnStuck\bin\Debug\Assembly-CSharp-firstpass.dll
+f:\Github\SR.Plugin.Pack\UnStuck\bin\Debug\Assembly-CSharp.dll
+f:\Github\SR.Plugin.Pack\UnStuck\bin\Debug\UnityEngine.dll
+f:\Github\SR.Plugin.Pack\UnStuck\bin\Debug\UnityEngine.Networking.dll
+f:\Github\SR.Plugin.Pack\UnStuck\bin\Debug\UnityEngine.UI.dll
+f:\Github\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.csproj.AssemblyReference.cache
+f:\Github\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.csproj.CoreCompileInputs.cache
+f:\Github\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.dll
+f:\Github\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.pdb
+F:\Github\SR.Plugin.Pack\UnStuck\obj\Debug\UnStuck.csproj.Up2Date
