@@ -74,6 +74,7 @@ namespace SatelliteReignModdingTools
             this.MoveItemUpButton = new System.Windows.Forms.Button();
 
 
+
             // Modifier Controls
             this.ModifierListBox = new System.Windows.Forms.ListBox();
             this.ModifierDropdown = new System.Windows.Forms.ComboBox();
