@@ -1,0 +1,14 @@
+
+
+Serialize weaponsdata, missions
+
+Weapons data files:
+WeaponData.cs
+WeaponManager.cs - public WeaponData[] m_WeaponData;
+Items.cs - private Weapons m_Weapons;
+Weapons.cs - 
+private List<Weapon> m_WeaponList = new List<Weapon>();
+private Modifiers m_Modifiers;
+private List<List<Ability>> m_WeaponAbilities = new List<List<Ability>>();
+
+Add UI for weapons, missions and enemies in modding tools.

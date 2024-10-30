@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using LoadCustomDataMod.Services;
+using SRMod.Services;
 using System.Collections;
 using System.Reflection;
 using System.Xml;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace LoadCustomDataMod.Services 
+namespace SRMod.Services 
 {
     public static class SRInfoHelper
     {

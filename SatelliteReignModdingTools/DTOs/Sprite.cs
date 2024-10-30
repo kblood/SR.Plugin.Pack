@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 using UnityEngine;
 
-namespace SyndicateMod.DTOs
+namespace SRMod.DTOs
 {
     public class Sprite
     {

@@ -88,6 +88,31 @@ namespace SyndicateMod.Services
             return output;
         }
 
+        public static List<string> GetQuestInfo()
+        {
+            List<string> output = new List<string>();
+            var districtQuests = Manager.GetQuestManager().GetFieldValue<List<List<QuestElement>>>("m_ElementsWaitingToBeEnabled");
+
+            foreach(var district in districtQuests)
+            foreach(var quest in district)
+            {
+                    try { 
+                        output.Add($"***** Quest_Name: {quest.name} m_Title: {quest.m_Title} m_MandatoryQuests: {quest.m_MandatoryQuests.Count()} ParentQuest_Title: {quest.ParentQuest?.m_Title} m_VIP: {(quest.m_VIP == null ? "no VIP": "Has VIP")}");
+                    } catch { output.Add($"Error for {quest.m_ID}{quest.m_Title}"); }
+                    try
+                    {
+                        output.Add($"m_Hidden: {quest.m_Hidden} m_DescriptionObjects: {quest.m_DescriptionObjects.Count()} m_CompleteElements: {quest.m_CompleteElements.Count()}");
+                    }
+                    catch { output.Add($"Error for {quest.m_ID}{quest.m_Title}"); }
+                    try {
+                        output.Add($"** Quest Location: m_ID: {quest.m_Location.m_ID} m_LocationID: {quest.m_Location.m_LocationID} m_DistricFilterType: {quest.m_Location.m_DistricFilterType} " +
+                        $"m_Address: {quest.m_Location.m_Address.Select(a => a.ToString()).Aggregate((x, y) => x + "" + y)} tag: {quest.m_Location.tag} m_PickupPointCount: {quest.m_Location.m_PickupPointCount}");
+                    } catch { output.Add($"Error for {quest.m_ID}{quest.m_Title}"); }
+            }
+
+            return output;
+        }
+
         public static void Log(string log)
         {
             if(isLogging)

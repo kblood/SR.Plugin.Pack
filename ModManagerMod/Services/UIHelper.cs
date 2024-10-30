@@ -8,8 +8,6 @@ namespace SRModManager.Services
     public class UIHelper
     {
         public static SRModVerticalButtonsUI VerticalButtonsUi;
-        public static SRModVerticalDualButtonsUI VerticalDualButtonsUi;
-
 
         static InputBoxUi new_InputBoxUi;
 
@@ -29,94 +27,6 @@ namespace SRModManager.Services
             }
             //Manager.GetUIManager().man (text, 10);
             //Get().setEntityInfo("Show Message", text);
-        }
-
-        public static IEnumerator ModalVerticalDualButtonsRoutine(string titleText, Dictionary<SRModButtonElement, SRModButtonElement> buttons)
-        {
-            string info = "";
-
-            if (VerticalDualButtonsUi == null)
-            {
-                try
-                {
-                    var newInputBoxUi = UnityEngine.Object.Instantiate(Manager.GetUIManager().m_InputBoxUi);
-                    VerticalDualButtonsUi = new SRModVerticalDualButtonsUI(newInputBoxUi);
-                    VerticalDualButtonsUi.InputBoxUi.InputBoxType = InputBoxUi.InputBoxTypes.MbOkcancel;
-                }
-                catch (Exception e)
-                {
-                    info += " error thrown " + e.Message + " when ";
-                    ShowMessage(info);
-                    //FileManager.SaveText(info, "errors.log");
-                }
-                info += "instantiated";
-                yield return null;
-            }
-
-            if (Manager.GetUIManager().m_InputBoxUi.isActiveAndEnabled)
-            {
-                Manager.GetUIManager().m_InputBoxUi.Hide();
-                yield return null;
-            }
-            if (new_InputBoxUi != null && new_InputBoxUi.isActiveAndEnabled)
-            {
-                new_InputBoxUi.Hide();
-                yield return null;
-            }
-            if (VerticalDualButtonsUi != null && VerticalDualButtonsUi.InputBoxUi.isActiveAndEnabled)
-            {
-                VerticalDualButtonsUi.InputBoxUi.Hide();
-                yield return null;
-            }
-
-            bool inputControlEnabled = Manager.GetUIManager().InputControlUi.gameObject.activeSelf;
-            Manager.GetUIManager().InputControlUi.gameObject.SetActive(false);
-            Manager.ptr.DisableKeyCommands();
-
-            var inputboxui = VerticalDualButtonsUi.InputBoxUi;
-
-            inputboxui.Show(Manager.GameActive);
-            inputboxui.transform.SetAsLastSibling();
-            inputboxui.TitleText = titleText;
-            inputboxui.OkButtonText.text = ("Ok" ?? TextManager.GetLoc("BUTTON_OK", true, false));
-            inputboxui.CancelButtonText.text = ("Cancel" ?? TextManager.GetLoc("BUTTON_CANCEL", true, false));
-
-            Manager.GetUIManager().ToggleEverything(true);
-            yield return 0;
-
-            try
-            {
-                VerticalDualButtonsUi.SetButtons(buttons, ref info);
-            }
-            catch (Exception e)
-            {
-
-                info += " Exception thrown: " + e.Message;
-                ShowMessage(info);
-
-                FileManager.Log(info);
-
-
-                //FileManager.SaveText(info, "errors.log");
-            }
-
-            VerticalDualButtonsUi.InputBoxUi.gameObject.SetActive(true);
-
-            FileManager.Log("Activated buttons UI");
-
-
-            yield return Manager.GetUIManager().WaitForActive(VerticalDualButtonsUi.InputBoxUi.gameObject, false);
-
-            //Utils.SafeInvoke<bool>(ok, VerticalDualButtonsUi.InputBoxUi.IsOk());
-            Manager.GetUIManager().InputControlUi.gameObject.SetActive(inputControlEnabled);
-            Manager.GetUIManager().ToggleEverything(true);
-            Manager.ptr.EnableKeyCommands();
-            //FileManager.SaveText(info, "errors.log");
-
-            //ShowMessage(info + " all done");
-
-            //SRInfoHelper.GetAllChildren(VerticalDualButtonsUi.InputBoxUi.transform);
-            yield break;
         }
 
         public static IEnumerator ModalVerticalButtonsRoutine(string titleText, List<SRModButtonElement> buttons)

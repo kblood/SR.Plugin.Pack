@@ -1,4 +1,4 @@
-﻿using SyndicateMod.DTOs;
+﻿using SRMod.DTOs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using SystemLanguage = UnityEngine.SystemLanguage;
 using Language = TextManager.Language;
 using System.Globalization;
 
-namespace SyndicateMod.Services
+namespace SRMod.Services
 {
     public class SRMapper
     {
@@ -18,9 +18,9 @@ namespace SyndicateMod.Services
         public static Language[] NotLanguages;
         public static CultureInfo DefaultCultureInfo;
 
-        public static ItemData Map(ItemManager.ItemData itemData)
+        public static SerializableItemData Map(ItemManager.ItemData itemData)
         {
-            var mappedData = new ItemData();
+            var mappedData = new SerializableItemData(itemData);
 
             return mappedData;
         }
@@ -130,7 +130,7 @@ namespace SyndicateMod.Services
 
                 if (pDest != null && pDest.CanWrite)
                 {
-                    if(pDest.PropertyType.FullName == "SyndicateMod.DTOs.Sprite")
+                    if(pDest.PropertyType.FullName == "SRMod.DTOs.Sprite")
                     {
                         //SRInfoHelper.Log("Mapping sprite");
                         DTOs.Sprite destSprite = (DTOs.Sprite)pDest.GetValue(result, null);
@@ -183,18 +183,18 @@ namespace SyndicateMod.Services
 
                         if (itemType.FullName.Contains("Syndicate"))
                         {
-                            List<DTOs.ModifierData5L> modifiers = new List<DTOs.ModifierData5L>();
+                            List<DTOs.SerializableModifierData> modifiers = new List<DTOs.SerializableModifierData>();
 
                             if(fSource != null)
                                 foreach (var item in (IEnumerable)fSource.GetValue(obj))
                                 {
-                                    var mappedItem = ReflectionObjectBuilder<DTOs.ModifierData5L>(item);
+                                    var mappedItem = ReflectionObjectBuilder<DTOs.SerializableModifierData>(item);
                                     modifiers.Add(mappedItem);
                                 }
                             else if(pSource != null)
                                 foreach (var item in (IEnumerable)pSource.GetValue(obj, null))
                                 {
-                                    var mappedItem = ReflectionObjectBuilder<DTOs.ModifierData5L>(item);
+                                    var mappedItem = ReflectionObjectBuilder<DTOs.SerializableModifierData>(item);
                                     modifiers.Add(mappedItem);
                                 }
                             result.SetMemberValue(pi.Name, modifiers.ToArray());
@@ -337,18 +337,18 @@ namespace SyndicateMod.Services
 
                         if (itemType.FullName.Contains("Syndicate"))
                         {
-                            List<DTOs.ModifierData5L> modifiers = new List<DTOs.ModifierData5L>();
+                            List<DTOs.SerializableModifierData> modifiers = new List<DTOs.SerializableModifierData>();
 
                             if (fSource != null)
                                 foreach (var item in (IEnumerable)fSource.GetValue(obj))
                                 {
-                                    var mappedItem = ReflectionObjectBuilder<DTOs.ModifierData5L>(item);
+                                    var mappedItem = ReflectionObjectBuilder<DTOs.SerializableModifierData>(item);
                                     modifiers.Add(mappedItem);
                                 }
                             else
                                 foreach (var item in (IEnumerable)pSource.GetValue(obj, null))
                                 {
-                                    var mappedItem = ReflectionObjectBuilder<DTOs.ModifierData5L>(item);
+                                    var mappedItem = ReflectionObjectBuilder<DTOs.SerializableModifierData>(item);
                                     modifiers.Add(mappedItem);
                                 }
 

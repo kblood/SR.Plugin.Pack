@@ -11,19 +11,7 @@ namespace SyndicateMod.Services
 {
     public class FileManager
     {
-        public static bool isLogging = true;
-
         string fileName = "MyFile.txt";
-
-        public static void Log(string log)
-        {
-            if (isLogging)
-            {
-                var loglist = FileManager.LoadList(Manager.GetPluginManager().PluginPath + @"\logfile.log");
-                loglist.Add($"{DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss")} : {log}");
-                FileManager.SaveList(loglist, Manager.GetPluginManager().PluginPath + @"\logfile.log");
-            }
-        }
 
         public static bool SaveData(byte[] Data, string FileName = @"C:\temp\TestFileDoc.xml")
         {

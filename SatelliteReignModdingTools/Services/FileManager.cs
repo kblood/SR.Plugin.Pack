@@ -5,10 +5,10 @@ using System.Text;
 using System.IO;
 using UnityEngine;
 using System.Xml.Serialization;
-using SyndicateMod.DTOs;
+using SRMod.DTOs;
 using System.Drawing;
 
-namespace SyndicateMod.Services
+namespace SRMod.Services
 {
     public class FileManager
     {
@@ -18,6 +18,41 @@ namespace SyndicateMod.Services
             {
                 return Environment.CurrentDirectory;
             }
+        }
+
+        static public List<SerializableEnemyEntry> LoadEnemyDataXML(string fileName, string filePath = @"C:\Temp\")
+        {
+            string fileWithPath = fileName;
+
+            if (!fileWithPath.Contains(@":") && !fileWithPath.Contains(@"\"))
+            {
+                if (filePath.EndsWith(@"\"))
+                    fileWithPath = filePath + fileWithPath;
+                else
+                    fileWithPath = filePath + @"\" + fileWithPath;
+            }
+
+            List<SerializableEnemyEntry> list = new List<SerializableEnemyEntry>();
+
+            // Create an instance of System.Xml.Serialization.XmlSerializer
+            XmlSerializer serializer = new XmlSerializer(list.GetType());
+
+            try
+            {
+                // Create an instance of System.IO.TextReader to load the serialized data
+                using (TextReader textReader = new StreamReader(fileWithPath))
+                {
+                    // Assign the deserialized object to the list
+                    list = (List<SerializableEnemyEntry>)serializer.Deserialize(textReader);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                // Return empty list if file doesn't exist
+                return list;
+            }
+
+            return list;
         }
 
         public static bool SaveData(byte[] Data, string FileName = @"C:\temp\TestFileDoc.xml")
@@ -74,21 +109,21 @@ namespace SyndicateMod.Services
             }
         }
 
-        static public void SaveAsXML(List<ItemData> data, string fileName, string filePath = @"C:\Temp\")
+        static public void SaveAsXML(List<SerializableItemData> data, string fileName, string filePath = @"C:\Temp\")
         {
-            ItemDataList list = new ItemDataList();
+            //ItemDataList list = new ItemDataList();
 
-            list.Items = data;
+            //list.Items = data;
 
             // Create an instance of System.Xml.Serialization.XmlSerializer
-            XmlSerializer serializer = new XmlSerializer(list.GetType());
+            XmlSerializer serializer = new XmlSerializer(data.GetType());
 
             // Create an instance of System.IO.TextWriter 
             // to save the serialized object to disk
             using (TextWriter textWriter = new StreamWriter($@"{filePath}{fileName}"))
             {
                 // Serialize the employeeList object
-                serializer.Serialize(textWriter, list);
+                serializer.Serialize(textWriter, data);
             }
         }
 
@@ -120,7 +155,7 @@ namespace SyndicateMod.Services
             return list.Translations;
         }
 
-        static public List<ItemData> LoadItemDataXML(string fileName, string filePath = @"C:\Temp\")
+        static public List<SerializableItemData> LoadItemDataXML(string fileName, string filePath = @"C:\Temp\")
         {
             string fileWithPath = fileName;
 
@@ -132,7 +167,7 @@ namespace SyndicateMod.Services
                     fileWithPath = filePath + @"\" + fileWithPath;
             }
 
-            ItemDataList list = new ItemDataList();
+            List<SerializableItemData> list = new List<SerializableItemData>();
 
             // Create an instance of System.Xml.Serialization.XmlSerializer
             XmlSerializer serializer = new XmlSerializer(list.GetType());
@@ -142,10 +177,10 @@ namespace SyndicateMod.Services
             using (TextReader textReader = new StreamReader(fileWithPath))
             {
                 // Assign the deserialized object to the new employeeList object
-                list = (ItemDataList)serializer.Deserialize(textReader);
+                list = (List<SerializableItemData>)serializer.Deserialize(textReader);
             }
 
-            return list.Items;
+            return list;
         }
 
         public static string SaveTextureToFile(Texture2D texture)
@@ -187,7 +222,7 @@ namespace SyndicateMod.Services
         {
             SRInfoHelper.Log("Loading " + fileName);
 
-            string filePath = @"C:\Temp" + @"\" + fileName;
+            string filePath = ExecPath + @"\" + fileName;
             //string filePath = Manager.GetPluginManager().PluginPath + @"\" + fileName;
 
             if (File.Exists(filePath))
@@ -214,11 +249,12 @@ namespace SyndicateMod.Services
             }
         }
 
-        public static Image LoadImageFromFile(string fileName)
+        // Load a texture image from its name
+        public static Image LoadImageFromFile(string textureName)
         {
-            SRInfoHelper.Log("Loading " + fileName);
+            SRInfoHelper.Log("Loading " + textureName);
 
-            string filePath = @"C:\Temp" + @"\" + fileName;
+            string filePath = ExecPath + @"\icons\" + textureName + ".png";
             //string filePath = Manager.GetPluginManager().PluginPath + @"\" + fileName;
 
             if (File.Exists(filePath))
