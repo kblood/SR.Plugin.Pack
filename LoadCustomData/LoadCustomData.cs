@@ -8,7 +8,6 @@ using dto = SRMod.DTOs;
 
 namespace LoadCustomData
 {
-
     /// <summary>
     /// Example Satellite Reign LoadCustomData mod.
     /// </summary>
@@ -23,28 +22,12 @@ namespace LoadCustomData
             SRInfoHelper.Log("Initializing Satellite Reign LoadCustomData mod");
             try
             {
-                //var translations = FileManager.LoadTranslationsXML("Translations.xml");
-                //var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
-
-                //foreach (var e in translations)
-                //{
-                //    if (langLookup.ContainsKey(e.Key))
-                //    {
-                //        langLookup[e.Key] = e.Element;
-                //    }
-                //    else
-                //    {
-                //        langLookup.Add(e.Key, e.Element);
-                //    }
-                //}
-                //SRInfoHelper.Log("Updated LangLookup with new translations");
                 var sm = SpawnManager.Get();
                 SRInfoHelper.Log($"Spawnmanager has {sm.m_EnemyDefinitions.Count} m_EnemyDefinitions");
 
                 SpawnCardManager.Instance.Initialize();
                 //if(!SpawnCardManager.Instance.CheckIfXMLFileExists())
                 //    SpawnCardManager.Instance.SaveSpawnCardsToFile();
-                
 
                 var translations = TranslationManager.LoadTranslations();
                 var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
@@ -62,9 +45,10 @@ namespace LoadCustomData
                 }
                 SRInfoHelper.Log("Updated LangLookup with new translations");
 
-                ItemDataManager.Instance.Initialize();
                 if (!File.Exists(Path.Combine(Manager.GetPluginManager().PluginPath, "itemDefinitions.xml")))
                     ItemDataManager.Instance.SaveItemDefinitionsToFile();
+                ItemDataManager.Instance.Initialize();
+                
                 /*
                 var items = FileManager.LoadXML("ItemData.xml");
 

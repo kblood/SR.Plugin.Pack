@@ -7,7 +7,22 @@ namespace SatelliteReignModdingTools
     {
         public MainMenu()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+
+                // Test loading a game type to verify DLL loading works
+                var test = typeof(ItemManager);
+
+                // Continue with initialization...
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error initializing application: {ex.Message}\n\n" +
+                    "Please verify that the game path is correct.",
+                    "Initialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
         }
 
         private void btnItemBrowser_Click(object sender, EventArgs e)
