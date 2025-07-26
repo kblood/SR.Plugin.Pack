@@ -143,13 +143,13 @@ namespace SRMod.Services
                 {
                     // Assign the deserialized object to the new quest manager
                     var questData = (SerializableQuestManager)serializer.Deserialize(textReader);
-                    SRInfoHelper.Log($"Successfully loaded quest data with {questData.m_QuestElements.Count} quest elements");
+                    SRInfoHelper.Log(string.Format("Successfully loaded quest data with {0} quest elements", questData.m_QuestElements.Count));
                     return questData;
                 }
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"Failed to load quest data XML: {ex.Message}");
+                SRInfoHelper.Log(string.Format("Failed to load quest data XML: {0}", ex.Message));
                 return null;
             }
         }

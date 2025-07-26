@@ -33,7 +33,7 @@ namespace SRMod.Services
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Initialization failed - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Initialization failed - {0}", ex.Message));
                 IsInitialized = false;
             }
         }
@@ -62,14 +62,14 @@ namespace SRMod.Services
                 string filePath = Path.Combine(Manager.GetPluginManager().PluginPath, "questDefinitions.xml");
                 FileManager.SaveAsXML(serializedData, "questDefinitions.xml");
                 
-                SRInfoHelper.Log($"QuestDataManager: Saved quest data to {filePath}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Saved quest data to {0}", filePath));
                 
                 // Also save in human-readable format for debugging
                 SaveQuestDataAsText(serializedData);
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to save quest data - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to save quest data - {0}", ex.Message));
             }
         }
 
@@ -102,11 +102,11 @@ namespace SRMod.Services
                     ExtractQuestElementsRecursive(baseQuestElement, serializedManager.m_QuestElements);
                 }
 
-                SRInfoHelper.Log($"QuestDataManager: Extracted {serializedManager.m_QuestElements.Count} quest elements");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Extracted {0} quest elements", serializedManager.m_QuestElements.Count));
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to extract quest data - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to extract quest data - {0}", ex.Message));
             }
 
             return serializedManager;
@@ -143,11 +143,11 @@ namespace SRMod.Services
                 // Extract descriptions
                 ExtractQuestDescriptions(questElement, serialized.m_Descriptions);
 
-                SRInfoHelper.Log($"QuestDataManager: Extracted quest element '{serialized.m_Title}' with {serialized.m_Actions.Count} actions and {serialized.m_Reactions.Count} reactions");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Extracted quest element '{0}' with {1} actions and {2} reactions", serialized.m_Title, serialized.m_Actions.Count, serialized.m_Reactions.Count));
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to extract quest element - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to extract quest element - {0}", ex.Message));
             }
 
             return serialized;
@@ -171,7 +171,7 @@ namespace SRMod.Services
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to extract child quest elements - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to extract child quest elements - {0}", ex.Message));
             }
         }
 
@@ -197,7 +197,7 @@ namespace SRMod.Services
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to get child quest elements - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to get child quest elements - {0}", ex.Message));
             }
             
             return children;
@@ -219,7 +219,7 @@ namespace SRMod.Services
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to extract quest actions - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to extract quest actions - {0}", ex.Message));
             }
         }
 
@@ -250,7 +250,7 @@ namespace SRMod.Services
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to extract quest action - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to extract quest action - {0}", ex.Message));
                 return null;
             }
         }
@@ -349,7 +349,7 @@ namespace SRMod.Services
                 }
                 catch (Exception ex)
                 {
-                    SRInfoHelper.Log($"QuestDataManager: Failed to extract field {field.Name} - {ex.Message}");
+                    SRInfoHelper.Log(string.Format("QuestDataManager: Failed to extract field {0} - {1}", field.Name, ex.Message));
                 }
             }
             
@@ -380,7 +380,7 @@ namespace SRMod.Services
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to extract quest reactions - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to extract quest reactions - {0}", ex.Message));
             }
         }
 
@@ -407,7 +407,7 @@ namespace SRMod.Services
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to extract quest reaction - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to extract quest reaction - {0}", ex.Message));
                 return null;
             }
         }
@@ -474,7 +474,7 @@ namespace SRMod.Services
                 }
                 catch (Exception ex)
                 {
-                    SRInfoHelper.Log($"QuestDataManager: Failed to extract field {field.Name} - {ex.Message}");
+                    SRInfoHelper.Log(string.Format("QuestDataManager: Failed to extract field {0} - {1}", field.Name, ex.Message));
                 }
             }
             
@@ -511,7 +511,7 @@ namespace SRMod.Services
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to extract quest descriptions - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to extract quest descriptions - {0}", ex.Message));
             }
         }
 
@@ -534,28 +534,28 @@ namespace SRMod.Services
                 var textOutput = new List<string>();
                 
                 textOutput.Add("=== SATELLITE REIGN QUEST DATA EXPORT ===");
-                textOutput.Add($"Current Display Quest ID: {questData.m_CurrentDisplayQuestID}");
-                textOutput.Add($"Random Seed: {questData.m_RandomSeed}");
-                textOutput.Add($"Total Quest Elements: {questData.m_QuestElements.Count}");
+                textOutput.Add(string.Format("Current Display Quest ID: {0}", questData.m_CurrentDisplayQuestID));
+                textOutput.Add(string.Format("Random Seed: {0}", questData.m_RandomSeed));
+                textOutput.Add(string.Format("Total Quest Elements: {0}", questData.m_QuestElements.Count));
                 textOutput.Add("");
                 
                 foreach (var quest in questData.m_QuestElements)
                 {
-                    textOutput.Add($"Quest: {quest.m_Title} (ID: {quest.m_ID})");
-                    textOutput.Add($"  Hidden: {quest.m_Hidden}, Show Debrief: {quest.m_ShowDebrief}");
-                    textOutput.Add($"  Actions: {quest.m_Actions.Count}, Reactions: {quest.m_Reactions.Count}");
-                    textOutput.Add($"  Descriptions: {quest.m_Descriptions.Count}");
+                    textOutput.Add(string.Format("Quest: {0} (ID: {1})", quest.m_Title, quest.m_ID));
+                    textOutput.Add(string.Format("  Hidden: {0}, Show Debrief: {1}", quest.m_Hidden, quest.m_ShowDebrief));
+                    textOutput.Add(string.Format("  Actions: {0}, Reactions: {1}", quest.m_Actions.Count, quest.m_Reactions.Count));
+                    textOutput.Add(string.Format("  Descriptions: {0}", quest.m_Descriptions.Count));
                     textOutput.Add("");
                 }
                 
                 string filePath = Path.Combine(Manager.GetPluginManager().PluginPath, "questDefinitions.txt");
                 FileManager.SaveList(textOutput, filePath);
                 
-                SRInfoHelper.Log($"QuestDataManager: Saved readable quest data to {filePath}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Saved readable quest data to {0}", filePath));
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to save text quest data - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to save text quest data - {0}", ex.Message));
             }
         }
 
@@ -605,7 +605,7 @@ namespace SRMod.Services
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to load quest data - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to load quest data - {0}", ex.Message));
             }
         }
 
@@ -634,11 +634,11 @@ namespace SRMod.Services
                 // with the existing quest system without breaking save compatibility
                 // This is a placeholder for the full implementation
 
-                SRInfoHelper.Log($"QuestDataManager: Applied quest data with {questData.m_QuestElements.Count} quest elements");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Applied quest data with {0} quest elements", questData.m_QuestElements.Count));
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to apply quest data - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to apply quest data - {0}", ex.Message));
             }
         }
 
@@ -650,7 +650,7 @@ namespace SRMod.Services
                 m_Title = "NEW_QUEST_TITLE",
                 m_Hidden = false,
                 m_ShowDebrief = true,
-                m_State = QuestState.NotStarted,
+                m_State = QuestState.inactive,
                 m_IsNew = true,
                 m_Address = "",
                 m_DeactivateAfterPerformingAction = false,
@@ -747,7 +747,7 @@ namespace SRMod.Services
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to get field {fieldName} - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to get field {0} - {1}", fieldName, ex.Message));
             }
             
             return defaultValue;
@@ -765,7 +765,7 @@ namespace SRMod.Services
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log($"QuestDataManager: Failed to set field {fieldName} - {ex.Message}");
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to set field {0} - {1}", fieldName, ex.Message));
             }
         }
 

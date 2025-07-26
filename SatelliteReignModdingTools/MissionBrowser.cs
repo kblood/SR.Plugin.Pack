@@ -170,7 +170,7 @@ namespace SatelliteReignModdingTools
                     m_Title = "NEW_QUEST_TITLE",
                     m_Hidden = false,
                     m_ShowDebrief = true,
-                    m_State = dto.QuestState.NotStarted,
+                    m_State = QuestState.inactive,
                     m_IsNew = true
                 };
                 

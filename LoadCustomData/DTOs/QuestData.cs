@@ -279,15 +279,8 @@ namespace SRMod.DTOs
         }
     }
 
-    // Enums needed for quest system
-    public enum QuestState
-    {
-        NotStarted,
-        Active,
-        Completed,
-        Failed,
-        Cancelled
-    }
+    // Note: QuestState enum is defined in the game assembly
+    // Values: inactive, active, complete
 
     public enum DistrictFilterType
     {
