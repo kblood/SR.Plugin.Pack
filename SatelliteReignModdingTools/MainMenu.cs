@@ -30,7 +30,8 @@ namespace SatelliteReignModdingTools
 
         private void btnMissionBrowser_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Mission Browser not yet implemented", "Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var missionBrowser = new MissionBrowser();
+            missionBrowser.Show();
         }
     }
 }

@@ -183,6 +183,46 @@ namespace SRMod.Services
             return list;
         }
 
+        static public SerializableQuestManager LoadQuestDataXML(string fileName, string filePath = @"C:\Temp\")
+        {
+            string fileWithPath = fileName;
+
+            if (!fileWithPath.Contains(@":") && !fileWithPath.Contains(@"\"))
+            {
+                if (filePath.EndsWith(@"\"))
+                    fileWithPath = filePath + fileWithPath;
+                else
+                    fileWithPath = filePath + @"\" + fileWithPath;
+            }
+
+            SerializableQuestManager questManager = new SerializableQuestManager();
+
+            if (!File.Exists(fileWithPath))
+            {
+                return questManager;
+            }
+
+            try
+            {
+                // Create an instance of System.Xml.Serialization.XmlSerializer
+                XmlSerializer serializer = new XmlSerializer(typeof(SerializableQuestManager));
+
+                // Create an instance of System.IO.TextReader to load the serialized data
+                using (TextReader textReader = new StreamReader(fileWithPath))
+                {
+                    // Assign the deserialized object to the quest manager
+                    questManager = (SerializableQuestManager)serializer.Deserialize(textReader);
+                }
+            }
+            catch (Exception)
+            {
+                // Return empty quest manager if deserialization fails
+                return new SerializableQuestManager();
+            }
+
+            return questManager;
+        }
+
         public static string SaveTextureToFile(Texture2D texture)
         {
             string fileName = Manager.GetPluginManager().PluginPath + @"\" + texture.name + ".png";

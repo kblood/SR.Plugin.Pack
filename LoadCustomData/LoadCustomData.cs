@@ -65,6 +65,10 @@ namespace LoadCustomData
                 ItemDataManager.Instance.Initialize();
                 if (!File.Exists(Path.Combine(Manager.GetPluginManager().PluginPath, "itemDefinitions.xml")))
                     ItemDataManager.Instance.SaveItemDefinitionsToFile();
+
+                QuestDataManager.Instance.Initialize();
+                if (!QuestDataManager.Instance.CheckIfXMLFileExists())
+                    QuestDataManager.Instance.SaveQuestDataToFile();
                 /*
                 var items = FileManager.LoadXML("ItemData.xml");
 
@@ -175,6 +179,7 @@ namespace LoadCustomData
                 {
                     ItemDataManager.Instance.Initialize();
                     SpawnCardManager.Instance.Initialize();
+                    QuestDataManager.Instance.Initialize();
                     //var newItems = Manager.GetItemManager().m_ItemDefinitions.Where(d => d.m_ID > 146).ToList();
                     //if (newItems.Any())
                     //{
@@ -184,6 +189,14 @@ namespace LoadCustomData
                     //        item.m_Count = 1;
                     //    }
                     //}
+                }
+
+                if (Input.GetKeyDown(KeyCode.Delete))
+                {
+                    // Export quest data manually
+                    SRInfoHelper.Log("Manual quest data export triggered");
+                    QuestDataManager.Instance.SaveQuestDataToFile();
+                    Manager.GetUIManager()?.ShowMessagePopup("Quest data exported!", 3);
                 }
             }
         }

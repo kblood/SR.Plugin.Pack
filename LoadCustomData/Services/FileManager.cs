@@ -121,6 +121,39 @@ namespace SRMod.Services
             return list.Translations;
         }
 
+        static public SerializableQuestManager LoadQuestDataXML(string fileName)
+        {
+            string fileWithPath = FilePathCheck(fileName);
+            SRInfoHelper.Log("Loading quest data from " + fileWithPath);
+            
+            if (!File.Exists(fileWithPath))
+            {
+                SRInfoHelper.Log("Quest data file not found: " + fileWithPath);
+                return null;
+            }
+
+            try
+            {
+                // Create an instance of System.Xml.Serialization.XmlSerializer
+                XmlSerializer serializer = new XmlSerializer(typeof(SerializableQuestManager));
+
+                // Create an instance of System.IO.TextReader 
+                // to load the serialized data from disk
+                using (TextReader textReader = new StreamReader(fileWithPath))
+                {
+                    // Assign the deserialized object to the new quest manager
+                    var questData = (SerializableQuestManager)serializer.Deserialize(textReader);
+                    SRInfoHelper.Log($"Successfully loaded quest data with {questData.m_QuestElements.Count} quest elements");
+                    return questData;
+                }
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log($"Failed to load quest data XML: {ex.Message}");
+                return null;
+            }
+        }
+
         //static public List<ItemData> LoadXML(string fileName)
         //{
         //    string fileWithPath = FilePathCheck(fileName);
