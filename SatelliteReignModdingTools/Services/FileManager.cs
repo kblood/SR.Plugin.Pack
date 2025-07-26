@@ -455,39 +455,5 @@ namespace SRMod.Services
         //    imageBytes = reader.ReadBytes((int)image.ContentLength);
         //    return imageBytes;
         //}
-
-        static public SerializableQuestManager LoadQuestDataXML(string fileName, string filePath = @"C:\Temp\")
-        {
-            try
-            {
-                string fileWithPath;
-                if (fileName.Contains(@":") && fileName.Contains(@"\"))
-                {
-                    fileWithPath = fileName;
-                }
-                else
-                {
-                    if (!filePath.EndsWith(@"\"))
-                        filePath += @"\";
-                    fileWithPath = filePath + fileName;
-                }
-                
-                if (File.Exists(fileWithPath))
-                {
-                    XmlSerializer serializer = new XmlSerializer(typeof(SerializableQuestManager));
-                    using (StreamReader textReader = new StreamReader(fileWithPath))
-                    {
-                        var questData = (SerializableQuestManager)serializer.Deserialize(textReader);
-                        return questData;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show($"Failed to load quest data: {ex.Message}", "Error", 
-                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-            }
-            return new SerializableQuestManager();
-        }
     }
 }
