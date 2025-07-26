@@ -85,6 +85,12 @@
     <Compile Include="MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="MissionBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MissionBrowser.Designer.cs">
+      <DependentUpon>MissionBrowser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Ability.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

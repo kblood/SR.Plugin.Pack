@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="DTOs\GameObjectDTO.cs" />
     <Compile Include="DTOs\ItemData.cs" />
+    <Compile Include="DTOs\QuestData.cs" />
     <Compile Include="DTOs\Sprite.cs" />
     <Compile Include="DTOs\TransformDTO.cs" />
     <Compile Include="DTOs\TranslationsDTO.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Services\ItemDataManager.cs" />
     <Compile Include="Services\MeshHelper.cs" />
     <Compile Include="Services\ObjectiveEventHandler.cs" />
+    <Compile Include="Services\QuestDataManager.cs" />
     <Compile Include="Services\ReflectionExtensions.cs" />
     <Compile Include="Services\SpawnCardManager.cs" />
     <Compile Include="Services\SpriteSerializer.cs" />
