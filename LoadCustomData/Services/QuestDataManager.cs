@@ -650,7 +650,7 @@ namespace SRMod.Services
                 m_Title = "NEW_QUEST_TITLE",
                 m_Hidden = false,
                 m_ShowDebrief = true,
-                m_State = QuestState.inactive,
+                m_State = global::QuestState.inactive,
                 m_IsNew = true,
                 m_Address = "",
                 m_DeactivateAfterPerformingAction = false,

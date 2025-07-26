@@ -52,7 +52,7 @@ namespace SatelliteReignModdingTools
             try
             {
                 // Quest state dropdown
-                QuestStateDropDown.DataSource = Enum.GetValues(typeof(QuestState)).Cast<QuestState>().ToList();
+                QuestStateDropDown.DataSource = Enum.GetValues(typeof(global::QuestState)).Cast<global::QuestState>().ToList();
                 
                 // Action type dropdown
                 ActionTypeDropDown.Items.Clear();
@@ -170,7 +170,7 @@ namespace SatelliteReignModdingTools
                     m_Title = "NEW_QUEST_TITLE",
                     m_Hidden = false,
                     m_ShowDebrief = true,
-                    m_State = QuestState.inactive,
+                    m_State = global::QuestState.inactive,
                     m_IsNew = true
                 };
                 
