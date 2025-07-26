@@ -280,5 +280,28 @@ namespace SRMod.Services
             }
             return fileWithPath;
         }
+
+        static public SerializableQuestManager LoadQuestDataXML(string fileName)
+        {
+            try
+            {
+                string fileWithPath = FilePathCheck(fileName);
+                
+                if (File.Exists(fileWithPath))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(SerializableQuestManager));
+                    using (StreamReader textReader = new StreamReader(fileWithPath))
+                    {
+                        var questData = (SerializableQuestManager)serializer.Deserialize(textReader);
+                        return questData;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                UnityEngine.Debug.LogError($"Failed to load quest data: {ex.Message}");
+            }
+            return new SerializableQuestManager();
+        }
     }
 }

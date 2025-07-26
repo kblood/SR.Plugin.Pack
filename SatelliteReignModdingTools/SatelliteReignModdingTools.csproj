@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="DTOs\GameObjectDTO.cs" />
     <Compile Include="DTOs\ItemData.cs" />
+    <Compile Include="DTOs\QuestData.cs" />
     <Compile Include="DTOs\Sprite.cs" />
     <Compile Include="DTOs\TransformDTO.cs" />
     <Compile Include="DTOs\TranslationsDTO.cs" />

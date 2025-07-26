@@ -52,7 +52,7 @@ namespace SatelliteReignModdingTools
             try
             {
                 // Quest state dropdown
-                QuestStateDropDown.DataSource = Enum.GetValues(typeof(dto.QuestState)).Cast<dto.QuestState>().ToList();
+                QuestStateDropDown.DataSource = Enum.GetValues(typeof(QuestState)).Cast<QuestState>().ToList();
                 
                 // Action type dropdown
                 ActionTypeDropDown.Items.Clear();
