@@ -11,7 +11,7 @@ namespace SRMod.DTOs
         public string m_Title; // Localization key
         public bool m_Hidden; // Whether quest appears in mission control
         public bool m_ShowDebrief; // Whether to show completion debrief
-        public global::QuestState m_State;
+        public int m_State; // QuestState enum: 0=inactive, 1=active, 2=complete
         public bool m_IsNew;
         public string m_Address; // Hierarchical address in quest tree
         public bool m_DeactivateAfterPerformingAction;

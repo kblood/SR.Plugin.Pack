@@ -51,8 +51,9 @@ namespace SatelliteReignModdingTools
         {
             try
             {
-                // Quest state dropdown
-                QuestStateDropDown.DataSource = Enum.GetValues(typeof(global::QuestState)).Cast<global::QuestState>().ToList();
+                // Quest state dropdown (using string values since QuestState enum not accessible)
+                QuestStateDropDown.Items.Clear();
+                QuestStateDropDown.Items.AddRange(new string[] { "inactive", "active", "complete" });
                 
                 // Action type dropdown
                 ActionTypeDropDown.Items.Clear();
@@ -113,7 +114,10 @@ namespace SatelliteReignModdingTools
                 // Basic quest info
                 QuestIDTextBox.Text = activeQuestElement.m_ID.ToString();
                 QuestTitleTextBox.Text = activeQuestElement.m_Title ?? "";
-                QuestStateDropDown.SelectedItem = activeQuestElement.m_State;
+                // Set quest state dropdown based on integer value
+                string[] stateNames = { "inactive", "active", "complete" };
+                if (activeQuestElement.m_State >= 0 && activeQuestElement.m_State < stateNames.Length)
+                    QuestStateDropDown.SelectedItem = stateNames[activeQuestElement.m_State];
                 HiddenCheckBox.Checked = activeQuestElement.m_Hidden;
                 ShowDebriefCheckBox.Checked = activeQuestElement.m_ShowDebrief;
                 
@@ -170,7 +174,7 @@ namespace SatelliteReignModdingTools
                     m_Title = "NEW_QUEST_TITLE",
                     m_Hidden = false,
                     m_ShowDebrief = true,
-                    m_State = global::QuestState.inactive,
+                    m_State = 0, // QuestState.inactive
                     m_IsNew = true
                 };
                 
@@ -297,7 +301,15 @@ namespace SatelliteReignModdingTools
                 {
                     // Update quest from UI
                     activeQuestElement.m_Title = QuestTitleTextBox.Text;
-                    activeQuestElement.m_State = (dto.QuestState)QuestStateDropDown.SelectedItem;
+                    // Convert selected string back to integer value
+                    string selectedState = QuestStateDropDown.SelectedItem?.ToString() ?? "inactive";
+                    switch (selectedState)
+                    {
+                        case "inactive": activeQuestElement.m_State = 0; break;
+                        case "active": activeQuestElement.m_State = 1; break;
+                        case "complete": activeQuestElement.m_State = 2; break;
+                        default: activeQuestElement.m_State = 0; break;
+                    }
                     activeQuestElement.m_Hidden = HiddenCheckBox.Checked;
                     activeQuestElement.m_ShowDebrief = ShowDebriefCheckBox.Checked;
                     
