@@ -1,1 +1,0 @@
-B:\Git\SR.Plugin.Pack\ModManagerMod\obj\Debug\ModManager.csproj.CoreCompileInputs.cache
