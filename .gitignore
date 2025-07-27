@@ -30,3 +30,4 @@ sysinfo.txt
 
 # MSBuild log files
 *.binlog
+/SatelliteReignModdingTools/bin/Debug/SatelliteReignModdingTools.exe
