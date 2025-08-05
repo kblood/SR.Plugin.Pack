@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheats", "Cheats\Cheats.csproj", "{988E44B9-BBAD-4D85-8A1A-9302FE80F732}"
 EndProject
@@ -24,6 +24,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SatelliteReignModdingTools", "SatelliteReignModdingTools\SatelliteReignModdingTools.csproj", "{F69B095B-5FF4-4779-AFFF-61264F305FD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadCustomData", "LoadCustomData\LoadCustomData.csproj", "{81F2F5B8-1EEF-48EB-A0AF-80BFF461A75B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleMod", "ExampleMod\ExampleMod.csproj", "{12345678-1234-1234-1234-123456789ABC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkingReplacementMod", "NetworkingReplacementMod\NetworkingReplacementMod.csproj", "{87654321-4321-4321-4321-876543218765}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameworkTestMod", "FrameworkTestMod\FrameworkTestMod.csproj", "{36158D5E-378D-4612-AC38-58A7444E21F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SatelliteReignNetworkingFix", "SatelliteReignNetworkingFix\SatelliteReignNetworkingFix.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +83,22 @@ Global
 		{81F2F5B8-1EEF-48EB-A0AF-80BFF461A75B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81F2F5B8-1EEF-48EB-A0AF-80BFF461A75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81F2F5B8-1EEF-48EB-A0AF-80BFF461A75B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12345678-1234-1234-1234-123456789ABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12345678-1234-1234-1234-123456789ABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87654321-4321-4321-4321-876543218765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87654321-4321-4321-4321-876543218765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87654321-4321-4321-4321-876543218765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87654321-4321-4321-4321-876543218765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36158D5E-378D-4612-AC38-58A7444E21F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36158D5E-378D-4612-AC38-58A7444E21F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36158D5E-378D-4612-AC38-58A7444E21F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36158D5E-378D-4612-AC38-58A7444E21F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
+// System.Xml.Serialization now available in .NET Framework 4.5.1
 using UnityEngine;
 
 public class ItemDataManager : MonoBehaviour
@@ -53,7 +53,7 @@ public class ItemDataManager : MonoBehaviour
         {
             try
             {
-                var serializer = new XmlSerializer(typeof(List<SerializableItemData>));
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(List<SerializableItemData>));
                 using (var streamReader = new StreamReader(path))
                 {
                     _itemDefinitions = (List<SerializableItemData>)serializer.Deserialize(streamReader);
@@ -62,12 +62,12 @@ public class ItemDataManager : MonoBehaviour
                 // Update ItemManager with loaded definitions
                 UpdateItemManager();
 
-                SRInfoHelper.Log($"Loaded and updated ItemManager with {_itemDefinitions.Count} item definitions from file");
+                SRInfoHelper.Log("Loaded and updated ItemManager with " + _itemDefinitions.Count + " item definitions from file");
                 return true;
             }
             catch (System.Exception e)
             {
-                SRInfoHelper.Log($"Error loading item definitions: {e.Message}");
+                SRInfoHelper.Log("Error loading item definitions: " + e.Message);
             }
         }
         SRInfoHelper.Log("No item definitions found in file.");
@@ -320,18 +320,18 @@ public class ItemDataManager : MonoBehaviour
                 .Select(item => new SerializableItemData(item))
                 .ToList();
 
-            var serializer = new XmlSerializer(typeof(List<SerializableItemData>));
+            var serializer = new System.Xml.Serialization.XmlSerializer(typeof(List<SerializableItemData>));
             string path = Path.Combine(Manager.GetPluginManager().PluginPath, SAVE_FILE_NAME);
             using (var streamWriter = new StreamWriter(path))
             {
                 serializer.Serialize(streamWriter, _itemDefinitions);
             }
 
-            SRInfoHelper.Log($"Saved {_itemDefinitions.Count} item definitions to {path}");
+            SRInfoHelper.Log("Saved " + _itemDefinitions.Count + " item definitions to " + path);
         }
         catch (System.Exception e)
         {
-            SRInfoHelper.Log($"Error saving item definitions: {e.Message}");
+            SRInfoHelper.Log("Error saving item definitions: " + e.Message);
         }
     }
 }

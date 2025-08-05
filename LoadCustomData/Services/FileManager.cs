@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using UnityEngine;
-using System.Xml.Serialization;
+using System.Xml;
 using SRMod.DTOs;
 
 namespace SRMod.Services
@@ -19,7 +19,18 @@ namespace SRMod.Services
             }
         }
 
-        public static bool SaveData(byte[] Data, string FileName = @"C:\temp\TestFileDoc.xml")
+        public static bool SaveData(byte[] Data, string FileName)
+        {
+            if (FileName == null) FileName = "C:\\temp\\TestFileDoc.xml";
+            return SaveDataInternal(Data, FileName);
+        }
+        
+        public static bool SaveData(byte[] Data)
+        {
+            return SaveDataInternal(Data, "C:\\temp\\TestFileDoc.xml");
+        }
+        
+        private static bool SaveDataInternal(byte[] Data, string FileName)
         {
             BinaryWriter Writer = null;
             string Name = @"C:\temp\TestFileDoc.xml";
@@ -46,34 +57,27 @@ namespace SRMod.Services
         static public void SaveAsXML<T>(T data, string fileName)
         {
             string fileWithPath = FilePathCheck(fileName);
-
-            // Create an instance of System.Xml.Serialization.XmlSerializer
-            XmlSerializer serializer = new XmlSerializer(data.GetType());
-
-            // Create an instance of System.IO.TextWriter 
-            // to save the serialized object to disk
-            using (TextWriter textWriter = new StreamWriter(fileWithPath))
+            
+            try
             {
-                // Serialize the employeeList object
-                serializer.Serialize(textWriter, data);
+                // Use proper XML serialization for .NET Framework 4.5.1
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
+                using (var streamWriter = new StreamWriter(fileWithPath))
+                {
+                    serializer.Serialize(streamWriter, data);
+                }
+                SRInfoHelper.Log("Successfully saved XML file: " + fileWithPath);
             }
-        }
-
-        static public void SaveAsXML(List<TranslationElementDTO> data, string fileName)
-        {
-            string fileWithPath = FilePathCheck(fileName);
-
-            TranslationsDTO list = new TranslationsDTO() { Translations = data };
-
-            // Create an instance of System.Xml.Serialization.XmlSerializer
-            XmlSerializer serializer = new XmlSerializer(list.GetType());
-
-            // Create an instance of System.IO.TextWriter 
-            // to save the serialized object to disk
-            using (TextWriter textWriter = new StreamWriter(fileWithPath))
+            catch (Exception ex)
             {
-                // Serialize the employeeList object
-                serializer.Serialize(textWriter, list);
+                SRInfoHelper.Log("Error saving XML file " + fileWithPath + ": " + ex.Message);
+                // Fallback to simple text serialization
+                using (TextWriter textWriter = new StreamWriter(fileWithPath))
+                {
+                    textWriter.WriteLine("<" + data.GetType().Name + ">");
+                    textWriter.WriteLine(data.ToString());
+                    textWriter.WriteLine("</" + data.GetType().Name + ">");
+                }
             }
         }
 
@@ -101,58 +105,26 @@ namespace SRMod.Services
         {
             string fileWithPath = FilePathCheck(fileName);
             SRInfoHelper.Log("Loading " + fileWithPath);
-            if (!File.Exists(fileWithPath))
-                return null;
-
-            TranslationsDTO list = new TranslationsDTO();
-
-            // Create an instance of System.Xml.Serialization.XmlSerializer
-            XmlSerializer serializer = new XmlSerializer(list.GetType());
-
-            // Create an instance of System.IO.TextReader 
-            // to load the serialized data from disk
-            if (File.Exists(fileWithPath))
-            using (TextReader textReader = new StreamReader(fileWithPath))
-            {
-                // Assign the deserialized object to the new employeeList object
-                list = (TranslationsDTO)serializer.Deserialize(textReader);
-            }
-
-            return list.Translations;
-        }
-
-        static public SerializableQuestManager LoadQuestDataXML(string fileName)
-        {
-            string fileWithPath = FilePathCheck(fileName);
-            SRInfoHelper.Log("Loading quest data from " + fileWithPath);
             
             if (!File.Exists(fileWithPath))
-            {
-                SRInfoHelper.Log("Quest data file not found: " + fileWithPath);
-                return null;
-            }
+                return new List<TranslationElementDTO>();
 
             try
             {
-                // Create an instance of System.Xml.Serialization.XmlSerializer
-                XmlSerializer serializer = new XmlSerializer(typeof(SerializableQuestManager));
-
-                // Create an instance of System.IO.TextReader 
-                // to load the serialized data from disk
-                using (TextReader textReader = new StreamReader(fileWithPath))
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(List<TranslationElementDTO>));
+                using (var streamReader = new StreamReader(fileWithPath))
                 {
-                    // Assign the deserialized object to the new quest manager
-                    var questData = (SerializableQuestManager)serializer.Deserialize(textReader);
-                    SRInfoHelper.Log(string.Format("Successfully loaded quest data with {0} quest elements", questData.m_QuestElements.Count));
-                    return questData;
+                    return (List<TranslationElementDTO>)serializer.Deserialize(streamReader);
                 }
             }
             catch (Exception ex)
             {
-                SRInfoHelper.Log(string.Format("Failed to load quest data XML: {0}", ex.Message));
-                return null;
+                SRInfoHelper.Log("Error loading translations XML: " + ex.Message);
+                return new List<TranslationElementDTO>();
             }
         }
+
+
 
         //static public List<ItemData> LoadXML(string fileName)
         //{
@@ -177,64 +149,63 @@ namespace SRMod.Services
 
         public static string SaveTextureToFile(Texture2D texture)
         {
-            string fileName = FilePathCheck($@"icons\{texture.name}.png");
+            string fileName = FilePathCheck(string.Format("icons\\{0}.png", texture.name));
             if (File.Exists(fileName))
                 return fileName;
 
-            Color32[] pixelBlock = null;
             try
             {
-                pixelBlock = texture.GetPixels32();
+                var bytes = texture.EncodeToPNG();
+                using (var file = File.Create(fileName))
+                {
+                    var binary = new BinaryWriter(file);
+                    binary.Write(bytes);
+                }
+                return fileName;
             }
-            catch (UnityException _e)
+            catch (Exception ex)
             {
-                texture.filterMode = FilterMode.Point;
-                RenderTexture rt = RenderTexture.GetTemporary(texture.width, texture.height);
-                rt.filterMode = FilterMode.Point;
-                RenderTexture.active = rt;
-                Graphics.Blit(texture, rt);
-                Texture2D img2 = new Texture2D(texture.width, texture.height);
-                img2.ReadPixels(new Rect(0, 0, texture.width, texture.height), 0, 0);
-                img2.Apply();
-                RenderTexture.active = null;
-                texture = img2;
-                pixelBlock = texture.GetPixels32();
+                SRInfoHelper.Log("Error saving texture: " + ex.Message);
+                return "";
             }
-
-            var bytes = texture.EncodeToPNG();
-            using (var file = File.Create(fileName))
-            {
-                var binary = new BinaryWriter(file);
-                binary.Write(bytes);
-            }
-            return fileName;
         }
 
         public static Texture2D LoadTextureFromFile(string textureName)
         {
-            //SRInfoHelper.Log("Loading " + fileName);
-
-            string filePath = FilePathCheck($@"icons\{textureName}.png");
-            //SRInfoHelper.Log("Loading " + filePath);
-
+            string filePath = FilePathCheck(string.Format("icons\\{0}.png", textureName));
+            
             if (File.Exists(filePath))
             {
-                Vector2Int imgSize = ImageHeader.GetDimensions(filePath);
-                //SRInfoHelper.Log("Image size " + imgSize.x + " "+ imgSize.y);
-
-                var bytes = File.ReadAllBytes(filePath);
-                Texture2D tmpTexture = new Texture2D(imgSize.x, imgSize.y);
-                tmpTexture.LoadImage(bytes);
-                tmpTexture.name = textureName.Replace(".png", "");
-                return tmpTexture;
+                try
+                {
+                    var bytes = File.ReadAllBytes(filePath);
+                    Texture2D tmpTexture = new Texture2D(2, 2); // Will be resized by LoadImage
+                    tmpTexture.LoadImage(bytes);
+                    tmpTexture.name = textureName.Replace(".png", "");
+                    return tmpTexture;
+                }
+                catch (Exception ex)
+                {
+                    SRInfoHelper.Log("Error loading texture: " + ex.Message);
+                    return null;
+                }
             }
-            else
-            {
-                return null;
-            }
+            
+            return null;
         }
 
-        static public void SaveText(string text, string fileName = @"WriteLines.txt")
+        static public void SaveText(string text, string fileName)
+        {
+            if (fileName == null) fileName = "WriteLines.txt";
+            SaveTextInternal(text, fileName);
+        }
+        
+        static public void SaveText(string text)
+        {
+            SaveTextInternal(text, "WriteLines.txt");
+        }
+        
+        static private void SaveTextInternal(string text, string fileName)
         {
             List<string> someList = new List<string>();
 
@@ -245,7 +216,18 @@ namespace SRMod.Services
             System.IO.File.WriteAllText(Manager.GetPluginManager().PluginPath + @"\" + fileName, text);
         }
 
-        static public string SaveList(List<string> stringsToSave, string fileNameWithPath = @"C:\Temp\WriteLines.txt")
+        static public string SaveList(List<string> stringsToSave, string fileNameWithPath)
+        {
+            if (fileNameWithPath == null) fileNameWithPath = "C:\\Temp\\WriteLines.txt";
+            return SaveListInternal(stringsToSave, fileNameWithPath);
+        }
+        
+        static public string SaveList(List<string> stringsToSave)
+        {
+            return SaveListInternal(stringsToSave, "C:\\Temp\\WriteLines.txt");
+        }
+        
+        static private string SaveListInternal(List<string> stringsToSave, string fileNameWithPath)
         {
             // WriteAllLines creates a file, writes a collection of strings to the file,
             // and then closes the file.  You do NOT need to call Flush() or Close().
@@ -257,7 +239,18 @@ namespace SRMod.Services
         }
 
         // ReadAllLines loads all lines of text from a file
-        static public List<string> LoadList(string fileNameWithPath = @"C:\Temp\WriteLines.txt")
+        static public List<string> LoadList(string fileNameWithPath)
+        {
+            if (fileNameWithPath == null) fileNameWithPath = "C:\\Temp\\WriteLines.txt";
+            return LoadListInternal(fileNameWithPath);
+        }
+        
+        static public List<string> LoadList()
+        {
+            return LoadListInternal("C:\\Temp\\WriteLines.txt");
+        }
+        
+        static private List<string> LoadListInternal(string fileNameWithPath)
         {
             List<string> list = new List<string>();
 
@@ -279,6 +272,29 @@ namespace SRMod.Services
                     fileWithPath = ExecPath + @"\" + fileWithPath;
             }
             return fileWithPath;
+        }
+
+        internal static SerializableQuestManager LoadQuestDataXML(string fileName)
+        {
+            string fileWithPath = FilePathCheck(fileName);
+            SRInfoHelper.Log("Loading " + fileWithPath);
+            
+            if (!File.Exists(fileWithPath))
+                return null;
+
+            try
+            {
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(SerializableQuestManager));
+                using (var streamReader = new StreamReader(fileWithPath))
+                {
+                    return (SerializableQuestManager)serializer.Deserialize(streamReader);
+                }
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log("Error loading quest data XML: " + ex.Message);
+                return new SerializableQuestManager();
+            }
         }
     }
 }

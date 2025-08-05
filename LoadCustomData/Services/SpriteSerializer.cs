@@ -5,7 +5,17 @@ using SRMod.Services;
 public class SpriteSerializer
 {
     // Method to serialize and save sprite texture to disk
-    public static void SaveSpriteToDisk(Sprite sprite, string filePath, bool asPng = true)
+    public static void SaveSpriteToDisk(Sprite sprite, string filePath, bool asPng)
+    {
+        SaveSpriteToDiskInternal(sprite, filePath, asPng);
+    }
+    
+    public static void SaveSpriteToDisk(Sprite sprite, string filePath)
+    {
+        SaveSpriteToDiskInternal(sprite, filePath, true);
+    }
+    
+    private static void SaveSpriteToDiskInternal(Sprite sprite, string filePath, bool asPng)
     {
         if (sprite == null)
         {

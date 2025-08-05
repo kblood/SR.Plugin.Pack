@@ -1,4 +1,5 @@
 ﻿using SRMod.Services;
+using LoadCustomData.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,29 +24,14 @@ namespace LoadCustomData
             SRInfoHelper.Log("Initializing Satellite Reign LoadCustomData mod");
             try
             {
-                //var translations = FileManager.LoadTranslationsXML("Translations.xml");
-                //var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
+                // Initialize the comprehensive data manager
+                DataExportImportManager.Instance.Initialize();
 
-                //foreach (var e in translations)
-                //{
-                //    if (langLookup.ContainsKey(e.Key))
-                //    {
-                //        langLookup[e.Key] = e.Element;
-                //    }
-                //    else
-                //    {
-                //        langLookup.Add(e.Key, e.Element);
-                //    }
-                //}
-                //SRInfoHelper.Log("Updated LangLookup with new translations");
+                // Check spawn manager
                 var sm = SpawnManager.Get();
-                SRInfoHelper.Log($"Spawnmanager has {sm.m_EnemyDefinitions.Count} m_EnemyDefinitions");
+                SRInfoHelper.Log("Spawnmanager has " + sm.m_EnemyDefinitions.Count + " m_EnemyDefinitions");
 
-                SpawnCardManager.Instance.Initialize();
-                //if(!SpawnCardManager.Instance.CheckIfXMLFileExists())
-                //    SpawnCardManager.Instance.SaveSpawnCardsToFile();
-                
-
+                // Load existing translations
                 var translations = TranslationManager.LoadTranslations();
                 var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
 
@@ -62,36 +48,34 @@ namespace LoadCustomData
                 }
                 SRInfoHelper.Log("Updated LangLookup with new translations");
 
-                ItemDataManager.Instance.Initialize();
-                if (!File.Exists(Path.Combine(Manager.GetPluginManager().PluginPath, "itemDefinitions.xml")))
-                    ItemDataManager.Instance.SaveItemDefinitionsToFile();
+                // Auto-export data if files don't exist
+                DataExportImportManager.Instance.ExportAllGameData();
 
-                QuestDataManager.Instance.Initialize();
-                if (!QuestDataManager.Instance.CheckIfXMLFileExists())
-                    QuestDataManager.Instance.SaveQuestDataToFile();
-                /*
-                var items = FileManager.LoadXML("ItemData.xml");
-
-                SRInfoHelper.isLogging = false;
-
-                var remappedItems = items.Select(d => SRMapper.ReflectionObjectBuilder<ItemManager.ItemData>(d)).ToList();
-
-                Manager.GetItemManager().m_ItemDefinitions = remappedItems;
-                */
-                //Debug.Log("Updated LangLookup with new translations");
+                SRInfoHelper.Log("LoadCustomData mod initialization complete - comprehensive data management enabled");
             }
             catch (Exception e)
             {
                 SRInfoHelper.isLogging = true;
-                SRInfoHelper.Log("Exception thrown while serializing: " + e.Message + " inner: " + e.InnerException);
+                SRInfoHelper.Log("Exception thrown while initializing: " + e.Message + " inner: " + e.InnerException);
 
                 SRInfoHelper.isLogging = false;
-                System.IO.Directory.CreateDirectory(FileManager.FilePathCheck($@"icons\"));
-                //ExportData();
+                System.IO.Directory.CreateDirectory(FileManager.FilePathCheck(@"icons\"));
+                
+                // Fallback initialization
+                try
+                {
+                    ItemDataManager.Instance.Initialize();
+                    QuestDataManager.Instance.Initialize();
+                    SpawnCardManager.Instance.Initialize();
+                }
+                catch (Exception fallbackEx)
+                {
+                    SRInfoHelper.Log("Fallback initialization failed: " + fallbackEx.Message);
+                }
             }
 
             SRInfoHelper.isLogging = true;
-            SRInfoHelper.Log("Initialized");
+            SRInfoHelper.Log("LoadCustomData mod initialized");
         }
 
         /// <summary>
@@ -177,26 +161,43 @@ namespace LoadCustomData
 
                 if (Input.GetKeyDown(KeyCode.Insert))
                 {
-                    ItemDataManager.Instance.Initialize();
-                    SpawnCardManager.Instance.Initialize();
-                    QuestDataManager.Instance.Initialize();
-                    //var newItems = Manager.GetItemManager().m_ItemDefinitions.Where(d => d.m_ID > 146).ToList();
-                    //if (newItems.Any())
-                    //{
-                    //    foreach (var item in newItems)
-                    //    {
-                    //        item.PlayerHasPrototype = true;
-                    //        item.m_Count = 1;
-                    //    }
-                    //}
+                    // Reinitialize all data managers
+                    SRInfoHelper.Log("Manual reinitialization triggered");
+                    DataExportImportManager.Instance.Initialize();
+                    Manager.GetUIManager()?.ShowMessagePopup("Data managers reinitialized!", 3);
                 }
 
                 if (Input.GetKeyDown(KeyCode.Delete))
                 {
-                    // Export quest data manually
-                    SRInfoHelper.Log("Manual quest data export triggered");
-                    QuestDataManager.Instance.SaveQuestDataToFile();
-                    Manager.GetUIManager()?.ShowMessagePopup("Quest data exported!", 3);
+                    // Export all data manually
+                    SRInfoHelper.Log("Manual comprehensive data export triggered");
+                    DataExportImportManager.Instance.ExportAllGameData();
+                    Manager.GetUIManager()?.ShowMessagePopup("All game data exported!", 3);
+                }
+
+                if (Input.GetKeyDown(KeyCode.End))
+                {
+                    // Import all data manually
+                    SRInfoHelper.Log("Manual comprehensive data import triggered");
+                    DataExportImportManager.Instance.ImportAllGameData();
+                    Manager.GetUIManager()?.ShowMessagePopup("All game data imported!", 3);
+                }
+
+                if (Input.GetKeyDown(KeyCode.PageUp))
+                {
+                    // Create data backup
+                    SRInfoHelper.Log("Manual data backup triggered");
+                    DataExportImportManager.Instance.CreateDataBackup();
+                    Manager.GetUIManager()?.ShowMessagePopup("Data backup created!", 3);
+                }
+
+                if (Input.GetKeyDown(KeyCode.PageDown))
+                {
+                    // Validate exported data
+                    SRInfoHelper.Log("Manual data validation triggered");
+                    bool isValid = DataExportImportManager.Instance.ValidateExportedData();
+                    string message = isValid ? "Data validation passed!" : "Data validation failed!";
+                    Manager.GetUIManager()?.ShowMessagePopup(message, 3);
                 }
             }
         }

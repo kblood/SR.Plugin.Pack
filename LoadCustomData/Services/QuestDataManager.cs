@@ -668,7 +668,17 @@ namespace SRMod.Services
             };
         }
 
-        public SerializableQAGiveCash CreateGiveCashAction(int amount = 1000)
+        public SerializableQAGiveCash CreateGiveCashAction(int amount)
+        {
+            return CreateGiveCashActionInternal(amount);
+        }
+        
+        public SerializableQAGiveCash CreateGiveCashAction()
+        {
+            return CreateGiveCashActionInternal(1000);
+        }
+        
+        private SerializableQAGiveCash CreateGiveCashActionInternal(int amount)
         {
             return new SerializableQAGiveCash
             {

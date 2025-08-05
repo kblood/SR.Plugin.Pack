@@ -29,6 +29,7 @@ namespace SRModManager
         public void Initialize()
         {
             Debug.Log("Initializing Satellite Reign Mod Manager mod");
+            FileManager.Log(DateTime.Now.ToString("HH:mm:ss") + ": Initializing Satellite Reign Mod Manager mod.");
             /*
             UIHelper.ShowMessage("Initializing Satellite Reign Mod Manager mod");
             */
