@@ -72,6 +72,7 @@
     <Compile Include="DTOs\XMLCollection.cs" />
     <Compile Include="HelperEnums.cs" />
     <Compile Include="LoadCustomDataTest.cs" />
+    <Compile Include="MinimalFileManager.cs" />
     <Compile Include="Services\FileManager.cs" />
     <Compile Include="Services\ImageHelper.cs" />
     <Compile Include="Services\ItemDataManager.cs" />

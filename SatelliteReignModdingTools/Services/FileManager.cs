@@ -455,5 +455,53 @@ namespace SRMod.Services
         //    imageBytes = reader.ReadBytes((int)image.ContentLength);
         //    return imageBytes;
         //}
+
+        /// <summary>
+        /// Load quest data from the new questDefinitions.xml format exported by LoadCustomData mod
+        /// </summary>
+        /// <param name="fileName">Quest definitions file name</param>
+        /// <param name="filePath">Path to the file</param>
+        /// <returns>List of Quest objects</returns>
+        static public List<SatelliteReignModdingTools.Models.Quest> LoadQuestDefinitionsXML(string fileName, string filePath = @"C:\Temp\")
+        {
+            string fileWithPath = fileName;
+
+            if (!fileWithPath.Contains(@":") && !fileWithPath.Contains(@"\"))
+            {
+                if (filePath.EndsWith(@"\"))
+                    fileWithPath = filePath + fileWithPath;
+                else
+                    fileWithPath = filePath + @"\" + fileWithPath;
+            }
+
+            List<SatelliteReignModdingTools.Models.Quest> quests = new List<SatelliteReignModdingTools.Models.Quest>();
+
+            if (!File.Exists(fileWithPath))
+            {
+                return quests;
+            }
+
+            try
+            {
+                // Create an instance of System.Xml.Serialization.XmlSerializer
+                XmlSerializer serializer = new XmlSerializer(typeof(SatelliteReignModdingTools.Models.QuestDefinitions));
+
+                // Create an instance of System.IO.TextReader to load the serialized data
+                using (TextReader textReader = new StreamReader(fileWithPath))
+                {
+                    // Deserialize the quest definitions
+                    var questDefinitions = (SatelliteReignModdingTools.Models.QuestDefinitions)serializer.Deserialize(textReader);
+                    quests = questDefinitions.Quests ?? new List<SatelliteReignModdingTools.Models.Quest>();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Return empty list on error - let caller handle empty data
+                System.Diagnostics.Debug.WriteLine($"Failed to load quest definitions from {fileWithPath}: {ex.Message}");
+                throw; // Re-throw so the QuestBrowser can handle it with better error reporting
+            }
+
+            return quests;
+        }
     }
 }

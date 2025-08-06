@@ -79,6 +79,13 @@ namespace LoadCustomData
                     Debug.Log("LoadCustomDataTest: F3 key pressed - sprite export");
                     ExportSprites();
                 }
+
+                // F4 - Export quests only
+                if (Input.GetKeyDown(KeyCode.F4))
+                {
+                    Debug.Log("LoadCustomDataTest: F4 key pressed - quest export");
+                    ExportQuests();
+                }
             }
             catch (Exception ex)
             {
@@ -98,10 +105,11 @@ namespace LoadCustomData
                 string helpText = "=== LoadCustomData Enhanced ===\n\n";
                 helpText += "HOTKEYS:\n";
                 helpText += "Insert - Test mod is working\n";
-                helpText += "Delete - Export ALL data (items + translations + sprites)\n";
+                helpText += "Delete - Export ALL data (items + translations + sprites + quests)\n";
                 helpText += "F1 - Show this help\n";
                 helpText += "F2 - Export translations only\n";
                 helpText += "F3 - Export sprites only\n";
+                helpText += "F4 - Export quests only\n";
 
                 if (Manager.Get() != null && Manager.GetUIManager() != null)
                 {
@@ -181,6 +189,25 @@ namespace LoadCustomData
                 {
                     errors.Add("Sprites error: " + ex.Message);
                     Debug.LogError("LoadCustomDataTest: Sprite export error - " + ex.Message);
+                }
+
+                // 4. Export Quests (attempt)
+                try
+                {
+                    if (ExportQuestsInternal())
+                    {
+                        successCount++;
+                        results.Add("Quests");
+                    }
+                    else
+                    {
+                        errors.Add("Quests failed");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    errors.Add("Quests error: " + ex.Message);
+                    Debug.LogError("LoadCustomDataTest: Quest export error - " + ex.Message);
                 }
 
                 // Report results
@@ -583,6 +610,250 @@ namespace LoadCustomData
                 Debug.LogError("LoadCustomDataTest: SPRITE EXPORT CRITICAL FAILURE: " + ex.Message);
                 Debug.LogError("LoadCustomDataTest: Critical error stack: " + ex.StackTrace);
                 Debug.Log("LoadCustomDataTest: === SPRITE EXPORT DEBUG END ===");
+                return false;
+            }
+        }
+
+        private void ExportQuests()
+        {
+            try
+            {
+                Debug.Log("LoadCustomDataTest: F4 - Starting quest export");
+                bool success = ExportQuestsInternal();
+                
+                string message = success ? "Quests exported successfully!" : "Quest export failed - see logs";
+                if (Manager.Get() != null && Manager.GetUIManager() != null)
+                {
+                    Manager.GetUIManager().ShowMessagePopup(message, 3);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("LoadCustomDataTest: Quest export failed - " + ex.Message);
+                if (Manager.Get() != null && Manager.GetUIManager() != null)
+                {
+                    Manager.GetUIManager().ShowMessagePopup("Quest export failed - see logs", 3);
+                }
+            }
+        }
+
+        private bool ExportQuestsInternal()
+        {
+            try
+            {
+                Debug.Log("LoadCustomDataTest: === QUEST EXPORT DEBUG START ===");
+                Debug.Log("LoadCustomDataTest: Getting QuestManager for quest export");
+                
+                var questManager = Manager.GetQuestManager();
+                if (questManager == null)
+                {
+                    Debug.LogError("LoadCustomDataTest: QuestManager not available - QUEST EXPORT FAILED");
+                    return false;
+                }
+                Debug.Log("LoadCustomDataTest: QuestManager obtained successfully");
+
+                // Access quest data via reflection using the same approach as translations
+                var questManagerType = questManager.GetType();
+                Debug.Log("LoadCustomDataTest: QuestManager type: " + questManagerType.Name);
+                
+                // Based on QuestManager.cs: private QuestElement m_BaseQuestElement
+                Debug.Log("LoadCustomDataTest: Accessing m_BaseQuestElement field...");
+                
+                QuestElement baseQuestElement = null;
+                
+                try
+                {
+                    var field = questManagerType.GetField("m_BaseQuestElement", 
+                        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    
+                    if (!ReferenceEquals(field, null))
+                    {
+                        Debug.Log("LoadCustomDataTest: m_BaseQuestElement field found, getting value...");
+                        var fieldValue = field.GetValue(questManager);
+                        Debug.Log("LoadCustomDataTest: Field value type: " + (fieldValue?.GetType().Name ?? "null"));
+                        
+                        if (fieldValue == null)
+                        {
+                            Debug.LogWarning("LoadCustomDataTest: m_BaseQuestElement is null - attempting to initialize quest tree");
+                            
+                            // Try to initialize the quest tree
+                            try
+                            {
+                                var initMethod = questManagerType.GetMethod("InitQuestTree", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                                if (!ReferenceEquals(initMethod, null))
+                                {
+                                    Debug.Log("LoadCustomDataTest: Calling InitQuestTree...");
+                                    initMethod.Invoke(questManager, new object[] { true });
+                                    
+                                    // Try to get the base quest element again
+                                    fieldValue = field.GetValue(questManager);
+                                    if (fieldValue is QuestElement)
+                                    {
+                                        baseQuestElement = fieldValue as QuestElement;
+                                        Debug.Log("LoadCustomDataTest: SUCCESS! Quest tree initialized and base quest element found");
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("LoadCustomDataTest: Quest tree initialization failed - m_BaseQuestElement still null");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("LoadCustomDataTest: InitQuestTree method not found - cannot initialize quest tree");
+                                }
+                            }
+                            catch (Exception initEx)
+                            {
+                                Debug.LogError("LoadCustomDataTest: Failed to initialize quest tree: " + initEx.Message);
+                            }
+                        }
+                        else if (fieldValue is QuestElement)
+                        {
+                            baseQuestElement = fieldValue as QuestElement;
+                            Debug.Log("LoadCustomDataTest: SUCCESS! Found base quest element");
+                        }
+                        else
+                        {
+                            Debug.LogError("LoadCustomDataTest: m_BaseQuestElement is wrong type: " + (fieldValue?.GetType().Name ?? "null"));
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("LoadCustomDataTest: m_BaseQuestElement field not found");
+                        
+                        // List all available fields for debugging
+                        var allFields = questManagerType.GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                        Debug.Log("LoadCustomDataTest: Available private fields in QuestManager:");
+                        foreach (var debugField in allFields)
+                        {
+                            Debug.Log("LoadCustomDataTest:   - " + debugField.Name + " (" + debugField.FieldType.Name + ")");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError("LoadCustomDataTest: Exception accessing m_BaseQuestElement: " + ex.Message);
+                    Debug.LogError("LoadCustomDataTest: Stack trace: " + ex.StackTrace);
+                }
+                
+                if (baseQuestElement == null)
+                {
+                    Debug.LogError("LoadCustomDataTest: QUEST EXPORT FAILED - Could not access base quest element");
+                    Debug.Log("LoadCustomDataTest: === QUEST EXPORT DEBUG END ===");
+                    return false;
+                }
+
+                // Get all quest elements from the base quest element
+                var allQuestElements = baseQuestElement.GetComponentsInChildren<QuestElement>(true);
+                Debug.Log("LoadCustomDataTest: Found " + allQuestElements.Length + " quest elements");
+
+                if (allQuestElements.Length == 0)
+                {
+                    Debug.LogError("LoadCustomDataTest: QUEST EXPORT FAILED - No quest elements found");
+                    Debug.Log("LoadCustomDataTest: === QUEST EXPORT DEBUG END ===");
+                    return false;
+                }
+
+                // Create XML content
+                string xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+                xml += "<QuestDefinitions>\n";
+                
+                foreach (var questElement in allQuestElements)
+                {
+                    try
+                    {
+                        xml += "  <Quest>\n";
+                        xml += "    <ID>" + questElement.m_ID + "</ID>\n";
+                        xml += "    <Title><![CDATA[" + questElement.GetTitle() + "]]></Title>\n";
+                        xml += "    <Hidden>" + (questElement.m_Hidden ? "true" : "false") + "</Hidden>\n";
+                        xml += "    <ShowDebrief>" + (questElement.m_ShowDebrief ? "true" : "false") + "</ShowDebrief>\n";
+                        xml += "    <State>" + (questElement.IsCompleted() ? "true" : "false") + "</State>\n";
+                        xml += "    <TitleKey><![CDATA[" + questElement.m_Title + "]]></TitleKey>\n";
+                        
+                        // Location information if available
+                        if (questElement.m_Location != null)
+                        {
+                            xml += "    <Location>\n";
+                            xml += "      <LocationID>" + questElement.m_Location.m_LocationID + "</LocationID>\n";
+                            xml += "    </Location>\n";
+                        }
+                        
+                        // VIP information if available
+                        if (questElement.m_VIP != null)
+                        {
+                            xml += "    <VIP>\n";
+                            xml += "      <HasVIP>true</HasVIP>\n";
+                            xml += "    </VIP>\n";
+                        }
+                        
+                        // Wake on location information
+                        if (questElement.HasWakeOnLocation())
+                        {
+                            xml += "    <WakeOnLocation>" + questElement.m_WakeOnLocation + "</WakeOnLocation>\n";
+                            if (questElement.m_WakeOnLocationList.Count > 0)
+                            {
+                                xml += "    <WakeOnLocationList>\n";
+                                foreach (var loc in questElement.m_WakeOnLocationList)
+                                {
+                                    xml += "      <Location>" + loc + "</Location>\n";
+                                }
+                                xml += "    </WakeOnLocationList>\n";
+                            }
+                        }
+                        
+                        // District information
+                        var district = questElement.GetDistrict();
+                        xml += "    <District>" + district + "</District>\n";
+                        
+                        // Description data
+                        var descriptions = questElement.GetDescriptionData();
+                        if (descriptions.Count > 0)
+                        {
+                            xml += "    <Descriptions>\n";
+                            foreach (var desc in descriptions)
+                            {
+                                xml += "      <Description>\n";
+                                xml += "        <LocTitle><![CDATA[" + desc.m_LocTitle + "]]></LocTitle>\n";
+                                xml += "        <Translation><![CDATA[" + desc.m_Translation + "]]></Translation>\n";
+                                xml += "        <IsNew>" + (desc.m_IsNew ? "true" : "false") + "</IsNew>\n";
+                                xml += "        <HasBeenSeen>" + (desc.m_HasBeenSeen ? "true" : "false") + "</HasBeenSeen>\n";
+                                xml += "      </Description>\n";
+                            }
+                            xml += "    </Descriptions>\n";
+                        }
+                        
+                        // Sub-quests
+                        var subQuests = questElement.GetSubQuests();
+                        if (subQuests.Count > 0)
+                        {
+                            xml += "    <SubQuests>\n";
+                            foreach (var subQuest in subQuests)
+                            {
+                                xml += "      <SubQuestID>" + subQuest.m_ID + "</SubQuestID>\n";
+                            }
+                            xml += "    </SubQuests>\n";
+                        }
+                        
+                        xml += "  </Quest>\n";
+                    }
+                    catch (Exception questEx)
+                    {
+                        Debug.LogError("LoadCustomDataTest: Failed to process quest element " + questElement.m_ID + ": " + questEx.Message);
+                    }
+                }
+                
+                xml += "</QuestDefinitions>";
+
+                // Write to file
+                string filePath = Manager.GetPluginManager().PluginPath + @"\questDefinitions.xml";
+                File.WriteAllText(filePath, xml);
+                
+                Debug.Log("LoadCustomDataTest: Quests exported to " + filePath + " (" + allQuestElements.Length + " quests)");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("LoadCustomDataTest: ExportQuestsInternal failed - " + ex.Message);
                 return false;
             }
         }

@@ -36,12 +36,18 @@ The LoadCustomData mod is a comprehensive data export/import system for Satellit
 - **Backup System**: Create timestamped backups of all game data
 
 #### 2. Enhanced Hotkey System
-- **Insert**: Reinitialize all data managers
-- **Delete**: Export all game data (items, quests, spawn cards, translations)
-- **End**: Import all game data from XML files
-- **Page Up**: Create comprehensive data backup
-- **Page Down**: Validate exported data integrity
+- **Insert**: Resume and comprehensive export (for use in maps/levels)
+- **Delete**: Export all game data (translations, items, sprites, quests)
+- **F2**: Export translations only (translations.xml)
+- **F3**: Export sprites only (extracts textures and sprite data)
+- **F4**: Export quests only (questDefinitions.xml)
 - **Home**: (Existing) Mesh/geometry export functionality
+
+**Export Files Generated**:
+- `translations.xml` - All in-game text and localization data
+- `itemDefinitions.xml` - Weapons, equipment, and item data
+- `questDefinitions.xml` - Mission and quest data with descriptions
+- `icons/` folder - Extracted sprite textures in PNG format
 
 #### 3. Improved Error Handling
 - **Graceful Degradation**: System continues to function even if individual components fail
@@ -75,7 +81,28 @@ The LoadCustomData mod is a comprehensive data export/import system for Satellit
 - **Custom Text**: Add new translations for modded content
 - **Dynamic Loading**: Runtime translation updates
 
-#### 5. Comprehensive Backup System
+#### 5. Quest Export System (Latest Enhancement)
+- **Complete Quest Data**: Exports all mission and quest information
+- **Automatic Quest Tree Initialization**: Handles quest system initialization automatically
+- **XML Format Compatibility**: Generates XML compatible with .NET XmlSerializer
+- **Boolean Serialization Fix**: Ensures lowercase boolean values for proper parsing
+- **.NET Framework Compatibility**: Fixed reflection compatibility issues for Unity 5.3.5
+
+**Quest Data Exported**:
+- Quest IDs, titles, and status (completed/active)
+- Quest descriptions and localized text
+- District assignments and location data
+- Sub-quest relationships and dependencies
+- Hidden quest flags and debrief settings
+- Wake-on-location triggers
+
+**Recent Fixes Applied**:
+- Fixed boolean serialization from `True/False` to `true/false` for XML compliance
+- Resolved `.NET Framework 4.5.1` reflection compatibility issues
+- Added automatic quest tree initialization when needed
+- Implemented proper error handling and fallback mechanisms
+
+#### 6. Comprehensive Backup System
 - **Automatic Backups**: Timestamped backup creation
 - **Data Validation**: Integrity checking for all exported files
 - **Restore Functionality**: Easy restoration from backup files
@@ -89,7 +116,8 @@ The LoadCustomData mod is a comprehensive data export/import system for Satellit
 2. **Build the Mod**
    ```bash
    cd "c:\Modding\SR.Plugin.Pack\LoadCustomData"
-   dotnet build
+   # Use the clean project file to avoid multiple plugin conflicts
+   msbuild LoadCustomDataClean.csproj
    ```
 
 3. **Install the DLL**

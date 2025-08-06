@@ -19,6 +19,7 @@
             this.btnEnemyBrowser = new System.Windows.Forms.Button();
             this.btnWeaponBrowser = new System.Windows.Forms.Button();
             this.btnMissionBrowser = new System.Windows.Forms.Button();
+            this.btnQuestBrowser = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -70,6 +71,18 @@
             this.btnMissionBrowser.UseVisualStyleBackColor = false;
             this.btnMissionBrowser.Click += new System.EventHandler(this.btnMissionBrowser_Click);
             // 
+            // btnQuestBrowser
+            // 
+            this.btnQuestBrowser.BackColor = System.Drawing.Color.SeaGreen;
+            this.btnQuestBrowser.ForeColor = System.Drawing.Color.Aquamarine;
+            this.btnQuestBrowser.Location = new System.Drawing.Point(100, 300);
+            this.btnQuestBrowser.Name = "btnQuestBrowser";
+            this.btnQuestBrowser.Size = new System.Drawing.Size(200, 40);
+            this.btnQuestBrowser.TabIndex = 4;
+            this.btnQuestBrowser.Text = "Quest Browser";
+            this.btnQuestBrowser.UseVisualStyleBackColor = false;
+            this.btnQuestBrowser.Click += new System.EventHandler(this.btnQuestBrowser_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -86,8 +99,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(400, 350);
+            this.ClientSize = new System.Drawing.Size(400, 400);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnQuestBrowser);
             this.Controls.Add(this.btnMissionBrowser);
             this.Controls.Add(this.btnWeaponBrowser);
             this.Controls.Add(this.btnEnemyBrowser);
@@ -103,6 +117,7 @@
         private System.Windows.Forms.Button btnEnemyBrowser;
         private System.Windows.Forms.Button btnWeaponBrowser;
         private System.Windows.Forms.Button btnMissionBrowser;
+        private System.Windows.Forms.Button btnQuestBrowser;
         private System.Windows.Forms.Label label1;
     }
 }

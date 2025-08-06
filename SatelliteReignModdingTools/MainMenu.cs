@@ -33,5 +33,11 @@ namespace SatelliteReignModdingTools
             var missionBrowser = new MissionBrowser();
             missionBrowser.Show();
         }
+
+        private void btnQuestBrowser_Click(object sender, EventArgs e)
+        {
+            var questBrowser = new QuestBrowser();
+            questBrowser.Show();
+        }
     }
 }
