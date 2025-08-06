@@ -95,7 +95,15 @@
     </Compile>
     <Compile Include="Models\Ability.cs" />
     <Compile Include="Models\Quest.cs" />
+    <Compile Include="Models\Translation.cs" />
+    <Compile Include="Models\QuestEnums.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="TranslationsBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TranslationsBrowser.Designer.cs">
+      <DependentUpon>TranslationsBrowser.cs</DependentUpon>
+    </Compile>
     <Compile Include="QuestBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +137,9 @@
     </Compile>
     <EmbeddedResource Include="QuestBrowser.resx">
       <DependentUpon>QuestBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TranslationsBrowser.resx">
+      <DependentUpon>TranslationsBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

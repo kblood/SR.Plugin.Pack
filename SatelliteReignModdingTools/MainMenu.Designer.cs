@@ -17,9 +17,8 @@
         {
             this.btnItemBrowser = new System.Windows.Forms.Button();
             this.btnEnemyBrowser = new System.Windows.Forms.Button();
-            this.btnWeaponBrowser = new System.Windows.Forms.Button();
-            this.btnMissionBrowser = new System.Windows.Forms.Button();
-            this.btnQuestBrowser = new System.Windows.Forms.Button();
+            this.btnQuestEditor = new System.Windows.Forms.Button();
+            this.btnTranslationsBrowser = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -47,41 +46,29 @@
             this.btnEnemyBrowser.UseVisualStyleBackColor = false;
             this.btnEnemyBrowser.Click += new System.EventHandler(this.btnEnemyBrowser_Click);
             // 
-            // btnWeaponBrowser
+            // btnQuestEditor
             // 
-            this.btnWeaponBrowser.BackColor = System.Drawing.Color.SeaGreen;
-            this.btnWeaponBrowser.ForeColor = System.Drawing.Color.Aquamarine;
-            this.btnWeaponBrowser.Location = new System.Drawing.Point(100, 200);
-            this.btnWeaponBrowser.Name = "btnWeaponBrowser";
-            this.btnWeaponBrowser.Size = new System.Drawing.Size(200, 40);
-            this.btnWeaponBrowser.TabIndex = 2;
-            this.btnWeaponBrowser.Text = "Weapon Browser";
-            this.btnWeaponBrowser.UseVisualStyleBackColor = false;
-            this.btnWeaponBrowser.Click += new System.EventHandler(this.btnWeaponBrowser_Click);
+            this.btnQuestEditor.BackColor = System.Drawing.Color.SeaGreen;
+            this.btnQuestEditor.ForeColor = System.Drawing.Color.Aquamarine;
+            this.btnQuestEditor.Location = new System.Drawing.Point(100, 200);
+            this.btnQuestEditor.Name = "btnQuestEditor";
+            this.btnQuestEditor.Size = new System.Drawing.Size(200, 40);
+            this.btnQuestEditor.TabIndex = 2;
+            this.btnQuestEditor.Text = "Quest Editor";
+            this.btnQuestEditor.UseVisualStyleBackColor = false;
+            this.btnQuestEditor.Click += new System.EventHandler(this.btnQuestEditor_Click);
             // 
-            // btnMissionBrowser
+            // btnTranslationsBrowser
             // 
-            this.btnMissionBrowser.BackColor = System.Drawing.Color.SeaGreen;
-            this.btnMissionBrowser.ForeColor = System.Drawing.Color.Aquamarine;
-            this.btnMissionBrowser.Location = new System.Drawing.Point(100, 250);
-            this.btnMissionBrowser.Name = "btnMissionBrowser";
-            this.btnMissionBrowser.Size = new System.Drawing.Size(200, 40);
-            this.btnMissionBrowser.TabIndex = 3;
-            this.btnMissionBrowser.Text = "Mission Browser";
-            this.btnMissionBrowser.UseVisualStyleBackColor = false;
-            this.btnMissionBrowser.Click += new System.EventHandler(this.btnMissionBrowser_Click);
-            // 
-            // btnQuestBrowser
-            // 
-            this.btnQuestBrowser.BackColor = System.Drawing.Color.SeaGreen;
-            this.btnQuestBrowser.ForeColor = System.Drawing.Color.Aquamarine;
-            this.btnQuestBrowser.Location = new System.Drawing.Point(100, 300);
-            this.btnQuestBrowser.Name = "btnQuestBrowser";
-            this.btnQuestBrowser.Size = new System.Drawing.Size(200, 40);
-            this.btnQuestBrowser.TabIndex = 4;
-            this.btnQuestBrowser.Text = "Quest Browser";
-            this.btnQuestBrowser.UseVisualStyleBackColor = false;
-            this.btnQuestBrowser.Click += new System.EventHandler(this.btnQuestBrowser_Click);
+            this.btnTranslationsBrowser.BackColor = System.Drawing.Color.SeaGreen;
+            this.btnTranslationsBrowser.ForeColor = System.Drawing.Color.Aquamarine;
+            this.btnTranslationsBrowser.Location = new System.Drawing.Point(100, 250);
+            this.btnTranslationsBrowser.Name = "btnTranslationsBrowser";
+            this.btnTranslationsBrowser.Size = new System.Drawing.Size(200, 40);
+            this.btnTranslationsBrowser.TabIndex = 3;
+            this.btnTranslationsBrowser.Text = "Translations Editor";
+            this.btnTranslationsBrowser.UseVisualStyleBackColor = false;
+            this.btnTranslationsBrowser.Click += new System.EventHandler(this.btnTranslationsBrowser_Click);
             // 
             // label1
             // 
@@ -99,11 +86,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(400, 400);
+            this.ClientSize = new System.Drawing.Size(400, 350);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnQuestBrowser);
-            this.Controls.Add(this.btnMissionBrowser);
-            this.Controls.Add(this.btnWeaponBrowser);
+            this.Controls.Add(this.btnTranslationsBrowser);
+            this.Controls.Add(this.btnQuestEditor);
             this.Controls.Add(this.btnEnemyBrowser);
             this.Controls.Add(this.btnItemBrowser);
             this.Name = "MainMenu";
@@ -115,9 +101,8 @@
 
         private System.Windows.Forms.Button btnItemBrowser;
         private System.Windows.Forms.Button btnEnemyBrowser;
-        private System.Windows.Forms.Button btnWeaponBrowser;
-        private System.Windows.Forms.Button btnMissionBrowser;
-        private System.Windows.Forms.Button btnQuestBrowser;
+        private System.Windows.Forms.Button btnQuestEditor;
+        private System.Windows.Forms.Button btnTranslationsBrowser;
         private System.Windows.Forms.Label label1;
     }
 }

@@ -23,21 +23,16 @@ namespace SatelliteReignModdingTools
             itemBrowser.Show();
         }
 
-        private void btnWeaponBrowser_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Weapon Browser not yet implemented", "Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnMissionBrowser_Click(object sender, EventArgs e)
-        {
-            var missionBrowser = new MissionBrowser();
-            missionBrowser.Show();
-        }
-
-        private void btnQuestBrowser_Click(object sender, EventArgs e)
+        private void btnQuestEditor_Click(object sender, EventArgs e)
         {
             var questBrowser = new QuestBrowser();
             questBrowser.Show();
+        }
+
+        private void btnTranslationsBrowser_Click(object sender, EventArgs e)
+        {
+            var translationsBrowser = new TranslationsBrowser();
+            translationsBrowser.Show();
         }
     }
 }

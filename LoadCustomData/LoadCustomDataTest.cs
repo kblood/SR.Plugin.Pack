@@ -109,7 +109,7 @@ namespace LoadCustomData
                 helpText += "F1 - Show this help\n";
                 helpText += "F2 - Export translations only\n";
                 helpText += "F3 - Export sprites only\n";
-                helpText += "F4 - Export quests only\n";
+                helpText += "F4 - Export quests (dual: templates + runtime state)\n";
 
                 if (Manager.Get() != null && Manager.GetUIManager() != null)
                 {
@@ -641,8 +641,8 @@ namespace LoadCustomData
         {
             try
             {
-                Debug.Log("LoadCustomDataTest: === QUEST EXPORT DEBUG START ===");
-                Debug.Log("LoadCustomDataTest: Getting QuestManager for quest export");
+                Debug.Log("LoadCustomDataTest: === DUAL QUEST EXPORT DEBUG START ===");
+                Debug.Log("LoadCustomDataTest: Getting QuestManager for dual quest export");
                 
                 var questManager = Manager.GetQuestManager();
                 if (questManager == null)
@@ -652,31 +652,59 @@ namespace LoadCustomData
                 }
                 Debug.Log("LoadCustomDataTest: QuestManager obtained successfully");
 
-                // Access quest data via reflection using the same approach as translations
                 var questManagerType = questManager.GetType();
                 Debug.Log("LoadCustomDataTest: QuestManager type: " + questManagerType.Name);
                 
-                // Based on QuestManager.cs: private QuestElement m_BaseQuestElement
-                Debug.Log("LoadCustomDataTest: Accessing m_BaseQuestElement field...");
+                QuestElement templateQuestElement = null;
+                QuestElement runtimeQuestElement = null;
+                bool templateExported = false;
+                bool runtimeExported = false;
                 
-                QuestElement baseQuestElement = null;
-                
+                // 1. Try to export TEMPLATE data (raw quest definitions)
+                Debug.Log("LoadCustomDataTest: === TEMPLATE EXPORT START ===");
                 try
                 {
-                    var field = questManagerType.GetField("m_BaseQuestElement", 
+                    var templateField = questManagerType.GetField("m_BaseQuestTemplate", 
+                        System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                    
+                    if (!ReferenceEquals(templateField, null))
+                    {
+                        var templateValue = templateField.GetValue(questManager);
+                        if (templateValue is QuestElement)
+                        {
+                            templateQuestElement = templateValue as QuestElement;
+                            Debug.Log("LoadCustomDataTest: Found template quest data - exporting questTemplates.xml");
+                            templateExported = ExportQuestData(templateQuestElement, "questTemplates.xml", "RAW_TEMPLATE_DEFINITIONS");
+                        }
+                        else
+                        {
+                            Debug.Log("LoadCustomDataTest: m_BaseQuestTemplate is null or wrong type - skipping template export");
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("LoadCustomDataTest: m_BaseQuestTemplate field not found - skipping template export");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError("LoadCustomDataTest: Template export failed: " + ex.Message);
+                }
+                
+                // 2. Try to export RUNTIME data (current game state)
+                Debug.Log("LoadCustomDataTest: === RUNTIME EXPORT START ===");
+                try
+                {
+                    var runtimeField = questManagerType.GetField("m_BaseQuestElement", 
                         System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
                     
-                    if (!ReferenceEquals(field, null))
+                    if (!ReferenceEquals(runtimeField, null))
                     {
-                        Debug.Log("LoadCustomDataTest: m_BaseQuestElement field found, getting value...");
-                        var fieldValue = field.GetValue(questManager);
-                        Debug.Log("LoadCustomDataTest: Field value type: " + (fieldValue?.GetType().Name ?? "null"));
-                        
-                        if (fieldValue == null)
+                        var runtimeValue = runtimeField.GetValue(questManager);
+                        if (runtimeValue == null)
                         {
-                            Debug.LogWarning("LoadCustomDataTest: m_BaseQuestElement is null - attempting to initialize quest tree");
-                            
-                            // Try to initialize the quest tree
+                            // Try to initialize quest tree to get runtime state
+                            Debug.Log("LoadCustomDataTest: Runtime state null, attempting initialization...");
                             try
                             {
                                 var initMethod = questManagerType.GetMethod("InitQuestTree", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
@@ -684,22 +712,7 @@ namespace LoadCustomData
                                 {
                                     Debug.Log("LoadCustomDataTest: Calling InitQuestTree...");
                                     initMethod.Invoke(questManager, new object[] { true });
-                                    
-                                    // Try to get the base quest element again
-                                    fieldValue = field.GetValue(questManager);
-                                    if (fieldValue is QuestElement)
-                                    {
-                                        baseQuestElement = fieldValue as QuestElement;
-                                        Debug.Log("LoadCustomDataTest: SUCCESS! Quest tree initialized and base quest element found");
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("LoadCustomDataTest: Quest tree initialization failed - m_BaseQuestElement still null");
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("LoadCustomDataTest: InitQuestTree method not found - cannot initialize quest tree");
+                                    runtimeValue = runtimeField.GetValue(questManager);
                                 }
                             }
                             catch (Exception initEx)
@@ -707,56 +720,91 @@ namespace LoadCustomData
                                 Debug.LogError("LoadCustomDataTest: Failed to initialize quest tree: " + initEx.Message);
                             }
                         }
-                        else if (fieldValue is QuestElement)
+                        
+                        if (runtimeValue is QuestElement)
                         {
-                            baseQuestElement = fieldValue as QuestElement;
-                            Debug.Log("LoadCustomDataTest: SUCCESS! Found base quest element");
+                            runtimeQuestElement = runtimeValue as QuestElement;
+                            Debug.Log("LoadCustomDataTest: Found runtime quest data - exporting questRuntimeState.xml");
+                            runtimeExported = ExportQuestData(runtimeQuestElement, "questRuntimeState.xml", "RUNTIME_GAME_STATE");
                         }
                         else
                         {
-                            Debug.LogError("LoadCustomDataTest: m_BaseQuestElement is wrong type: " + (fieldValue?.GetType().Name ?? "null"));
+                            Debug.Log("LoadCustomDataTest: m_BaseQuestElement is null or wrong type - skipping runtime export");
                         }
                     }
                     else
                     {
-                        Debug.LogError("LoadCustomDataTest: m_BaseQuestElement field not found");
-                        
-                        // List all available fields for debugging
-                        var allFields = questManagerType.GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                        Debug.Log("LoadCustomDataTest: Available private fields in QuestManager:");
-                        foreach (var debugField in allFields)
-                        {
-                            Debug.Log("LoadCustomDataTest:   - " + debugField.Name + " (" + debugField.FieldType.Name + ")");
-                        }
+                        Debug.Log("LoadCustomDataTest: m_BaseQuestElement field not found - skipping runtime export");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogError("LoadCustomDataTest: Exception accessing m_BaseQuestElement: " + ex.Message);
-                    Debug.LogError("LoadCustomDataTest: Stack trace: " + ex.StackTrace);
+                    Debug.LogError("LoadCustomDataTest: Runtime export failed: " + ex.Message);
                 }
                 
-                if (baseQuestElement == null)
+                // 3. Create legacy single file if either source is available (for backwards compatibility)
+                if (templateQuestElement != null || runtimeQuestElement != null)
                 {
-                    Debug.LogError("LoadCustomDataTest: QUEST EXPORT FAILED - Could not access base quest element");
-                    Debug.Log("LoadCustomDataTest: === QUEST EXPORT DEBUG END ===");
+                    Debug.Log("LoadCustomDataTest: === LEGACY EXPORT START ===");
+                    QuestElement legacyElement = templateQuestElement ?? runtimeQuestElement;
+                    string legacySource = templateQuestElement != null ? "RAW_TEMPLATE_DEFINITIONS" : "RUNTIME_GAME_STATE";
+                    ExportQuestData(legacyElement, "questDefinitions.xml", legacySource + "_LEGACY");
+                    Debug.Log("LoadCustomDataTest: Legacy questDefinitions.xml created for backwards compatibility");
+                }
+                
+                // Report results
+                string results = "";
+                if (templateExported) results += "Templates ";
+                if (runtimeExported) results += "Runtime ";
+                
+                if (templateExported || runtimeExported)
+                {
+                    Debug.Log("LoadCustomDataTest: DUAL QUEST EXPORT SUCCESS - Exported: " + results);
+                    Debug.Log("LoadCustomDataTest: === DUAL QUEST EXPORT DEBUG END ===");
+                    return true;
+                }
+                else
+                {
+                    Debug.LogError("LoadCustomDataTest: DUAL QUEST EXPORT FAILED - No quest data sources available");
+                    Debug.Log("LoadCustomDataTest: === DUAL QUEST EXPORT DEBUG END ===");
                     return false;
                 }
-
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("LoadCustomDataTest: ExportQuestsInternal failed - " + ex.Message);
+                return false;
+            }
+        }
+        
+        private bool ExportQuestData(QuestElement baseQuestElement, string fileName, string dataSource)
+        {
+            try
+            {
+                if (baseQuestElement == null)
+                {
+                    Debug.LogError("LoadCustomDataTest: Cannot export quest data - baseQuestElement is null");
+                    return false;
+                }
+                
                 // Get all quest elements from the base quest element
                 var allQuestElements = baseQuestElement.GetComponentsInChildren<QuestElement>(true);
-                Debug.Log("LoadCustomDataTest: Found " + allQuestElements.Length + " quest elements");
+                Debug.Log("LoadCustomDataTest: Found " + allQuestElements.Length + " quest elements for " + fileName);
 
                 if (allQuestElements.Length == 0)
                 {
-                    Debug.LogError("LoadCustomDataTest: QUEST EXPORT FAILED - No quest elements found");
-                    Debug.Log("LoadCustomDataTest: === QUEST EXPORT DEBUG END ===");
+                    Debug.LogError("LoadCustomDataTest: No quest elements found for " + fileName);
                     return false;
                 }
 
                 // Create XML content
                 string xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
                 xml += "<QuestDefinitions>\n";
+                
+                // Add metadata comment to indicate data source
+                xml += "  <!-- Data Source: " + dataSource + " -->\n";
+                xml += "  <!-- Export Time: " + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " -->\n";
+                xml += "  <!-- File: " + fileName + " -->\n";
                 
                 foreach (var questElement in allQuestElements)
                 {
@@ -838,22 +886,22 @@ namespace LoadCustomData
                     }
                     catch (Exception questEx)
                     {
-                        Debug.LogError("LoadCustomDataTest: Failed to process quest element " + questElement.m_ID + ": " + questEx.Message);
+                        Debug.LogError("LoadCustomDataTest: Failed to process quest element " + questElement.m_ID + " for " + fileName + ": " + questEx.Message);
                     }
                 }
                 
                 xml += "</QuestDefinitions>";
 
                 // Write to file
-                string filePath = Manager.GetPluginManager().PluginPath + @"\questDefinitions.xml";
+                string filePath = Manager.GetPluginManager().PluginPath + @"\" + fileName;
                 File.WriteAllText(filePath, xml);
                 
-                Debug.Log("LoadCustomDataTest: Quests exported to " + filePath + " (" + allQuestElements.Length + " quests)");
+                Debug.Log("LoadCustomDataTest: " + dataSource + " exported to " + filePath + " (" + allQuestElements.Length + " quests)");
                 return true;
             }
             catch (Exception ex)
             {
-                Debug.LogError("LoadCustomDataTest: ExportQuestsInternal failed - " + ex.Message);
+                Debug.LogError("LoadCustomDataTest: ExportQuestData failed for " + fileName + " - " + ex.Message);
                 return false;
             }
         }

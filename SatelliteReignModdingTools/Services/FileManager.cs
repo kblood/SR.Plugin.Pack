@@ -503,5 +503,101 @@ namespace SRMod.Services
 
             return quests;
         }
+
+        /// <summary>
+        /// Load translation data from the translations.xml file exported by LoadCustomData mod
+        /// </summary>
+        /// <param name="fileName">Translation file name</param>
+        /// <param name="filePath">Path to the file</param>
+        /// <returns>List of Translation objects</returns>
+        static public List<SatelliteReignModdingTools.Models.Translation> LoadTranslationDefinitionsXML(string fileName, string filePath = @"C:\Temp\")
+        {
+            string fileWithPath = fileName;
+
+            if (!fileWithPath.Contains(@":") && !fileWithPath.Contains(@"\"))
+            {
+                if (filePath.EndsWith(@"\"))
+                    fileWithPath = filePath + fileWithPath;
+                else
+                    fileWithPath = filePath + @"\" + fileWithPath;
+            }
+
+            List<SatelliteReignModdingTools.Models.Translation> translations = new List<SatelliteReignModdingTools.Models.Translation>();
+
+            if (!File.Exists(fileWithPath))
+            {
+                return translations;
+            }
+
+            try
+            {
+                // Create an instance of System.Xml.Serialization.XmlSerializer
+                XmlSerializer serializer = new XmlSerializer(typeof(SatelliteReignModdingTools.Models.TranslationCollection));
+
+                // Create an instance of System.IO.TextReader to load the serialized data
+                using (TextReader textReader = new StreamReader(fileWithPath))
+                {
+                    // Deserialize the translation collection
+                    var translationCollection = (SatelliteReignModdingTools.Models.TranslationCollection)serializer.Deserialize(textReader);
+                    translations = translationCollection.Translations ?? new List<SatelliteReignModdingTools.Models.Translation>();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Return empty list on error - let caller handle empty data
+                System.Diagnostics.Debug.WriteLine($"Failed to load translations from {fileWithPath}: {ex.Message}");
+                throw; // Re-throw so the caller can handle it with better error reporting
+            }
+
+            return translations;
+        }
+
+        /// <summary>
+        /// Save translation data to XML file
+        /// </summary>
+        /// <param name="translations">List of translations to save</param>
+        /// <param name="fileName">Output file name</param>
+        /// <param name="filePath">Output directory path</param>
+        static public void SaveTranslationDefinitionsXML(List<SatelliteReignModdingTools.Models.Translation> translations, string fileName, string filePath = @"C:\Temp\")
+        {
+            var translationCollection = new SatelliteReignModdingTools.Models.TranslationCollection
+            {
+                Translations = translations
+            };
+
+            // Create an instance of System.Xml.Serialization.XmlSerializer
+            XmlSerializer serializer = new XmlSerializer(typeof(SatelliteReignModdingTools.Models.TranslationCollection));
+
+            // Create an instance of System.IO.TextWriter to save the serialized object to disk
+            using (TextWriter textWriter = new StreamWriter($@"{filePath}{fileName}"))
+            {
+                // Serialize the translation collection
+                serializer.Serialize(textWriter, translationCollection);
+            }
+        }
+
+        /// <summary>
+        /// Save quest data to XML file
+        /// </summary>
+        /// <param name="quests">List of quests to save</param>
+        /// <param name="fileName">Output file name</param>
+        /// <param name="filePath">Output directory path</param>
+        static public void SaveQuestDefinitionsXML(List<SatelliteReignModdingTools.Models.Quest> quests, string fileName, string filePath = @"C:\Temp\")
+        {
+            var questDefinitions = new SatelliteReignModdingTools.Models.QuestDefinitions
+            {
+                Quests = quests
+            };
+
+            // Create an instance of System.Xml.Serialization.XmlSerializer
+            XmlSerializer serializer = new XmlSerializer(typeof(SatelliteReignModdingTools.Models.QuestDefinitions));
+
+            // Create an instance of System.IO.TextWriter to save the serialized object to disk
+            using (TextWriter textWriter = new StreamWriter($@"{filePath}{fileName}"))
+            {
+                // Serialize the quest definitions
+                serializer.Serialize(textWriter, questDefinitions);
+            }
+        }
     }
 }

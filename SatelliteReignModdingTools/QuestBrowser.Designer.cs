@@ -45,6 +45,14 @@ namespace SatelliteReignModdingTools
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnFilter = new System.Windows.Forms.Button();
             this.lblQuestCount = new System.Windows.Forms.Label();
+            this.cmbDistrict = new System.Windows.Forms.ComboBox();
+            this.cmbTitleKey = new System.Windows.Forms.ComboBox();
+            this.numWakeOnLocation = new System.Windows.Forms.NumericUpDown();
+            this.numLocationID = new System.Windows.Forms.NumericUpDown();
+            this.btnEditQuest = new System.Windows.Forms.Button();
+            this.btnSaveQuest = new System.Windows.Forms.Button();
+            this.btnNewQuest = new System.Windows.Forms.Button();
+            this.btnCancelEdit = new System.Windows.Forms.Button();
             this.lblQuestID = new System.Windows.Forms.Label();
             this.lblQuestTitle = new System.Windows.Forms.Label();
             this.lblTitleKey = new System.Windows.Forms.Label();
@@ -56,6 +64,8 @@ namespace SatelliteReignModdingTools
             this.lblWakeOnLocation = new System.Windows.Forms.Label();
             this.lblDescriptions = new System.Windows.Forms.Label();
             this.lblFilter = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numWakeOnLocation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLocationID)).BeginInit();
             this.SuspendLayout();
             // 
             // QuestListBox
@@ -307,11 +317,107 @@ namespace SatelliteReignModdingTools
             this.lblFilter.TabIndex = 27;
             this.lblFilter.Text = "Filter:";
             // 
+            // cmbDistrict
+            // 
+            this.cmbDistrict.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDistrict.FormattingEnabled = true;
+            this.cmbDistrict.Location = new System.Drawing.Point(398, 199);
+            this.cmbDistrict.Name = "cmbDistrict";
+            this.cmbDistrict.Size = new System.Drawing.Size(150, 21);
+            this.cmbDistrict.TabIndex = 28;
+            this.cmbDistrict.Visible = false;
+            this.cmbDistrict.SelectedIndexChanged += new System.EventHandler(this.cmbDistrict_SelectedIndexChanged);
+            // 
+            // cmbTitleKey
+            // 
+            this.cmbTitleKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTitleKey.FormattingEnabled = true;
+            this.cmbTitleKey.Location = new System.Drawing.Point(398, 153);
+            this.cmbTitleKey.Name = "cmbTitleKey";
+            this.cmbTitleKey.Size = new System.Drawing.Size(300, 21);
+            this.cmbTitleKey.TabIndex = 29;
+            this.cmbTitleKey.Visible = false;
+            this.cmbTitleKey.SelectedIndexChanged += new System.EventHandler(this.cmbTitleKey_SelectedIndexChanged);
+            // 
+            // numWakeOnLocation
+            // 
+            this.numWakeOnLocation.Location = new System.Drawing.Point(414, 484);
+            this.numWakeOnLocation.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+            this.numWakeOnLocation.Minimum = new decimal(new int[] { 1, 0, 0, -2147483648 });
+            this.numWakeOnLocation.Name = "numWakeOnLocation";
+            this.numWakeOnLocation.Size = new System.Drawing.Size(80, 20);
+            this.numWakeOnLocation.TabIndex = 30;
+            this.numWakeOnLocation.Value = new decimal(new int[] { 1, 0, 0, -2147483648 });
+            this.numWakeOnLocation.Visible = false;
+            this.numWakeOnLocation.ValueChanged += new System.EventHandler(this.numWakeOnLocation_ValueChanged);
+            // 
+            // numLocationID
+            // 
+            this.numLocationID.Location = new System.Drawing.Point(398, 245);
+            this.numLocationID.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+            this.numLocationID.Minimum = new decimal(new int[] { 1, 0, 0, -2147483648 });
+            this.numLocationID.Name = "numLocationID";
+            this.numLocationID.Size = new System.Drawing.Size(80, 20);
+            this.numLocationID.TabIndex = 35;
+            this.numLocationID.Value = new decimal(new int[] { 1, 0, 0, -2147483648 });
+            this.numLocationID.Visible = false;
+            this.numLocationID.ValueChanged += new System.EventHandler(this.numLocationID_ValueChanged);
+            // 
+            // btnEditQuest
+            // 
+            this.btnEditQuest.Location = new System.Drawing.Point(1080, 61);
+            this.btnEditQuest.Name = "btnEditQuest";
+            this.btnEditQuest.Size = new System.Drawing.Size(75, 30);
+            this.btnEditQuest.TabIndex = 31;
+            this.btnEditQuest.Text = "Edit Quest";
+            this.btnEditQuest.UseVisualStyleBackColor = true;
+            this.btnEditQuest.Click += new System.EventHandler(this.btnEditQuest_Click);
+            // 
+            // btnSaveQuest
+            // 
+            this.btnSaveQuest.Location = new System.Drawing.Point(1080, 97);
+            this.btnSaveQuest.Name = "btnSaveQuest";
+            this.btnSaveQuest.Size = new System.Drawing.Size(75, 30);
+            this.btnSaveQuest.TabIndex = 32;
+            this.btnSaveQuest.Text = "Save Quest";
+            this.btnSaveQuest.UseVisualStyleBackColor = true;
+            this.btnSaveQuest.Visible = false;
+            this.btnSaveQuest.Click += new System.EventHandler(this.btnSaveQuest_Click);
+            // 
+            // btnNewQuest
+            // 
+            this.btnNewQuest.Location = new System.Drawing.Point(1080, 133);
+            this.btnNewQuest.Name = "btnNewQuest";
+            this.btnNewQuest.Size = new System.Drawing.Size(75, 30);
+            this.btnNewQuest.TabIndex = 33;
+            this.btnNewQuest.Text = "New Quest";
+            this.btnNewQuest.UseVisualStyleBackColor = true;
+            this.btnNewQuest.Click += new System.EventHandler(this.btnNewQuest_Click);
+            // 
+            // btnCancelEdit
+            // 
+            this.btnCancelEdit.Location = new System.Drawing.Point(1080, 169);
+            this.btnCancelEdit.Name = "btnCancelEdit";
+            this.btnCancelEdit.Size = new System.Drawing.Size(75, 30);
+            this.btnCancelEdit.TabIndex = 34;
+            this.btnCancelEdit.Text = "Cancel Edit";
+            this.btnCancelEdit.UseVisualStyleBackColor = true;
+            this.btnCancelEdit.Visible = false;
+            this.btnCancelEdit.Click += new System.EventHandler(this.btnCancelEdit_Click);
+            // 
             // QuestBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1084, 611);
+            this.ClientSize = new System.Drawing.Size(1170, 611);
+            this.Controls.Add(this.btnCancelEdit);
+            this.Controls.Add(this.btnNewQuest);
+            this.Controls.Add(this.btnSaveQuest);
+            this.Controls.Add(this.btnEditQuest);
+            this.Controls.Add(this.numWakeOnLocation);
+            this.Controls.Add(this.numLocationID);
+            this.Controls.Add(this.cmbTitleKey);
+            this.Controls.Add(this.cmbDistrict);
             this.Controls.Add(this.lblFilter);
             this.Controls.Add(this.lblDescriptions);
             this.Controls.Add(this.lblWakeOnLocation);
@@ -341,7 +447,9 @@ namespace SatelliteReignModdingTools
             this.Controls.Add(this.txtQuestID);
             this.Controls.Add(this.QuestListBox);
             this.Name = "QuestBrowser";
-            this.Text = "Quest Browser - Satellite Reign Modding Tools";
+            this.Text = "Quest Editor - Satellite Reign Modding Tools";
+            ((System.ComponentModel.ISupportInitialize)(this.numWakeOnLocation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLocationID)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -377,5 +485,13 @@ namespace SatelliteReignModdingTools
         private System.Windows.Forms.Label lblWakeOnLocation;
         private System.Windows.Forms.Label lblDescriptions;
         private System.Windows.Forms.Label lblFilter;
+        private System.Windows.Forms.ComboBox cmbDistrict;
+        private System.Windows.Forms.ComboBox cmbTitleKey;
+        private System.Windows.Forms.NumericUpDown numWakeOnLocation;
+        private System.Windows.Forms.NumericUpDown numLocationID;
+        private System.Windows.Forms.Button btnEditQuest;
+        private System.Windows.Forms.Button btnSaveQuest;
+        private System.Windows.Forms.Button btnNewQuest;
+        private System.Windows.Forms.Button btnCancelEdit;
     }
 }
