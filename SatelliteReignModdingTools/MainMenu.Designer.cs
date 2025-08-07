@@ -1,4 +1,4 @@
-﻿namespace SatelliteReignModdingTools
+namespace SatelliteReignModdingTools
 {
     partial class MainMenu
     {
@@ -20,10 +20,11 @@
             this.btnQuestEditor = new System.Windows.Forms.Button();
             this.btnTranslationsBrowser = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnSkillsBrowser = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // btnItemBrowser
-            // 
+            //
             this.btnItemBrowser.BackColor = System.Drawing.Color.SeaGreen;
             this.btnItemBrowser.ForeColor = System.Drawing.Color.Aquamarine;
             this.btnItemBrowser.Location = new System.Drawing.Point(100, 100);
@@ -33,9 +34,9 @@
             this.btnItemBrowser.Text = "Item Browser";
             this.btnItemBrowser.UseVisualStyleBackColor = false;
             this.btnItemBrowser.Click += new System.EventHandler(this.btnItemBrowser_Click);
-            // 
+            //
             // btnEnemyBrowser
-            // 
+            //
             this.btnEnemyBrowser.BackColor = System.Drawing.Color.SeaGreen;
             this.btnEnemyBrowser.ForeColor = System.Drawing.Color.Aquamarine;
             this.btnEnemyBrowser.Location = new System.Drawing.Point(100, 150);
@@ -45,9 +46,9 @@
             this.btnEnemyBrowser.Text = "Enemy Browser";
             this.btnEnemyBrowser.UseVisualStyleBackColor = false;
             this.btnEnemyBrowser.Click += new System.EventHandler(this.btnEnemyBrowser_Click);
-            // 
+            //
             // btnQuestEditor
-            // 
+            //
             this.btnQuestEditor.BackColor = System.Drawing.Color.SeaGreen;
             this.btnQuestEditor.ForeColor = System.Drawing.Color.Aquamarine;
             this.btnQuestEditor.Location = new System.Drawing.Point(100, 200);
@@ -57,9 +58,9 @@
             this.btnQuestEditor.Text = "Quest Editor";
             this.btnQuestEditor.UseVisualStyleBackColor = false;
             this.btnQuestEditor.Click += new System.EventHandler(this.btnQuestEditor_Click);
-            // 
+            //
             // btnTranslationsBrowser
-            // 
+            //
             this.btnTranslationsBrowser.BackColor = System.Drawing.Color.SeaGreen;
             this.btnTranslationsBrowser.ForeColor = System.Drawing.Color.Aquamarine;
             this.btnTranslationsBrowser.Location = new System.Drawing.Point(100, 250);
@@ -69,9 +70,9 @@
             this.btnTranslationsBrowser.Text = "Translations Editor";
             this.btnTranslationsBrowser.UseVisualStyleBackColor = false;
             this.btnTranslationsBrowser.Click += new System.EventHandler(this.btnTranslationsBrowser_Click);
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Aquamarine;
@@ -80,13 +81,26 @@
             this.label1.Size = new System.Drawing.Size(210, 26);
             this.label1.TabIndex = 4;
             this.label1.Text = "Satellite Reign Mod Tools";
-            // 
+            //
+            // btnSkillsBrowser
+            //
+            this.btnSkillsBrowser.BackColor = System.Drawing.Color.SeaGreen;
+            this.btnSkillsBrowser.ForeColor = System.Drawing.Color.Aquamarine;
+            this.btnSkillsBrowser.Location = new System.Drawing.Point(100, 300);
+            this.btnSkillsBrowser.Name = "btnSkillsBrowser";
+            this.btnSkillsBrowser.Size = new System.Drawing.Size(200, 40);
+            this.btnSkillsBrowser.TabIndex = 5;
+            this.btnSkillsBrowser.Text = "Skills & Progression";
+            this.btnSkillsBrowser.UseVisualStyleBackColor = false;
+            this.btnSkillsBrowser.Click += new System.EventHandler(this.btnSkillsBrowser_Click);
+            //
             // MainMenu
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(400, 350);
+            this.ClientSize = new System.Drawing.Size(400, 380);
+            this.Controls.Add(this.btnSkillsBrowser);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnTranslationsBrowser);
             this.Controls.Add(this.btnQuestEditor);
@@ -103,6 +117,7 @@
         private System.Windows.Forms.Button btnEnemyBrowser;
         private System.Windows.Forms.Button btnQuestEditor;
         private System.Windows.Forms.Button btnTranslationsBrowser;
+        private System.Windows.Forms.Button btnSkillsBrowser;
         private System.Windows.Forms.Label label1;
     }
 }

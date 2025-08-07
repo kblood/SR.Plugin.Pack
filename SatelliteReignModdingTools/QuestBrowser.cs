@@ -9,14 +9,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using SatelliteReignModdingTools.Controls;
 
 namespace SatelliteReignModdingTools
 {
     public partial class QuestBrowser : Form
     {
         private List<Quest> quests = new List<Quest>();
-        private List<Translation> translations = new List<Translation>();
+        private List<Quest> filteredQuests = new List<Quest>();
         private List<SRMod.DTOs.SerializableItemData> availableItems = new List<SRMod.DTOs.SerializableItemData>();
+        private List<Translation> translations = new List<Translation>();
         private Quest activeQuest = null;
         private bool isEditing = false;
         private bool hasUnsavedChanges = false;
@@ -25,20 +28,43 @@ namespace SatelliteReignModdingTools
         private const string _questDataFileName = "questDefinitions.xml";
         private const string _translationDataFileName = "translations.xml";
 
+        private SharedToolbar _toolbar;
+
         public QuestBrowser()
         {
             InitializeComponent();
             InitializeEditor();
             LoadAllData();
+            filteredQuests = new List<Quest>(quests);
             UpdateQuestList();
             SetupFormTitle();
-            
+
             // Subscribe to form closing event
             this.FormClosing += QuestBrowser_FormClosing;
-            
+
             // Subscribe to text change events
             this.txtQuestTitle.TextChanged += txtQuestTitle_TextChanged;
             this.numLocationID.ValueChanged += numLocationID_ValueChanged;
+
+            // Add shared toolbar and wire events
+            _toolbar = new SharedToolbar();
+            _toolbar.ReloadClicked += () => { LoadAllData(); filteredQuests = new List<Quest>(quests); UpdateQuestList(); };
+            _toolbar.SaveClicked += () => btnSaveQuest_Click(this, EventArgs.Empty);
+            _toolbar.SaveWithDiffClicked += () => SaveWithDiff();
+            _toolbar.ValidateClicked += () => ShowValidationResults();
+            _toolbar.SearchTextChanged += (text) => ApplySearch(text);
+            Controls.Add(_toolbar);
+            _toolbar.Dock = DockStyle.None;
+            _toolbar.Location = new Point(0, 0);
+            _toolbar.Width = this.ClientSize.Width;
+            _toolbar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            // Shift existing controls down by toolbar height
+            foreach (Control c in this.Controls)
+            {
+                if (c == _toolbar) continue;
+                c.Top += _toolbar.Height;
+            }
+            _toolbar.BringToFront();
         }
 
         private void InitializeEditor()
@@ -52,6 +78,114 @@ namespace SatelliteReignModdingTools
         private void SetupFormTitle()
         {
             this.Text = "Quest Editor - Satellite Reign Modding Tools";
+        }
+
+        private void ApplySearch(string text)
+        {
+            text = text ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                filteredQuests = new List<Quest>(quests);
+            }
+            else
+            {
+                var lower = text.ToLowerInvariant();
+                filteredQuests = quests.Where(q =>
+                    ($"{q.ID}".Contains(lower)) ||
+                    (q.Title?.ToLowerInvariant().Contains(lower) ?? false) ||
+                    (q.DisplayName?.ToLowerInvariant().Contains(lower) ?? false) ||
+                    (q.TitleKey?.ToLowerInvariant().Contains(lower) ?? false)
+                ).ToList();
+            }
+            UpdateQuestList();
+        }
+
+        private void ShowValidationResults()
+        {
+            var (errors, warnings) = ValidateQuests();
+            var sb = new StringBuilder();
+            if (errors.Count == 0 && warnings.Count == 0)
+            {
+                MessageBox.Show(this, "No issues found.", "Validate Quests", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (errors.Count > 0)
+            {
+                sb.AppendLine("Errors:");
+                foreach (var e in errors.Take(100)) sb.AppendLine(" - " + e);
+                if (errors.Count > 100) sb.AppendLine($"(+{errors.Count - 100} more)");
+                sb.AppendLine();
+            }
+            if (warnings.Count > 0)
+            {
+                sb.AppendLine("Warnings:");
+                foreach (var w in warnings.Take(200)) sb.AppendLine(" - " + w);
+                if (warnings.Count > 200) sb.AppendLine($"(+{warnings.Count - 200} more)");
+            }
+            MessageBox.Show(this, sb.ToString(), "Validate Quests", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private (List<string> errors, List<string> warnings) ValidateQuests()
+        {
+            var errors = new List<string>();
+            var warnings = new List<string>();
+            try
+            {
+                var idSet = new HashSet<int>();
+                foreach (var q in quests)
+                {
+                    if (!idSet.Add(q.ID)) errors.Add($"Duplicate quest ID: {q.ID}");
+                    if (string.IsNullOrWhiteSpace(q.TitleKey)) warnings.Add($"Quest {q.ID} missing TitleKey");
+                    if (q.SubQuests != null)
+                    {
+                        foreach (var sub in q.SubQuests)
+                        {
+                            if (sub == q.ID) errors.Add($"Quest {q.ID} has a self-referential subquest");
+                            if (!quests.Any(qq => qq.ID == sub)) warnings.Add($"Quest {q.ID} subquest {sub} not found");
+                        }
+                    }
+                    if (q.Location != null && (q.Location.LocationID < -1 || q.Location.LocationID > 500))
+                        warnings.Add($"Quest {q.ID} location out of bounds: {q.Location.LocationID}");
+                }
+            }
+            catch (Exception ex)
+            {
+                errors.Add(ex.Message);
+            }
+            return (errors, warnings);
+        }
+
+        private void SaveWithDiff()
+        {
+            try
+            {
+                var basePath = FileManager.ExecPath;
+                var questPath = Path.Combine(basePath, _questDataFileName);
+                var oldXml = File.Exists(questPath) ? File.ReadAllText(questPath) : string.Empty;
+
+                // Serialize current quests to XML string (matching FileManager.SaveQuestDefinitionsXML)
+                var defs = new SatelliteReignModdingTools.Models.QuestDefinitions { Quests = quests };
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(SatelliteReignModdingTools.Models.QuestDefinitions));
+                var ns = new System.Xml.Serialization.XmlSerializerNamespaces();
+                ns.Add(string.Empty, string.Empty);
+                string newXml;
+                using (var sw = new StringWriter())
+                {
+                    serializer.Serialize(sw, defs, ns);
+                    newXml = sw.ToString();
+                }
+
+                var diff = Services.XmlDiffUtil.Diff(oldXml, newXml);
+                var dlg = DiffViewerForm.ShowDiff(this, "Confirm Save", _questDataFileName + "\n" + diff);
+                if (dlg != DialogResult.OK) return;
+
+                FileManager.SaveQuestDefinitionsXML(quests, _questDataFileName, basePath + @"\");
+                MessageBox.Show(this, "Saved.", "Save (with diff)", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Save (with diff) failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadAllData()
@@ -1063,8 +1197,7 @@ namespace SatelliteReignModdingTools
         {
             try
             {
-                // Create data source for quest list
-                var questItems = quests.Select(quest => new
+                var questItems = filteredQuests.Select(quest => new
                 {
                     Key = quest.DisplayName,
                     Value = quest
@@ -1074,8 +1207,7 @@ namespace SatelliteReignModdingTools
                 QuestListBox.DisplayMember = "Key";
                 QuestListBox.ValueMember = "Value";
 
-                // Update status label
-                lblQuestCount.Text = $"Loaded {quests.Count} quests";
+                lblQuestCount.Text = $"Showing {filteredQuests.Count} of {quests.Count} quests";
             }
             catch (Exception ex)
             {

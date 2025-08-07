@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SatelliteReignModdingTools.Controls;
+using System.IO;
 
 namespace SatelliteReignModdingTools
 {
@@ -19,6 +21,7 @@ namespace SatelliteReignModdingTools
         private bool isEditing = false;
         private bool hasUnsavedChanges = false;
         private const string _translationDataFileName = "translations.xml";
+        private SharedToolbar _toolbar;
 
         public TranslationsBrowser()
         {
@@ -27,8 +30,27 @@ namespace SatelliteReignModdingTools
             LoadAllData();
             UpdateTranslationList();
             SetupFormTitle();
-            
+
             this.FormClosing += TranslationsBrowser_FormClosing;
+
+            // Add shared toolbar and wire events
+            _toolbar = new SharedToolbar();
+            _toolbar.ReloadClicked += () => { LoadAllData(); UpdateTranslationList(); };
+            _toolbar.SaveClicked += () => SaveTranslations();
+            _toolbar.SaveWithDiffClicked += () => SaveWithDiff();
+            _toolbar.ValidateClicked += () => ShowValidationResults();
+            _toolbar.SearchTextChanged += (text) => ApplySearch(text);
+            Controls.Add(_toolbar);
+            _toolbar.Dock = DockStyle.None;
+            _toolbar.Location = new Point(0, 0);
+            _toolbar.Width = this.ClientSize.Width;
+            _toolbar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            foreach (Control c in this.Controls)
+            {
+                if (c == _toolbar) continue;
+                c.Top += _toolbar.Height;
+            }
+            _toolbar.BringToFront();
         }
 
         private void InitializeEditor()
@@ -40,6 +62,118 @@ namespace SatelliteReignModdingTools
         private void SetupFormTitle()
         {
             this.Text = "Translations Editor - Satellite Reign Modding Tools";
+        }
+
+        private void ApplySearch(string text)
+        {
+            text = text ?? string.Empty;
+            var lower = text.ToLowerInvariant();
+            if (string.IsNullOrWhiteSpace(lower))
+            {
+                filteredTranslations = new List<Translation>(translations);
+            }
+            else
+            {
+                filteredTranslations = translations.Where(t =>
+                    (t.Key?.ToLowerInvariant().Contains(lower) ?? false) ||
+                    (t.Element?.Token?.ToLowerInvariant().Contains(lower) ?? false) ||
+                    (t.Element?.PrimaryTranslation?.ToLowerInvariant().Contains(lower) ?? false)
+                ).ToList();
+            }
+            UpdateTranslationList();
+        }
+
+        private void ShowValidationResults()
+        {
+            var (errors, warnings) = ValidateTranslations();
+            var sb = new StringBuilder();
+            if (errors.Count == 0 && warnings.Count == 0)
+            {
+                MessageBox.Show(this, "No issues found.", "Validate Translations", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (errors.Count > 0)
+            {
+                sb.AppendLine("Errors:");
+                foreach (var e in errors.Take(100)) sb.AppendLine(" - " + e);
+                if (errors.Count > 100) sb.AppendLine($"(+{errors.Count - 100} more)");
+                sb.AppendLine();
+            }
+            if (warnings.Count > 0)
+            {
+                sb.AppendLine("Warnings:");
+                foreach (var w in warnings.Take(200)) sb.AppendLine(" - " + w);
+                if (warnings.Count > 200) sb.AppendLine($"(+{warnings.Count - 200} more)");
+            }
+            MessageBox.Show(this, sb.ToString(), "Validate Translations", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private (List<string> errors, List<string> warnings) ValidateTranslations()
+        {
+            var errors = new List<string>();
+            var warnings = new List<string>();
+            try
+            {
+                var keySet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                foreach (var t in translations)
+                {
+                    if (string.IsNullOrWhiteSpace(t.Key)) errors.Add("Empty translation key");
+                    else if (!keySet.Add(t.Key)) errors.Add($"Duplicate key: {t.Key}");
+
+                    if (string.IsNullOrWhiteSpace(t.Element?.PrimaryTranslation))
+                        warnings.Add($"Key {t.Key} has empty primary translation");
+                }
+            }
+            catch (Exception ex)
+            {
+                errors.Add(ex.Message);
+            }
+            return (errors, warnings);
+        }
+
+        private void SaveTranslations()
+        {
+            try
+            {
+                FileManager.SaveTranslationDefinitionsXML(translations, _translationDataFileName, FileManager.ExecPath);
+                MessageBox.Show(this, "Saved.", "Save Translations", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                hasUnsavedChanges = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Save Translations failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SaveWithDiff()
+        {
+            try
+            {
+                var basePath = FileManager.ExecPath;
+                var transPath = Path.Combine(basePath, _translationDataFileName);
+                var oldXml = File.Exists(transPath) ? File.ReadAllText(transPath) : string.Empty;
+
+                var coll = new SatelliteReignModdingTools.Models.TranslationCollection { Translations = translations };
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(SatelliteReignModdingTools.Models.TranslationCollection));
+                var ns = new System.Xml.Serialization.XmlSerializerNamespaces();
+                ns.Add(string.Empty, string.Empty);
+                string newXml;
+                using (var sw = new StringWriter())
+                {
+                    serializer.Serialize(sw, coll, ns);
+                    newXml = sw.ToString();
+                }
+
+                var diff = Services.XmlDiffUtil.Diff(oldXml, newXml);
+                var dlg = DiffViewerForm.ShowDiff(this, "Confirm Save", _translationDataFileName + "\n" + diff);
+                if (dlg != DialogResult.OK) return;
+
+                SaveTranslations();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Save (with diff) failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void PopulateCategoryDropdown()

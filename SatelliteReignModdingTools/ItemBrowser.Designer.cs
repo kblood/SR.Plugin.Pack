@@ -1,4 +1,4 @@
-﻿namespace SatelliteReignModdingTools
+namespace SatelliteReignModdingTools
 {
     partial class ItemBrowser
     {
@@ -45,6 +45,7 @@
             this.saveTranslationsFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveTranslationsAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveWithDiffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.czechToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,8 +73,13 @@
             this.AmountTextBox = new System.Windows.Forms.TextBox();
             this.AmountLabel = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.detailsTabControl = new System.Windows.Forms.TabControl();
+            this.generalTabPage = new System.Windows.Forms.TabPage();
+            this.combatTabPage = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ItemIconImageBox)).BeginInit();
+            this.detailsTabControl.SuspendLayout();
+            this.generalTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // DeleteItemButton
@@ -160,6 +166,8 @@
             this.filesToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
             this.filesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadAllToolStripMenuItem,
+            this.loadAllToolStripMenuItem,
+            this.saveWithDiffToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.loadFileToolStripMenuItem,
             this.saveAsToolStripMenuItem,
@@ -180,6 +188,14 @@
             this.loadAllToolStripMenuItem.Text = "Reload All";
             this.loadAllToolStripMenuItem.Click += new System.EventHandler(this.loadAllToolStripMenuItem_Click);
             // 
+            // saveWithDiffToolStripMenuItem
+            //
+            this.saveWithDiffToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
+            this.saveWithDiffToolStripMenuItem.Name = "saveWithDiffToolStripMenuItem";
+            this.saveWithDiffToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.saveWithDiffToolStripMenuItem.Text = "Save (with diff)";
+            this.saveWithDiffToolStripMenuItem.Click += new System.EventHandler(this.saveWithDiffToolStripMenuItem_Click);
+            //
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
@@ -491,48 +507,110 @@
             this.AmountLabel.Size = new System.Drawing.Size(43, 13);
             this.AmountLabel.TabIndex = 27;
             this.AmountLabel.Text = "Amount";
-            // 
+            //
             // openFileDialog1
-            // 
+            //
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
-            // 
+            //
+            // detailsTabControl
+            //
+            this.detailsTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.detailsTabControl.Controls.Add(this.generalTabPage);
+            this.detailsTabControl.Controls.Add(this.combatTabPage);
+            this.detailsTabControl.Location = new System.Drawing.Point(323, 45);
+            this.detailsTabControl.Name = "detailsTabControl";
+            this.detailsTabControl.SelectedIndex = 0;
+            this.detailsTabControl.Size = new System.Drawing.Size(583, 420);
+            this.detailsTabControl.TabIndex = 100;
+            //
+            // generalTabPage
+            //
+            this.generalTabPage.BackColor = System.Drawing.Color.Black;
+            this.generalTabPage.Controls.Add(this.CopyItemButton);
+            this.generalTabPage.Controls.Add(this.DeleteItemButton);
+            this.generalTabPage.Controls.Add(this.ItemSlotTypeDropDown);
+            this.generalTabPage.Controls.Add(this.GearSubTypeDropDown);
+            this.generalTabPage.Controls.Add(this.WeaponTypeDropDown);
+            this.generalTabPage.Controls.Add(this.SaveItemButton);
+            this.generalTabPage.Controls.Add(this.ItemNameTextBox);
+            this.generalTabPage.Controls.Add(this.DescriptionTextBox);
+            this.generalTabPage.Controls.Add(this.ItemIconImageBox);
+            this.generalTabPage.Controls.Add(this.AbilityDropdown);
+            this.generalTabPage.Controls.Add(this.AddAbility);
+            this.generalTabPage.Controls.Add(this.ModifierDropdown);
+            this.generalTabPage.Controls.Add(this.AddModiferButton);
+            this.generalTabPage.Controls.Add(this.AbilityListBox);
+            this.generalTabPage.Controls.Add(this.ModifierListBox);
+            this.generalTabPage.Controls.Add(this.SaveModifierButton);
+            this.generalTabPage.Controls.Add(this.DeleteModifierButton);
+            this.generalTabPage.Controls.Add(this.ExtraNameTextBox);
+            this.generalTabPage.Controls.Add(this.ExtraDescriptionTextBox);
+            this.generalTabPage.Controls.Add(this.AmountLabel);
+            this.generalTabPage.Controls.Add(this.AmountTextBox);
+            this.generalTabPage.Controls.Add(this.DeleteAbilityButton);
+            // Reset locations for controls now inside tab page
+            this.CopyItemButton.Location = new System.Drawing.Point(7, 0);
+            this.DeleteItemButton.Location = new System.Drawing.Point(7, 29);
+            this.SaveItemButton.Location = new System.Drawing.Point(7, 58);
+            this.ItemSlotTypeDropDown.Location = new System.Drawing.Point(7, 84);
+            this.GearSubTypeDropDown.Location = new System.Drawing.Point(7, 123);
+            this.WeaponTypeDropDown.Location = new System.Drawing.Point(7, 162);
+            this.ItemNameTextBox.Location = new System.Drawing.Point(160, 0);
+            this.DescriptionTextBox.Location = new System.Drawing.Point(160, 26);
+            this.ItemIconImageBox.Location = new System.Drawing.Point(504, 0);
+            this.AbilityDropdown.Location = new System.Drawing.Point(7, 207);
+            this.AddAbility.Location = new System.Drawing.Point(164, 207);
+            this.ModifierDropdown.Location = new System.Drawing.Point(206, 207);
+            this.AddModiferButton.Location = new System.Drawing.Point(359, 207);
+            this.AbilityListBox.Location = new System.Drawing.Point(7, 232);
+            this.ModifierListBox.Location = new System.Drawing.Point(206, 232);
+            this.ExtraNameTextBox.Location = new System.Drawing.Point(401, 206);
+            this.ExtraDescriptionTextBox.Location = new System.Drawing.Point(401, 232);
+            this.AmountLabel.Location = new System.Drawing.Point(410, 335);
+            this.AmountTextBox.Location = new System.Drawing.Point(470, 332);
+            this.SaveModifierButton.Location = new System.Drawing.Point(206, 365);
+            this.DeleteModifierButton.Location = new System.Drawing.Point(303, 365);
+            this.DeleteAbilityButton.Location = new System.Drawing.Point(112, 365);
+            this.generalTabPage.ForeColor = System.Drawing.Color.Aquamarine;
+            this.generalTabPage.Location = new System.Drawing.Point(4, 22);
+            this.generalTabPage.Name = "generalTabPage";
+            this.generalTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.generalTabPage.Size = new System.Drawing.Size(575, 394);
+            this.generalTabPage.TabIndex = 0;
+            this.generalTabPage.Text = "General";
+            //
+            // combatTabPage
+            //
+            this.combatTabPage.BackColor = System.Drawing.Color.Black;
+            this.combatTabPage.ForeColor = System.Drawing.Color.Aquamarine;
+            this.combatTabPage.Location = new System.Drawing.Point(4, 22);
+            this.combatTabPage.Name = "combatTabPage";
+            this.combatTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.combatTabPage.Size = new System.Drawing.Size(575, 394);
+            this.combatTabPage.TabIndex = 1;
+            this.combatTabPage.Text = "Combat";
+            //
             // ItemBrowser
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowText;
             this.ClientSize = new System.Drawing.Size(918, 478);
-            this.Controls.Add(this.AmountLabel);
-            this.Controls.Add(this.AmountTextBox);
-            this.Controls.Add(this.SaveItemButton);
-            this.Controls.Add(this.SaveModifierButton);
-            this.Controls.Add(this.DeleteModifierButton);
-            this.Controls.Add(this.DeleteAbilityButton);
-            this.Controls.Add(this.AddModiferButton);
-            this.Controls.Add(this.AddAbility);
-            this.Controls.Add(this.ModifierDropdown);
-            this.Controls.Add(this.AbilityDropdown);
-            this.Controls.Add(this.ExtraNameTextBox);
-            this.Controls.Add(this.ExtraDescriptionTextBox);
-            this.Controls.Add(this.ModifierListBox);
-            this.Controls.Add(this.AbilityListBox);
-            this.Controls.Add(this.ItemIconImageBox);
-            this.Controls.Add(this.DescriptionTextBox);
-            this.Controls.Add(this.ItemNameTextBox);
-            this.Controls.Add(this.GearSubTypeDropDown);
-            this.Controls.Add(this.WeaponTypeDropDown);
-            this.Controls.Add(this.ItemSlotTypeDropDown);
+            this.Controls.Add(this.detailsTabControl);
             this.Controls.Add(this.ItemListBox);
-            this.Controls.Add(this.CopyItemButton);
-            this.Controls.Add(this.DeleteItemButton);
-            this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.menuStrip1);
             this.Name = "ItemBrowser";
             this.Text = "Satellite Reign Item Browser";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ItemIconImageBox)).EndInit();
+            this.detailsTabControl.ResumeLayout(false);
+            this.generalTabPage.ResumeLayout(false);
+            this.generalTabPage.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -549,6 +627,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem filesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveWithDiffToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
@@ -583,6 +662,9 @@
         private System.Windows.Forms.ToolStripMenuItem saveTranslationsAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem loadAllToolStripMenuItem;
+        private System.Windows.Forms.TabControl detailsTabControl;
+        private System.Windows.Forms.TabPage generalTabPage;
+        private System.Windows.Forms.TabPage combatTabPage;
     }
 }
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -65,6 +65,7 @@
     <Compile Include="DTOs\GameObjectDTO.cs" />
     <Compile Include="DTOs\ItemData.cs" />
     <Compile Include="DTOs\QuestData.cs" />
+    <Compile Include="DTOs\SkillsDTOs.cs" />
     <Compile Include="DTOs\Sprite.cs" />
     <Compile Include="DTOs\TransformDTO.cs" />
     <Compile Include="DTOs\TranslationsDTO.cs" />
@@ -98,6 +99,27 @@
     <Compile Include="Models\Translation.cs" />
     <Compile Include="Models\QuestEnums.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Services\DataWatcher.cs" />
+    <Compile Include="Services\FileManager.cs" />
+    <Compile Include="Services\IGameDataManager.cs" />
+    <Compile Include="Services\ImageHelper.cs" />
+    <Compile Include="Services\ItemDataManager.cs" />
+    <Compile Include="Services\ObjectiveEventHandler.cs" />
+    <Compile Include="Services\ReflectionExtensions.cs" />
+    <Compile Include="Services\SkillDataManager.cs" />
+    <Compile Include="Services\SpawnCardManager.cs" />
+    <Compile Include="Services\SpriteSerializer.cs" />
+    <Compile Include="Services\SREditor.cs" />
+    <Compile Include="Services\SRInfoHelper.cs" />
+    <Compile Include="Services\SRMapper.cs" />
+    <Compile Include="Services\UIHelper.cs" />
+    <Compile Include="Services\XmlDiffUtil.cs" />
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SkillsBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="TranslationsBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,18 +138,13 @@
     <Compile Include="QuestBrowser.Designer.cs">
       <DependentUpon>QuestBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SharedToolbar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DiffViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\FileManager.cs" />
-    <Compile Include="Services\ImageHelper.cs" />
-    <Compile Include="Services\ItemDataManager.cs" />
-    <Compile Include="Services\ObjectiveEventHandler.cs" />
-    <Compile Include="Services\ReflectionExtensions.cs" />
-    <Compile Include="Services\SpawnCardManager.cs" />
-    <Compile Include="Services\SpriteSerializer.cs" />
-    <Compile Include="Services\SREditor.cs" />
-    <Compile Include="Services\SRInfoHelper.cs" />
-    <Compile Include="Services\SRMapper.cs" />
-    <Compile Include="Services\UIHelper.cs" />
     <EmbeddedResource Include="ItemBrowser.resx">
       <DependentUpon>ItemBrowser.cs</DependentUpon>
     </EmbeddedResource>
