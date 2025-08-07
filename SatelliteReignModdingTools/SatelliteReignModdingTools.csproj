@@ -104,6 +104,12 @@
     <Compile Include="TranslationsBrowser.Designer.cs">
       <DependentUpon>TranslationsBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="TranslationEditDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TranslationEditDialog.Designer.cs">
+      <DependentUpon>TranslationEditDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="QuestBrowser.cs">
       <SubType>Form</SubType>
     </Compile>

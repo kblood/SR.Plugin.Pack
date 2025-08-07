@@ -27,6 +27,10 @@ namespace SatelliteReignModdingTools.Models
         [XmlArray("SubQuests")]
         [XmlArrayItem("SubQuestID")]
         public List<int> SubQuests { get; set; }
+        
+        [XmlArray("Rewards")]
+        [XmlArrayItem("Reward")]
+        public List<QuestReward> Rewards { get; set; }
 
         // Computed properties for UI display
         public string DisplayName => $"{ID}: {Title}";
@@ -41,6 +45,7 @@ namespace SatelliteReignModdingTools.Models
             WakeOnLocationList = new List<QuestWakeOnLocation>();
             Descriptions = new List<QuestDescription>();
             SubQuests = new List<int>();
+            Rewards = new List<QuestReward>();
         }
     }
 
@@ -65,6 +70,57 @@ namespace SatelliteReignModdingTools.Models
         public string Translation { get; set; }
         public bool IsNew { get; set; }
         public bool HasBeenSeen { get; set; }
+    }
+    
+    public enum QuestRewardType
+    {
+        Item,
+        Money,
+        Experience,
+        Blueprint,
+        Prototype,
+        Ability,
+        DistrictPass
+    }
+    
+    public class QuestReward
+    {
+        public QuestRewardType Type { get; set; }
+        public int ItemId { get; set; }
+        public string ItemName { get; set; }
+        public string PrototypeInfo { get; set; }
+        public string DistrictName { get; set; }
+        public int Quantity { get; set; }
+        public float DropChance { get; set; }
+        public bool IsGuaranteed { get; set; }
+        public string Description { get; set; }
+        
+        public QuestReward()
+        {
+            Type = QuestRewardType.Item;
+            Quantity = 1;
+            DropChance = 100.0f;
+            IsGuaranteed = true;
+        }
+        
+        public string DisplayText => GetDisplayText();
+        
+        private string GetDisplayText()
+        {
+            switch (Type)
+            {
+                case QuestRewardType.Prototype:
+                    return $"Prototype: {PrototypeInfo ?? ItemName ?? $"ID {ItemId}"} (x{Quantity}) - {DropChance:F0}%";
+                case QuestRewardType.DistrictPass:
+                    return $"District Pass: {DistrictName ?? "Unknown District"} - {DropChance:F0}%";
+                case QuestRewardType.Money:
+                    return $"Credits: {Quantity} - {DropChance:F0}%";
+                case QuestRewardType.Experience:
+                    return $"Experience: {Quantity} XP - {DropChance:F0}%";
+                default:
+                    return $"{Type}: {ItemName ?? $"ID {ItemId}"} (x{Quantity}) - {DropChance:F0}%";
+            }
+        }
     }
 
     /// <summary>
