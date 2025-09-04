@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-// System.Xml.Serialization not available in .NET 3.5
+using System.Xml.Serialization;
 using UnityEngine;
 
 namespace SRMod.DTOs

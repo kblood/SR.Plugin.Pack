@@ -1,4 +1,4 @@
-﻿// System.Xml.Serialization not available in .NET 3.5
+﻿using System.Xml.Serialization;
 using System.IO;
 using System.Text;
 using System.Linq;
@@ -9,7 +9,6 @@ using SRMod.Services;
 using System;
 using System.Reflection;
 using SRMod.DTOs;
-using System.Xml.Serialization;
 
 public class SpawnCardManager : MonoBehaviour
 {
@@ -59,7 +58,7 @@ public class SpawnCardManager : MonoBehaviour
 
     public void Initialize()
     {
-        SRInfoHelper.Log("Initializing spawn card manager.");
+        SRInfoHelper.Log($"Initializing spawn card manager.");
 
         var spawnmanager = SpawnManager.Get();
 
@@ -76,7 +75,7 @@ public class SpawnCardManager : MonoBehaviour
                 _prefabs.Add(prefab);
             }
         }
-        SRInfoHelper.Log("Found " + _prefabs.Count + " unique prefabs on the enemy definitions.");
+        SRInfoHelper.Log($"Found {_prefabs.Count} unique prefabs on the enemy definitions.");
         if (!LoadEnemyEntriesFromFileAndUpdateSpawnManager())
             SaveEnemyEntries();
 
@@ -89,7 +88,7 @@ public class SpawnCardManager : MonoBehaviour
         //// Try to load spawn cards from file, if it exists
         //if (!LoadSpawnCardsFromFileAndUpdateSpawnManager())
         //{
-        //    SRInfoHelper.Log("Cannot load from file, populating spawn cards from spawn manager...");
+        //    SRInfoHelper.Log($"Cannot load from file, populating spawn cards from spawn manager...");
         //    // If loading fails, populate from SpawnManager
         //    PopulateFromSpawnManager();
         //}
@@ -127,7 +126,7 @@ public class SpawnCardManager : MonoBehaviour
                 cardlist.Add(new SerializableSpawnCardList { groupId = kvp.Key, cards = serializableData.Cards });
             }
 
-            SRInfoHelper.Log("Preparing to save " + cardlist.Count + " spawncarddecks with a total of " + cardlist.SelectMany(c => c.cards).Count() + " cards to file...");
+            SRInfoHelper.Log($"Preparing to save {cardlist.Count} spawncarddecks with a total of {cardlist.SelectMany(c => c.cards).Count()} cards to file...");
 
             var serializer = new XmlSerializer(typeof(List<SerializableSpawnCardList>));
             using (var stringWriter = new StringWriter())
@@ -135,17 +134,17 @@ public class SpawnCardManager : MonoBehaviour
                 serializer.Serialize(stringWriter, cardlist);
                 string xml = stringWriter.ToString();
 
-                SRInfoHelper.Log("XML serialization complete. XML length: " + xml.Length);
-                SRInfoHelper.Log("XML preview: " + xml.Substring(0, System.Math.Min(xml.Length, 500)));
+                SRInfoHelper.Log($"XML serialization complete. XML length: {xml.Length}");
+                SRInfoHelper.Log($"XML preview: {xml.Substring(0, System.Math.Min(xml.Length, 500))}");
 
                 string path = Path.Combine(Manager.GetPluginManager().PluginPath, SAVE_FILE_NAME);
                 File.WriteAllText(path, xml);
-                SRInfoHelper.Log("Spawn cards saved to " + path + ". File size " + new FileInfo(path).Length + " bytes");
+                SRInfoHelper.Log($"Spawn cards saved to {path}. File size {new FileInfo(path).Length} bytes");
             }
         }
         catch (System.Exception e)
         {
-            SRInfoHelper.Log("Error saving spawn cards: " + e.Message + "\nStackTrace: " + e.StackTrace);
+            SRInfoHelper.Log($"Error saving spawn cards: {e.Message}\nStackTrace: {e.StackTrace}");
         }
         yield return null; // Wait for the next frame
     }
@@ -154,7 +153,7 @@ public class SpawnCardManager : MonoBehaviour
     {
         try
         {
-            SRInfoHelper.Log("Preparing to save " + _serializableEnemyEntries.Count + " enemy entries to file...");
+            SRInfoHelper.Log($"Preparing to save {_serializableEnemyEntries.Count} enemy entries to file...");
 
             var serializer = new XmlSerializer(typeof(List<SerializableEnemyEntry>));
             string path = Path.Combine(Manager.GetPluginManager().PluginPath, SAVE_FILE_NAME);
@@ -163,10 +162,10 @@ public class SpawnCardManager : MonoBehaviour
             {
                 serializer.Serialize(streamWriter, _serializableEnemyEntries);
             }
-            SRInfoHelper.Log("Enemy entries saved to " + path + ". File size " + new FileInfo(path).Length + " bytes");
+            SRInfoHelper.Log($"Enemy entries saved to {path}. File size {new FileInfo(path).Length} bytes");
 
             /*
-            SRInfoHelper.Log("Saving all trackerIcons");
+            SRInfoHelper.Log($"Saving all trackerIcons");
             var icons = SpawnManager.Get().m_EnemyDefinitions.Select(d => d.m_TrackerIconSprite.texture).Distinct().ToList();
             foreach (var icon in icons)
                 FileManager.SaveTextureToFile(icon);
@@ -174,7 +173,7 @@ public class SpawnCardManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            SRInfoHelper.Log("Error saving enemy definitions: " + e.Message + "\nStackTrace: " + e.StackTrace);
+            SRInfoHelper.Log($"Error saving enemy definitions: {e.Message}\nStackTrace: {e.StackTrace}");
         }
     }
 
@@ -216,11 +215,11 @@ public class SpawnCardManager : MonoBehaviour
                 }
                 // Use reflection to access the private m_SpawnDecks field in SpawnManager
                 var spawnDecksField = typeof(SpawnManager).GetField("m_SpawnDecks", BindingFlags.NonPublic | BindingFlags.Instance);
-                SRInfoHelper.Log("Updated enemy definitions. Clearing SpawnManager's m_SpawnDecks. " + ((Dictionary<GroupID, List<SpawnCard>>)spawnDecksField.GetValue(spawnManager)).Count() + " decks in the dictionary now.");
+                SRInfoHelper.Log($"Updated enemy definitions. Clearing SpawnManager's m_SpawnDecks. {((Dictionary<GroupID, List<SpawnCard>>)spawnDecksField.GetValue(spawnManager)).Count()} decks in the dictionary now.");
                 // Set the private field m_SpawnDecks to the new value (_spawnDecks)
                 var emptyDecks = new Dictionary<GroupID, List<SpawnCard>>();
                 spawnDecksField.SetValue(spawnManager, emptyDecks);
-                SRInfoHelper.Log("Cleared SpawnManager's m_SpawnDecks. " + ((Dictionary<GroupID, List<SpawnCard>>)spawnDecksField.GetValue(spawnManager)).Count() + " decks in the dictionary now.");
+                SRInfoHelper.Log($"Cleared SpawnManager's m_SpawnDecks. {((Dictionary<GroupID, List<SpawnCard>>)spawnDecksField.GetValue(spawnManager)).Count()} decks in the dictionary now.");
 
                 // Get the MethodInfo for the Awake method
                 MethodInfo awakeMethod = typeof(SpawnManager).GetMethod("Awake",
@@ -230,18 +229,18 @@ public class SpawnCardManager : MonoBehaviour
                     // Invoke the Awake method
                     awakeMethod.Invoke(spawnManager, null);
                     SRInfoHelper.Log("Successfully ran SpawnManager's Awake method via reflection.");
-                    SRInfoHelper.Log(((Dictionary<GroupID, List<SpawnCard>>)spawnDecksField.GetValue(spawnManager)).Count() + " decks in the m_SpawnDecks dictionary now.");
+                    SRInfoHelper.Log($"{((Dictionary<GroupID, List<SpawnCard>>)spawnDecksField.GetValue(spawnManager)).Count()} decks in the m_SpawnDecks dictionary now.");
                 }
                 else
                 {
                     SRInfoHelper.Log("Failed to find Awake method in SpawnManager via reflection.");
                 }
             }
-            SRInfoHelper.Log("Loaded and updated SpawnManager with " + _serializableEnemyEntries.Count + " enemy entries from file");
+            SRInfoHelper.Log($"Loaded and updated SpawnManager with {_serializableEnemyEntries.Count} enemy entries from file");
             return true;
         }
         else
-            SRInfoHelper.Log("No " + SAVE_FILE_NAME + " file found.");
+            SRInfoHelper.Log($"No {SAVE_FILE_NAME} file found.");
         return false;
     }
 
@@ -310,23 +309,23 @@ public class SpawnCardManager : MonoBehaviour
                         // Set the private field m_SpawnDecks to the new value (_spawnDecks)
                         var test = new Dictionary<GroupID, List<SpawnCard>>();
                         spawnDecksField.SetValue(spawnManager, test);
-                        SRInfoHelper.Log("m_SpawnDecks cleared.");
+                        SRInfoHelper.Log($"m_SpawnDecks cleared.");
                         spawnDecksField.SetValue(spawnManager, _spawnDecks);
                         typeof(SpawnManager).GetMethod("Awake", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(spawnManager, null);
-                        SRInfoHelper.Log("Successfully updated m_SpawnDecks via reflection running the awake method.");
+                        SRInfoHelper.Log($"Successfully updated m_SpawnDecks via reflection running the awake method.");
                     }
                     else
                     {
-                        SRInfoHelper.Log("Failed to find m_SpawnDecks field via reflection.");
+                        SRInfoHelper.Log($"Failed to find m_SpawnDecks field via reflection.");
                     }
 
-                    SRInfoHelper.Log("Loaded and updated SpawnManager with " + serializableData.Count + " spawn cards from file");
+                    SRInfoHelper.Log($"Loaded and updated SpawnManager with {serializableData.Count} spawn cards from file");
                     return true;
                 }
             }
             catch (System.Exception e)
             {
-                SRInfoHelper.Log("Error loading spawn cards: " + e.Message);
+                SRInfoHelper.Log($"Error loading spawn cards: {e.Message}");
             }
         }
         SRInfoHelper.Log("No spawn cards found in file.");
@@ -341,7 +340,7 @@ public class SpawnCardManager : MonoBehaviour
             List<SpawnCard> cards = enemyEntry.CreateCards();
             _spawnDecks[enemyEntry.m_Group].AddRange(cards);
         }
-        SRInfoHelper.Log("Populated " + _spawnDecks.Count + " spawn cards from SpawnManager");
+        SRInfoHelper.Log($"Populated {_spawnDecks.Count} spawn cards from SpawnManager");
     }
 
     public List<SpawnCard> GetAllSpawnCards()

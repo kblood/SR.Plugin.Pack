@@ -1,5 +1,4 @@
 ﻿using SRMod.Services;
-using LoadCustomData.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,14 +23,29 @@ namespace LoadCustomData
             SRInfoHelper.Log("Initializing Satellite Reign LoadCustomData mod");
             try
             {
-                // Initialize the comprehensive data manager
-                DataExportImportManager.Instance.Initialize();
+                //var translations = FileManager.LoadTranslationsXML("Translations.xml");
+                //var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
 
-                // Check spawn manager
+                //foreach (var e in translations)
+                //{
+                //    if (langLookup.ContainsKey(e.Key))
+                //    {
+                //        langLookup[e.Key] = e.Element;
+                //    }
+                //    else
+                //    {
+                //        langLookup.Add(e.Key, e.Element);
+                //    }
+                //}
+                //SRInfoHelper.Log("Updated LangLookup with new translations");
                 var sm = SpawnManager.Get();
-                SRInfoHelper.Log("Spawnmanager has " + sm.m_EnemyDefinitions.Count + " m_EnemyDefinitions");
+                SRInfoHelper.Log($"Spawnmanager has {sm.m_EnemyDefinitions.Count} m_EnemyDefinitions");
 
-                // Load existing translations
+                SpawnCardManager.Instance.Initialize();
+                //if(!SpawnCardManager.Instance.CheckIfXMLFileExists())
+                //    SpawnCardManager.Instance.SaveSpawnCardsToFile();
+                
+
                 var translations = TranslationManager.LoadTranslations();
                 var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
 
@@ -48,34 +62,32 @@ namespace LoadCustomData
                 }
                 SRInfoHelper.Log("Updated LangLookup with new translations");
 
-                // Auto-export data if files don't exist
-                DataExportImportManager.Instance.ExportAllGameData();
+                ItemDataManager.Instance.Initialize();
+                if (!File.Exists(Path.Combine(Manager.GetPluginManager().PluginPath, "itemDefinitions.xml")))
+                    ItemDataManager.Instance.SaveItemDefinitionsToFile();
+                /*
+                var items = FileManager.LoadXML("ItemData.xml");
 
-                SRInfoHelper.Log("LoadCustomData mod initialization complete - comprehensive data management enabled");
+                SRInfoHelper.isLogging = false;
+
+                var remappedItems = items.Select(d => SRMapper.ReflectionObjectBuilder<ItemManager.ItemData>(d)).ToList();
+
+                Manager.GetItemManager().m_ItemDefinitions = remappedItems;
+                */
+                //Debug.Log("Updated LangLookup with new translations");
             }
             catch (Exception e)
             {
                 SRInfoHelper.isLogging = true;
-                SRInfoHelper.Log("Exception thrown while initializing: " + e.Message + " inner: " + e.InnerException);
+                SRInfoHelper.Log("Exception thrown while serializing: " + e.Message + " inner: " + e.InnerException);
 
                 SRInfoHelper.isLogging = false;
-                System.IO.Directory.CreateDirectory(FileManager.FilePathCheck(@"icons\"));
-                
-                // Fallback initialization
-                try
-                {
-                    ItemDataManager.Instance.Initialize();
-                    QuestDataManager.Instance.Initialize();
-                    SpawnCardManager.Instance.Initialize();
-                }
-                catch (Exception fallbackEx)
-                {
-                    SRInfoHelper.Log("Fallback initialization failed: " + fallbackEx.Message);
-                }
+                System.IO.Directory.CreateDirectory(FileManager.FilePathCheck($@"icons\"));
+                //ExportData();
             }
 
             SRInfoHelper.isLogging = true;
-            SRInfoHelper.Log("LoadCustomData mod initialized");
+            SRInfoHelper.Log("Initialized");
         }
 
         /// <summary>
@@ -161,43 +173,17 @@ namespace LoadCustomData
 
                 if (Input.GetKeyDown(KeyCode.Insert))
                 {
-                    // Reinitialize all data managers
-                    SRInfoHelper.Log("Manual reinitialization triggered");
-                    DataExportImportManager.Instance.Initialize();
-                    Manager.GetUIManager()?.ShowMessagePopup("Data managers reinitialized!", 3);
-                }
-
-                if (Input.GetKeyDown(KeyCode.Delete))
-                {
-                    // Export all data manually
-                    SRInfoHelper.Log("Manual comprehensive data export triggered");
-                    DataExportImportManager.Instance.ExportAllGameData();
-                    Manager.GetUIManager()?.ShowMessagePopup("All game data exported!", 3);
-                }
-
-                if (Input.GetKeyDown(KeyCode.End))
-                {
-                    // Import all data manually
-                    SRInfoHelper.Log("Manual comprehensive data import triggered");
-                    DataExportImportManager.Instance.ImportAllGameData();
-                    Manager.GetUIManager()?.ShowMessagePopup("All game data imported!", 3);
-                }
-
-                if (Input.GetKeyDown(KeyCode.PageUp))
-                {
-                    // Create data backup
-                    SRInfoHelper.Log("Manual data backup triggered");
-                    DataExportImportManager.Instance.CreateDataBackup();
-                    Manager.GetUIManager()?.ShowMessagePopup("Data backup created!", 3);
-                }
-
-                if (Input.GetKeyDown(KeyCode.PageDown))
-                {
-                    // Validate exported data
-                    SRInfoHelper.Log("Manual data validation triggered");
-                    bool isValid = DataExportImportManager.Instance.ValidateExportedData();
-                    string message = isValid ? "Data validation passed!" : "Data validation failed!";
-                    Manager.GetUIManager()?.ShowMessagePopup(message, 3);
+                    ItemDataManager.Instance.Initialize();
+                    SpawnCardManager.Instance.Initialize();
+                    //var newItems = Manager.GetItemManager().m_ItemDefinitions.Where(d => d.m_ID > 146).ToList();
+                    //if (newItems.Any())
+                    //{
+                    //    foreach (var item in newItems)
+                    //    {
+                    //        item.PlayerHasPrototype = true;
+                    //        item.m_Count = 1;
+                    //    }
+                    //}
                 }
             }
         }
