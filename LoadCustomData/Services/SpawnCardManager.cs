@@ -62,6 +62,12 @@ public class SpawnCardManager : MonoBehaviour
 
         var spawnmanager = SpawnManager.Get();
 
+        _spawnDecks = new Dictionary<GroupID, List<SpawnCard>>();
+        foreach (GroupID groupId in System.Enum.GetValues(typeof(GroupID)))
+        {
+            _spawnDecks[groupId] = new List<SpawnCard>();
+        }
+
         _serializableEnemyEntries = new List<SerializableEnemyEntry>();
         foreach (var enemy in spawnmanager.m_EnemyDefinitions)
         {
@@ -79,75 +85,15 @@ public class SpawnCardManager : MonoBehaviour
         if (!LoadEnemyEntriesFromFileAndUpdateSpawnManager())
             SaveEnemyEntries();
 
-        //_spawnDecks = new Dictionary<GroupID, List<SpawnCard>>();
-        //foreach (GroupID groupId in Enum.GetValues(typeof(GroupID)))
-        //{
-        //    _spawnDecks[groupId] = new List<SpawnCard>();
-        //}
-
-        //// Try to load spawn cards from file, if it exists
-        //if (!LoadSpawnCardsFromFileAndUpdateSpawnManager())
-        //{
-        //    SRInfoHelper.Log($"Cannot load from file, populating spawn cards from spawn manager...");
-        //    // If loading fails, populate from SpawnManager
-        //    PopulateFromSpawnManager();
-        //}
+        // Try to load spawn cards from file, if it exists
+        if (!LoadSpawnCardsFromFileAndUpdateSpawnManager())
+        {
+            SRInfoHelper.Log($"Cannot load from file, populating spawn cards from spawn manager...");
+            // If loading fails, populate from SpawnManager
+            PopulateFromSpawnManager();
+        }
     }
 
-    private IEnumerator SaveSpawnCardsCoroutine()
-    {
-        try
-        {
-            var cardlist = new List<SerializableSpawnCardList>();
-            foreach (var kvp in _spawnDecks)
-            {
-                var serializableData = new SerializableSpawnCardData();
-
-                foreach (var card in kvp.Value)
-                {
-                    var enemy = card.m_Enemy;
-                    serializableData.Cards.Add(new SerializableSpawnCard
-                    {
-                        GroupId = kvp.Key,
-                        EnemyUID = enemy.m_UID,
-                        EnemyName = enemy.m_EnemyName,
-                        MinProgression = card.m_MinProgression,
-                        MaxProgression = card.m_MaxProgression,
-                        Spawnable = enemy.m_Spawnable,
-                        Solo = enemy.m_Solo,
-                        Modifiers = enemy.m_Modifiers.Select(m => new SerializableModifierData(m)).ToList(),
-                        UseWardrobeOverride = enemy.m_UseWardrobeOverride,
-                        WardrobeOverride = enemy.m_WardrobeOverride,
-                        WeaponOverrides = enemy.m_WeaponOverrides,
-                        ItemIds = enemy.m_ItemIds,
-                        AbilityOverrides = enemy.m_AbilityOverrides
-                    });
-                }
-                cardlist.Add(new SerializableSpawnCardList { groupId = kvp.Key, cards = serializableData.Cards });
-            }
-
-            SRInfoHelper.Log($"Preparing to save {cardlist.Count} spawncarddecks with a total of {cardlist.SelectMany(c => c.cards).Count()} cards to file...");
-
-            var serializer = new XmlSerializer(typeof(List<SerializableSpawnCardList>));
-            using (var stringWriter = new StringWriter())
-            {
-                serializer.Serialize(stringWriter, cardlist);
-                string xml = stringWriter.ToString();
-
-                SRInfoHelper.Log($"XML serialization complete. XML length: {xml.Length}");
-                SRInfoHelper.Log($"XML preview: {xml.Substring(0, System.Math.Min(xml.Length, 500))}");
-
-                string path = Path.Combine(Manager.GetPluginManager().PluginPath, SAVE_FILE_NAME);
-                File.WriteAllText(path, xml);
-                SRInfoHelper.Log($"Spawn cards saved to {path}. File size {new FileInfo(path).Length} bytes");
-            }
-        }
-        catch (System.Exception e)
-        {
-            SRInfoHelper.Log($"Error saving spawn cards: {e.Message}\nStackTrace: {e.StackTrace}");
-        }
-        yield return null; // Wait for the next frame
-    }
 
     private void SaveEnemyEntries()
     {
@@ -246,7 +192,7 @@ public class SpawnCardManager : MonoBehaviour
 
     public bool LoadSpawnCardsFromFileAndUpdateSpawnManager()
     {
-        string path = Path.Combine(Manager.GetPluginManager().PluginPath, SAVE_FILE_NAME);
+        string path = Path.Combine(Manager.GetPluginManager().PluginPath, "spawnCards.xml");
         if (File.Exists(path))
         {
             try
@@ -385,7 +331,51 @@ public class SpawnCardManager : MonoBehaviour
 
     public void SaveSpawnCardsToFile()
     {
-        StartCoroutine(SaveSpawnCardsCoroutine());
+        SaveSpawnCardsDirectly();
+    }
+
+    private void SaveSpawnCardsDirectly()
+    {
+        try
+        {
+            var cardlist = new List<SerializableSpawnCardList>();
+            foreach (var kvp in _spawnDecks)
+            {
+                var serializableData = new SerializableSpawnCardData();
+
+                foreach (var card in kvp.Value)
+                {
+                    var enemy = card.m_Enemy;
+                    serializableData.Cards.Add(new SerializableSpawnCard
+                    {
+                        GroupId = kvp.Key,
+                        EnemyUID = enemy.m_UID,
+                        EnemyName = enemy.m_EnemyName,
+                        MinProgression = card.m_MinProgression,
+                        MaxProgression = card.m_MaxProgression,
+                        Spawnable = enemy.m_Spawnable,
+                        Solo = enemy.m_Solo,
+                        UseWardrobeOverride = enemy.m_UseWardrobeOverride,
+                        WardrobeOverride = enemy.m_WardrobeOverride,
+                        Modifiers = enemy.m_Modifiers.Select(m => new SerializableModifierData(m)).ToList(),
+                        WeaponOverrides = enemy.m_WeaponOverrides,
+                        ItemIds = enemy.m_ItemIds,
+                        AbilityOverrides = enemy.m_AbilityOverrides
+                    });
+                }
+
+                cardlist.Add(new SerializableSpawnCardList { groupId = kvp.Key, cards = serializableData.Cards });
+            }
+
+            string filename = "spawnCards.xml";
+            string path = Manager.GetPluginManager().PluginPath;
+            FileManager.SaveAsXML(cardlist, filename, path);
+            SRInfoHelper.Log($"Saved spawn cards to {Path.Combine(path, filename)}");
+        }
+        catch (System.Exception ex)
+        {
+            SRInfoHelper.Log($"Error saving spawn cards: {ex.Message}");
+        }
     }    
 }
 

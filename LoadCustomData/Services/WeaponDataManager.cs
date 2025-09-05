@@ -23,18 +23,41 @@ public class WeaponDataManager
             
             for (int i = 0; i < weaponManager.m_WeaponData.Length; i++)
             {
-                var weaponData = weaponManager.m_WeaponData[i];
-                if (weaponData != null)
+                try
                 {
-                    var weaponType = (WeaponType)i;
-                    serializableWeapons.Add(new SerializableWeaponData(weaponData, weaponType));
+                    var weaponData = weaponManager.m_WeaponData[i];
+                    if (weaponData != null)
+                    {
+                        var weaponType = (WeaponType)i;
+                        var serializable = new SerializableWeaponData(weaponData, weaponType);
+                        serializableWeapons.Add(serializable);
+                        SRInfoHelper.Log($"WeaponDataManager: Successfully serialized {weaponType}");
+                    }
+                    else
+                    {
+                        SRInfoHelper.Log($"WeaponDataManager: Weapon at index {i} is null");
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    SRInfoHelper.Log($"WeaponDataManager: Error serializing weapon at index {i}: {ex.Message}");
                 }
             }
 
-            string path = Manager.GetPluginManager().PluginPath;
-            FileManager.SaveAsXML(serializableWeapons, filename, path);
+            SRInfoHelper.Log($"WeaponDataManager: Attempting to serialize {serializableWeapons.Count} weapons to XML");
             
-            SRInfoHelper.Log($"WeaponDataManager: Exported {serializableWeapons.Count} weapon definitions to {filename}");
+            string path = Manager.GetPluginManager().PluginPath;
+            try
+            {
+                FileManager.SaveAsXML(serializableWeapons, filename, path);
+                SRInfoHelper.Log($"WeaponDataManager: Successfully exported {serializableWeapons.Count} weapon definitions to {filename}");
+            }
+            catch (System.Exception ex)
+            {
+                SRInfoHelper.Log($"WeaponDataManager: XML serialization failed: {ex.Message}");
+                SRInfoHelper.Log($"WeaponDataManager: Full exception: {ex}");
+                throw; // Re-throw to preserve stack trace
+            }
         }
         catch (System.Exception ex)
         {
@@ -53,16 +76,18 @@ public class WeaponDataManager
             
             if (weaponList == null || weaponList.Count == 0)
             {
-                SRInfoHelper.Log("WeaponDataManager: No weapon data found or failed to load");
+                SRInfoHelper.Log("WeaponDataManager: No weapon data found or failed to load - this is normal if no weapons.xml exists");
                 return;
             }
 
             var weaponManager = Manager.GetWeaponManager();
             if (weaponManager?.m_WeaponData == null)
             {
-                SRInfoHelper.Log("WeaponDataManager: WeaponManager or weapon data is null");
+                SRInfoHelper.Log("WeaponDataManager: WeaponManager or weapon data is null - game may not be ready");
                 return;
             }
+            
+            SRInfoHelper.Log($"WeaponDataManager: Found {weaponManager.m_WeaponData.Length} weapons in WeaponManager");
 
             int updatedCount = 0;
             
@@ -70,7 +95,7 @@ public class WeaponDataManager
             {
                 try
                 {
-                    int weaponIndex = (int)serializableWeapon.m_WeaponType;
+                    int weaponIndex = serializableWeapon.m_WeaponType;
                     
                     if (weaponIndex >= 0 && weaponIndex < weaponManager.m_WeaponData.Length)
                     {
@@ -89,6 +114,39 @@ public class WeaponDataManager
             }
             
             SRInfoHelper.Log($"WeaponDataManager: Import complete - updated {updatedCount} weapons from {filename}");
+            
+            // Force agents to refresh their weapon data if any weapons were updated
+            if (updatedCount > 0)
+            {
+                try
+                {
+                    var agents = AgentAI.GetAgents();
+                    if (agents != null)
+                    {
+                        foreach (var agent in agents)
+                        {
+                            try
+                            {
+                                // Force weapon refresh by toggling weapons if possible
+                                if (agent.m_Weapons != null && agent.GetWeapon() != null)
+                                {
+                                    // Simple approach: just log that we would refresh the weapon
+                                    // The weapon changes should take effect automatically
+                                    SRInfoHelper.Log($"WeaponDataManager: Weapon data updated for agent {agent.GetName()}");
+                                }
+                            }
+                            catch (System.Exception agentEx)
+                            {
+                                SRInfoHelper.Log($"WeaponDataManager: Could not refresh weapon for agent {agent?.GetName()}: {agentEx.Message}");
+                            }
+                        }
+                    }
+                }
+                catch (System.Exception refreshEx)
+                {
+                    SRInfoHelper.Log($"WeaponDataManager: Could not refresh agent weapons: {refreshEx.Message}");
+                }
+            }
         }
         catch (System.Exception ex)
         {

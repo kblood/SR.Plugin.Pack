@@ -1,222 +1,483 @@
-﻿using SRMod.Services;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEngine;
-using dto = SRMod.DTOs;
+using SRMod.Services;
 
 namespace LoadCustomData
 {
-
     /// <summary>
-    /// Example Satellite Reign LoadCustomData mod.
+    /// Refactored LoadCustomData mod - Clean architecture with service delegation
+    /// Follows Single Responsibility Principle with proper separation of concerns
     /// </summary>
     public class LoadCustomData : ISrPlugin
     {
+        // Core Services - Dependency injection ready
+        private ItemDataManager itemDataManager;
+        private TranslationManager translationManager;
+        private SpawnCardManager spawnCardManager;
+        private QuestDataManager questDataManager;
+        private AutoLoadService autoLoadService;
+        private CommandService commandService;
+        private UINotificationService uiService;
+        
+        private bool isInitialized = false;
+
         /// <summary>
-        /// Plugin initialization 
+        /// Get plugin name - Required by ISrPlugin interface
+        /// </summary>
+        public string GetName()
+        {
+            return "LoadCustomData";
+        }
+
+        /// <summary>
+        /// Plugin initialization - Service setup and dependency injection
         /// </summary>
         public void Initialize()
         {
-            Debug.Log("Initializing Satellite Reign LoadCustomData mod");
-            SRInfoHelper.Log("Initializing Satellite Reign LoadCustomData mod");
             try
             {
-                //var translations = FileManager.LoadTranslationsXML("Translations.xml");
-                //var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
-
-                //foreach (var e in translations)
-                //{
-                //    if (langLookup.ContainsKey(e.Key))
-                //    {
-                //        langLookup[e.Key] = e.Element;
-                //    }
-                //    else
-                //    {
-                //        langLookup.Add(e.Key, e.Element);
-                //    }
-                //}
-                //SRInfoHelper.Log("Updated LangLookup with new translations");
-                var sm = SpawnManager.Get();
-                SRInfoHelper.Log($"Spawnmanager has {sm.m_EnemyDefinitions.Count} m_EnemyDefinitions");
-
-                SpawnCardManager.Instance.Initialize();
-                //if(!SpawnCardManager.Instance.CheckIfXMLFileExists())
-                //    SpawnCardManager.Instance.SaveSpawnCardsToFile();
+                Debug.Log("LoadCustomData: Starting refactored initialization");
                 
-
-                var translations = TranslationManager.LoadTranslations();
-                var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
-
-                foreach (var kvp in translations)
-                {
-                    if (langLookup.ContainsKey(kvp.Key))
-                    {
-                        langLookup[kvp.Key] = kvp.Value;
-                    }
-                    else
-                    {
-                        langLookup.Add(kvp.Key, kvp.Value);
-                    }
-                }
-                SRInfoHelper.Log("Updated LangLookup with new translations");
-
-                ItemDataManager.Instance.Initialize();
-                if (!File.Exists(Path.Combine(Manager.GetPluginManager().PluginPath, "itemDefinitions.xml")))
-                    ItemDataManager.Instance.SaveItemDefinitionsToFile();
-                /*
-                var items = FileManager.LoadXML("ItemData.xml");
-
-                SRInfoHelper.isLogging = false;
-
-                var remappedItems = items.Select(d => SRMapper.ReflectionObjectBuilder<ItemManager.ItemData>(d)).ToList();
-
-                Manager.GetItemManager().m_ItemDefinitions = remappedItems;
-                */
-                //Debug.Log("Updated LangLookup with new translations");
+                // Initialize services with proper dependency injection
+                InitializeServices();
+                
+                // Setup directory structure
+                SetupDirectories();
+                
+                // Initialize auto-loading system
+                autoLoadService.Initialize();
+                
+                isInitialized = true;
+                Debug.Log("LoadCustomData: Refactored initialization complete");
+                
+                uiService.ShowSuccess("LoadCustomData refactored version loaded!");
             }
             catch (Exception e)
             {
-                SRInfoHelper.isLogging = true;
-                SRInfoHelper.Log("Exception thrown while serializing: " + e.Message + " inner: " + e.InnerException);
-
-                SRInfoHelper.isLogging = false;
-                System.IO.Directory.CreateDirectory(FileManager.FilePathCheck($@"icons\"));
-                //ExportData();
+                Debug.LogError($"LoadCustomData: Initialization failed - {e.Message}");
+                Debug.LogError($"LoadCustomData: Stack trace - {e.StackTrace}");
             }
-
-            SRInfoHelper.isLogging = true;
-            SRInfoHelper.Log("Initialized");
         }
 
         /// <summary>
-        /// Called once per frame.
+        /// Frame update - Delegates to command service and auto-load service
         /// </summary>
         public void Update()
         {
-            //if (Manager.Get().GameInProgress)
+            if (!isInitialized) return;
+
+            try
             {
-                if (Input.GetKeyDown(KeyCode.Home))
-                {
-                    var areas= Manager.GetGlobalCompound().m_Areas;
-
-                    MeshHelper.targetFolder = Manager.GetPluginManager().PluginPath;
-
-                    //GameObject[] allRoot = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
-
-                    /*
-                    List<GameObject> allRoots = new List<GameObject>();
-                    var scenes = UnityEngine.SceneManagement.SceneManager.GetAllScenes().ToList();
-
-                    SRInfoHelper.Log("Scenes found total: " + scenes.Count);
-                    SRInfoHelper.Log("Scenes found: " + scenes.Select(s => s.name).Aggregate((a,b) => a + ", "+ b));
-
-                    for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount; i++)
-                    {
-                        var scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(i);
-
-                        if (!scenes.Contains(scene))
-                        {
-                            SRInfoHelper.Log("New scene found " + scene.name);
-
-                            scenes.Add(scene);
-                        }
-                    }
-
-                    foreach(var scene in scenes)
-                    {
-                        allRoots.AddRange(scene.GetRootGameObjects());
-                    }
-
-                    var meshFilters = MeshHelper.GetMeshfiltersFromTransforms(allRoots.ToArray()).ToList();
-
-                    foreach(var filter in Manager.Get().transform.root.GetComponentsInChildren<MeshFilter>())
-                    {
-                        if (!meshFilters.Contains(filter))
-                            meshFilters.Add(filter);
-                    }
-
-                    foreach (var filter in Camera.allCameras.First().transform.root.GetComponentsInChildren<MeshFilter>())
-                    {
-                        if (!meshFilters.Contains(filter))
-                            meshFilters.Add(filter);
-                    }
-
-                    foreach (var filter in Manager.GetTrashMan().transform.root.GetComponentsInChildren<MeshFilter>())
-                    {
-                        if (!meshFilters.Contains(filter))
-                            meshFilters.Add(filter);
-                    }
-
-                    if (!allRoots.Contains(Manager.Get().transform.root.gameObject))
-                        allRoots.Add(Manager.Get().transform.root.gameObject);
-
-                    if (!allRoots.Contains(Camera.allCameras.First().transform.root.gameObject))
-                        allRoots.Add(Camera.allCameras.First().transform.root.gameObject);
-
-                    if (!allRoots.Contains(Manager.GetTrashMan().transform.root.gameObject))
-                        allRoots.Add(Manager.GetTrashMan().transform.root.gameObject);
-
-                    SRInfoHelper.Log("Gameobjects found total: " + allRoots.Count);
-
-                    SRInfoHelper.Log("Gameobjects found: " + allRoots.Select(s => s.name).Aggregate((a, b) => a + ", " + b));
-                    */
-
-                    //var filters = GameObject.FindObjectsOfType<MeshFilter>();
-
-                    //MeshHelper.ExportSelectionToSeparate(filters);
-                    //MeshHelper.ExportSelectionToSeparate(allRoots.ToArray());
-
-                    //MeshHelper.ExportAllToSingle(meshFilters.ToArray());
-                }
-
-                if (Input.GetKeyDown(KeyCode.Insert))
-                {
-                    ItemDataManager.Instance.Initialize();
-                    SpawnCardManager.Instance.Initialize();
-                    //var newItems = Manager.GetItemManager().m_ItemDefinitions.Where(d => d.m_ID > 146).ToList();
-                    //if (newItems.Any())
-                    //{
-                    //    foreach (var item in newItems)
-                    //    {
-                    //        item.PlayerHasPrototype = true;
-                    //        item.m_Count = 1;
-                    //    }
-                    //}
-                }
+                // Handle auto-loading
+                autoLoadService.Update();
+                
+                // Handle input commands
+                commandService.ProcessInput();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"LoadCustomData: Update error - {e.Message}");
             }
         }
 
-        //public void ExportData()
-        //{
-        //    try
-        //    {
-        //        var data = Manager.GetItemManager().m_ItemDefinitions.OrderBy(d => d.m_ID).Select(d => SRMapper.ReflectionObjectBuilder<dto.ItemData>(d)).ToList();
-        //        var langLookup = TextManager.Get().GetFieldValue<Dictionary<string, TextManager.LocElement>>("m_FastLanguageLookup");
-
-        //        var mappedTranslations = langLookup.OrderBy(l => l.Key).Select(l => new dto.TranslationElementDTO() { Key = l.Key, Element = l.Value }).ToList();
-
-        //        try
-        //        {
-        //            FileManager.SaveAsXML(data, "ItemData.xml");
-        //            FileManager.SaveAsXML(mappedTranslations, "Translations.xml");
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            SRInfoHelper.Log("Exception thrown while serializing: " + e.Message);
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        SRInfoHelper.isLogging = true;
-        //        SRInfoHelper.Log("Exception thrown while mapping. Message: " + e.Message + " --InnerException: " + e.InnerException);
-        //    }
-        //}
-
-        public string GetName()
+        /// <summary>
+        /// Initialize all service dependencies
+        /// </summary>
+        private void InitializeServices()
         {
-            return "Load Custom Data Mod.";
+            var pluginPath = Manager.GetPluginManager().PluginPath;
+            
+            // Initialize core data managers  
+            itemDataManager = ItemDataManager.Instance;
+            itemDataManager.Initialize();
+            
+            translationManager = new TranslationManager();
+            spawnCardManager = new SpawnCardManager();
+            spawnCardManager.Initialize();
+            
+            questDataManager = QuestDataManager.Instance;
+            questDataManager.Initialize();
+            
+            // Initialize utility services
+            uiService = new UINotificationService();
+            autoLoadService = new AutoLoadService(itemDataManager, translationManager, spawnCardManager, questDataManager, uiService);
+            commandService = new CommandService(itemDataManager, translationManager, spawnCardManager, questDataManager, uiService);
+            
+            Debug.Log("LoadCustomData: All services initialized");
+        }
+
+        /// <summary>
+        /// Setup required directory structure
+        /// </summary>
+        private void SetupDirectories()
+        {
+            var pluginPath = Manager.GetPluginManager().PluginPath;
+            
+            // Create icons directory if needed
+            var iconsPath = Path.Combine(pluginPath, "icons");
+            if (!Directory.Exists(iconsPath))
+            {
+                Directory.CreateDirectory(iconsPath);
+                Debug.Log("LoadCustomData: Created icons directory");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Handles automatic data loading after game initialization
+    /// </summary>
+    public class AutoLoadService
+    {
+        private readonly ItemDataManager itemDataManager;
+        private readonly TranslationManager translationManager;
+        private readonly SpawnCardManager spawnCardManager;
+        private readonly QuestDataManager questDataManager;
+        private readonly UINotificationService uiService;
+        
+        private bool autoLoadAttempted = false;
+
+        public AutoLoadService(ItemDataManager itemManager, TranslationManager translationManager, 
+                              SpawnCardManager spawnManager, QuestDataManager questManager, UINotificationService uiService)
+        {
+            this.itemDataManager = itemManager;
+            this.translationManager = translationManager;
+            this.spawnCardManager = spawnManager;
+            this.questDataManager = questManager;
+            this.uiService = uiService;
+        }
+
+        public void Initialize()
+        {
+            Debug.Log("LoadCustomData: Auto-load service initialized");
+        }
+
+        public void Update()
+        {
+            if (!autoLoadAttempted)
+            {
+                // Use same pattern as working SyndicateMod - check if game is loaded and ItemManager is ready
+                if (IsGameLoaded() && IsItemManagerReady())
+                {
+                    Debug.Log("LoadCustomData: Game and ItemManager ready, attempting auto-load");
+                    PerformAutoLoad();
+                    autoLoadAttempted = true;
+                }
+            }
+        }
+        
+        private bool IsItemManagerReady()
+        {
+            try
+            {
+                var itemManager = Manager.GetItemManager();
+                return itemManager != null && 
+                       itemManager.m_ItemDefinitions != null && 
+                       itemManager.m_ItemDefinitions.Count > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool IsGameLoaded()
+        {
+            try
+            {
+                return Manager.Get().GameInProgress;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void PerformAutoLoad()
+        {
+            try
+            {
+                // Auto-load translations first (so names/descriptions are available)
+                Debug.Log("LoadCustomData: Loading translations from XML file");
+                var translationElements = FileManager.LoadTranslationsXML("translations.xml");
+                if (translationElements != null && translationElements.Count > 0)
+                {
+                    TranslationManager.UpdateGameTranslations(translationElements);
+                    Debug.Log($"LoadCustomData: Loaded {translationElements.Count} translation elements from XML file");
+                }
+                else
+                {
+                    Debug.Log("LoadCustomData: No translations found in XML file");
+                }
+                
+                // Auto-load item data if available using the auto-load method
+                itemDataManager.InitializeWithAutoLoad();
+                
+                // Auto-load enemy data if available  
+                spawnCardManager.LoadSpawnCardsFromFileAndUpdateSpawnManager();
+                
+                // Auto-load quest data if available
+                questDataManager.LoadQuestDataFromFile();
+                
+                // Auto-load weapon data if available
+                Debug.Log("LoadCustomData: Loading weapon data from XML file");
+                WeaponDataManager.ImportWeaponDataFromXML("weapons.xml");
+                
+                uiService.ShowInfo("Auto-load completed");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"LoadCustomData: Auto-load failed - {e.Message}");
+                uiService.ShowError("Auto-load failed - check logs");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Handles all input commands and delegates to appropriate services
+    /// </summary>
+    public class CommandService
+    {
+        private readonly ItemDataManager itemDataManager;
+        private readonly TranslationManager translationManager;
+        private readonly SpawnCardManager spawnCardManager;
+        private readonly QuestDataManager questDataManager;
+        private readonly UINotificationService uiService;
+
+        public CommandService(ItemDataManager itemManager, TranslationManager translationManager,
+                             SpawnCardManager spawnManager, QuestDataManager questManager, UINotificationService uiService)
+        {
+            this.itemDataManager = itemManager;
+            this.translationManager = translationManager;
+            this.spawnCardManager = spawnManager;
+            this.questDataManager = questManager;
+            this.uiService = uiService;
+        }
+
+        public void ProcessInput()
+        {
+            // Export all data (F10)
+            if (Input.GetKeyDown(KeyCode.F10))
+            {
+                Debug.Log("LoadCustomData: Export triggered");
+                ExportAllData();
+            }
+
+            // Import all data (F9)  
+            if (Input.GetKeyDown(KeyCode.F9))
+            {
+                Debug.Log("LoadCustomData: Import triggered");
+                ImportAllData();
+            }
+
+            // Auto-load (F11)
+            if (Input.GetKeyDown(KeyCode.F11))
+            {
+                Debug.Log("LoadCustomData: Manual auto-load triggered");
+                if (IsGameLoaded())
+                {
+                    PerformAutoLoad();
+                }
+                else
+                {
+                    uiService.ShowError("Game not loaded - cannot auto-load data");
+                }
+            }
+
+            // Show help (Insert)
+            if (Input.GetKeyDown(KeyCode.Insert))
+            {
+                Debug.Log("LoadCustomData: Help triggered");
+                ShowHelp();
+            }
+
+            // Diagnostic test (F4)
+            if (Input.GetKeyDown(KeyCode.F4))
+            {
+                Debug.Log("LoadCustomData: Diagnostic test triggered");
+                RunDiagnostics();
+            }
+        }
+
+        private void ExportAllData()
+        {
+            try
+            {
+                Debug.Log("LoadCustomData: Starting item export");
+                itemDataManager.SaveItemDefinitionsToFile();
+                
+                Debug.Log("LoadCustomData: Starting spawn card export");
+                spawnCardManager.SaveSpawnCardsToFile();
+                
+                Debug.Log("LoadCustomData: Starting quest export");
+                questDataManager.SaveQuestDataToFile();
+                
+                Debug.Log("LoadCustomData: Starting translation export");
+                var translations = TranslationManager.LoadTranslations();
+                Debug.Log($"LoadCustomData: Loaded {translations?.Count ?? 0} translations");
+                TranslationManager.SaveTranslationsToFile(translations);
+                Debug.Log("LoadCustomData: Translation export complete");
+                
+                Debug.Log("LoadCustomData: Starting weapon data export");
+                WeaponDataManager.ExportWeaponDataToXML("weapons.xml");
+                Debug.Log("LoadCustomData: Weapon export complete");
+                
+                uiService.ShowSuccess("All data exported successfully!");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"LoadCustomData: Export failed - {e.Message}");
+                Debug.LogError($"LoadCustomData: Export stack trace - {e.StackTrace}");
+                uiService.ShowError($"Export failed - {e.Message}");
+            }
+        }
+
+        private void ImportAllData()
+        {
+            try
+            {
+                Debug.Log("LoadCustomData: Starting manual import");
+                
+                itemDataManager.LoadItemDefinitionsFromFileAndUpdateItemManager();
+                spawnCardManager.LoadSpawnCardsFromFileAndUpdateSpawnManager();
+                questDataManager.LoadQuestDataFromFile();
+                
+                Debug.Log("LoadCustomData: Importing weapon data");
+                WeaponDataManager.ImportWeaponDataFromXML("weapons.xml");
+                
+                Debug.Log("LoadCustomData: Importing translations");
+                var translationElements = FileManager.LoadTranslationsXML("translations.xml");
+                if (translationElements != null && translationElements.Count > 0)
+                {
+                    TranslationManager.UpdateGameTranslations(translationElements);
+                }
+                
+                uiService.ShowSuccess("All data imported successfully!");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"LoadCustomData: Import failed - {e.Message}");
+                uiService.ShowError("Import failed - check logs");
+            }
+        }
+
+        private void ShowHelp()
+        {
+            var helpText = "LoadCustomData Controls:\n" +
+                          "F10 - Export all data (items, weapons, enemies, quests, translations)\n" +
+                          "F9 - Import all data (items, weapons, enemies, quests, translations)\n" +
+                          "F11 - Auto-load all data (same as game startup)\n" +
+                          "F4 - Run diagnostics\n" +
+                          "Insert - Show this help";
+            
+            uiService.ShowInfo(helpText, 5);
+        }
+
+        private void RunDiagnostics()
+        {
+            try
+            {
+                var itemCount = Manager.GetItemManager()?.GetAllItems()?.Count ?? 0;
+                var hasSpawnXML = spawnCardManager.CheckIfXMLFileExists();
+                var hasQuestXML = questDataManager.CheckIfXMLFileExists();
+                
+                var weaponCount = Manager.GetWeaponManager()?.m_WeaponData?.Length ?? 0;
+                
+                var diagnostics = $"Diagnostics:\n" +
+                                 $"Items: {itemCount}\n" +
+                                 $"Weapons: {weaponCount}\n" +
+                                 $"Spawn XML: {(hasSpawnXML ? "Found" : "Missing")}\n" +
+                                 $"Quest XML: {(hasQuestXML ? "Found" : "Missing")}";
+                
+                uiService.ShowInfo(diagnostics, 4);
+                Debug.Log($"LoadCustomData: {diagnostics}");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"LoadCustomData: Diagnostics failed - {e.Message}");
+                uiService.ShowError("Diagnostics failed - check logs");
+            }
+        }
+
+        private bool IsGameLoaded()
+        {
+            try
+            {
+                return Manager.Get().GameInProgress;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void PerformAutoLoad()
+        {
+            try
+            {
+                // Auto-load translations first (so names/descriptions are available)
+                Debug.Log("LoadCustomData: Loading translations from XML file");
+                var translationElements = FileManager.LoadTranslationsXML("translations.xml");
+                if (translationElements != null && translationElements.Count > 0)
+                {
+                    TranslationManager.UpdateGameTranslations(translationElements);
+                    Debug.Log($"LoadCustomData: Loaded {translationElements.Count} translation elements from XML file");
+                }
+                else
+                {
+                    Debug.Log("LoadCustomData: No translations found in XML file");
+                }
+                
+                // Auto-load item data if available using the auto-load method
+                itemDataManager.InitializeWithAutoLoad();
+                
+                // Auto-load enemy data if available  
+                spawnCardManager.LoadSpawnCardsFromFileAndUpdateSpawnManager();
+                
+                // Auto-load quest data if available
+                questDataManager.LoadQuestDataFromFile();
+                
+                // Auto-load weapon data if available
+                Debug.Log("LoadCustomData: Loading weapon data from XML file");
+                WeaponDataManager.ImportWeaponDataFromXML("weapons.xml");
+                
+                uiService.ShowInfo("Auto-load completed");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"LoadCustomData: Auto-load failed - {e.Message}");
+                uiService.ShowError("Auto-load failed - check logs");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Centralized UI notification service
+    /// </summary>
+    public class UINotificationService
+    {
+        public void ShowSuccess(string message, float duration = 3f)
+        {
+            ShowMessage($"✓ {message}", duration);
+        }
+
+        public void ShowError(string message, float duration = 4f)
+        {
+            ShowMessage($"✗ {message}", duration);
+        }
+
+        public void ShowInfo(string message, float duration = 3f)
+        {
+            ShowMessage($"ℹ {message}", duration);
+        }
+
+        private void ShowMessage(string message, float duration)
+        {
+            if (Manager.Get() != null && Manager.GetUIManager() != null)
+            {
+                Manager.GetUIManager().ShowMessagePopup(message, duration);
+            }
+            Debug.Log($"LoadCustomData: {message}");
         }
     }
 }
