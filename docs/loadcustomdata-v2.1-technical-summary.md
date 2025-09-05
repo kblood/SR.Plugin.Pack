@@ -169,4 +169,64 @@ private void UpdateItemBasePropertiesSafely(ItemManager.ItemData existingItem, S
 - **Base item definition fields loaded**: 27 (59%)
 - **Game progress fields excluded**: 19 (41%)
 
-This technical summary documents the complete resolution of weapon data serialization, spawn cards loading issues, and save game integrity protection in LoadCustomData v2.1.
+### 7. Item Cost Display Fix
+
+**Problem:** Item cost changes in XML files weren't appearing in the game's purchase/sell UI.
+
+**Root Cause Analysis:**
+The game's `ItemManager.ItemData.GetCost()` method completely ignores the `m_Cost` field and instead uses a dynamic progression-based formula:
+
+```csharp
+// Source: ItemManager.cs:1428-1432
+public float GetCost(ItemManager _manager = null)
+{
+    ItemManager manager = (!_manager) ? Manager.GetItemManager() : _manager;
+    return Mathf.Round(Mathf.Lerp(300f, 3000f, this.GetCostProgressionPowered(manager)) / 50f) * 50f;
+}
+
+// Source: ItemManager.cs:1459-1462  
+public float GetCostProgressionPowered(ItemManager manager)
+{
+    return Mathf.Pow(this.m_Progression, manager.m_CostProgressionPower);
+}
+```
+
+**Evidence from Source Code:**
+- `CanAfford()` uses `itemData.GetCost(this)` (Source: `ItemManager.cs:886`)
+- `PurchaseItem()` uses `itemData.GetCost(this)` (Source: `ItemManager.cs:893`)
+- `SellItem()` uses `itemData.GetCost(this) * m_SellMultiplier` (Source: `ItemManager.cs:907`)
+- `GetDescription()` uses `GetCost()` for respawn cost display (Source: `ItemManager.cs:1821,1825`)
+
+**Solution Implemented (Source: `Services\ItemDataManager.cs:263-277`):**
+```csharp
+// CRITICAL FIX: Update m_Progression to match desired cost
+// GetCost() uses progression formula: Lerp(300f, 3000f, Pow(m_Progression, costProgressionPower))
+// We need to reverse this to set the correct progression for our desired cost
+if (importedItem.m_Cost >= 300f && importedItem.m_Cost <= 3000f)
+{
+    float normalizedCost = (importedItem.m_Cost - 300f) / (3000f - 300f); // 0.0 to 1.0
+    var itemManager = Manager.GetItemManager();
+    if (itemManager != null)
+    {
+        // Reverse the power calculation: progression = normalizedCost^(1/costProgressionPower)
+        float costProgressionPower = itemManager.m_CostProgressionPower;
+        existingItem.m_Progression = Mathf.Pow(normalizedCost, 1f / costProgressionPower);
+        SRInfoHelper.Log($"ItemDataManager: Updated item {importedItem.m_ID} progression to {existingItem.m_Progression:F3} for cost {importedItem.m_Cost}");
+    }
+}
+```
+
+**Technical Details:**
+- **Cost Range**: 300-3000 credits (engine constants: `m_MinPurchaseCost`, `m_MaxPurchaseCost`)
+- **Step Size**: 50 credit increments (engine constant: `m_PurchaseCostStepSize`)
+- **Progression Range**: 0.0-1.0 (where 0.0 = cheapest, 1.0 = most expensive)
+- **Formula**: `cost = Round(Lerp(300, 3000, Pow(progression, power)) / 50) * 50`
+- **Reverse Formula**: `progression = Pow((cost - 300) / 2700, 1/power)`
+
+**Benefits:**
+- **Real cost display**: Item prices now correctly appear in purchase/sell UI
+- **Maintains game balance**: Uses engine's intended progression system
+- **Preserves precision**: Rounds to 50-credit increments as designed
+- **Full compatibility**: Works with existing save games and progression
+
+This technical summary documents the complete resolution of weapon data serialization, spawn cards loading issues, save game integrity protection, and item cost display in LoadCustomData v2.1.
