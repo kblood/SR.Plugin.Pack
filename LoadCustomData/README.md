@@ -155,7 +155,7 @@ The mod automatically performs the following when a game is loaded (detected via
 
 ### 🛠️ Recent Major Fixes (v2.1)
 - **Fixed auto-load timing**: Now uses `IsItemManagerReady()` check like working mods
-- **Enhanced item cost updates**: Updates all cost-related fields for proper UI display
+- **CRITICAL: Item cost display fix**: Updates m_Progression field to ensure cost changes appear in-game UI
 - **Save game integrity protection**: Excludes 19 game progress/runtime fields (research progress, inventory, etc.)
 - **Weapon data integration**: Complete WeaponManager.m_WeaponData modification with change detection
 - **WeaponType enum serialization fix**: Changed to int to avoid XML serialization errors with undefined enum values
@@ -220,9 +220,10 @@ Common modifier types for item effects:
 - Check that auto-load preserves your manual edits
 
 **Price changes not showing:**
-- m_Cost field may update successfully but UI doesn't refresh
-- Currently under investigation
-- Check logs for "Cost: [old] -> [new]" messages to confirm updates
+- ✅ **FIXED in v2.1**: Item costs now properly display in-game
+- The game uses m_Progression field (not m_Cost) for dynamic cost calculation
+- LoadCustomData now reverse-engineers the correct progression value from your desired cost
+- Cost range: 300-3000 credits (game engine limitation)
 
 **Build issues:**
 - Use `build.bat` script instead of `dotnet build`

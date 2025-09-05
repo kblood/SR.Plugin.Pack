@@ -259,6 +259,23 @@ public class ItemDataManager : MonoBehaviour
         // Update BASE cost values ONLY (not runtime/progress costs)
         float oldCost = existingItem.m_Cost;
         existingItem.m_Cost = importedItem.m_Cost;
+        
+        // CRITICAL FIX: Update m_Progression to match desired cost
+        // GetCost() uses progression formula: Lerp(300f, 3000f, Pow(m_Progression, costProgressionPower))
+        // We need to reverse this to set the correct progression for our desired cost
+        if (importedItem.m_Cost >= 300f && importedItem.m_Cost <= 3000f)
+        {
+            float normalizedCost = (importedItem.m_Cost - 300f) / (3000f - 300f); // 0.0 to 1.0
+            var itemManager = Manager.GetItemManager();
+            if (itemManager != null)
+            {
+                // Reverse the power calculation: progression = normalizedCost^(1/costProgressionPower)
+                float costProgressionPower = itemManager.m_CostProgressionPower;
+                existingItem.m_Progression = Mathf.Pow(normalizedCost, 1f / costProgressionPower);
+                SRInfoHelper.Log($"ItemDataManager: Updated item {importedItem.m_ID} progression to {existingItem.m_Progression:F3} for cost {importedItem.m_Cost}");
+            }
+        }
+        
         existingItem.m_ResearchCost = importedItem.m_ResearchCost;
         existingItem.m_BlueprintCost = importedItem.m_BlueprintCost;
         existingItem.m_PrototypeCost = importedItem.m_PrototypeCost;
