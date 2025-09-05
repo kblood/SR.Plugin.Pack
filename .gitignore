@@ -31,3 +31,41 @@ sysinfo.txt
 # MSBuild log files
 *.binlog
 /SatelliteReignModdingTools/bin/Debug/SatelliteReignModdingTools.exe
+
+# Unity assembly references (copied during build)
+Assembly-CSharp.dll
+Assembly-CSharp-firstpass.dll
+UnityEngine.dll
+UnityEngine.UI.dll
+UnityEngine.Networking.dll
+
+# Development/experimental files
+LoadCustomData/Clutter/
+*/LoadCustomDataEnhanced*.cs
+*/LoadCustomDataFixed.cs
+*/LoadCustomDataRefactor.cs
+*/LoadCustomDataTest.cs
+*/LoadCustomDataClean.csproj
+*/MinimalLoadCustomData.*
+*/MinimalTest.cs
+*/MinimalFileManager.cs
+*/SimpleLoadCustomData.*
+*/SimpleFrameworkTestMod.*
+*/DataExportImportManager.cs
+*/MeshHelper.cs
+*/GameObjectDTO.cs
+*/TransformDTO.cs
+*/README_ENHANCED*.md
+*/QUICK_REFERENCE.md
+
+# Build scripts and development tools
+*.bat
+*.json
+
+# Analysis and documentation files (keep in root, ignore in subfolders)
+BUILD_FIX_SUMMARY.md
+MODDING_IMPROVEMENTS_ANALYSIS.md
+SATELLITE_REIGN_CODE_STRUCTURE.md
+
+# Temporary development files
+*/CODE_STRUCTURE.md
