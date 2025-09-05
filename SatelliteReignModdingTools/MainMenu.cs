@@ -75,6 +75,18 @@ namespace SatelliteReignModdingTools
             skills.Show();
         }
 
+        private void btnEconomyBrowser_Click(object sender, EventArgs e)
+        {
+            var economyBrowser = new EconomyBrowser();
+            economyBrowser.Show();
+        }
+
+        private void btnFactionBrowser_Click(object sender, EventArgs e)
+        {
+            var factionBrowser = new FactionBrowser();
+            factionBrowser.Show();
+        }
+
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             base.OnFormClosed(e);

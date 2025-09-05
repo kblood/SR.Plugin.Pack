@@ -41,22 +41,24 @@ namespace SRMod.DTOs
         public int m_BlueprintRandomReleaseStage;
         public int m_PrototypeRandomReleaseStage;
         public float m_ResearchCost;
-        public float m_TotalResearchTime;
-        public float m_Progression;
-        public int m_MinResearchersRequired;
+        public float m_TotalResearchTime;      // Internal field in game
+        public float m_Progression = 0.5f;    // 0.0-1.0 drives cost calculations
+        public int m_MinResearchersRequired = 1;
         public int m_Count;
-        public bool m_PlayerHasPrototype;
-        public bool m_PlayerHasBlueprints;
-        public float m_ResearchProgress;
-        public float m_ResearchTimeToDate;
-        public float m_ResearchCostToDate;
-        public bool m_PrototypeIsInTheWorld;
-        public int m_InHouseResearchersResearching;
-        public int m_ExternalResearchersResearching;
-        public float m_ResearchProgressionPerSecond;
-        public float m_CurrentResearchCost;
-        public bool m_Expanded;
-        public int m_OverrideAmmo;
+        public bool m_PlayerHasPrototype;      // Runtime state
+        public bool m_PlayerHasBlueprints;     // Runtime state  
+        public float m_ResearchProgress;       // Runtime research progress
+        public float m_ResearchTimeToDate;    // Internal backing for property
+        public float m_ResearchCostToDate;    // Internal backing for property
+        public bool m_PrototypeIsInTheWorld;  // Runtime state
+        public int m_InHouseResearchersResearching;   // Runtime state
+        public int m_ExternalResearchersResearching;  // Runtime state
+        public float m_ResearchProgressionPerSecond;  // Runtime calculation
+        public float m_CurrentResearchCost;    // Runtime calculation
+        public bool m_Expanded;                // UI state
+        public int m_OverrideAmmo;            // Special ammo override
+        
+        // Note: m_LocName and m_Description are calculated properties in game - don't serialize!
 
         public SerializableItemData() { }
 

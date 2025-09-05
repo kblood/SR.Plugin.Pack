@@ -72,7 +72,7 @@
     <Compile Include="DTOs\WeaponData.cs" />
     <Compile Include="DTOs\XMLCollection.cs" />
     <Compile Include="HelperEnums.cs" />
-    <Compile Include="LoadCustomDataRefactor.cs" />
+    <Compile Include="LoadCustomData.cs" />
     <Compile Include="Services\FileManager.cs" />
     <Compile Include="Services\ImageHelper.cs" />
     <Compile Include="Services\ItemDataManager.cs" />

@@ -76,6 +76,12 @@
     <Compile Include="EnemyBrowser.Designer.cs">
       <DependentUpon>EnemyBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="EconomyBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FactionBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ItemBrowser.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -21,6 +21,8 @@ namespace SatelliteReignModdingTools
             this.btnTranslationsBrowser = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSkillsBrowser = new System.Windows.Forms.Button();
+            this.btnEconomyBrowser = new System.Windows.Forms.Button();
+            this.btnFactionBrowser = new System.Windows.Forms.Button();
             this.SuspendLayout();
             //
             // btnItemBrowser
@@ -94,12 +96,38 @@ namespace SatelliteReignModdingTools
             this.btnSkillsBrowser.UseVisualStyleBackColor = false;
             this.btnSkillsBrowser.Click += new System.EventHandler(this.btnSkillsBrowser_Click);
             //
+            // btnEconomyBrowser
+            //
+            this.btnEconomyBrowser.BackColor = System.Drawing.Color.SeaGreen;
+            this.btnEconomyBrowser.ForeColor = System.Drawing.Color.Aquamarine;
+            this.btnEconomyBrowser.Location = new System.Drawing.Point(100, 350);
+            this.btnEconomyBrowser.Name = "btnEconomyBrowser";
+            this.btnEconomyBrowser.Size = new System.Drawing.Size(200, 40);
+            this.btnEconomyBrowser.TabIndex = 6;
+            this.btnEconomyBrowser.Text = "Economy & Pricing";
+            this.btnEconomyBrowser.UseVisualStyleBackColor = false;
+            this.btnEconomyBrowser.Click += new System.EventHandler(this.btnEconomyBrowser_Click);
+            //
+            // btnFactionBrowser
+            //
+            this.btnFactionBrowser.BackColor = System.Drawing.Color.SeaGreen;
+            this.btnFactionBrowser.ForeColor = System.Drawing.Color.Aquamarine;
+            this.btnFactionBrowser.Location = new System.Drawing.Point(100, 400);
+            this.btnFactionBrowser.Name = "btnFactionBrowser";
+            this.btnFactionBrowser.Size = new System.Drawing.Size(200, 40);
+            this.btnFactionBrowser.TabIndex = 7;
+            this.btnFactionBrowser.Text = "Faction & Reputation";
+            this.btnFactionBrowser.UseVisualStyleBackColor = false;
+            this.btnFactionBrowser.Click += new System.EventHandler(this.btnFactionBrowser_Click);
+            //
             // MainMenu
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(400, 380);
+            this.ClientSize = new System.Drawing.Size(400, 480);
+            this.Controls.Add(this.btnFactionBrowser);
+            this.Controls.Add(this.btnEconomyBrowser);
             this.Controls.Add(this.btnSkillsBrowser);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnTranslationsBrowser);
@@ -118,6 +146,8 @@ namespace SatelliteReignModdingTools
         private System.Windows.Forms.Button btnQuestEditor;
         private System.Windows.Forms.Button btnTranslationsBrowser;
         private System.Windows.Forms.Button btnSkillsBrowser;
+        private System.Windows.Forms.Button btnEconomyBrowser;
+        private System.Windows.Forms.Button btnFactionBrowser;
         private System.Windows.Forms.Label label1;
     }
 }

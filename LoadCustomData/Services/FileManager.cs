@@ -61,20 +61,32 @@ namespace SRMod.Services
 
         static public void SaveAsXML<T>(T data, string fileName, string targetPath)
         {
-            string fullPath = Path.Combine(targetPath, fileName);
-
-            // Create an instance of System.Xml.Serialization.XmlSerializer
-            XmlSerializer serializer = new XmlSerializer(data.GetType());
-
-            // Ensure directory exists
-            Directory.CreateDirectory(targetPath);
-
-            // Create an instance of System.IO.TextWriter 
-            // to save the serialized object to disk
-            using (TextWriter textWriter = new StreamWriter(fullPath))
+            try
             {
-                // Serialize the employeeList object
-                serializer.Serialize(textWriter, data);
+                string fullPath = Path.Combine(targetPath, fileName);
+                SRInfoHelper.Log($"FileManager: Attempting to save XML to {fullPath}");
+
+                // Create an instance of System.Xml.Serialization.XmlSerializer
+                XmlSerializer serializer = new XmlSerializer(data.GetType());
+
+                // Ensure directory exists
+                Directory.CreateDirectory(targetPath);
+
+                // Create an instance of System.IO.TextWriter 
+                // to save the serialized object to disk
+                using (TextWriter textWriter = new StreamWriter(fullPath))
+                {
+                    // Serialize the data object
+                    serializer.Serialize(textWriter, data);
+                }
+                
+                SRInfoHelper.Log($"FileManager: Successfully saved XML to {fullPath}");
+            }
+            catch (System.Exception ex)
+            {
+                SRInfoHelper.Log($"FileManager: Error saving XML to {fileName}: {ex.Message}");
+                SRInfoHelper.Log($"FileManager: Exception details: {ex}");
+                throw; // Re-throw to let caller handle
             }
         }
 

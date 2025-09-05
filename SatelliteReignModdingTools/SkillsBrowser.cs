@@ -14,9 +14,7 @@ namespace SatelliteReignModdingTools
         private readonly SplitContainer _split = new SplitContainer();
         private readonly ListBox _skills = new ListBox();
         private readonly PropertyGrid _grid = new PropertyGrid();
-        private readonly TextBox _search = new TextBox();
-        private readonly Button _btnValidate = new Button();
-        private readonly Button _btnSave = new Button();
+        private SharedToolbar _toolbar;
 
         public SkillsBrowser(SkillDataManager mgr)
         {
@@ -26,6 +24,15 @@ namespace SatelliteReignModdingTools
             Height = 600;
             BackColor = Color.Black;
             ForeColor = Color.Aquamarine;
+
+            // Insert shared toolbar at the top
+            _toolbar = new SharedToolbar();
+            _toolbar.ReloadClicked += () => ReloadData();
+            _toolbar.SaveClicked += () => SaveData(false);
+            _toolbar.SaveWithDiffClicked += () => SaveData(true);
+            _toolbar.ValidateClicked += () => ShowValidationResults();
+            _toolbar.SearchTextChanged += text => ApplySearch(text);
+            Controls.Add(_toolbar);
 
             _split.Dock = DockStyle.Fill;
             _split.Orientation = Orientation.Vertical;
@@ -39,18 +46,6 @@ namespace SatelliteReignModdingTools
             _grid.HelpVisible = false;
 
             var rightPanel = new Panel { Dock = DockStyle.Fill };
-            var buttons = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 36, FlowDirection = FlowDirection.LeftToRight };
-            var lblSearch = new Label { Text = "Search:", AutoSize = true, ForeColor = Color.Aquamarine, Margin = new Padding(6, 8, 6, 0) };
-            _search.Width = 220;
-            _search.BackColor = Color.DimGray;
-            _search.ForeColor = Color.Aquamarine;
-            _search.BorderStyle = BorderStyle.FixedSingle;
-            _btnValidate.Text = "Validate";
-            _btnValidate.BackColor = Color.SeaGreen;
-            _btnSave.Text = "Save (with diff)";
-            _btnSave.BackColor = Color.SeaGreen;
-            buttons.Controls.AddRange(new Control[] { lblSearch, _search, _btnValidate, _btnSave });
-            rightPanel.Controls.Add(buttons);
             rightPanel.Controls.Add(_grid);
 
             _split.Panel1.Controls.Add(_skills);
@@ -59,9 +54,6 @@ namespace SatelliteReignModdingTools
 
             Load += OnLoad;
             _skills.SelectedIndexChanged += (s, e) => _grid.SelectedObject = _skills.SelectedItem;
-            _btnValidate.Click += OnValidateClick;
-            _btnSave.Click += OnSaveClick;
-            _search.TextChanged += (s, e) => ApplySearch(_search.Text);
         }
 
         private void OnLoad(object sender, EventArgs e)
@@ -72,6 +64,35 @@ namespace SatelliteReignModdingTools
                 _skills.Items.Add(s);
 
             _grid.SelectedObject = _mgr.Progression;
+        }
+
+        private void ReloadData()
+        {
+            var list = _mgr.SkillTree?.Skills ?? Array.Empty<DTOs.SerializableSkillData>();
+            _skills.Items.Clear();
+            foreach (var s in list.OrderBy(x => x.Id))
+                _skills.Items.Add(s);
+
+            _grid.SelectedObject = _mgr.Progression;
+        }
+
+        private void SaveData(bool showDiff)
+        {
+            if (showDiff)
+            {
+                OnSaveClick(null, null);
+            }
+            else
+            {
+                var basePath = SRMod.Services.FileManager.ExecPath;
+                var ok = _mgr.Save(basePath, backupExisting: true);
+                MessageBox.Show(this, ok ? "Saved." : "Save failed.", ok ? "Save" : "Error", MessageBoxButtons.OK, ok ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+            }
+        }
+
+        private void ShowValidationResults()
+        {
+            OnValidateClick(null, null);
         }
 
         private void ApplySearch(string text)

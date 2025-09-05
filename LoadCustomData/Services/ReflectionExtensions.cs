@@ -50,7 +50,25 @@ namespace SRMod.Services
             // Set the flags so that private and public fields from instances will be found
             var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
             var field = obj.GetType().GetField(name, bindingFlags);
-            return (T)field?.GetValue(obj);
+            
+            if (field == null)
+            {
+                throw new System.Exception($"Field '{name}' not found in type '{obj.GetType().Name}'");
+            }
+            
+            var value = field.GetValue(obj);
+            
+            if (value == null)
+            {
+                return default(T);
+            }
+            
+            if (!(value is T))
+            {
+                throw new System.Exception($"Field '{name}' is type '{value.GetType().Name}' but expected type '{typeof(T).Name}'");
+            }
+            
+            return (T)value;
         }
 
         /// <summary>

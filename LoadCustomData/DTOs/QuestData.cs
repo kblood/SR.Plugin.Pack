@@ -1,9 +1,23 @@
 using System;
 using System.Collections.Generic;
-// System.Xml.Serialization not available in .NET 3.5
+using System.Xml.Serialization;
 
 namespace SRMod.DTOs
 {
+    [Serializable]
+    public class SerializableKeyValuePair
+    {
+        public string Key;
+        public string Value; // Using string for simplicity - can be converted to/from object
+        
+        public SerializableKeyValuePair() { }
+        
+        public SerializableKeyValuePair(string key, string value)
+        {
+            Key = key;
+            Value = value;
+        }
+    }
     [Serializable]
     public class SerializableQuestElement
     {
@@ -51,12 +65,13 @@ namespace SRMod.DTOs
         public string m_Address;
         public bool m_DeactivateAfterPerformingAction;
         
-        // Common action parameters
-        public Dictionary<string, object> m_Parameters;
+        // Common action parameters - Dictionary<string, object> is not XML serializable
+        // Using List<SerializableKeyValuePair> instead
+        public List<SerializableKeyValuePair> m_Parameters;
         
         public SerializableQuestAction()
         {
-            m_Parameters = new Dictionary<string, object>();
+            m_Parameters = new List<SerializableKeyValuePair>();
         }
     }
 
@@ -67,12 +82,13 @@ namespace SRMod.DTOs
         public int m_ID;
         public string m_Address;
         
-        // Common reaction parameters
-        public Dictionary<string, object> m_Parameters;
+        // Common reaction parameters - Dictionary<string, object> is not XML serializable
+        // Using List<SerializableKeyValuePair> instead
+        public List<SerializableKeyValuePair> m_Parameters;
         
         public SerializableQuestReaction()
         {
-            m_Parameters = new Dictionary<string, object>();
+            m_Parameters = new List<SerializableKeyValuePair>();
         }
     }
 
@@ -270,7 +286,7 @@ namespace SRMod.DTOs
     public class SerializableQRProgressionData : SerializableQuestReaction
     {
         public string m_ProgressionKey;
-        public object m_RequiredValue;
+        public string m_RequiredValue; // Changed from object to string for XML serialization
         public ComparisonType m_ComparisonType;
         
         public SerializableQRProgressionData()
