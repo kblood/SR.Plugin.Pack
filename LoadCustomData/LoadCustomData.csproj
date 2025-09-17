@@ -35,49 +35,50 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>c:\Modding\SatelliteReign\SatelliteReignWindows_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>c:\Modding\SatelliteReign\SatelliteReignWindows_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>c:\Modding\SatelliteReign\SatelliteReignWindows_Data\Managed\System.dll</HintPath>
+      <HintPath>..\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Core">
-      <HintPath>c:\Modding\SatelliteReign\SatelliteReignWindows_Data\Managed\System.Core.dll</HintPath>
+      <HintPath>..\System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml">
-      <HintPath>c:\Modding\SatelliteReign\SatelliteReignWindows_Data\Managed\System.Xml.dll</HintPath>
+      <HintPath>..\System.Xml.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>c:\Modding\SatelliteReign\SatelliteReignWindows_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>c:\Modding\SatelliteReign\SatelliteReignWindows_Data\Managed\UnityEngine.Networking.dll</HintPath>
+      <HintPath>..\UnityEngine.Networking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>c:\Modding\SatelliteReign\SatelliteReignWindows_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\ItemData.cs" />
     <Compile Include="DTOs\ItemDataList.cs" />
-    <Compile Include="DTOs\QuestData.cs" />
+    <!-- <Compile Include="DTOs\QuestData.cs" /> -->
     <Compile Include="DTOs\Sprite.cs" />
     <Compile Include="DTOs\TranslationsDTO.cs" />
     <Compile Include="DTOs\WeaponData.cs" />
     <Compile Include="DTOs\XMLCollection.cs" />
     <Compile Include="HelperEnums.cs" />
     <Compile Include="LoadCustomData.cs" />
+    <Compile Include="PlaceholderTypes.cs" />
     <Compile Include="Services\FileManager.cs" />
     <Compile Include="Services\ImageHelper.cs" />
     <Compile Include="Services\ItemDataManager.cs" />
     <Compile Include="Services\ObjectiveEventHandler.cs" />
-    <Compile Include="Services\QuestDataManager.cs" />
+    <!-- <Compile Include="Services\QuestDataManager.cs" /> -->
     <Compile Include="Services\ReflectionExtensions.cs" />
     <Compile Include="Services\SpawnCardManager.cs" />
     <Compile Include="Services\SREditor.cs" />

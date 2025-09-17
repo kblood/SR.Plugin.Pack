@@ -1,4 +1,5 @@
 ﻿using SRMod.Services;
+using SRMod.Placeholders;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using UnityEngine;
+using LoadCustomDataMod;
+// Use actual ItemManager from Assembly-CSharp.dll
 
 namespace SRMod.DTOs
 {

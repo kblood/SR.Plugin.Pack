@@ -305,17 +305,35 @@ public class ItemDataManager : MonoBehaviour
         existingItem.m_AbilityIDs = new List<int>(importedItem.m_AbilityIDs ?? new List<int>());
         existingItem.m_AbilityMasks = new List<int>(importedItem.m_AbilityMasks ?? new List<int>());
         
-        // Update icon if provided
+        // Update icon if provided - FIXED: Handle null existing icons for new items
         if (!string.IsNullOrEmpty(importedItem.m_UIIconName))
         {
-            var loadedTexture = FileManager.LoadTextureFromFile(importedItem.m_UIIconName);
-            if (loadedTexture != null)
+            try
             {
-                var loadedSprite = SpriteSerializer.UpdateSprite(loadedTexture, existingItem.m_UIIcon);
-                if (loadedSprite != null)
+                var loadedTexture = FileManager.LoadTextureFromFile(importedItem.m_UIIconName);
+                if (loadedTexture != null)
                 {
-                    existingItem.m_UIIcon = loadedSprite;
+                    // CRITICAL FIX: Handle null existing icon for new items
+                    var loadedSprite = SpriteSerializer.UpdateSprite(loadedTexture, existingItem.m_UIIcon);
+                    if (loadedSprite != null)
+                    {
+                        existingItem.m_UIIcon = loadedSprite;
+                        SRInfoHelper.Log($"ItemDataManager: Updated icon for item {importedItem.m_ID}: {importedItem.m_UIIconName}");
+                    }
+                    else
+                    {
+                        SRInfoHelper.Log($"ItemDataManager: Warning - Could not create sprite for item {importedItem.m_ID}: {importedItem.m_UIIconName}");
+                    }
                 }
+                else
+                {
+                    SRInfoHelper.Log($"ItemDataManager: Warning - Could not load texture for item {importedItem.m_ID}: {importedItem.m_UIIconName}");
+                }
+            }
+            catch (System.Exception iconEx)
+            {
+                SRInfoHelper.Log($"ItemDataManager: Icon loading failed for item {importedItem.m_ID} (non-fatal): {iconEx.Message}");
+                // Continue without icon rather than crashing
             }
         }
         
@@ -472,8 +490,7 @@ public class ItemDataManager : MonoBehaviour
         destination.m_Slot = source.m_Slot;
         destination.m_GearSubCategory = source.m_GearSubCategory;
 
-        //destination.m_UIIcon = source.m_UIIcon != null ? source.m_UIIcon : destination.m_UIIcon;
-        //destination.m_UIIcon = source.m_UIIcon; // Note: Sprites are Unity objects and can't be deep copied easily
+        destination.m_UIIcon = source.m_UIIcon; // Copy the sprite reference for new items
         destination.m_WeaponType = source.m_WeaponType;
         destination.m_ValidWeaponAugmentationWeaponMask = source.m_ValidWeaponAugmentationWeaponMask;
 

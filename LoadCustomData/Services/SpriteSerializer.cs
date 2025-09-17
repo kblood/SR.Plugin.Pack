@@ -49,14 +49,26 @@ public class SpriteSerializer
     // Method to load a texture from disk and create a sprite
     public static Sprite UpdateSprite(Texture2D texture, Sprite existingSprite)
     {
-        // Now we need to create a new sprite using the new texture and keep the same properties
-        Sprite newSprite = Sprite.Create(texture,
-                                         existingSprite.rect,      // Use the original sprite's rect
-                                         existingSprite.pivot,     // Use the original sprite's pivot
-                                         existingSprite.pixelsPerUnit
-                                         ); // Use the original sprite's pixels per unit
-        
-        //Debug.Log("Sprite successfully loaded from disk!");
-        return newSprite;
+        // Handle null existing sprite for new items - use default sprite properties
+        if (existingSprite == null)
+        {
+            // Create sprite with default properties for new items
+            Sprite newSprite = Sprite.Create(texture,
+                                             new Rect(0, 0, texture.width, texture.height), // Use full texture rect
+                                             new Vector2(0.5f, 0.5f),                       // Center pivot
+                                             100.0f                                          // Default pixels per unit
+                                             );
+            return newSprite;
+        }
+        else
+        {
+            // Use existing sprite's properties for updating existing items
+            Sprite newSprite = Sprite.Create(texture,
+                                             existingSprite.rect,      // Use the original sprite's rect
+                                             existingSprite.pivot,     // Use the original sprite's pivot
+                                             existingSprite.pixelsPerUnit
+                                             ); // Use the original sprite's pixels per unit
+            return newSprite;
+        }
     }
 }

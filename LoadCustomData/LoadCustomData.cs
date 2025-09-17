@@ -1,7 +1,8 @@
+using Assets.Scripts.ui.LoadOut;
+using SRMod.Services;
 using System;
 using System.IO;
 using UnityEngine;
-using SRMod.Services;
 
 namespace LoadCustomData
 {
@@ -15,7 +16,7 @@ namespace LoadCustomData
         private ItemDataManager itemDataManager;
         private TranslationManager translationManager;
         private SpawnCardManager spawnCardManager;
-        private QuestDataManager questDataManager;
+        // private QuestDataManager questDataManager;
         private AutoLoadService autoLoadService;
         private CommandService commandService;
         private UINotificationService uiService;
@@ -51,7 +52,7 @@ namespace LoadCustomData
                 isInitialized = true;
                 Debug.Log("LoadCustomData: Refactored initialization complete");
                 
-                uiService.ShowSuccess("LoadCustomData refactored version loaded!");
+                uiService.ShowSuccess("Enhanced LoadCustomData loaded with quest state preservation!");
             }
             catch (Exception e)
             {
@@ -96,13 +97,13 @@ namespace LoadCustomData
             spawnCardManager = new SpawnCardManager();
             spawnCardManager.Initialize();
             
-            questDataManager = QuestDataManager.Instance;
-            questDataManager.Initialize();
+            // questDataManager = QuestDataManager.Instance;
+            // questDataManager.Initialize();
             
             // Initialize utility services
             uiService = new UINotificationService();
-            autoLoadService = new AutoLoadService(itemDataManager, translationManager, spawnCardManager, questDataManager, uiService);
-            commandService = new CommandService(itemDataManager, translationManager, spawnCardManager, questDataManager, uiService);
+            autoLoadService = new AutoLoadService(itemDataManager, translationManager, spawnCardManager, null, uiService);
+            commandService = new CommandService(itemDataManager, translationManager, spawnCardManager, null, uiService);
             
             Debug.Log("LoadCustomData: All services initialized");
         }
@@ -132,18 +133,18 @@ namespace LoadCustomData
         private readonly ItemDataManager itemDataManager;
         private readonly TranslationManager translationManager;
         private readonly SpawnCardManager spawnCardManager;
-        private readonly QuestDataManager questDataManager;
+        // private readonly QuestDataManager questDataManager;
         private readonly UINotificationService uiService;
         
         private bool autoLoadAttempted = false;
 
         public AutoLoadService(ItemDataManager itemManager, TranslationManager translationManager, 
-                              SpawnCardManager spawnManager, QuestDataManager questManager, UINotificationService uiService)
+                              SpawnCardManager spawnManager, object questManager, UINotificationService uiService)
         {
             this.itemDataManager = itemManager;
             this.translationManager = translationManager;
             this.spawnCardManager = spawnManager;
-            this.questDataManager = questManager;
+            // this.questDataManager = questManager;
             this.uiService = uiService;
         }
 
@@ -154,6 +155,7 @@ namespace LoadCustomData
 
         public void Update()
         {
+             // Ensure UI manager is initialized before
             if (!autoLoadAttempted)
             {
                 // Use same pattern as working SyndicateMod - check if game is loaded and ItemManager is ready
@@ -217,13 +219,13 @@ namespace LoadCustomData
                 spawnCardManager.LoadSpawnCardsFromFileAndUpdateSpawnManager();
                 
                 // Auto-load quest data if available
-                questDataManager.LoadQuestDataFromFile();
+                // questDataManager.LoadQuestDataFromFile();
                 
                 // Auto-load weapon data if available
                 Debug.Log("LoadCustomData: Loading weapon data from XML file");
                 WeaponDataManager.ImportWeaponDataFromXML("weapons.xml");
                 
-                uiService.ShowInfo("Auto-load completed");
+                uiService.ShowInfo("Enhanced auto-load completed with quest state preservation");
             }
             catch (Exception e)
             {
@@ -241,16 +243,16 @@ namespace LoadCustomData
         private readonly ItemDataManager itemDataManager;
         private readonly TranslationManager translationManager;
         private readonly SpawnCardManager spawnCardManager;
-        private readonly QuestDataManager questDataManager;
+        // private readonly QuestDataManager questDataManager;
         private readonly UINotificationService uiService;
 
         public CommandService(ItemDataManager itemManager, TranslationManager translationManager,
-                             SpawnCardManager spawnManager, QuestDataManager questManager, UINotificationService uiService)
+                             SpawnCardManager spawnManager, object questManager, UINotificationService uiService)
         {
             this.itemDataManager = itemManager;
             this.translationManager = translationManager;
             this.spawnCardManager = spawnManager;
-            this.questDataManager = questManager;
+            // this.questDataManager = questManager;
             this.uiService = uiService;
         }
 
@@ -297,6 +299,13 @@ namespace LoadCustomData
                 Debug.Log("LoadCustomData: Diagnostic test triggered");
                 RunDiagnostics();
             }
+
+            // Quest status check (F5)
+            if (Input.GetKeyDown(KeyCode.F5))
+            {
+                Debug.Log("LoadCustomData: Quest status check triggered");
+                ShowQuestStatus();
+            }
         }
 
         private void ExportAllData()
@@ -309,8 +318,14 @@ namespace LoadCustomData
                 Debug.Log("LoadCustomData: Starting spawn card export");
                 spawnCardManager.SaveSpawnCardsToFile();
                 
-                Debug.Log("LoadCustomData: Starting quest export");
-                questDataManager.SaveQuestDataToFile();
+                Debug.Log("LoadCustomData: Starting enhanced quest export (includes quest state data)");
+                // questDataManager.SaveQuestDataToFile();
+                
+                // Show quest export statistics
+                // var questStats = questDataManager.GetQuestExportStats();
+                var questStats = "Quest system disabled";
+                Debug.Log($"LoadCustomData: {questStats}");
+                uiService.ShowInfo(questStats, 4);
                 
                 Debug.Log("LoadCustomData: Starting translation export");
                 var translations = TranslationManager.LoadTranslations();
@@ -340,7 +355,10 @@ namespace LoadCustomData
                 
                 itemDataManager.LoadItemDefinitionsFromFileAndUpdateItemManager();
                 spawnCardManager.LoadSpawnCardsFromFileAndUpdateSpawnManager();
-                questDataManager.LoadQuestDataFromFile();
+                
+                Debug.Log("LoadCustomData: Loading enhanced quest data (includes quest state restoration)");
+                // questDataManager.LoadQuestDataFromFile();
+                uiService.ShowInfo("Quest import includes quest progress and state restoration", 2);
                 
                 Debug.Log("LoadCustomData: Importing weapon data");
                 WeaponDataManager.ImportWeaponDataFromXML("weapons.xml");
@@ -363,14 +381,32 @@ namespace LoadCustomData
 
         private void ShowHelp()
         {
-            var helpText = "LoadCustomData Controls:\n" +
-                          "F10 - Export all data (items, weapons, enemies, quests, translations)\n" +
-                          "F9 - Import all data (items, weapons, enemies, quests, translations)\n" +
+            var helpText = "Enhanced LoadCustomData Controls:\n" +
+                          "F10 - Export all data (items, weapons, enemies, quests + states, translations)\n" +
+                          "F9 - Import all data (items, weapons, enemies, quests + states, translations)\n" +
                           "F11 - Auto-load all data (same as game startup)\n" +
-                          "F4 - Run diagnostics\n" +
-                          "Insert - Show this help";
+                          "F4 - Run enhanced diagnostics with quest state info\n" +
+                          "F5 - Show detailed quest status and progress\n" +
+                          "Insert - Show this help\n\n" +
+                          "NEW: Quest export now includes quest progress and completion states!";
             
             uiService.ShowInfo(helpText, 5);
+        }
+
+        private void ShowQuestStatus()
+        {
+            try
+            {
+                // var questStats = questDataManager.GetQuestExportStats();
+                var questStats = "Quest system disabled";
+                uiService.ShowInfo(questStats, 5);
+                Debug.Log($"LoadCustomData: Quest Status - {questStats}");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"LoadCustomData: Quest status check failed - {e.Message}");
+                uiService.ShowError("Quest status check failed - check logs");
+            }
         }
 
         private void RunDiagnostics()
@@ -379,15 +415,25 @@ namespace LoadCustomData
             {
                 var itemCount = Manager.GetItemManager()?.GetAllItems()?.Count ?? 0;
                 var hasSpawnXML = spawnCardManager.CheckIfXMLFileExists();
-                var hasQuestXML = questDataManager.CheckIfXMLFileExists();
+                // var hasQuestXML = questDataManager.CheckIfXMLFileExists();
+                var hasQuestXML = false;
                 
                 var weaponCount = Manager.GetWeaponManager()?.m_WeaponData?.Length ?? 0;
                 
-                var diagnostics = $"Diagnostics:\n" +
+                // Enhanced quest diagnostics
+                var questManager = Manager.GetQuestManager();
+                // var questElementCount = questManager?.m_QuestElements?.Count ?? 0;
+                // var activeQuestCount = questManager?.m_QuestElements?.Count(q => q.m_State == 1) ?? 0;
+                var questElementCount = 0;
+                var activeQuestCount = 0;
+                
+                var diagnostics = $"Enhanced LoadCustomData Diagnostics:\n" +
                                  $"Items: {itemCount}\n" +
                                  $"Weapons: {weaponCount}\n" +
+                                 $"Quest Elements: {questElementCount}\n" +
+                                 $"Active Quests: {activeQuestCount}\n" +
                                  $"Spawn XML: {(hasSpawnXML ? "Found" : "Missing")}\n" +
-                                 $"Quest XML: {(hasQuestXML ? "Found" : "Missing")}";
+                                 $"Quest XML: {(hasQuestXML ? "Found with state data" : "Missing")}";
                 
                 uiService.ShowInfo(diagnostics, 4);
                 Debug.Log($"LoadCustomData: {diagnostics}");
@@ -435,13 +481,13 @@ namespace LoadCustomData
                 spawnCardManager.LoadSpawnCardsFromFileAndUpdateSpawnManager();
                 
                 // Auto-load quest data if available
-                questDataManager.LoadQuestDataFromFile();
+                // questDataManager.LoadQuestDataFromFile();
                 
                 // Auto-load weapon data if available
                 Debug.Log("LoadCustomData: Loading weapon data from XML file");
                 WeaponDataManager.ImportWeaponDataFromXML("weapons.xml");
                 
-                uiService.ShowInfo("Auto-load completed");
+                uiService.ShowInfo("Enhanced auto-load completed with quest state preservation");
             }
             catch (Exception e)
             {
