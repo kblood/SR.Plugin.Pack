@@ -470,6 +470,11 @@ public class ItemDataManager : MonoBehaviour
 
         // Create a new item by copying the similar item
         var newItem = new ItemManager.ItemData();
+
+        // CRITICAL: Initialize m_ResearchDataPoints to prevent NullReferenceException on save
+        // The game's SaveItemData constructor calls .ToArray() on this field
+        newItem.m_ResearchDataPoints = new List<ResearchDataPoint>();
+
         CopyItemProperties(similarItem, newItem);
 
         // Update the new item with serialized data
