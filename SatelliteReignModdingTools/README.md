@@ -6,7 +6,7 @@ The Satellite Reign Modding Tools is a comprehensive Windows Forms application d
 
 ## 🚀 Features
 
-### 1. Quest Browser
+### 1. Quest Browser ✨ **ENHANCED**
 - **Complete Quest Visualization**: Browse all exported quests and missions
 - **Quest Details Panel**: View comprehensive quest information including:
   - Quest IDs, titles, and completion status
@@ -16,6 +16,12 @@ The Satellite Reign Modding Tools is a comprehensive Windows Forms application d
   - Hidden quest flags and debrief settings
 - **Search and Filter**: Find specific quests by name, ID, or district
 - **Real-time Refresh**: Reload quest data without restarting the application
+- **🆕 Enhanced Quest State Support**:
+  - **Import Enhanced**: Load quest data with full state preservation from LoadCustomData
+  - **Export Enhanced**: Save quests with complete progress and completion states
+  - **Quest Status Report**: View detailed quest statistics and completion rates
+  - **State Bit Integration**: Full QSave support for quest state persistence
+  - **LoadCustomData Integration**: Seamless compatibility with enhanced quest exports
 
 ### 2. Item Browser
 - **Equipment Database**: Browse all weapons, equipment, and items
@@ -80,11 +86,39 @@ msbuild SatelliteReignModdingTools.csproj
    - Use the main menu to access different browsers
 
 3. **Browse Different Data Types**:
-   - **Quest Browser**: Browse missions and quests (`questDefinitions.xml`)
+   - **Quest Browser (Enhanced)**: Browse missions and quests with state preservation
    - **Item Browser**: View weapons, equipment, items (`itemDefinitions.xml`)
    - **Economy & Weapons**: Edit weapon stats and balance (`weapons.xml`)
    - **Enemy Browser**: Examine enemy types and spawns (`enemyentries.xml`)
    - **Translations Browser**: Manage game text (`translations.xml`)
+
+### 🆕 Enhanced Quest Browser Usage
+
+1. **Import Enhanced Quest Data**:
+   - Export quests using LoadCustomData mod enhanced export (F10 in-game)  
+   - Open Quest Browser from main menu (now shows "Quest Editor (Enhanced)")
+   - Click **"Import Enhanced"** button (green) 
+   - Select `questData.xml` file exported by LoadCustomData
+   - Quest data loads with complete state information and progress tracking
+
+2. **View Quest Status Dashboard**:
+   - Click **"Quest Status"** button (orange) to see:
+     - Total quest count and completion statistics
+     - Active vs completed quest breakdown
+     - Completion percentage rates
+     - Available enhanced features confirmation
+
+3. **Export Enhanced Quest Data**:
+   - Make any quest edits using the standard quest editor interface
+   - Click **"Export Enhanced"** button (blue)
+   - Save as `questData.xml` (includes state bits)
+   - Import back into game using LoadCustomData (F9 in-game)
+   - Quest progress and completion states will be preserved
+
+4. **Legacy Compatibility**:
+   - Traditional import/export still works with `questDefinitions.xml`
+   - Enhanced import/export adds quest state preservation
+   - Both formats can be used simultaneously
 
 ### Economy & Weapons Browser Usage
 
@@ -106,7 +140,8 @@ msbuild SatelliteReignModdingTools.csproj
 ### Data File Locations
 
 The application expects exported data files in the following locations:
-- **Quest Data**: `questDefinitions.xml`
+- **Quest Data**: `questDefinitions.xml` (traditional format)
+- **Enhanced Quest Data**: `questData.xml` *(NEW - includes quest state bits)*
 - **Item Data**: `itemDefinitions.xml` 
 - **Weapon Data**: `weapons.xml` *(NEW in v2.1)*
 - **Translation Data**: `translations.xml`
@@ -168,6 +203,14 @@ Quest Browser
 
 ## 📝 Recent Updates
 
+### 🆕 Enhanced Quest System Support (Latest)
+- **Complete Quest State Preservation**: Full integration with LoadCustomData enhanced quest system
+- **Import Enhanced Button**: Load quest data with complete progress and state information
+- **Export Enhanced Button**: Save quests with QSave state bits and completion tracking
+- **Quest Status Dashboard**: Real-time quest statistics and completion rates
+- **Bidirectional Compatibility**: Works with both traditional and enhanced quest formats
+- **State Bit Integration**: Full QBase.QSave support for quest state persistence
+
 ### Quest Browser Enhancements
 - **XML Parsing Fixes**: Resolved boolean serialization compatibility issues
 - **Error Handling**: Improved error messages and debugging information
@@ -178,6 +221,7 @@ Quest Browser
 - **Automatic Quest Tree Initialization**: Quest export now handles uninitialized quest systems
 - **Boolean Format Fix**: XML now generates lowercase booleans for proper parsing
 - **.NET Framework Compatibility**: Fixed reflection issues for Unity 5.3.5 compatibility
+- **Enhanced Quest Export**: New quest system with complete state preservation
 
 ## 🤝 Contributing
 

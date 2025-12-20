@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfSerializableEnemyEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SerializableEnemyEntry>
+    <GroupId>Police</GroupId>
+    <EnemyUID>7</EnemyUID>
+    <EnemyName>Patrol Police</EnemyName>
+    <Spawnable>true</Spawnable>
+    <Solo>false</Solo>
+    <m_Prefab_name>GEN_PatrolPolice</m_Prefab_name>
+    <UseWardrobeOverride>false</UseWardrobeOverride>
+    <WardrobeOverride>Civilian</WardrobeOverride>
+    <m_WardrobeItemOverrides />
+    <m_CountKeys>
+      <EnemyCountKey>
+        <m_Progression>0</m_Progression>
+        <m_Count>5</m_Count>
+      </EnemyCountKey>
+    </m_CountKeys>
+    <Modifiers />
+    <WeaponOverrides />
+    <ItemIds>
+      <int>71</int>
+    </ItemIds>
+    <AbilityOverrides />
+    <m_TrackerIconSprite_name />
+  </SerializableEnemyEntry>
+  <SerializableEnemyEntry>
     <GroupId>Corporate</GroupId>
     <EnemyUID>1</EnemyUID>
     <EnemyName>Corp Basic Soldier</EnemyName>
@@ -211,112 +235,6 @@
     <WeaponOverrides />
     <ItemIds />
     <AbilityOverrides />
-    <m_TrackerIconSprite_name />
-  </SerializableEnemyEntry>
-  <SerializableEnemyEntry>
-    <GroupId>Police</GroupId>
-    <EnemyUID>7</EnemyUID>
-    <EnemyName>Patrol Police</EnemyName>
-    <Spawnable>true</Spawnable>
-    <Solo>false</Solo>
-    <m_Prefab_name>DRA_Commander_01</m_Prefab_name>
-    <UseWardrobeOverride>false</UseWardrobeOverride>
-    <WardrobeOverride>Civilian</WardrobeOverride>
-    <m_WardrobeItemOverrides />
-    <m_CountKeys>
-      <EnemyCountKey>
-        <m_Progression>0</m_Progression>
-        <m_Count>1</m_Count>
-      </EnemyCountKey>
-      <EnemyCountKey>
-        <m_Progression>0.5</m_Progression>
-        <m_Count>5</m_Count>
-      </EnemyCountKey>
-      <EnemyCountKey>
-        <m_Progression>0.8</m_Progression>
-        <m_Count>7</m_Count>
-      </EnemyCountKey>
-    </m_CountKeys>
-    <Modifiers>
-      <SerializableModifierData>
-        <m_Type>WeaponCountIncrease</m_Type>
-        <m_Ammount>2</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>ShieldRegenRate</m_Type>
-        <m_Ammount>30</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>Shield</m_Type>
-        <m_Ammount>300</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>GearSlotIncrease</m_Type>
-        <m_Ammount>5</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>HijackerLevel</m_Type>
-        <m_Ammount>5</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>HackerLevel</m_Type>
-        <m_Ammount>5</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>SpeedOffset</m_Type>
-        <m_Ammount>50</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>SprintEnergyCostMultiplier</m_Type>
-        <m_Ammount>0</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>HardwireLevel</m_Type>
-        <m_Ammount>15</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>ShieldRadius</m_Type>
-        <m_Ammount>0</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-    </Modifiers>
-    <WeaponOverrides />
-    <ItemIds>
-      <int>30</int>
-      <int>88</int>
-      <int>44</int>
-      <int>45</int>
-      <int>63</int>
-      <int>84</int>
-      <int>75</int>
-      <int>66</int>
-      <int>78</int>
-    </ItemIds>
-    <AbilityOverrides>
-      <int>1392</int>
-      <int>1328</int>
-      <int>1326</int>
-      <int>1332</int>
-    </AbilityOverrides>
     <m_TrackerIconSprite_name />
   </SerializableEnemyEntry>
   <SerializableEnemyEntry>
@@ -625,7 +543,7 @@
     <m_WardrobeItemOverrides />
     <m_CountKeys>
       <EnemyCountKey>
-        <m_Progression>0</m_Progression>
+        <m_Progression>0.25</m_Progression>
         <m_Count>1</m_Count>
       </EnemyCountKey>
       <EnemyCountKey>
@@ -1504,94 +1422,5 @@
     <ItemIds />
     <AbilityOverrides />
     <m_TrackerIconSprite_name />
-  </SerializableEnemyEntry>
-  <SerializableEnemyEntry>
-    <GroupId>Police</GroupId>
-    <EnemyUID>82</EnemyUID>
-    <EnemyName>Patrol Police (Copy)</EnemyName>
-    <Spawnable>true</Spawnable>
-    <Solo>false</Solo>
-    <UseWardrobeOverride>false</UseWardrobeOverride>
-    <WardrobeOverride>Civilian</WardrobeOverride>
-    <m_WardrobeItemOverrides />
-    <m_CountKeys>
-      <EnemyCountKey>
-        <m_Progression>0</m_Progression>
-        <m_Count>1</m_Count>
-      </EnemyCountKey>
-      <EnemyCountKey>
-        <m_Progression>0.7</m_Progression>
-        <m_Count>2</m_Count>
-      </EnemyCountKey>
-      <EnemyCountKey>
-        <m_Progression>0.8</m_Progression>
-        <m_Count>3</m_Count>
-      </EnemyCountKey>
-    </m_CountKeys>
-    <Modifiers>
-      <SerializableModifierData>
-        <m_Type>WeaponCountIncrease</m_Type>
-        <m_Ammount>2</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>ShieldRegenRate</m_Type>
-        <m_Ammount>30</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>Shield</m_Type>
-        <m_Ammount>300</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>GearSlotIncrease</m_Type>
-        <m_Ammount>5</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>HijackerLevel</m_Type>
-        <m_Ammount>5</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>HackerLevel</m_Type>
-        <m_Ammount>5</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>SpeedOffset</m_Type>
-        <m_Ammount>50</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>SprintEnergyCostMultiplier</m_Type>
-        <m_Ammount>0</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>HardwireLevel</m_Type>
-        <m_Ammount>15</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-      <SerializableModifierData>
-        <m_Type>ShieldRadius</m_Type>
-        <m_Ammount>0</m_Ammount>
-        <m_AmountModifier>NONE</m_AmountModifier>
-        <m_TimeOut>0</m_TimeOut>
-      </SerializableModifierData>
-    </Modifiers>
-    <WeaponOverrides />
-    <ItemIds />
-    <AbilityOverrides />
   </SerializableEnemyEntry>
 </ArrayOfSerializableEnemyEntry>

@@ -39,19 +39,19 @@ namespace LoadCustomData
             try
             {
                 Debug.Log("LoadCustomData: Starting refactored initialization");
-                
+
+                // Setup directory structure FIRST (before initializing services that need it)
+                SetupDirectories();
+
                 // Initialize services with proper dependency injection
                 InitializeServices();
-                
-                // Setup directory structure
-                SetupDirectories();
-                
+
                 // Initialize auto-loading system
                 autoLoadService.Initialize();
-                
+
                 isInitialized = true;
                 Debug.Log("LoadCustomData: Refactored initialization complete");
-                
+
                 uiService.ShowSuccess("Enhanced LoadCustomData loaded with quest state preservation!");
             }
             catch (Exception e)

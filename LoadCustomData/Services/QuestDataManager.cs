@@ -1,10 +1,13 @@
 using SRMod.DTOs;
+using SRMod.Placeholders;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+
+// Note: Use actual game types when available - placeholders only for compilation fallback
 
 namespace SRMod.Services
 {
@@ -102,7 +105,11 @@ namespace SRMod.Services
                     ExtractQuestElementsRecursive(baseQuestElement, serializedManager.m_QuestElements);
                 }
 
-                SRInfoHelper.Log(string.Format("QuestDataManager: Extracted {0} quest elements", serializedManager.m_QuestElements.Count));
+                // CRITICAL: Extract quest state/progress data using game's native save system
+                ExtractQuestStateData(questManager, serializedManager);
+
+                SRInfoHelper.Log(string.Format("QuestDataManager: Extracted {0} quest elements and {1} quest state bits", 
+                    serializedManager.m_QuestElements.Count, serializedManager.m_QuestBits.Count));
             }
             catch (Exception ex)
             {
@@ -201,6 +208,42 @@ namespace SRMod.Services
             }
             
             return children;
+        }
+
+        private void ExtractQuestStateData(QuestManager questManager, SerializableQuestManager serializedManager)
+        {
+            try
+            {
+                SRInfoHelper.Log("QuestDataManager: Extracting quest state data using native save system");
+                
+                // Use the game's native save system to get quest states
+                // This is the CORRECT way to get quest progress data
+                var saveQuestManager = new SaveQuestManager(questManager);
+                
+                // Extract quest bits (actual progress data)
+                var questBits = GetFieldValue<List<QBase.QSave>>(saveQuestManager, "m_QuestBits", null);
+                if (questBits != null)
+                {
+                    foreach (var questBit in questBits)
+                    {
+                        var serializedBit = new SerializableQSave(
+                            questBit.m_ID,
+                            questBit.m_Address,
+                            questBit.m_Active,
+                            questBit.GetType().Name
+                        );
+                        
+                        serializedManager.m_QuestBits.Add(serializedBit);
+                    }
+                }
+                
+                SRInfoHelper.Log(string.Format("QuestDataManager: Extracted {0} quest state bits", serializedManager.m_QuestBits.Count));
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to extract quest state data - {0}", ex.Message));
+                SRInfoHelper.Log(string.Format("QuestDataManager: This is expected if no quest progress exists"));
+            }
         }
 
         private void ExtractQuestActions(QuestElement questElement, List<SerializableQuestAction> actions)
@@ -495,7 +538,7 @@ namespace SRMod.Services
             {
                 // Extract quest descriptions - this would need to be implemented based on
                 // the actual structure of how descriptions are stored in QuestElement
-                var descriptionObjects = GetFieldValue<GameObject[]>(questElement, "m_DescriptionObjects", null);
+                var descriptionObjects = GetFieldValue<object[]>(questElement, "m_DescriptionObjects", null);
                 
                 if (descriptionObjects != null)
                 {
@@ -516,13 +559,13 @@ namespace SRMod.Services
             }
         }
 
-        private SerializableDescriptionData ExtractDescriptionFromGameObject(GameObject descObj)
+        private SerializableDescriptionData ExtractDescriptionFromGameObject(object descObj)
         {
             // This would need to be implemented based on how description data is stored
             // Likely in a specific component on the GameObject
             return new SerializableDescriptionData
             {
-                m_LocTitle = descObj.name,
+                m_LocTitle = descObj?.ToString() ?? "[Unknown]",
                 m_Token = "",
                 m_Translation = ""
             };
@@ -593,15 +636,26 @@ namespace SRMod.Services
 
                 SRInfoHelper.Log("QuestDataManager: Loading quest data from file");
 
-                // For now, just log that quest loading is available
-                // The actual quest loading would require implementing FileManager.LoadXML for quest data
-                SRInfoHelper.Log("QuestDataManager: Quest loading functionality ready (FileManager.LoadXML implementation needed)");
+                // Load the quest data using the new FileManager method
+                var questData = FileManager.LoadQuestXML("questDefinitions.xml");
                 
-                // TODO: Implement proper quest data loading when FileManager.LoadXML is available
+                if (questData == null)
+                {
+                    SRInfoHelper.Log("QuestDataManager: Failed to load quest data from XML file");
+                    return;
+                }
+
+                SRInfoHelper.Log($"QuestDataManager: Successfully loaded quest data with {questData.m_QuestElements?.Count ?? 0} quest elements");
+
+                // Apply the loaded quest data to the game
+                ApplyQuestData(questData);
+                
+                SRInfoHelper.Log("QuestDataManager: Quest data loading complete");
             }
             catch (Exception ex)
             {
                 SRInfoHelper.Log(string.Format("QuestDataManager: Failed to load quest data - {0}", ex.Message));
+                SRInfoHelper.Log(string.Format("QuestDataManager: Stack trace - {0}", ex.StackTrace));
             }
         }
 
@@ -626,15 +680,57 @@ namespace SRMod.Services
                 SetFieldValue(questManager, "m_UsedRandomDataTerminalLocations", questData.m_UsedRandomDataTerminalLocations);
                 SetFieldValue(questManager, "m_UsedRandomVIPLocations", questData.m_UsedRandomVIPLocations);
 
-                // Note: Applying quest elements would require more complex logic to integrate
-                // with the existing quest system without breaking save compatibility
-                // This is a placeholder for the full implementation
+                // CRITICAL: Apply quest state/progress data using game's native save system
+                if (questData.m_QuestBits != null && questData.m_QuestBits.Count > 0)
+                {
+                    ApplyQuestStateData(questManager, questData.m_QuestBits);
+                }
 
-                SRInfoHelper.Log(string.Format("QuestDataManager: Applied quest data with {0} quest elements", questData.m_QuestElements.Count));
+                SRInfoHelper.Log(string.Format("QuestDataManager: Applied quest data with {0} quest elements and {1} quest state bits", 
+                    questData.m_QuestElements.Count, questData.m_QuestBits?.Count ?? 0));
             }
             catch (Exception ex)
             {
                 SRInfoHelper.Log(string.Format("QuestDataManager: Failed to apply quest data - {0}", ex.Message));
+            }
+        }
+
+        private void ApplyQuestStateData(QuestManager questManager, List<SerializableQSave> questBits)
+        {
+            try
+            {
+                SRInfoHelper.Log("QuestDataManager: Applying quest state data using native save system");
+                
+                // Create a SaveQuestManager with the loaded quest bits
+                var saveQuestManager = new SaveQuestManager();
+                
+                // Convert SerializableQSave back to QBase.QSave
+                var nativeQuestBits = new List<QBase.QSave>();
+                foreach (var serializedBit in questBits)
+                {
+                    var nativeBit = new QBase.QSave();
+                    nativeBit.m_ID = serializedBit.m_ID;
+                    nativeBit.m_Address = new List<int>(serializedBit.m_Address);
+                    nativeBit.m_Active = serializedBit.m_Active;
+                    
+                    nativeQuestBits.Add(nativeBit);
+                }
+                
+                // Set the quest bits on the save manager
+                SetFieldValue(saveQuestManager, "m_QuestBits", nativeQuestBits);
+                SetFieldValue(saveQuestManager, "m_CurrentDisplayQuestID", GetFieldValue<int>(questManager, "m_CurrentDisplayQuestID", -1));
+                SetFieldValue(saveQuestManager, "m_RandomSeed", GetFieldValue<int>(questManager, "m_RandomSeed", 0));
+                
+                // Use the game's native FromSave method to apply quest states
+                // This is the CORRECT way to restore quest progress
+                questManager.FromSave(saveQuestManager);
+                
+                SRInfoHelper.Log(string.Format("QuestDataManager: Applied {0} quest state bits using native save system", questBits.Count));
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log(string.Format("QuestDataManager: Failed to apply quest state data - {0}", ex.Message));
+                SRInfoHelper.Log(string.Format("QuestDataManager: Stack trace - {0}", ex.StackTrace));
             }
         }
 
@@ -782,6 +878,39 @@ namespace SRMod.Services
                    type == typeof(DateTime) || 
                    type.IsEnum ||
                    type.IsSerializable;
+        }
+
+        /// <summary>
+        /// Get enhanced quest export statistics for the modding tool
+        /// </summary>
+        public string GetQuestExportStats()
+        {
+            try
+            {
+                var questManager = Manager.GetQuestManager();
+                if (questManager == null)
+                    return "Quest Manager not available";
+
+                var totalQuests = questManager.m_QuestElements?.Count ?? 0;
+                var activeQuests = questManager.m_QuestElements?.Count(q => q.m_State == 1) ?? 0;
+                var completedQuests = questManager.m_QuestElements?.Count(q => q.m_State == 2) ?? 0;
+                
+                // Try to get quest bits count
+                var saveQuestManager = new SaveQuestManager(questManager);
+                var questBits = GetFieldValue<List<QBase.QSave>>(saveQuestManager, "m_QuestBits", null);
+                var questBitsCount = questBits?.Count ?? 0;
+
+                return $"Quest Export Summary:\n" +
+                       $"Total Quest Elements: {totalQuests}\n" +
+                       $"Active Quests: {activeQuests}\n" +
+                       $"Completed Quests: {completedQuests}\n" +
+                       $"Quest State Bits: {questBitsCount}\n" +
+                       $"Includes: Definitions + Progress + Completion States";
+            }
+            catch (Exception ex)
+            {
+                return $"Quest stats error: {ex.Message}";
+            }
         }
     }
 }

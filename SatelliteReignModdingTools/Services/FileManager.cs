@@ -20,6 +20,31 @@ namespace SRMod.Services
             }
         }
 
+        // Get the path to the icons directory, searching in multiple possible locations
+        public static string GetIconsPath()
+        {
+            var possiblePaths = new[]
+            {
+                Path.Combine(Environment.CurrentDirectory, "icons"),
+                Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? Environment.CurrentDirectory, "icons"),
+                Path.Combine(Environment.CurrentDirectory, "bin", "Debug", "icons"),
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "icons"),
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin", "Debug", "icons")
+            };
+
+            foreach (var path in possiblePaths)
+            {
+                if (Directory.Exists(path))
+                {
+                    SRInfoHelper.Log($"Found icons directory at: {path}");
+                    return path;
+                }
+            }
+
+            SRInfoHelper.Log("No icons directory found, using default path");
+            return Path.Combine(Environment.CurrentDirectory, "icons");
+        }
+
         static public List<SerializableEnemyEntry> LoadEnemyDataXML(string fileName, string filePath = @"C:\Temp\")
         {
             string fileWithPath = fileName;
@@ -183,7 +208,18 @@ namespace SRMod.Services
             return list;
         }
 
+        /// <summary>
+        /// Legacy quest data loading for basic quest definitions
+        /// </summary>
         static public SerializableQuestManager LoadQuestDataXML(string fileName, string filePath = @"C:\Temp\")
+        {
+            return LoadEnhancedQuestDataXML(fileName, filePath);
+        }
+
+        /// <summary>
+        /// Enhanced quest data loading with state preservation - integrates with LoadCustomData quest system  
+        /// </summary>
+        static public SerializableQuestManager LoadEnhancedQuestDataXML(string fileName, string filePath = @"C:\Temp\")
         {
             string fileWithPath = fileName;
 
@@ -294,15 +330,16 @@ namespace SRMod.Services
         {
             SRInfoHelper.Log("Loading " + textureName);
 
-            string filePath = ExecPath + @"\icons\" + textureName + ".png";
-            //string filePath = Manager.GetPluginManager().PluginPath + @"\" + fileName;
+            string filePath = Path.Combine(GetIconsPath(), textureName + ".png");
 
             if (File.Exists(filePath))
             {
+                SRInfoHelper.Log($"Successfully loaded icon from: {filePath}");
                 return Image.FromFile(filePath);
             }
             else
             {
+                SRInfoHelper.Log($"Icon not found at: {filePath}");
                 return null;
             }
         }
@@ -597,6 +634,29 @@ namespace SRMod.Services
             {
                 // Serialize the quest definitions
                 serializer.Serialize(textWriter, questDefinitions);
+            }
+        }
+
+        /// <summary>
+        /// Enhanced quest data saving with state preservation - integrates with LoadCustomData quest system
+        /// </summary>
+        /// <param name="questManager">Enhanced quest manager with state data</param>
+        /// <param name="fileName">Output file name</param>
+        /// <param name="filePath">Output directory path</param>
+        static public void SaveEnhancedQuestDataXML(SerializableQuestManager questManager, string fileName, string filePath = @"C:\Temp\")
+        {
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(SerializableQuestManager));
+
+                using (TextWriter textWriter = new StreamWriter($@"{filePath}{fileName}"))
+                {
+                    serializer.Serialize(textWriter, questManager);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to save enhanced quest data: {ex.Message}", ex);
             }
         }
     }

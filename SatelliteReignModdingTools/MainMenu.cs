@@ -99,7 +99,7 @@ namespace SatelliteReignModdingTools
             btnSettings = new Button();
             btnSettings.BackColor = Color.SeaGreen;
             btnSettings.ForeColor = Color.Aquamarine;
-            btnSettings.Location = new System.Drawing.Point(100, 340);
+            btnSettings.Location = new System.Drawing.Point(100, 460);
             btnSettings.Name = "btnSettings";
             btnSettings.Size = new System.Drawing.Size(200, 28);
             btnSettings.TabIndex = 6;

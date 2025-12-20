@@ -213,18 +213,35 @@ public class SpawnCardManager : MonoBehaviour
 
                         foreach (var card in carddeck.cards)
                         {
-                            var enemyData = spawnManager.GetEnemyDataFromUID(card.EnemyUID) ?? new SpawnManager_EnemyEntry(card.EnemyUID);
+                            var existingEnemyData = spawnManager.GetEnemyDataFromUID(card.EnemyUID);
+                            var enemyData = existingEnemyData ?? new SpawnManager_EnemyEntry(card.EnemyUID);
+
+                            // If this is a new enemy entry, try to get the prefab from the original definitions
+                            if (existingEnemyData == null && enemyData.m_Prefab == null)
+                            {
+                                // Try to find the original enemy entry to copy the prefab from
+                                var originalEntry = spawnManager.m_EnemyDefinitions.FirstOrDefault(e => e.m_UID == card.EnemyUID);
+                                if (originalEntry != null && originalEntry.m_Prefab != null)
+                                {
+                                    enemyData.m_Prefab = originalEntry.m_Prefab;
+                                    SRInfoHelper.Log($"Copied m_Prefab from original enemy entry for UID {card.EnemyUID}");
+                                }
+                                else
+                                {
+                                    SRInfoHelper.Log($"WARNING: Could not find prefab for enemy UID {card.EnemyUID} ({card.EnemyName})");
+                                }
+                            }
 
                             // Update the enemy data with the deserialized values
                             enemyData.m_EnemyName = card.EnemyName;
                             enemyData.m_Spawnable = card.Spawnable;
                             enemyData.m_Solo = card.Solo;
-                            enemyData.m_Modifiers = card.Modifiers.Select(m => m.ToModifierData()).ToArray();
+                            enemyData.m_Modifiers = (card.Modifiers ?? new List<SerializableModifierData>()).Select(m => m.ToModifierData()).ToArray();
                             enemyData.m_UseWardrobeOverride = card.UseWardrobeOverride;
                             enemyData.m_WardrobeOverride = card.WardrobeOverride;
-                            enemyData.m_WeaponOverrides = card.WeaponOverrides;
-                            enemyData.m_ItemIds = card.ItemIds;
-                            enemyData.m_AbilityOverrides = card.AbilityOverrides;
+                            enemyData.m_WeaponOverrides = card.WeaponOverrides ?? new List<WeaponType>();
+                            enemyData.m_ItemIds = card.ItemIds ?? new List<int>();
+                            enemyData.m_AbilityOverrides = card.AbilityOverrides ?? new List<int>();
 
                             // Update m_EnemyDefinitions in SpawnManager
                             if (!spawnManager.m_EnemyDefinitions.Any(e => e.m_UID == enemyData.m_UID))
@@ -475,16 +492,16 @@ public class SerializableSpawnCard
     public WardrobeManager.WardrobeType WardrobeOverride;
 
     [XmlArray("Modifiers")]
-    public List<SerializableModifierData> Modifiers;
+    public List<SerializableModifierData> Modifiers = new List<SerializableModifierData>();
 
     [XmlArray("WeaponOverrides")]
-    public List<WeaponType> WeaponOverrides;
+    public List<WeaponType> WeaponOverrides = new List<WeaponType>();
 
     [XmlArray("ItemIds")]
-    public List<int> ItemIds;
+    public List<int> ItemIds = new List<int>();
 
     [XmlArray("AbilityOverrides")]
-    public List<int> AbilityOverrides;
+    public List<int> AbilityOverrides = new List<int>();
 }
 
 
@@ -501,7 +518,7 @@ public class SerializableSpawnCardData
 public class SerializableSpawnCardList
 {
     public GroupID groupId;
-    public List<SerializableSpawnCard> cards;
+    public List<SerializableSpawnCard> cards = new List<SerializableSpawnCard>();
 }
 
 //[System.Serializable]

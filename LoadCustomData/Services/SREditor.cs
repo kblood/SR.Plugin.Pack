@@ -7,6 +7,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using LoadCustomDataMod;
 using static System.Collections.Specialized.BitVector32;
 
 namespace SRMod.Services

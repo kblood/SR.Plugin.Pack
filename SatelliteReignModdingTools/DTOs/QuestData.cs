@@ -147,12 +147,25 @@ namespace SRMod.DTOs
         public List<int> m_UsedRandomVIPLocations;
         public List<SerializableQuestElement> m_QuestElements;
         public SerializableQuestElement m_BaseQuestElement;
+        public SerializableQSave m_QuestBits; // Quest state bits for enhanced save system
         
         public SerializableQuestManager()
         {
             m_UsedRandomDataTerminalLocations = new List<int>();
             m_UsedRandomVIPLocations = new List<int>();
             m_QuestElements = new List<SerializableQuestElement>();
+            m_QuestBits = new SerializableQSave();
+        }
+    }
+
+    [Serializable]
+    public class SerializableQSave
+    {
+        public Dictionary<string, object> m_QuestStateBits;
+        
+        public SerializableQSave()
+        {
+            m_QuestStateBits = new Dictionary<string, object>();
         }
     }
 

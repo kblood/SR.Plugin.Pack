@@ -30,23 +30,23 @@
     <m_FindBlueprintCost>1</m_FindBlueprintCost>
     <m_FindPrototypeCost>1</m_FindPrototypeCost>
     <m_Cost>300</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>true</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -90,16 +90,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.262</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -141,16 +141,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.167</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -182,7 +182,7 @@
     <m_PlayerStartsWithBlueprints>false</m_PlayerStartsWithBlueprints>
     <m_PlayerStartsWithPrototype>false</m_PlayerStartsWithPrototype>
     <m_PlayerCanResearchFromStart>false</m_PlayerCanResearchFromStart>
-    <m_ResearchStarted>false</m_ResearchStarted>
+    <m_ResearchStarted>true</m_ResearchStarted>
     <m_BlueprintCost>18000</m_BlueprintCost>
     <m_PrototypeCost>6000</m_PrototypeCost>
     <m_FindBlueprintCost>0</m_FindBlueprintCost>
@@ -195,17 +195,17 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.279</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
-    <m_ResearchProgress>0</m_ResearchProgress>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
+    <m_ResearchProgress>537.5834</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
-    <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
+    <m_InHouseResearchersResearching>4</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
-    <m_CurrentResearchCost>0</m_CurrentResearchCost>
+    <m_ResearchProgressionPerSecond>1.2375</m_ResearchProgressionPerSecond>
+    <m_CurrentResearchCost>8</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
   </SerializableItemData>
@@ -249,16 +249,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.245</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -287,29 +287,29 @@
     <m_PlayerStartsWithBlueprints>false</m_PlayerStartsWithBlueprints>
     <m_PlayerStartsWithPrototype>false</m_PlayerStartsWithPrototype>
     <m_PlayerCanResearchFromStart>false</m_PlayerCanResearchFromStart>
-    <m_ResearchStarted>false</m_ResearchStarted>
+    <m_ResearchStarted>true</m_ResearchStarted>
     <m_BlueprintCost>30000</m_BlueprintCost>
     <m_PrototypeCost>9000</m_PrototypeCost>
     <m_FindBlueprintCost>1</m_FindBlueprintCost>
     <m_FindPrototypeCost>1</m_FindPrototypeCost>
     <m_Cost>900</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.202</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
-    <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
-    <m_ResearchProgress>0</m_ResearchProgress>
+    <m_Count>3</m_Count>
+    <m_PlayerHasPrototype>true</m_PlayerHasPrototype>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
+    <m_ResearchProgress>1021.87982</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -358,16 +358,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.67</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -405,13 +405,13 @@
     <m_PlayerStartsWithBlueprints>false</m_PlayerStartsWithBlueprints>
     <m_PlayerStartsWithPrototype>false</m_PlayerStartsWithPrototype>
     <m_PlayerCanResearchFromStart>false</m_PlayerCanResearchFromStart>
-    <m_ResearchStarted>false</m_ResearchStarted>
+    <m_ResearchStarted>true</m_ResearchStarted>
     <m_BlueprintCost>6000</m_BlueprintCost>
     <m_PrototypeCost>2000</m_PrototypeCost>
     <m_FindBlueprintCost>0</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>200</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
@@ -419,15 +419,15 @@
     <m_Progression>0.049</m_Progression>
     <m_MinResearchersRequired>2</m_MinResearchersRequired>
     <m_Count>0</m_Count>
-    <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
-    <m_ResearchProgress>0</m_ResearchProgress>
+    <m_PlayerHasPrototype>true</m_PlayerHasPrototype>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
+    <m_ResearchProgress>920.748535</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -478,16 +478,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.361</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -537,23 +537,23 @@
     <m_FindBlueprintCost>0</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>700</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.64</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -597,23 +597,23 @@
     <m_FindBlueprintCost>600</m_FindBlueprintCost>
     <m_FindPrototypeCost>210.000015</m_FindPrototypeCost>
     <m_Cost>450.000031</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.224</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -670,16 +670,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.487</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -736,16 +736,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.275</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -789,13 +789,13 @@
     <m_PlayerStartsWithBlueprints>false</m_PlayerStartsWithBlueprints>
     <m_PlayerStartsWithPrototype>false</m_PlayerStartsWithPrototype>
     <m_PlayerCanResearchFromStart>false</m_PlayerCanResearchFromStart>
-    <m_ResearchStarted>false</m_ResearchStarted>
+    <m_ResearchStarted>true</m_ResearchStarted>
     <m_BlueprintCost>21000</m_BlueprintCost>
     <m_PrototypeCost>7000</m_PrototypeCost>
     <m_FindBlueprintCost>0</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>700</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
@@ -803,15 +803,15 @@
     <m_Progression>0.535</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
     <m_Count>0</m_Count>
-    <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
-    <m_ResearchProgress>0</m_ResearchProgress>
+    <m_PlayerHasPrototype>true</m_PlayerHasPrototype>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
+    <m_ResearchProgress>1311.79846</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -853,16 +853,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.673</m_Progression>
     <m_MinResearchersRequired>7</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -904,16 +904,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.537</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -956,15 +956,15 @@
     <m_Progression>0.558</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
     <m_Count>0</m_Count>
-    <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasPrototype>true</m_PlayerHasPrototype>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1006,16 +1006,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.371</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1057,16 +1057,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.189</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1108,16 +1108,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.275</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1146,13 +1146,13 @@
     <m_PlayerStartsWithBlueprints>false</m_PlayerStartsWithBlueprints>
     <m_PlayerStartsWithPrototype>false</m_PlayerStartsWithPrototype>
     <m_PlayerCanResearchFromStart>false</m_PlayerCanResearchFromStart>
-    <m_ResearchStarted>false</m_ResearchStarted>
+    <m_ResearchStarted>true</m_ResearchStarted>
     <m_BlueprintCost>40000</m_BlueprintCost>
     <m_PrototypeCost>12000</m_PrototypeCost>
     <m_FindBlueprintCost>0</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>1200</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
@@ -1160,15 +1160,15 @@
     <m_Progression>0.215</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
     <m_Count>0</m_Count>
-    <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
-    <m_ResearchProgress>0</m_ResearchProgress>
+    <m_PlayerHasPrototype>true</m_PlayerHasPrototype>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
+    <m_ResearchProgress>1031.76208</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1212,16 +1212,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.409</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1263,16 +1263,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.448</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1314,16 +1314,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.738</m_Progression>
     <m_MinResearchersRequired>7</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1358,7 +1358,7 @@
     <m_FindBlueprintCost>1</m_FindBlueprintCost>
     <m_FindPrototypeCost>1</m_FindPrototypeCost>
     <m_Cost>700</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
@@ -1366,15 +1366,15 @@
     <m_Progression>0.174</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
     <m_Count>0</m_Count>
-    <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasPrototype>true</m_PlayerHasPrototype>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1416,16 +1416,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.476</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1470,16 +1470,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.211</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1524,16 +1524,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.278</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1584,16 +1584,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.748</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1637,23 +1637,23 @@
     <m_FindBlueprintCost>180</m_FindBlueprintCost>
     <m_FindPrototypeCost>60.0000038</m_FindPrototypeCost>
     <m_Cost>330</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.173</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1704,16 +1704,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.551</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1733,7 +1733,7 @@
     <m_Modifiers>
       <SerializableModifierData>
         <m_Type>AbilityCooldownSpeedMultiplier</m_Type>
-        <m_Ammount>100</m_Ammount>
+        <m_Ammount>1.2</m_Ammount>
         <m_AmountModifier>NONE</m_AmountModifier>
         <m_TimeOut>0</m_TimeOut>
       </SerializableModifierData>
@@ -1758,16 +1758,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.408</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1812,16 +1812,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.578</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1859,23 +1859,23 @@
     <m_FindBlueprintCost>1</m_FindBlueprintCost>
     <m_FindPrototypeCost>1</m_FindPrototypeCost>
     <m_Cost>400</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.236</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1926,16 +1926,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.422</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -1980,16 +1980,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.632</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2027,16 +2027,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.741</m_Progression>
     <m_MinResearchersRequired>7</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2080,29 +2080,29 @@
     <m_PlayerStartsWithBlueprints>false</m_PlayerStartsWithBlueprints>
     <m_PlayerStartsWithPrototype>false</m_PlayerStartsWithPrototype>
     <m_PlayerCanResearchFromStart>false</m_PlayerCanResearchFromStart>
-    <m_ResearchStarted>false</m_ResearchStarted>
+    <m_ResearchStarted>true</m_ResearchStarted>
     <m_BlueprintCost>15000.001</m_BlueprintCost>
     <m_PrototypeCost>4500</m_PrototypeCost>
     <m_FindBlueprintCost>0</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>450.000031</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.231</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
-    <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
-    <m_ResearchProgress>0</m_ResearchProgress>
+    <m_Count>2</m_Count>
+    <m_PlayerHasPrototype>true</m_PlayerHasPrototype>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
+    <m_ResearchProgress>1044.131</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2159,16 +2159,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.5</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2210,16 +2210,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.418</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2264,16 +2264,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.252</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2317,23 +2317,23 @@
     <m_FindBlueprintCost>1</m_FindBlueprintCost>
     <m_FindPrototypeCost>1</m_FindPrototypeCost>
     <m_Cost>900</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.364</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2375,16 +2375,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.718</m_Progression>
     <m_MinResearchersRequired>7</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2429,16 +2429,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.314</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2489,16 +2489,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.631</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2549,16 +2549,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.173</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2609,16 +2609,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.432</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2663,16 +2663,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.395</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2717,16 +2717,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.377</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2771,16 +2771,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.769</m_Progression>
     <m_MinResearchersRequired>7</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2831,16 +2831,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.27</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2884,23 +2884,23 @@
     <m_FindBlueprintCost>0</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>300</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.065</m_Progression>
     <m_MinResearchersRequired>2</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -2951,16 +2951,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.432</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3005,16 +3005,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.381</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3059,16 +3059,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.374</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3113,16 +3113,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.742</m_Progression>
     <m_MinResearchersRequired>7</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3179,16 +3179,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.398</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3245,16 +3245,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.728</m_Progression>
     <m_MinResearchersRequired>7</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3303,16 +3303,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.725</m_Progression>
     <m_MinResearchersRequired>7</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3350,23 +3350,23 @@
     <m_FindBlueprintCost>1</m_FindBlueprintCost>
     <m_FindPrototypeCost>1</m_FindPrototypeCost>
     <m_Cost>500</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.17</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3377,7 +3377,7 @@
     <m_PrereqID>-1</m_PrereqID>
     <m_Slot>WeaponPistol</m_Slot>
     <m_GearSubCategory>Standard</m_GearSubCategory>
-    <m_UIIconName>B_Pistol_Default_Centred</m_UIIconName>
+    <m_UIIconName>B_Pistol_Revolver</m_UIIconName>
     <m_WeaponType>B_pistol</m_WeaponType>
     <m_ValidWeaponAugmentationWeaponMask>0</m_ValidWeaponAugmentationWeaponMask>
     <m_PrototypeProgressionValue>10</m_PrototypeProgressionValue>
@@ -3388,7 +3388,7 @@
     <m_AbilityMasks />
     <m_AvailableToPlayer>true</m_AvailableToPlayer>
     <m_AvailableFor_ALPHA_BETA_EARLYACCESS>true</m_AvailableFor_ALPHA_BETA_EARLYACCESS>
-    <m_PlayerStartsWithBlueprints>true</m_PlayerStartsWithBlueprints>
+    <m_PlayerStartsWithBlueprints>false</m_PlayerStartsWithBlueprints>
     <m_PlayerStartsWithPrototype>false</m_PlayerStartsWithPrototype>
     <m_PlayerCanResearchFromStart>false</m_PlayerCanResearchFromStart>
     <m_ResearchStarted>false</m_ResearchStarted>
@@ -3396,7 +3396,7 @@
     <m_PrototypeCost>3000</m_PrototypeCost>
     <m_FindBlueprintCost>270</m_FindBlueprintCost>
     <m_FindPrototypeCost>90</m_FindPrototypeCost>
-    <m_Cost>300</m_Cost>
+    <m_Cost>433</m_Cost>
     <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
@@ -3405,7 +3405,7 @@
     <m_Progression>0</m_Progression>
     <m_MinResearchersRequired>2</m_MinResearchersRequired>
     <m_Count>0</m_Count>
-    <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
+    <m_PlayerHasPrototype>true</m_PlayerHasPrototype>
     <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
@@ -3413,7 +3413,7 @@
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3444,23 +3444,23 @@
     <m_FindBlueprintCost>0</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>400</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.16</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3498,16 +3498,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.102</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3538,23 +3538,23 @@
     <m_FindBlueprintCost>0</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>400</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.16</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3585,23 +3585,23 @@
     <m_FindBlueprintCost>0</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>400</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.282</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3632,23 +3632,23 @@
     <m_FindBlueprintCost>400</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>0</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.148</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3679,23 +3679,23 @@
     <m_FindBlueprintCost>0</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>500</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.245</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3733,8 +3733,8 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.02</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
-    <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
+    <m_Count>1</m_Count>
+    <m_PlayerHasPrototype>true</m_PlayerHasPrototype>
     <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
@@ -3742,7 +3742,7 @@
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3780,16 +3780,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.228</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3827,16 +3827,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.5</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3874,16 +3874,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.5</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3914,23 +3914,23 @@
     <m_FindBlueprintCost>270</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>450</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.199</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -3968,16 +3968,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.381</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4016,7 +4016,7 @@
     <m_Progression>0.09</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
     <m_Count>0</m_Count>
-    <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
+    <m_PlayerHasPrototype>true</m_PlayerHasPrototype>
     <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
@@ -4024,7 +4024,7 @@
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4055,23 +4055,23 @@
     <m_FindBlueprintCost>0</m_FindBlueprintCost>
     <m_FindPrototypeCost>0</m_FindPrototypeCost>
     <m_Cost>800</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.357</m_Progression>
     <m_MinResearchersRequired>7</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4124,14 +4124,14 @@
     <m_MinResearchersRequired>8</m_MinResearchersRequired>
     <m_Count>0</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4184,14 +4184,14 @@
     <m_MinResearchersRequired>9</m_MinResearchersRequired>
     <m_Count>0</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4242,16 +4242,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.735</m_Progression>
     <m_MinResearchersRequired>9</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4295,16 +4295,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>1</m_Progression>
     <m_MinResearchersRequired>9</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4348,16 +4348,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>1</m_Progression>
     <m_MinResearchersRequired>9</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4408,16 +4408,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>1</m_Progression>
     <m_MinResearchersRequired>8</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>true</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4468,16 +4468,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>1</m_Progression>
     <m_MinResearchersRequired>9</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4528,16 +4528,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>1</m_Progression>
     <m_MinResearchersRequired>9</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4581,16 +4581,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.483</m_Progression>
     <m_MinResearchersRequired>6</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4628,16 +4628,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.5</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4675,16 +4675,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.5</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4722,16 +4722,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.5</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4769,16 +4769,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.5</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4816,16 +4816,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.5</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4876,16 +4876,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.04</m_Progression>
     <m_MinResearchersRequired>2</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
-    <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_Count>1</m_Count>
+    <m_PlayerHasPrototype>true</m_PlayerHasPrototype>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4929,23 +4929,23 @@
     <m_FindBlueprintCost>1</m_FindBlueprintCost>
     <m_FindPrototypeCost>1</m_FindPrototypeCost>
     <m_Cost>1</m_Cost>
-    <m_ItemHasBeenLocated>false</m_ItemHasBeenLocated>
+    <m_ItemHasBeenLocated>true</m_ItemHasBeenLocated>
     <m_BlueprintRandomReleaseStage>0</m_BlueprintRandomReleaseStage>
     <m_PrototypeRandomReleaseStage>0</m_PrototypeRandomReleaseStage>
     <m_ResearchCost>3000</m_ResearchCost>
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.167</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -4996,16 +4996,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.167</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5050,16 +5050,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.126</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5104,16 +5104,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.142</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>true</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5155,16 +5155,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.333</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5206,16 +5206,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.333</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5257,16 +5257,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.401</m_Progression>
     <m_MinResearchersRequired>5</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5311,16 +5311,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.722</m_Progression>
     <m_MinResearchersRequired>9</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5365,16 +5365,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.769</m_Progression>
     <m_MinResearchersRequired>9</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5416,16 +5416,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.83</m_Progression>
     <m_MinResearchersRequired>9</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5469,14 +5469,14 @@
     <m_MinResearchersRequired>9</m_MinResearchersRequired>
     <m_Count>0</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5521,16 +5521,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.163</m_Progression>
     <m_MinResearchersRequired>3</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5575,16 +5575,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.252</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5629,16 +5629,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.269</m_Progression>
     <m_MinResearchersRequired>4</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5676,16 +5676,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.5</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5727,16 +5727,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.5</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5776,14 +5776,14 @@
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
     <m_Count>0</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5828,16 +5828,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.5</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>
@@ -5882,16 +5882,16 @@
     <m_TotalResearchTime>0</m_TotalResearchTime>
     <m_Progression>0.5</m_Progression>
     <m_MinResearchersRequired>1</m_MinResearchersRequired>
-    <m_Count>0</m_Count>
+    <m_Count>1</m_Count>
     <m_PlayerHasPrototype>false</m_PlayerHasPrototype>
-    <m_PlayerHasBlueprints>false</m_PlayerHasBlueprints>
+    <m_PlayerHasBlueprints>true</m_PlayerHasBlueprints>
     <m_ResearchProgress>0</m_ResearchProgress>
     <m_ResearchTimeToDate>0</m_ResearchTimeToDate>
     <m_ResearchCostToDate>0</m_ResearchCostToDate>
     <m_PrototypeIsInTheWorld>false</m_PrototypeIsInTheWorld>
     <m_InHouseResearchersResearching>0</m_InHouseResearchersResearching>
     <m_ExternalResearchersResearching>0</m_ExternalResearchersResearching>
-    <m_ResearchProgressionPerSecond>0</m_ResearchProgressionPerSecond>
+    <m_ResearchProgressionPerSecond>1</m_ResearchProgressionPerSecond>
     <m_CurrentResearchCost>0</m_CurrentResearchCost>
     <m_Expanded>false</m_Expanded>
     <m_OverrideAmmo>0</m_OverrideAmmo>

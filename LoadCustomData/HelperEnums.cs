@@ -75,4 +75,90 @@ namespace LoadCustomDataMod
         Show_hijacked_info = 1415
     }
 
+    // Missing enums from game assemblies - added to resolve compilation errors
+    public enum ItemSlotTypes
+    {
+        Gear,
+        AugmentationHead,
+        AugmentationBody,
+        AugmentationArms,
+        AugmentationLegs,
+        WeaponPistol,
+        Weapon,
+        WeaponAugmentation,
+        Max
+    }
+
+    public enum ItemSubCategories
+    {
+        None,
+        Pistol,
+        AssaultRifle,
+        SniperRifle,
+        HeavyWeapon,
+        Grenade,
+        Augmentation,
+        Gear
+    }
+
+    public enum WeaponType
+    {
+        None,
+        Pistol,
+        AssaultRifle,
+        SniperRifle,
+        HeavyWeapon,
+        Grenade
+    }
+
+    public enum VIPType
+    {
+        None,
+        Corporate,
+        Civilian,
+        Military,
+        Syndicate
+    }
+
+    public enum ComparisonType
+    {
+        Equals,
+        GreaterThan,
+        LessThan,
+        GreaterThanOrEqual,
+        LessThanOrEqual
+    }
+
+    public enum DistrictFilterType
+    {
+        Any,
+        Specific,
+        Current,
+        Unlocked
+    }
+
+    public enum SecureFilterType
+    {
+        Any,
+        LowSecurity,
+        MediumSecurity,
+        HighSecurity
+    }
+
+    public enum EnemyCountKey
+    {
+        None,
+        Low,
+        Medium,
+        High,
+        Maximum
+    }
+
+    public enum ModifierType
+    {
+        None,
+        Add,
+        Multiply,
+        Replace
+    }
 }

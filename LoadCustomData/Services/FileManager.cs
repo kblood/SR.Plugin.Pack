@@ -175,6 +175,39 @@ namespace SRMod.Services
             return list.Translations;
         }
 
+        /*static public SerializableQuestManager LoadQuestXML(string fileName)
+        {
+            string fileWithPath = FilePathCheck(fileName);
+            SRInfoHelper.Log("Loading " + fileWithPath);
+            if (!File.Exists(fileWithPath))
+            {
+                SRInfoHelper.Log($"FileManager: Quest XML file not found at {fileWithPath}");
+                return null;
+            }
+
+            try
+            {
+                // Create an instance of System.Xml.Serialization.XmlSerializer
+                XmlSerializer serializer = new XmlSerializer(typeof(SerializableQuestManager));
+
+                // Create an instance of System.IO.TextReader 
+                // to load the serialized data from disk
+                using (TextReader textReader = new StreamReader(fileWithPath))
+                {
+                    // Deserialize the quest data
+                    var questManager = (SerializableQuestManager)serializer.Deserialize(textReader);
+                    SRInfoHelper.Log($"FileManager: Successfully loaded quest data with {questManager?.m_QuestElements?.Count ?? 0} quest elements");
+                    return questManager;
+                }
+            }
+            catch (Exception e)
+            {
+                SRInfoHelper.Log($"FileManager: Error loading quest XML {fileName}: {e.Message}");
+                SRInfoHelper.Log($"FileManager: Stack trace: {e.StackTrace}");
+                return null;
+            }
+        }*/
+
         static public T LoadFromXML<T>(string fileName, string sourcePath) where T : class
         {
             try

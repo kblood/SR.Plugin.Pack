@@ -76,6 +76,42 @@ namespace SatelliteReignModdingTools
             this.detailsTabControl = new System.Windows.Forms.TabControl();
             this.generalTabPage = new System.Windows.Forms.TabPage();
             this.combatTabPage = new System.Windows.Forms.TabPage();
+            this.researchTabPage = new System.Windows.Forms.TabPage();
+            this.economicTabPage = new System.Windows.Forms.TabPage();
+
+            // Combat Tab Controls
+            this.stealthVsCombatTextBox = new System.Windows.Forms.TextBox();
+            this.stealthVsCombatLabel = new System.Windows.Forms.Label();
+            this.weaponAugMaskTextBox = new System.Windows.Forms.TextBox();
+            this.weaponAugMaskLabel = new System.Windows.Forms.Label();
+            this.overrideAmmoTextBox = new System.Windows.Forms.TextBox();
+            this.overrideAmmoLabel = new System.Windows.Forms.Label();
+
+            // Research Tab Controls
+            this.prereqIdTextBox = new System.Windows.Forms.TextBox();
+            this.prereqIdLabel = new System.Windows.Forms.Label();
+            this.prototypeProgressTextBox = new System.Windows.Forms.TextBox();
+            this.prototypeProgressLabel = new System.Windows.Forms.Label();
+            this.blueprintProgressTextBox = new System.Windows.Forms.TextBox();
+            this.blueprintProgressLabel = new System.Windows.Forms.Label();
+            this.minResearchersTextBox = new System.Windows.Forms.TextBox();
+            this.minResearchersLabel = new System.Windows.Forms.Label();
+            this.availableToPlayerCheckBox = new System.Windows.Forms.CheckBox();
+            this.playerStartsBlueprintsCheckBox = new System.Windows.Forms.CheckBox();
+            this.playerStartsPrototypeCheckBox = new System.Windows.Forms.CheckBox();
+            this.playerCanResearchCheckBox = new System.Windows.Forms.CheckBox();
+
+            // Economic Tab Controls
+            this.itemCostTextBox = new System.Windows.Forms.TextBox();
+            this.itemCostLabel = new System.Windows.Forms.Label();
+            this.blueprintCostTextBox = new System.Windows.Forms.TextBox();
+            this.blueprintCostLabel = new System.Windows.Forms.Label();
+            this.prototypeCostTextBox = new System.Windows.Forms.TextBox();
+            this.prototypeCostLabel = new System.Windows.Forms.Label();
+            this.findBlueprintCostTextBox = new System.Windows.Forms.TextBox();
+            this.findBlueprintCostLabel = new System.Windows.Forms.Label();
+            this.findPrototypeCostTextBox = new System.Windows.Forms.TextBox();
+            this.findPrototypeCostLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ItemIconImageBox)).BeginInit();
             this.detailsTabControl.SuspendLayout();
@@ -348,6 +384,9 @@ namespace SatelliteReignModdingTools
             this.ItemIconImageBox.Size = new System.Drawing.Size(78, 68);
             this.ItemIconImageBox.TabIndex = 9;
             this.ItemIconImageBox.TabStop = false;
+            this.ItemIconImageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ItemIconImageBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ItemIconImageBox.Click += new System.EventHandler(this.ItemIconImageBox_Click);
             // 
             // contextMenuStrip1
             // 
@@ -520,6 +559,8 @@ namespace SatelliteReignModdingTools
             | System.Windows.Forms.AnchorStyles.Right)));
             this.detailsTabControl.Controls.Add(this.generalTabPage);
             this.detailsTabControl.Controls.Add(this.combatTabPage);
+            this.detailsTabControl.Controls.Add(this.researchTabPage);
+            this.detailsTabControl.Controls.Add(this.economicTabPage);
             this.detailsTabControl.Location = new System.Drawing.Point(323, 45);
             this.detailsTabControl.Name = "detailsTabControl";
             this.detailsTabControl.SelectedIndex = 0;
@@ -592,6 +633,209 @@ namespace SatelliteReignModdingTools
             this.combatTabPage.Size = new System.Drawing.Size(575, 394);
             this.combatTabPage.TabIndex = 1;
             this.combatTabPage.Text = "Combat";
+
+            // Combat tab controls
+            this.stealthVsCombatLabel.AutoSize = true;
+            this.stealthVsCombatLabel.ForeColor = System.Drawing.Color.Aquamarine;
+            this.stealthVsCombatLabel.Location = new System.Drawing.Point(10, 15);
+            this.stealthVsCombatLabel.Name = "stealthVsCombatLabel";
+            this.stealthVsCombatLabel.Size = new System.Drawing.Size(100, 13);
+            this.stealthVsCombatLabel.Text = "Stealth vs Combat:";
+            this.combatTabPage.Controls.Add(this.stealthVsCombatLabel);
+
+            this.stealthVsCombatTextBox.BackColor = System.Drawing.Color.SeaGreen;
+            this.stealthVsCombatTextBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.stealthVsCombatTextBox.Location = new System.Drawing.Point(150, 12);
+            this.stealthVsCombatTextBox.Name = "stealthVsCombatTextBox";
+            this.stealthVsCombatTextBox.Size = new System.Drawing.Size(100, 20);
+            this.combatTabPage.Controls.Add(this.stealthVsCombatTextBox);
+
+            this.weaponAugMaskLabel.AutoSize = true;
+            this.weaponAugMaskLabel.ForeColor = System.Drawing.Color.Aquamarine;
+            this.weaponAugMaskLabel.Location = new System.Drawing.Point(10, 45);
+            this.weaponAugMaskLabel.Name = "weaponAugMaskLabel";
+            this.weaponAugMaskLabel.Size = new System.Drawing.Size(120, 13);
+            this.weaponAugMaskLabel.Text = "Weapon Aug Mask:";
+            this.combatTabPage.Controls.Add(this.weaponAugMaskLabel);
+
+            this.weaponAugMaskTextBox.BackColor = System.Drawing.Color.SeaGreen;
+            this.weaponAugMaskTextBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.weaponAugMaskTextBox.Location = new System.Drawing.Point(150, 42);
+            this.weaponAugMaskTextBox.Name = "weaponAugMaskTextBox";
+            this.weaponAugMaskTextBox.Size = new System.Drawing.Size(100, 20);
+            this.combatTabPage.Controls.Add(this.weaponAugMaskTextBox);
+
+            this.overrideAmmoLabel.AutoSize = true;
+            this.overrideAmmoLabel.ForeColor = System.Drawing.Color.Aquamarine;
+            this.overrideAmmoLabel.Location = new System.Drawing.Point(10, 75);
+            this.overrideAmmoLabel.Name = "overrideAmmoLabel";
+            this.overrideAmmoLabel.Size = new System.Drawing.Size(85, 13);
+            this.overrideAmmoLabel.Text = "Override Ammo:";
+            this.combatTabPage.Controls.Add(this.overrideAmmoLabel);
+
+            this.overrideAmmoTextBox.BackColor = System.Drawing.Color.SeaGreen;
+            this.overrideAmmoTextBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.overrideAmmoTextBox.Location = new System.Drawing.Point(150, 72);
+            this.overrideAmmoTextBox.Name = "overrideAmmoTextBox";
+            this.overrideAmmoTextBox.Size = new System.Drawing.Size(100, 20);
+            this.combatTabPage.Controls.Add(this.overrideAmmoTextBox);
+            //
+            // researchTabPage
+            //
+            this.researchTabPage.BackColor = System.Drawing.Color.Black;
+            this.researchTabPage.ForeColor = System.Drawing.Color.Aquamarine;
+            this.researchTabPage.Location = new System.Drawing.Point(4, 22);
+            this.researchTabPage.Name = "researchTabPage";
+            this.researchTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.researchTabPage.Size = new System.Drawing.Size(575, 394);
+            this.researchTabPage.TabIndex = 2;
+            this.researchTabPage.Text = "Research";
+
+            // Research tab controls
+            this.prereqIdLabel.AutoSize = true;
+            this.prereqIdLabel.ForeColor = System.Drawing.Color.Aquamarine;
+            this.prereqIdLabel.Location = new System.Drawing.Point(10, 15);
+            this.prereqIdLabel.Text = "Prerequisite ID:";
+            this.researchTabPage.Controls.Add(this.prereqIdLabel);
+
+            this.prereqIdTextBox.BackColor = System.Drawing.Color.SeaGreen;
+            this.prereqIdTextBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.prereqIdTextBox.Location = new System.Drawing.Point(150, 12);
+            this.prereqIdTextBox.Size = new System.Drawing.Size(100, 20);
+            this.researchTabPage.Controls.Add(this.prereqIdTextBox);
+
+            this.prototypeProgressLabel.AutoSize = true;
+            this.prototypeProgressLabel.ForeColor = System.Drawing.Color.Aquamarine;
+            this.prototypeProgressLabel.Location = new System.Drawing.Point(10, 45);
+            this.prototypeProgressLabel.Text = "Prototype Progress:";
+            this.researchTabPage.Controls.Add(this.prototypeProgressLabel);
+
+            this.prototypeProgressTextBox.BackColor = System.Drawing.Color.SeaGreen;
+            this.prototypeProgressTextBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.prototypeProgressTextBox.Location = new System.Drawing.Point(150, 42);
+            this.prototypeProgressTextBox.Size = new System.Drawing.Size(100, 20);
+            this.researchTabPage.Controls.Add(this.prototypeProgressTextBox);
+
+            this.blueprintProgressLabel.AutoSize = true;
+            this.blueprintProgressLabel.ForeColor = System.Drawing.Color.Aquamarine;
+            this.blueprintProgressLabel.Location = new System.Drawing.Point(10, 75);
+            this.blueprintProgressLabel.Text = "Blueprint Progress:";
+            this.researchTabPage.Controls.Add(this.blueprintProgressLabel);
+
+            this.blueprintProgressTextBox.BackColor = System.Drawing.Color.SeaGreen;
+            this.blueprintProgressTextBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.blueprintProgressTextBox.Location = new System.Drawing.Point(150, 72);
+            this.blueprintProgressTextBox.Size = new System.Drawing.Size(100, 20);
+            this.researchTabPage.Controls.Add(this.blueprintProgressTextBox);
+
+            this.minResearchersLabel.AutoSize = true;
+            this.minResearchersLabel.ForeColor = System.Drawing.Color.Aquamarine;
+            this.minResearchersLabel.Location = new System.Drawing.Point(10, 105);
+            this.minResearchersLabel.Text = "Min Researchers:";
+            this.researchTabPage.Controls.Add(this.minResearchersLabel);
+
+            this.minResearchersTextBox.BackColor = System.Drawing.Color.SeaGreen;
+            this.minResearchersTextBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.minResearchersTextBox.Location = new System.Drawing.Point(150, 102);
+            this.minResearchersTextBox.Size = new System.Drawing.Size(100, 20);
+            this.researchTabPage.Controls.Add(this.minResearchersTextBox);
+
+            // Research checkboxes
+            this.availableToPlayerCheckBox.AutoSize = true;
+            this.availableToPlayerCheckBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.availableToPlayerCheckBox.Location = new System.Drawing.Point(10, 140);
+            this.availableToPlayerCheckBox.Text = "Available to Player";
+            this.researchTabPage.Controls.Add(this.availableToPlayerCheckBox);
+
+            this.playerStartsBlueprintsCheckBox.AutoSize = true;
+            this.playerStartsBlueprintsCheckBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.playerStartsBlueprintsCheckBox.Location = new System.Drawing.Point(10, 170);
+            this.playerStartsBlueprintsCheckBox.Text = "Player Starts with Blueprints";
+            this.researchTabPage.Controls.Add(this.playerStartsBlueprintsCheckBox);
+
+            this.playerStartsPrototypeCheckBox.AutoSize = true;
+            this.playerStartsPrototypeCheckBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.playerStartsPrototypeCheckBox.Location = new System.Drawing.Point(10, 200);
+            this.playerStartsPrototypeCheckBox.Text = "Player Starts with Prototype";
+            this.researchTabPage.Controls.Add(this.playerStartsPrototypeCheckBox);
+
+            this.playerCanResearchCheckBox.AutoSize = true;
+            this.playerCanResearchCheckBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.playerCanResearchCheckBox.Location = new System.Drawing.Point(10, 230);
+            this.playerCanResearchCheckBox.Text = "Player Can Research from Start";
+            this.researchTabPage.Controls.Add(this.playerCanResearchCheckBox);
+            //
+            // economicTabPage
+            //
+            this.economicTabPage.BackColor = System.Drawing.Color.Black;
+            this.economicTabPage.ForeColor = System.Drawing.Color.Aquamarine;
+            this.economicTabPage.Location = new System.Drawing.Point(4, 22);
+            this.economicTabPage.Name = "economicTabPage";
+            this.economicTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.economicTabPage.Size = new System.Drawing.Size(575, 394);
+            this.economicTabPage.TabIndex = 3;
+            this.economicTabPage.Text = "Economic";
+
+            // Economic tab controls
+            this.itemCostLabel.AutoSize = true;
+            this.itemCostLabel.ForeColor = System.Drawing.Color.Aquamarine;
+            this.itemCostLabel.Location = new System.Drawing.Point(10, 15);
+            this.itemCostLabel.Text = "Item Cost:";
+            this.economicTabPage.Controls.Add(this.itemCostLabel);
+
+            this.itemCostTextBox.BackColor = System.Drawing.Color.SeaGreen;
+            this.itemCostTextBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.itemCostTextBox.Location = new System.Drawing.Point(150, 12);
+            this.itemCostTextBox.Size = new System.Drawing.Size(100, 20);
+            this.economicTabPage.Controls.Add(this.itemCostTextBox);
+
+            this.blueprintCostLabel.AutoSize = true;
+            this.blueprintCostLabel.ForeColor = System.Drawing.Color.Aquamarine;
+            this.blueprintCostLabel.Location = new System.Drawing.Point(10, 45);
+            this.blueprintCostLabel.Text = "Blueprint Cost:";
+            this.economicTabPage.Controls.Add(this.blueprintCostLabel);
+
+            this.blueprintCostTextBox.BackColor = System.Drawing.Color.SeaGreen;
+            this.blueprintCostTextBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.blueprintCostTextBox.Location = new System.Drawing.Point(150, 42);
+            this.blueprintCostTextBox.Size = new System.Drawing.Size(100, 20);
+            this.economicTabPage.Controls.Add(this.blueprintCostTextBox);
+
+            this.prototypeCostLabel.AutoSize = true;
+            this.prototypeCostLabel.ForeColor = System.Drawing.Color.Aquamarine;
+            this.prototypeCostLabel.Location = new System.Drawing.Point(10, 75);
+            this.prototypeCostLabel.Text = "Prototype Cost:";
+            this.economicTabPage.Controls.Add(this.prototypeCostLabel);
+
+            this.prototypeCostTextBox.BackColor = System.Drawing.Color.SeaGreen;
+            this.prototypeCostTextBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.prototypeCostTextBox.Location = new System.Drawing.Point(150, 72);
+            this.prototypeCostTextBox.Size = new System.Drawing.Size(100, 20);
+            this.economicTabPage.Controls.Add(this.prototypeCostTextBox);
+
+            this.findBlueprintCostLabel.AutoSize = true;
+            this.findBlueprintCostLabel.ForeColor = System.Drawing.Color.Aquamarine;
+            this.findBlueprintCostLabel.Location = new System.Drawing.Point(10, 105);
+            this.findBlueprintCostLabel.Text = "Find Blueprint Cost:";
+            this.economicTabPage.Controls.Add(this.findBlueprintCostLabel);
+
+            this.findBlueprintCostTextBox.BackColor = System.Drawing.Color.SeaGreen;
+            this.findBlueprintCostTextBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.findBlueprintCostTextBox.Location = new System.Drawing.Point(150, 102);
+            this.findBlueprintCostTextBox.Size = new System.Drawing.Size(100, 20);
+            this.economicTabPage.Controls.Add(this.findBlueprintCostTextBox);
+
+            this.findPrototypeCostLabel.AutoSize = true;
+            this.findPrototypeCostLabel.ForeColor = System.Drawing.Color.Aquamarine;
+            this.findPrototypeCostLabel.Location = new System.Drawing.Point(10, 135);
+            this.findPrototypeCostLabel.Text = "Find Prototype Cost:";
+            this.economicTabPage.Controls.Add(this.findPrototypeCostLabel);
+
+            this.findPrototypeCostTextBox.BackColor = System.Drawing.Color.SeaGreen;
+            this.findPrototypeCostTextBox.ForeColor = System.Drawing.Color.Aquamarine;
+            this.findPrototypeCostTextBox.Location = new System.Drawing.Point(150, 132);
+            this.findPrototypeCostTextBox.Size = new System.Drawing.Size(100, 20);
+            this.economicTabPage.Controls.Add(this.findPrototypeCostTextBox);
             //
             // ItemBrowser
             //
@@ -665,6 +909,42 @@ namespace SatelliteReignModdingTools
         private System.Windows.Forms.TabControl detailsTabControl;
         private System.Windows.Forms.TabPage generalTabPage;
         private System.Windows.Forms.TabPage combatTabPage;
+        private System.Windows.Forms.TabPage researchTabPage;
+        private System.Windows.Forms.TabPage economicTabPage;
+
+        // Combat Tab Controls
+        private System.Windows.Forms.TextBox stealthVsCombatTextBox;
+        private System.Windows.Forms.Label stealthVsCombatLabel;
+        private System.Windows.Forms.TextBox weaponAugMaskTextBox;
+        private System.Windows.Forms.Label weaponAugMaskLabel;
+        private System.Windows.Forms.TextBox overrideAmmoTextBox;
+        private System.Windows.Forms.Label overrideAmmoLabel;
+
+        // Research Tab Controls
+        private System.Windows.Forms.TextBox prereqIdTextBox;
+        private System.Windows.Forms.Label prereqIdLabel;
+        private System.Windows.Forms.TextBox prototypeProgressTextBox;
+        private System.Windows.Forms.Label prototypeProgressLabel;
+        private System.Windows.Forms.TextBox blueprintProgressTextBox;
+        private System.Windows.Forms.Label blueprintProgressLabel;
+        private System.Windows.Forms.TextBox minResearchersTextBox;
+        private System.Windows.Forms.Label minResearchersLabel;
+        private System.Windows.Forms.CheckBox availableToPlayerCheckBox;
+        private System.Windows.Forms.CheckBox playerStartsBlueprintsCheckBox;
+        private System.Windows.Forms.CheckBox playerStartsPrototypeCheckBox;
+        private System.Windows.Forms.CheckBox playerCanResearchCheckBox;
+
+        // Economic Tab Controls
+        private System.Windows.Forms.TextBox itemCostTextBox;
+        private System.Windows.Forms.Label itemCostLabel;
+        private System.Windows.Forms.TextBox blueprintCostTextBox;
+        private System.Windows.Forms.Label blueprintCostLabel;
+        private System.Windows.Forms.TextBox prototypeCostTextBox;
+        private System.Windows.Forms.Label prototypeCostLabel;
+        private System.Windows.Forms.TextBox findBlueprintCostTextBox;
+        private System.Windows.Forms.Label findBlueprintCostLabel;
+        private System.Windows.Forms.TextBox findPrototypeCostTextBox;
+        private System.Windows.Forms.Label findPrototypeCostLabel;
     }
 }
 

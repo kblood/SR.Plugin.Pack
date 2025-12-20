@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
-using System.Linq;
 using System.Collections;
-using UnityEngine.Events;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using UnityEngine;
+using UnityEngine.Events;
 using Object = System.Object;
 
 namespace SyndicateMod.Services
@@ -223,7 +219,7 @@ namespace SyndicateMod.Services
             //        delegate (PropertyInfo propertyInfo1, PropertyInfo propertyInfo2)
             //        { return propertyInfo1.Name.CompareTo(propertyInfo2.Name); });
 
-            FileManager.SaveList(output, Manager.GetPluginManager().PluginPath + $@"\TransformInfo_{transform.name}.txt");
+            SRMod.Services.FileManager.SaveList(output, SRMod.Services.FileManager.ExecPath + $@"\TransformInfo_{transform.name}.txt");
 
             return propertyNamesAndTypes;
         }
@@ -242,7 +238,7 @@ namespace SyndicateMod.Services
 
         public static Dictionary<string, string> GetNamesAndValuesAsString(Type type, System.Object obj)
         {
-            SyndicateMod.ShowMessage("Test message");
+            SRMod.Services.SRInfoHelper.Log("Test message");
 
             // get all public static properties of MyClass type
             PropertyInfo[] propertyInfos;
@@ -252,23 +248,23 @@ namespace SyndicateMod.Services
             Dictionary<string, string> propertyValues = new Dictionary<string, string>();
             //List<object> propertyValues = new List<object>();
 
-            SyndicateMod.ShowMessage("Test message 2 " + type.Name);
+            SRMod.Services.SRInfoHelper.Log("Test message 2 " + type.Name);
 
-            SyndicateMod.ShowMessage("Test message 2.5 " + type.Name + " object" + (obj == null ? "is null" : "is not null"));
-            SyndicateMod.ShowMessage("Test message 2.5 " + type.Name + " object" + (obj == null ? "is null" : "is not null") + " properties: " + propertyInfos.Count());
+            SRMod.Services.SRInfoHelper.Log("Test message 2.5 " + type.Name + " object" + (obj == null ? "is null" : "is not null"));
+            SRMod.Services.SRInfoHelper.Log("Test message 2.5 " + type.Name + " object" + (obj == null ? "is null" : "is not null") + " properties: " + propertyInfos.Count());
 
             foreach (var propertyInfo in propertyInfos)
             {
-                SyndicateMod.ShowMessage("Test message 3. Property: ");
+                SRMod.Services.SRInfoHelper.Log("Test message 3. Property: ");
                 //SyndicateMod.Get().setEntityInfo("Show Message", "Test message 3. Property: ");
 
                 //if (propertyInfo.GetMethod.GetParameters() != null && propertyInfo.GetMethod.GetParameters().Length > 0)
                 //    continue;
                 if (propertyInfo.GetIndexParameters().Any())
                 {
-                    SyndicateMod.ShowMessage("Has parameters? ");
+                    SRMod.Services.SRInfoHelper.Log("Has parameters? ");
                     
-                    SyndicateMod.ShowMessage("Has parameters : " + propertyInfo.GetIndexParameters().Count());
+                    SRMod.Services.SRInfoHelper.Log("Has parameters : " + propertyInfo.GetIndexParameters().Count());
 
                     continue;
                 }
@@ -276,21 +272,21 @@ namespace SyndicateMod.Services
                 Type currentType = propertyInfo.PropertyType;
                 if (propertyInfo.PropertyType.IsGenericType && propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
-                    SyndicateMod.ShowMessage("Is Nullabe?");
+                    SRMod.Services.SRInfoHelper.Log("Is Nullabe?");
 
                     currentType = Nullable.GetUnderlyingType(propertyInfo.PropertyType);
 
-                    SyndicateMod.ShowMessage("Underlying type is " + currentType.ToString());
+                    SRMod.Services.SRInfoHelper.Log("Underlying type is " + currentType.ToString());
 
                 }
 
                 if (!currentType.Namespace.StartsWith("System"))
                 {
-                    SyndicateMod.ShowMessage("Custom type? " + currentType.ToString());
+                    SRMod.Services.SRInfoHelper.Log("Custom type? " + currentType.ToString());
 
                     if (currentType.IsEnum)
                     {
-                        SyndicateMod.ShowMessage("Enum type");
+                        SRMod.Services.SRInfoHelper.Log("Enum type");
 
                         if (propertyInfo.GetValue(obj, null) == null)
                             propertyValues.Add(propertyInfo.Name, "Null");
@@ -312,7 +308,7 @@ namespace SyndicateMod.Services
                     }
                     else
                     {
-                        SyndicateMod.ShowMessage("Getting subtypes");
+                        SRMod.Services.SRInfoHelper.Log("Getting subtypes");
 
                         Dictionary<string, string> subValues = GetNamesAndValuesAsString(propertyInfo.PropertyType, propertyInfo.GetValue(obj, null));
 
@@ -333,7 +329,7 @@ namespace SyndicateMod.Services
                     {
                         if(propertyInfo.PropertyType.GetInterface("IEnumerable`1") != null) // "IEnumerable`1"
                         {
-                            FileManager.SaveText("Enumerating list " + propertyInfo.Name, "EnumeratingUpdate");
+                            SRMod.Services.FileManager.SaveText("Enumerating list " + propertyInfo.Name, "EnumeratingUpdate");
                             var collection = (IEnumerable)propertyInfo.GetValue(obj, null);
 
                             Dictionary<string, string> subValues = new Dictionary<string, string>();
@@ -353,7 +349,7 @@ namespace SyndicateMod.Services
                         }
                         else
                         {
-                            SyndicateMod.ShowMessage("Adding value to value list for " + propertyInfo.Name);
+                            SRMod.Services.SRInfoHelper.Log("Adding value to value list for " + propertyInfo.Name);
 
                             var value = propertyInfo.GetValue(obj, null);
                             if (value == null || (propertyInfo.PropertyType == typeof(DateTime) && value.ToString() == DateTime.MinValue.ToString()))

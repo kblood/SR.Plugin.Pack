@@ -13,6 +13,23 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <!-- Embed external DLLs for single-file distribution -->
+    <EmbedAllSources>true</EmbedAllSources>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,9 +53,11 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\Assembly-CSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>..\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,12 +72,15 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>..\UnityEngine.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>..\UnityEngine.Networking.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\UnityEngine.UI.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +111,9 @@
     <Compile Include="ItemBrowser.Designer.cs">
       <DependentUpon>ItemBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="IconPickerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +136,7 @@
     <Compile Include="Services\IGameDataManager.cs" />
     <Compile Include="Services\ImageHelper.cs" />
     <Compile Include="Services\ItemDataManager.cs" />
+    <Compile Include="Services\ItemIdManager.cs" />
     <Compile Include="Services\ObjectiveEventHandler.cs" />
     <Compile Include="Services\ReflectionExtensions.cs" />
     <Compile Include="Services\SkillDataManager.cs" />
@@ -184,6 +210,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

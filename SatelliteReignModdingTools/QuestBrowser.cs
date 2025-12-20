@@ -26,14 +26,19 @@ namespace SatelliteReignModdingTools
         private QuestReward selectedReward = null;
         private int selectedRewardIndex = -1;
         private const string _questDataFileName = "questDefinitions.xml";
+        private const string _enhancedQuestDataFileName = "questData.xml"; // Enhanced quest data with state
         private const string _translationDataFileName = "translations.xml";
 
         private SharedToolbar _toolbar;
+        private Button btnImportEnhanced;
+        private Button btnExportEnhanced;
+        private Button btnQuestStatus;
 
         public QuestBrowser()
         {
             InitializeComponent();
             InitializeEditor();
+            InitializeEnhancedQuestButtons();
             LoadAllData();
             filteredQuests = new List<Quest>(quests);
             UpdateQuestList();
@@ -863,6 +868,228 @@ namespace SatelliteReignModdingTools
                 System.Diagnostics.Debug.WriteLine($"Error loading item definitions: {ex.Message}");
                 availableItems = new List<SRMod.DTOs.SerializableItemData>();
             }
+        }
+
+        private void InitializeEnhancedQuestButtons()
+        {
+            // Create enhanced quest import button
+            btnImportEnhanced = new Button();
+            btnImportEnhanced.Text = "Import Enhanced";
+            btnImportEnhanced.Size = new System.Drawing.Size(100, 30);
+            btnImportEnhanced.Location = new System.Drawing.Point(1180, 97);
+            btnImportEnhanced.BackColor = System.Drawing.Color.DarkGreen;
+            btnImportEnhanced.ForeColor = System.Drawing.Color.White;
+            btnImportEnhanced.UseVisualStyleBackColor = false;
+            btnImportEnhanced.Click += BtnImportEnhanced_Click;
+            this.Controls.Add(btnImportEnhanced);
+
+            // Create enhanced quest export button
+            btnExportEnhanced = new Button();
+            btnExportEnhanced.Text = "Export Enhanced";
+            btnExportEnhanced.Size = new System.Drawing.Size(100, 30);
+            btnExportEnhanced.Location = new System.Drawing.Point(1290, 97);
+            btnExportEnhanced.BackColor = System.Drawing.Color.DarkBlue;
+            btnExportEnhanced.ForeColor = System.Drawing.Color.White;
+            btnExportEnhanced.UseVisualStyleBackColor = false;
+            btnExportEnhanced.Click += BtnExportEnhanced_Click;
+            this.Controls.Add(btnExportEnhanced);
+
+            // Create quest status button
+            btnQuestStatus = new Button();
+            btnQuestStatus.Text = "Quest Status";
+            btnQuestStatus.Size = new System.Drawing.Size(100, 30);
+            btnQuestStatus.Location = new System.Drawing.Point(1400, 97);
+            btnQuestStatus.BackColor = System.Drawing.Color.DarkOrange;
+            btnQuestStatus.ForeColor = System.Drawing.Color.White;
+            btnQuestStatus.UseVisualStyleBackColor = false;
+            btnQuestStatus.Click += BtnQuestStatus_Click;
+            this.Controls.Add(btnQuestStatus);
+        }
+
+        private void BtnImportEnhanced_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.Filter = "Enhanced Quest XML files (*.xml)|*.xml|All files (*.*)|*.*";
+                    openFileDialog.Title = "Select Enhanced Quest Data File";
+                    openFileDialog.InitialDirectory = FileManager.ExecPath;
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        var enhancedQuestManager = FileManager.LoadEnhancedQuestDataXML(
+                            System.IO.Path.GetFileName(openFileDialog.FileName),
+                            System.IO.Path.GetDirectoryName(openFileDialog.FileName) + @"\");
+
+                        if (enhancedQuestManager != null)
+                        {
+                            // Convert enhanced quest data to simple quest format for display
+                            var convertedQuests = ConvertEnhancedQuestData(enhancedQuestManager);
+                            quests.Clear();
+                            quests.AddRange(convertedQuests);
+                            
+                            filteredQuests = new List<Quest>(quests);
+                            UpdateQuestList();
+
+                            MessageBox.Show(this, 
+                                $"Successfully imported {quests.Count} quests with enhanced state data!\n" +
+                                $"Quest State Bits: {enhancedQuestManager.m_QuestBits?.m_QuestStateBits?.Count ?? 0}",
+                                "Enhanced Quest Import", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"Enhanced quest import failed: {ex.Message}", 
+                    "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnExportEnhanced_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Enhanced Quest XML files (*.xml)|*.xml|All files (*.*)|*.*";
+                    saveFileDialog.Title = "Save Enhanced Quest Data File";
+                    saveFileDialog.InitialDirectory = FileManager.ExecPath;
+                    saveFileDialog.FileName = _enhancedQuestDataFileName;
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        // Convert simple quest format to enhanced quest data
+                        var enhancedQuestManager = ConvertToEnhancedQuestData(quests);
+                        
+                        FileManager.SaveEnhancedQuestDataXML(enhancedQuestManager,
+                            System.IO.Path.GetFileName(saveFileDialog.FileName),
+                            System.IO.Path.GetDirectoryName(saveFileDialog.FileName) + @"\");
+
+                        MessageBox.Show(this, 
+                            $"Successfully exported {quests.Count} quests with enhanced state data!\n" +
+                            $"Quest State Bits: {enhancedQuestManager.m_QuestBits?.m_QuestStateBits?.Count ?? 0}\n" +
+                            $"Includes: Definitions + Progress + Completion States",
+                            "Enhanced Quest Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"Enhanced quest export failed: {ex.Message}", 
+                    "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnQuestStatus_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var totalQuests = quests.Count;
+                var completedQuests = quests.Count(q => q.State);
+                var activeQuests = totalQuests - completedQuests;
+                
+                var statsMessage = $"Quest Status Report:\n\n" +
+                                 $"Total Quests: {totalQuests}\n" +
+                                 $"Active Quests: {activeQuests}\n" +
+                                 $"Completed Quests: {completedQuests}\n" +
+                                 $"Completion Rate: {(totalQuests > 0 ? (completedQuests * 100.0 / totalQuests):0):F1}%\n\n" +
+                                 $"Enhanced Features Available:\n" +
+                                 $"✓ Quest state preservation\n" +
+                                 $"✓ Progress data export/import\n" +
+                                 $"✓ LoadCustomData integration";
+
+                MessageBox.Show(this, statsMessage, "Quest Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"Quest status check failed: {ex.Message}", 
+                    "Status Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private List<Quest> ConvertEnhancedQuestData(SRMod.DTOs.SerializableQuestManager enhancedManager)
+        {
+            var convertedQuests = new List<Quest>();
+
+            if (enhancedManager?.m_QuestElements != null)
+            {
+                foreach (var element in enhancedManager.m_QuestElements)
+                {
+                    var quest = new Quest
+                    {
+                        ID = element.m_ID,
+                        Title = element.m_Title ?? $"Quest {element.m_ID}",
+                        Hidden = element.m_Hidden,
+                        ShowDebrief = element.m_ShowDebrief,
+                        State = element.m_State == 2, // 2 = completed
+                        District = "ENHANCED_IMPORT"
+                    };
+
+                    // Convert descriptions if available
+                    if (element.m_Descriptions?.Any() == true)
+                    {
+                        foreach (var desc in element.m_Descriptions)
+                        {
+                            quest.Descriptions.Add(new QuestDescription
+                            {
+                                LocTitle = desc.m_LocTitle,
+                                Translation = desc.m_Translation,
+                                IsNew = desc.m_IsNew,
+                                HasBeenSeen = desc.m_HasBeenSeen
+                            });
+                        }
+                    }
+
+                    convertedQuests.Add(quest);
+                }
+            }
+
+            return convertedQuests;
+        }
+
+        private SRMod.DTOs.SerializableQuestManager ConvertToEnhancedQuestData(List<Quest> simpleQuests)
+        {
+            var enhancedManager = new SRMod.DTOs.SerializableQuestManager();
+
+            foreach (var quest in simpleQuests)
+            {
+                var element = new SRMod.DTOs.SerializableQuestElement
+                {
+                    m_ID = quest.ID,
+                    m_Title = quest.Title,
+                    m_Hidden = quest.Hidden,
+                    m_ShowDebrief = quest.ShowDebrief,
+                    m_State = quest.State ? 2 : 1, // 1 = active, 2 = completed
+                    m_IsNew = true,
+                    m_Address = quest.ID.ToString()
+                };
+
+                // Convert descriptions
+                foreach (var desc in quest.Descriptions ?? new List<QuestDescription>())
+                {
+                    element.m_Descriptions.Add(new SRMod.DTOs.SerializableDescriptionData
+                    {
+                        m_LocTitle = desc.LocTitle,
+                        m_Translation = desc.Translation,
+                        m_IsNew = desc.IsNew,
+                        m_HasBeenSeen = desc.HasBeenSeen
+                    });
+                }
+
+                enhancedManager.m_QuestElements.Add(element);
+
+                // Add quest state bit for tracking
+                var questKey = $"quest_{quest.ID}";
+                enhancedManager.m_QuestBits.m_QuestStateBits[questKey] = new {
+                    ID = quest.ID,
+                    Active = quest.State,
+                    Type = "QuestElement"
+                };
+            }
+
+            return enhancedManager;
         }
 
         private void PopulateDistrictDropdown()

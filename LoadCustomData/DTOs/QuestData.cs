@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using LoadCustomDataMod;
 
 namespace SRMod.DTOs
 {
@@ -164,13 +165,49 @@ namespace SRMod.DTOs
         public List<SerializableQuestElement> m_QuestElements;
         public SerializableQuestElement m_BaseQuestElement;
         
+        // CRITICAL: Quest state/progress data for proper save game integration
+        public List<SerializableQSave> m_QuestBits;
+        
         public SerializableQuestManager()
         {
             m_UsedRandomDataTerminalLocations = new List<int>();
             m_UsedRandomVIPLocations = new List<int>();
             m_QuestElements = new List<SerializableQuestElement>();
+            m_QuestBits = new List<SerializableQSave>();
         }
     }
+
+    /// <summary>
+    /// Serializable version of QBase.QSave for quest state persistence
+    /// This is CRITICAL for proper quest functionality
+    /// </summary>
+    [Serializable]
+    public class SerializableQSave
+    {
+        public int m_ID;
+        public List<int> m_Address;
+        public bool m_Active;
+        public string m_QuestType; // Type of quest component (QuestElement, QGiveItem, etc.)
+        
+        // Extended data for different quest component types (simplified for XML serialization)
+        public List<SerializableKeyValuePair> m_ExtendedData;
+        
+        public SerializableQSave()
+        {
+            m_Address = new List<int>();
+            m_ExtendedData = new List<SerializableKeyValuePair>();
+        }
+        
+        public SerializableQSave(int id, List<int> address, bool active, string questType)
+        {
+            m_ID = id;
+            m_Address = address != null ? new List<int>(address) : new List<int>();
+            m_Active = active;
+            m_QuestType = questType;
+            m_ExtendedData = new List<SerializableKeyValuePair>();
+        }
+    }
+
 
     // Specialized action DTOs for common quest actions
     [Serializable]
@@ -297,29 +334,5 @@ namespace SRMod.DTOs
 
     // Note: QuestState enum is defined in the game assembly
     // Values: inactive, active, complete
-
-    public enum DistrictFilterType
-    {
-        Any,
-        Specific,
-        Current,
-        Unlocked
-    }
-
-    public enum SecureFilterType
-    {
-        Any,
-        LowSecurity,
-        MediumSecurity,
-        HighSecurity
-    }
-
-    public enum ComparisonType
-    {
-        Equals,
-        GreaterThan,
-        LessThan,
-        GreaterThanOrEqual,
-        LessThanOrEqual
-    }
+    // All other enums are now defined in HelperEnums.cs
 }

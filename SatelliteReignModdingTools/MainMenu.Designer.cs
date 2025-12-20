@@ -100,7 +100,7 @@ namespace SatelliteReignModdingTools
             //
             this.btnEconomyBrowser.BackColor = System.Drawing.Color.SeaGreen;
             this.btnEconomyBrowser.ForeColor = System.Drawing.Color.Aquamarine;
-            this.btnEconomyBrowser.Location = new System.Drawing.Point(100, 350);
+            this.btnEconomyBrowser.Location = new System.Drawing.Point(100, 360);
             this.btnEconomyBrowser.Name = "btnEconomyBrowser";
             this.btnEconomyBrowser.Size = new System.Drawing.Size(200, 40);
             this.btnEconomyBrowser.TabIndex = 6;
@@ -112,7 +112,7 @@ namespace SatelliteReignModdingTools
             //
             this.btnFactionBrowser.BackColor = System.Drawing.Color.SeaGreen;
             this.btnFactionBrowser.ForeColor = System.Drawing.Color.Aquamarine;
-            this.btnFactionBrowser.Location = new System.Drawing.Point(100, 400);
+            this.btnFactionBrowser.Location = new System.Drawing.Point(100, 410);
             this.btnFactionBrowser.Name = "btnFactionBrowser";
             this.btnFactionBrowser.Size = new System.Drawing.Size(200, 40);
             this.btnFactionBrowser.TabIndex = 7;
@@ -125,7 +125,7 @@ namespace SatelliteReignModdingTools
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(400, 480);
+            this.ClientSize = new System.Drawing.Size(400, 500);
             this.Controls.Add(this.btnFactionBrowser);
             this.Controls.Add(this.btnEconomyBrowser);
             this.Controls.Add(this.btnSkillsBrowser);

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using SatelliteReignModdingTools;
+using SatelliteReignModdingTools.Services;
 using SRMod.DTOs;
 using UnityEngine;
 using UnityEngine.Events;
@@ -425,6 +426,313 @@ Regardless, it's fast, reliable, cheap, and uses standard micro-round bullets, m
         //    print("saved " + "-= " + writeName + mt.vertices.length + pent[word1] + ".files......  time was: " + comptime);
         //}
 
+        /// <summary>
+        /// Safe item copying method that handles all edge cases and ensures proper ID generation
+        /// </summary>
+        /// <param name="sourceItem">Item to copy</param>
+        /// <param name="allItems">Collection of all existing items</param>
+        /// <param name="translations">Translation collection</param>
+        /// <returns>New copied item with unique ID</returns>
+        public static SerializableItemData CopyItemSafe(SerializableItemData sourceItem, 
+            List<SerializableItemData> allItems, 
+            List<TranslationElementDTO> translations)
+        {
+            if (sourceItem == null)
+                throw new ArgumentNullException(nameof(sourceItem), "Source item cannot be null");
+            
+            if (allItems == null)
+                throw new ArgumentNullException(nameof(allItems), "Items collection cannot be null");
+
+            try
+            {
+                SRInfoHelper.Log($"Starting safe copy of item ID: {sourceItem.m_ID}");
+                
+                var newItem = new SerializableItemData();
+                
+                // Generate safe unique ID
+                newItem.m_ID = ItemIdManager.GenerateUniqueItemId(allItems);
+                
+                // Copy all properties safely
+                CopyItemProperties(sourceItem, newItem);
+                
+                // Handle translations safely
+                CreateTranslationsForNewItem(sourceItem, newItem, translations);
+                
+                SRInfoHelper.Log($"Safe copy completed: {sourceItem.m_ID} → {newItem.m_ID}");
+                return newItem;
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log($"CopyItemSafe failed: {ex}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Safely copies all properties from source to target item
+        /// </summary>
+        private static void CopyItemProperties(SerializableItemData source, SerializableItemData target)
+        {
+            try
+            {
+                // Copy collections safely with null checks and validation
+                target.m_AbilityIDs = ValidateAbilityIDs(source.m_AbilityIDs);
+                target.m_AbilityMasks = ValidateAbilityMasks(source.m_AbilityMasks);
+                target.m_Modifiers = ValidateModifiers(source.m_Modifiers);
+
+                // Copy value types
+                target.m_FriendlyName = source.m_FriendlyName ?? "New Item";
+                target.m_BlueprintCost = source.m_BlueprintCost;
+                target.m_Cost = source.m_Cost;
+                target.m_GearSubCategory = source.m_GearSubCategory;
+                target.m_MinResearchersRequired = source.m_MinResearchersRequired;
+                target.m_PrereqID = source.m_PrereqID;
+                target.m_Slot = source.m_Slot;
+                target.m_WeaponType = source.m_WeaponType;
+                target.m_BlueprintProgressionValue = source.m_BlueprintProgressionValue;
+                target.m_CurrentResearchCost = source.m_CurrentResearchCost;
+                target.m_Expanded = source.m_Expanded;
+                target.m_FindBlueprintCost = source.m_FindBlueprintCost;
+                target.m_FindPrototypeCost = source.m_FindPrototypeCost;
+                target.m_OverrideAmmo = source.m_OverrideAmmo;
+                target.m_PlayerCanResearchFromStart = source.m_PlayerCanResearchFromStart;
+                target.m_Progression = source.m_Progression;
+                target.m_PrototypeCost = source.m_PrototypeCost;
+                target.m_PrototypeIsInTheWorld = source.m_PrototypeIsInTheWorld;
+                target.m_PrototypeProgressionValue = source.m_PrototypeProgressionValue;
+                target.m_PrototypeRandomReleaseStage = source.m_PrototypeRandomReleaseStage;
+                target.m_ResearchCost = source.m_ResearchCost;
+                target.m_StealthVsCombat = source.m_StealthVsCombat;
+                target.m_ValidWeaponAugmentationWeaponMask = source.m_ValidWeaponAugmentationWeaponMask;
+
+                // CRITICAL: Validate and copy icon name safely
+                target.m_UIIconName = ValidateIconName(source.m_UIIconName);
+
+                // Copy remaining fields that haven't been copied yet
+                target.m_PlayerHasPrototype = source.m_PlayerHasPrototype;
+                target.m_PlayerHasBlueprints = source.m_PlayerHasBlueprints;
+                target.m_Count = source.m_Count;
+                target.m_AvailableToPlayer = source.m_AvailableToPlayer;
+                target.m_AvailableFor_ALPHA_BETA_EARLYACCESS = source.m_AvailableFor_ALPHA_BETA_EARLYACCESS;
+                target.m_PlayerStartsWithBlueprints = source.m_PlayerStartsWithBlueprints;
+                target.m_PlayerStartsWithPrototype = source.m_PlayerStartsWithPrototype;
+                target.m_PlayerCanResearchFromStart = source.m_PlayerCanResearchFromStart;
+                target.m_ResearchStarted = source.m_ResearchStarted;
+                target.m_ItemHasBeenLocated = source.m_ItemHasBeenLocated;
+                target.m_ResearchProgress = source.m_ResearchProgress;
+                target.m_ResearchTimeToDate = source.m_ResearchTimeToDate;
+                target.m_ResearchCostToDate = source.m_ResearchCostToDate;
+                target.m_TotalResearchTime = source.m_TotalResearchTime;
+                target.m_InHouseResearchersResearching = source.m_InHouseResearchersResearching;
+                target.m_ExternalResearchersResearching = source.m_ExternalResearchersResearching;
+
+                SRInfoHelper.Log($"Properties copied successfully for item {target.m_ID} with validated icon '{target.m_UIIconName}'");
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log($"Error copying item properties: {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Validates ability IDs to prevent LoadCustomData errors
+        /// </summary>
+        private static List<int> ValidateAbilityIDs(List<int> abilityIDs)
+        {
+            if (abilityIDs == null)
+                return new List<int>();
+
+            // Filter out invalid ability IDs (negative or excessively high values)
+            var validIDs = abilityIDs.Where(id => id >= 0 && id <= 1000).ToList();
+
+            if (validIDs.Count != abilityIDs.Count)
+            {
+                SRInfoHelper.Log($"Filtered {abilityIDs.Count - validIDs.Count} invalid ability IDs");
+            }
+
+            return validIDs;
+        }
+
+        /// <summary>
+        /// Validates ability masks to prevent LoadCustomData errors
+        /// </summary>
+        private static List<int> ValidateAbilityMasks(List<int> abilityMasks)
+        {
+            if (abilityMasks == null)
+                return new List<int>();
+
+            // Filter out invalid masks (should be positive integers)
+            var validMasks = abilityMasks.Where(mask => mask >= 0).ToList();
+
+            if (validMasks.Count != abilityMasks.Count)
+            {
+                SRInfoHelper.Log($"Filtered {abilityMasks.Count - validMasks.Count} invalid ability masks");
+            }
+
+            return validMasks;
+        }
+
+        /// <summary>
+        /// Validates modifiers to prevent LoadCustomData errors
+        /// </summary>
+        private static List<SerializableModifierData> ValidateModifiers(List<SerializableModifierData> modifiers)
+        {
+            if (modifiers == null)
+                return new List<SerializableModifierData>();
+
+            var validModifiers = new List<SerializableModifierData>();
+
+            foreach (var modifier in modifiers)
+            {
+                if (modifier != null)
+                {
+                    // Create a safe copy with validated values
+                    var validModifier = new SerializableModifierData
+                    {
+                        m_Type = modifier.m_Type,
+                        m_Ammount = float.IsNaN(modifier.m_Ammount) || float.IsInfinity(modifier.m_Ammount) ? 0f : modifier.m_Ammount,
+                        m_AmountModifier = modifier.m_AmountModifier,
+                        m_TimeOut = float.IsNaN(modifier.m_TimeOut) || float.IsInfinity(modifier.m_TimeOut) ? 0f : modifier.m_TimeOut
+                    };
+                    validModifiers.Add(validModifier);
+                }
+            }
+
+            if (validModifiers.Count != modifiers.Count)
+            {
+                SRInfoHelper.Log($"Filtered {modifiers.Count - validModifiers.Count} invalid modifiers");
+            }
+
+            return validModifiers;
+        }
+
+        /// <summary>
+        /// Validates icon names to prevent LoadCustomData null reference errors
+        /// </summary>
+        private static string ValidateIconName(string iconName)
+        {
+            if (string.IsNullOrEmpty(iconName))
+            {
+                SRInfoHelper.Log("Warning: Empty icon name, using default");
+                return "ico_gear_standardammo"; // Known safe default
+            }
+
+            // List of validated icon names that are known to exist and work
+            var validIcons = new HashSet<string>
+            {
+                "ico_gear_standardammo", "ico_gear_explosiveammo", "ico_gear_shieldgenerator",
+                "ico_gear_stealthgenerator", "ico_gear_energygenerator", "ico_gear_bodyarmor",
+                "ico_gear_headarmor", "ico_gear_healthstim", "ico_gear_energystim",
+                "ico_weapon_pistol", "ico_weapon_smg", "ico_weapon_rifle", "ico_weapon_shotgun",
+                "ico_weapon_minigun", "ico_weapon_grenade", "ico_weapon_rocket",
+                "ico_aug_head_standard", "ico_aug_body_standard", "ico_aug_arms_standard", "ico_aug_legs_standard"
+            };
+
+            // If the icon name is in our validated list, use it
+            if (validIcons.Contains(iconName))
+            {
+                return iconName;
+            }
+
+            // Try to check if the icon file exists
+            try
+            {
+                string iconPath = System.IO.Path.Combine(FileManager.ExecPath, "icons", iconName + ".png");
+                if (System.IO.File.Exists(iconPath))
+                {
+                    SRInfoHelper.Log($"Validated icon file exists: {iconName}");
+                    return iconName;
+                }
+                else
+                {
+                    SRInfoHelper.Log($"Warning: Icon file not found '{iconName}', using safe default");
+                    return "ico_gear_standardammo"; // Safe fallback
+                }
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log($"Warning: Could not validate icon '{iconName}': {ex.Message}, using safe default");
+                return "ico_gear_standardammo"; // Safe fallback
+            }
+        }
+
+        /// <summary>
+        /// Creates translation entries for the new copied item
+        /// </summary>
+        private static void CreateTranslationsForNewItem(SerializableItemData sourceItem, 
+            SerializableItemData newItem, 
+            List<TranslationElementDTO> translations)
+        {
+            if (translations == null) 
+            {
+                SRInfoHelper.Log("No translations collection provided, skipping translation copying");
+                return;
+            }
+
+            try
+            {
+                SRInfoHelper.Log($"Creating translations for new item {newItem.m_ID}");
+                
+                // Find source translations
+                var sourceName = translations.FirstOrDefault(t => t.Key == $"ITEM_{sourceItem.m_ID}_NAME");
+                var sourceDesc = translations.FirstOrDefault(t => t.Key == $"ITEM_{sourceItem.m_ID}_DESCRIPTION");
+                var sourceCompany = translations.FirstOrDefault(t => t.Key == $"ITEM_{sourceItem.m_ID}_COMPANY");
+
+                // Create new name translation with " (Copy)" suffix
+                if (sourceName?.Element != null)
+                {
+                    var newNameElement = new TextManager.LocElement
+                    {
+                        m_token = $"ITEM_{newItem.m_ID}_NAME",
+                        m_Translations = (string[])sourceName.Element.m_Translations.Clone()
+                    };
+                    
+                    // Add " (Copy)" to each language translation
+                    for (int i = 0; i < newNameElement.m_Translations.Length; i++)
+                    {
+                        if (!string.IsNullOrEmpty(newNameElement.m_Translations[i]))
+                        {
+                            newNameElement.m_Translations[i] += " (Copy)";
+                        }
+                    }
+                    
+                    translations.Add(new TranslationElementDTO(newNameElement.m_token, newNameElement));
+                    SRInfoHelper.Log($"Created name translation: {newNameElement.m_token}");
+                }
+
+                // Copy description translation
+                if (sourceDesc?.Element != null)
+                {
+                    var newDescElement = new TextManager.LocElement
+                    {
+                        m_token = $"ITEM_{newItem.m_ID}_DESCRIPTION",
+                        m_Translations = (string[])sourceDesc.Element.m_Translations.Clone()
+                    };
+                    translations.Add(new TranslationElementDTO(newDescElement.m_token, newDescElement));
+                    SRInfoHelper.Log($"Created description translation: {newDescElement.m_token}");
+                }
+
+                // Copy company translation
+                if (sourceCompany?.Element != null)
+                {
+                    var newCompanyElement = new TextManager.LocElement
+                    {
+                        m_token = $"ITEM_{newItem.m_ID}_COMPANY",
+                        m_Translations = (string[])sourceCompany.Element.m_Translations.Clone()
+                    };
+                    translations.Add(new TranslationElementDTO(newCompanyElement.m_token, newCompanyElement));
+                    SRInfoHelper.Log($"Created company translation: {newCompanyElement.m_token}");
+                }
+                
+                SRInfoHelper.Log($"Translation creation completed for item {newItem.m_ID}");
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log($"Translation copying failed (non-fatal): {ex.Message}");
+                // Continue without translations rather than failing the entire copy operation
+            }
+        }
 
     }
 }

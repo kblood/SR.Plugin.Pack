@@ -18,7 +18,38 @@ namespace SRMod.DTOs
         public ItemSlotTypes m_Slot;
         public ItemSubCategories m_GearSubCategory;
         public string m_UIIconName; // We'll store the name of the sprite instead of the Sprite itself
-        public WeaponType m_WeaponType;
+
+        // Serialize as string to handle LoadCustomData exports (e.g., "B_pistol")
+        // Will be converted to WeaponType enum after deserialization
+        [System.Xml.Serialization.XmlElement("m_WeaponType")]
+        public string m_WeaponTypeString { get; set; }
+
+        // Property that converts string to/from WeaponType enum
+        [System.Xml.Serialization.XmlIgnore]
+        public WeaponType m_WeaponType
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(m_WeaponTypeString))
+                    return (WeaponType)0;
+
+                // Try to parse as enum name first (from LoadCustomData string exports)
+                if (System.Enum.TryParse<WeaponType>(m_WeaponTypeString, out var enumValue))
+                    return enumValue;
+
+                // Try to parse as int (legacy format)
+                if (int.TryParse(m_WeaponTypeString, out var intValue))
+                    return (WeaponType)intValue;
+
+                // Default fallback
+                return (WeaponType)0;
+            }
+            set
+            {
+                m_WeaponTypeString = value.ToString();
+            }
+        }
+
         public int m_ValidWeaponAugmentationWeaponMask;
         public int m_PrototypeProgressionValue;
         public int m_BlueprintProgressionValue;

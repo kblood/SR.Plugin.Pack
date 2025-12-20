@@ -1,0 +1,240 @@
+@echo off
+REM Advanced build script for LoadCustomData mod
+REM Automatically detects Visual Studio 2019/2022 and Satellite Reign installation
+
+setlocal enabledelayedexpansion
+
+echo.
+echo ============================================================
+echo LoadCustomData Advanced Build Script
+echo ============================================================
+echo.
+
+set "CSPROJ_FILE=%~dp0LoadCustomData.csproj"
+set "FRAMEWORK_PATH="
+
+REM Check if project file exists
+if not exist "%CSPROJ_FILE%" (
+    echo ERROR: LoadCustomData.csproj not found!
+    echo Expected: %CSPROJ_FILE%
+    pause
+    exit /b 1
+)
+
+echo Project file: %CSPROJ_FILE%
+echo.
+
+REM Try to find Satellite Reign installation
+echo Searching for Satellite Reign installation...
+call :FindSatelliteReign
+if "!FRAMEWORK_PATH!"=="" (
+    echo.
+    echo Could not automatically locate Satellite Reign game files.
+    echo.
+    echo Please enter the full path to SatelliteReignWindows_Data\Managed folder:
+    echo Example: G:\SteamLibrary\steamapps\common\SatelliteReign\SatelliteReignWindows_Data\Managed
+    echo.
+    set /p FRAMEWORK_PATH="Enter path: "
+
+    if not exist "!FRAMEWORK_PATH!" (
+        echo.
+        echo ERROR: Path does not exist: !FRAMEWORK_PATH!
+        pause
+        exit /b 1
+    )
+)
+
+echo Found: !FRAMEWORK_PATH!
+echo.
+
+REM Try to find Visual Studio 2022 first
+set "MSBUILD_PATH="
+
+echo Searching for Visual Studio 2022...
+if exist "C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\MSBuild.exe" (
+    set "MSBUILD_PATH=C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\MSBuild.exe"
+    set "VS_VERSION=2022 Professional"
+    goto :found
+)
+
+if exist "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" (
+    set "MSBUILD_PATH=C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe"
+    set "VS_VERSION=2022 Community"
+    goto :found
+)
+
+if exist "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe" (
+    set "MSBUILD_PATH=C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe"
+    set "VS_VERSION=2022 Enterprise"
+    goto :found
+)
+
+echo Not found. Searching for Visual Studio 2019...
+if exist "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\MSBuild.exe" (
+    set "MSBUILD_PATH=C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\MSBuild.exe"
+    set "VS_VERSION=2019 Professional"
+    goto :found
+)
+
+if exist "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe" (
+    set "MSBUILD_PATH=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe"
+    set "VS_VERSION=2019 Community"
+    goto :found
+)
+
+if exist "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe" (
+    set "MSBUILD_PATH=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe"
+    set "VS_VERSION=2019 Enterprise"
+    goto :found
+)
+
+REM If we get here, no VS installation was found
+echo ERROR: Could not find Visual Studio 2019 or 2022
+echo.
+echo Please install one of the following:
+echo - Visual Studio 2022 (Professional, Community, or Enterprise)
+echo - Visual Studio 2019 (Professional, Community, or Enterprise)
+echo.
+echo Visit: https://visualstudio.microsoft.com/
+echo.
+pause
+exit /b 1
+
+:found
+echo Found: Visual Studio %VS_VERSION%
+echo MSBuild: %MSBUILD_PATH%
+echo.
+
+echo Cleaning previous build...
+"%MSBUILD_PATH%" "%CSPROJ_FILE%" /t:Clean /p:Configuration=Debug /p:Platform=AnyCPU >nul 2>&1
+
+echo Building LoadCustomData (Debug configuration)...
+echo.
+
+REM Run the actual build with FrameworkPathOverride
+"%MSBUILD_PATH%" "%CSPROJ_FILE%" ^
+    /p:Configuration=Debug ^
+    /p:Platform=AnyCPU ^
+    /p:TargetFrameworkVersion=v3.5 ^
+    /p:FrameworkPathOverride="%FRAMEWORK_PATH%"
+
+if errorlevel 1 (
+    echo.
+    echo ============================================================
+    echo BUILD FAILED
+    echo ============================================================
+    echo.
+    echo Try the following:
+    echo 1. Check that your Visual Studio installation is complete
+    echo 2. Verify that the .NET 3.5 Framework is installed on your system
+    echo 3. Ensure the path exists: !FRAMEWORK_PATH!
+    echo.
+    pause
+    exit /b 1
+)
+
+echo.
+echo ============================================================
+echo BUILD SUCCESSFUL
+echo ============================================================
+echo.
+echo Visual Studio: %VS_VERSION%
+
+set "DLL_OUTPUT=%~dp0bin\Debug\LoadCustomData.dll"
+echo Output location:
+echo !DLL_OUTPUT!
+echo.
+
+REM Calculate Satellite Reign root folder
+for %%F in ("!FRAMEWORK_PATH!\..\..\") do set "SR_ROOT=%%~fF"
+
+set "MODS_FOLDER=!SR_ROOT!Mods"
+
+REM Ask user if they want to copy the DLL to the mods folder
+echo Would you like to copy LoadCustomData.dll to your Mods folder?
+echo Destination: !MODS_FOLDER!
+echo.
+set /p COPY_DLL="Copy DLL now? (Y/N): "
+
+if /i "!COPY_DLL!"=="Y" (
+    if not exist "!MODS_FOLDER!" (
+        echo.
+        echo ERROR: Mods folder not found at:
+        echo !MODS_FOLDER!
+        echo.
+        pause
+        exit /b 1
+    )
+
+    echo.
+    echo Copying LoadCustomData.dll to Mods folder...
+    copy "!DLL_OUTPUT!" "!MODS_FOLDER!\LoadCustomData.dll" >nul
+
+    if errorlevel 1 (
+        echo ERROR: Failed to copy DLL
+        pause
+        exit /b 1
+    )
+
+    echo Successfully copied to: !MODS_FOLDER!\LoadCustomData.dll
+    echo.
+    echo You can now launch Satellite Reign to test the mod!
+) else (
+    echo.
+    echo To install the mod manually:
+    echo 1. Copy: !DLL_OUTPUT!
+    echo 2. To: !MODS_FOLDER!
+    echo 3. Launch Satellite Reign to test
+)
+
+echo.
+pause
+
+REM ============================================================
+REM Function to find Satellite Reign installation
+REM ============================================================
+:FindSatelliteReign
+
+REM First, try the hardcoded path (most common on Windows 10)
+if exist "G:\SteamLibrary\steamapps\common\SatelliteReign\SatelliteReignWindows_Data\Managed\mscorlib.dll" (
+    set "FRAMEWORK_PATH=G:\SteamLibrary\steamapps\common\SatelliteReign\SatelliteReignWindows_Data\Managed"
+    goto :FoundGame
+)
+
+REM Try c:\Modding\ path (Windows 11 setup)
+if exist "c:\Modding\SatelliteReign\SatelliteReignWindows_Data\Managed\mscorlib.dll" (
+    set "FRAMEWORK_PATH=c:\Modding\SatelliteReign\SatelliteReignWindows_Data\Managed"
+    goto :FoundGame
+)
+
+REM Get Steam installation path from registry
+for /f "tokens=2*" %%A in ('reg query "HKEY_CURRENT_USER\Software\Valve\Steam" /v SteamPath 2^>nul') do set "STEAM_PATH=%%B"
+
+REM If Steam path found, check for Satellite Reign
+if defined STEAM_PATH (
+    if exist "!STEAM_PATH!\steamapps\common\SatelliteReign\SatelliteReignWindows_Data\Managed\mscorlib.dll" (
+        set "FRAMEWORK_PATH=!STEAM_PATH!\steamapps\common\SatelliteReign\SatelliteReignWindows_Data\Managed"
+        goto :FoundGame
+    )
+)
+
+REM Check common Steam locations on multiple drives
+for %%D in (C D E F G H) do (
+    if exist "%%D:\SteamLibrary\steamapps\common\SatelliteReign\SatelliteReignWindows_Data\Managed\mscorlib.dll" (
+        set "FRAMEWORK_PATH=%%D:\SteamLibrary\steamapps\common\SatelliteReign\SatelliteReignWindows_Data\Managed"
+        goto :FoundGame
+    )
+    if exist "%%D:\Steam\steamapps\common\SatelliteReign\SatelliteReignWindows_Data\Managed\mscorlib.dll" (
+        set "FRAMEWORK_PATH=%%D:\Steam\steamapps\common\SatelliteReign\SatelliteReignWindows_Data\Managed"
+        goto :FoundGame
+    )
+)
+
+REM Check Program Files location
+if exist "C:\Program Files (x86)\Steam\steamapps\common\SatelliteReign\SatelliteReignWindows_Data\Managed\mscorlib.dll" (
+    set "FRAMEWORK_PATH=C:\Program Files (x86)\Steam\steamapps\common\SatelliteReign\SatelliteReignWindows_Data\Managed"
+    goto :FoundGame
+)
+
+:FoundGame
+goto :eof

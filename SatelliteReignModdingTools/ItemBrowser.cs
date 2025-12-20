@@ -38,50 +38,56 @@ namespace SatelliteReignModdingTools
 
         public ItemBrowser()
         {
-            // Initialize language and cultures
-            SRMapper.LanguageMapper();
-
-            InitializeComponent();
-
-            // Insert shared toolbar at the top (programmatic, non-designer)
-            _toolbar = new SharedToolbar();
-            _toolbar.ReloadClicked += () => loadAllToolStripMenuItem_Click(this, EventArgs.Empty);
-            _toolbar.SaveClicked += () => saveToolStripMenuItem_Click(this, EventArgs.Empty);
-            _toolbar.SaveWithDiffClicked += () => saveWithDiffToolStripMenuItem_Click(this, EventArgs.Empty);
-            _toolbar.ValidateClicked += () => ShowValidationResults();
-            _toolbar.SearchTextChanged += text => ApplySearch(text);
-            Controls.Add(_toolbar);
-            // Place toolbar just under the menu to avoid overlapping designed controls
-            _toolbar.Dock = DockStyle.None;
-            _toolbar.Location = new Point(0, menuStrip1.Bottom);
-            _toolbar.Width = this.ClientSize.Width;
-            _toolbar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            // Shift existing controls down by toolbar height (except menu and toolbar)
-            foreach (Control c in this.Controls)
+            try
             {
-                if (c == _toolbar || c == menuStrip1) continue;
-                c.Top += _toolbar.Height;
-            }
-            _toolbar.BringToFront();
+                // Initialize language and cultures
+                SRMapper.LanguageMapper();
 
-            ItemListBox.ClearSelected();
-            _translations = FileManager.LoadTranslationsXML("Translations.xml", FileManager.ExecPath).ToList();
-            itemDTOs = FileManager.LoadItemDataXML(_itemDataFileName, FileManager.ExecPath).OrderBy(i => i.m_ID).ToList();
-            _allItems = new List<dto.SerializableItemData>(itemDTOs);
-            UpdateItemInfo();
+                InitializeComponent();
 
-            ItemSlotTypeDropDown.DataSource = Enum.GetValues(typeof(ItemSlotTypes)).Cast<ItemSlotTypes>().ToList().Take(8).ToList();
-            GearSubTypeDropDown.DataSource = Enum.GetValues(typeof(ItemSubCategories));
-            WeaponTypeDropDown.DataSource = Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>().ToList().Take(29).ToList();
-
-            // Build abilities list from translations
-            abilities = _translations
-                .Where(t => t.Key.StartsWith("ABILITY_") && t.Key.EndsWith("_NAME"))
-                .Select(a =>
+                // Insert shared toolbar at the top (programmatic, non-designer)
+                _toolbar = new SharedToolbar();
+                _toolbar.ReloadClicked += () => loadAllToolStripMenuItem_Click(this, EventArgs.Empty);
+                _toolbar.SaveClicked += () => saveToolStripMenuItem_Click(this, EventArgs.Empty);
+                _toolbar.SaveWithDiffClicked += () => saveWithDiffToolStripMenuItem_Click(this, EventArgs.Empty);
+                _toolbar.ValidateClicked += () => ShowValidationResults();
+                _toolbar.SearchTextChanged += text => ApplySearch(text);
+                Controls.Add(_toolbar);
+                // Place toolbar just under the menu to avoid overlapping designed controls
+                _toolbar.Dock = DockStyle.None;
+                _toolbar.Location = new Point(0, menuStrip1.Bottom);
+                _toolbar.Width = this.ClientSize.Width;
+                _toolbar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                // Shift existing controls down by toolbar height (except menu and toolbar)
+                foreach (Control c in this.Controls)
                 {
-                    int id = int.Parse(a.Key.Replace("ABILITY_", string.Empty).Replace("_NAME", string.Empty));
-                    LocElement name = a.Element;
-                    LocElement desc = _translations.FirstOrDefault(t => t.Key == $"ABILITY_{id}_DESC")?.Element;
+                    if (c == _toolbar || c == menuStrip1) continue;
+                    c.Top += _toolbar.Height;
+                }
+                _toolbar.BringToFront();
+
+                // Add tooltip to indicate the icon is clickable
+                var iconTooltip = new System.Windows.Forms.ToolTip();
+                iconTooltip.SetToolTip(ItemIconImageBox, "Click to change item icon");
+
+                ItemListBox.ClearSelected();
+                _translations = FileManager.LoadTranslationsXML("Translations.xml", FileManager.ExecPath).ToList();
+                itemDTOs = FileManager.LoadItemDataXML(_itemDataFileName, FileManager.ExecPath).OrderBy(i => i.m_ID).ToList();
+                _allItems = new List<dto.SerializableItemData>(itemDTOs);
+                UpdateItemInfo();
+
+                ItemSlotTypeDropDown.DataSource = Enum.GetValues(typeof(ItemSlotTypes)).Cast<ItemSlotTypes>().ToList().Take(8).ToList();
+                GearSubTypeDropDown.DataSource = Enum.GetValues(typeof(ItemSubCategories));
+                WeaponTypeDropDown.DataSource = Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>().ToList().Take(29).ToList();
+
+                // Build abilities list from translations
+                abilities = _translations
+                    .Where(t => t.Key.StartsWith("ABILITY_") && t.Key.EndsWith("_NAME"))
+                    .Select(a =>
+                    {
+                        int id = int.Parse(a.Key.Replace("ABILITY_", string.Empty).Replace("_NAME", string.Empty));
+                        LocElement name = a.Element;
+                        LocElement desc = _translations.FirstOrDefault(t => t.Key == $"ABILITY_{id}_DESC")?.Element;
                     return new Models.Ability
                     {
                         Id = id,
@@ -92,12 +98,22 @@ namespace SatelliteReignModdingTools
                 .OrderBy(x => x.Name)
                 .ToList();
 
-            AbilityDropdown.DataSource = abilities;
-            AbilityDropdown.DisplayMember = "Name";
-            AbilityDropdown.ValueMember = "This";
-            ModifierDropdown.DataSource = Enum.GetValues(typeof(ModifierType)).Cast<ModifierType>().ToList().Skip(1).ToList();
+                AbilityDropdown.DataSource = abilities;
+                AbilityDropdown.DisplayMember = "Name";
+                AbilityDropdown.ValueMember = "This";
+                ModifierDropdown.DataSource = Enum.GetValues(typeof(ModifierType)).Cast<ModifierType>().ToList().Skip(1).ToList();
 
-            UpdateUI();
+                UpdateUI();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"ItemBrowser initialization failed:\n\n{ex.GetType().Name}: {ex.Message}\n\nStack trace:\n{ex.StackTrace}",
+                    "ItemBrowser Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                throw;
+            }
         }
 
         private void ApplySearch(string text)
@@ -168,7 +184,7 @@ namespace SatelliteReignModdingTools
                     // Icon file presence
                     if (!string.IsNullOrWhiteSpace(item.m_UIIconName))
                     {
-                        var iconPath = Path.Combine(FileManager.ExecPath, "icons", item.m_UIIconName + ".png");
+                        var iconPath = Path.Combine(FileManager.GetIconsPath(), item.m_UIIconName + ".png");
                         if (!File.Exists(iconPath))
                             warnings.Add($"Icon missing: {iconPath}");
                     }
@@ -219,12 +235,74 @@ namespace SatelliteReignModdingTools
             WeaponTypeDropDown.SelectedIndex = (int)activeItemData.m_WeaponType;
             if (activeItemData.m_UIIconName != null)
             {
-                ItemIconImageBox.Image = FileManager.LoadImageFromFile(activeItemData.m_UIIconName);
-                ChangeImageColor(Color.White, Color.Aquamarine);
+                var loadedImage = FileManager.LoadImageFromFile(activeItemData.m_UIIconName);
+                if (loadedImage != null)
+                {
+                    ItemIconImageBox.Image = loadedImage;
+                    ChangeImageColor(Color.White, Color.Aquamarine);
+                }
+                else
+                {
+                    ItemIconImageBox.Image = null;
+                }
             }
+
+            // Update Combat tab fields
+            UpdateCombatFields();
+
+            // Update Research tab fields
+            UpdateResearchFields();
+
+            // Update Economic tab fields
+            UpdateEconomicFields();
 
             UpdateAbilityInfo();
             UpdateModifierInfo();
+        }
+
+        private void UpdateCombatFields()
+        {
+            if (stealthVsCombatTextBox != null)
+                stealthVsCombatTextBox.Text = activeItemData.m_StealthVsCombat.ToString();
+            if (weaponAugMaskTextBox != null)
+                weaponAugMaskTextBox.Text = activeItemData.m_ValidWeaponAugmentationWeaponMask.ToString();
+            if (overrideAmmoTextBox != null)
+                overrideAmmoTextBox.Text = activeItemData.m_OverrideAmmo.ToString();
+        }
+
+        private void UpdateResearchFields()
+        {
+            if (prereqIdTextBox != null)
+                prereqIdTextBox.Text = activeItemData.m_PrereqID.ToString();
+            if (prototypeProgressTextBox != null)
+                prototypeProgressTextBox.Text = activeItemData.m_PrototypeProgressionValue.ToString();
+            if (blueprintProgressTextBox != null)
+                blueprintProgressTextBox.Text = activeItemData.m_BlueprintProgressionValue.ToString();
+            if (minResearchersTextBox != null)
+                minResearchersTextBox.Text = activeItemData.m_MinResearchersRequired.ToString();
+
+            if (availableToPlayerCheckBox != null)
+                availableToPlayerCheckBox.Checked = activeItemData.m_AvailableToPlayer;
+            if (playerStartsBlueprintsCheckBox != null)
+                playerStartsBlueprintsCheckBox.Checked = activeItemData.m_PlayerStartsWithBlueprints;
+            if (playerStartsPrototypeCheckBox != null)
+                playerStartsPrototypeCheckBox.Checked = activeItemData.m_PlayerStartsWithPrototype;
+            if (playerCanResearchCheckBox != null)
+                playerCanResearchCheckBox.Checked = activeItemData.m_PlayerCanResearchFromStart;
+        }
+
+        private void UpdateEconomicFields()
+        {
+            if (itemCostTextBox != null)
+                itemCostTextBox.Text = activeItemData.m_Cost.ToString();
+            if (blueprintCostTextBox != null)
+                blueprintCostTextBox.Text = activeItemData.m_BlueprintCost.ToString();
+            if (prototypeCostTextBox != null)
+                prototypeCostTextBox.Text = activeItemData.m_PrototypeCost.ToString();
+            if (findBlueprintCostTextBox != null)
+                findBlueprintCostTextBox.Text = activeItemData.m_FindBlueprintCost.ToString();
+            if (findPrototypeCostTextBox != null)
+                findPrototypeCostTextBox.Text = activeItemData.m_FindPrototypeCost.ToString();
         }
 
         private void UpdateItemInfo()
@@ -300,19 +378,40 @@ Timeout: {modifier.m_TimeOut}",
 
         private void ChangeImageColor(Color oldColor, Color newColor)
         {
-            using (Graphics g = Graphics.FromImage(ItemIconImageBox.Image))
-            using (Bitmap bmp = new Bitmap(FileManager.LoadImageFromFile(activeItemData.m_UIIconName)))
+            try
             {
-                // Set the image attribute's color mappings
-                ColorMap[] colorMap = new ColorMap[1];
-                colorMap[0] = new ColorMap();
-                colorMap[0].OldColor = oldColor;
-                colorMap[0].NewColor = newColor;
-                ImageAttributes attr = new ImageAttributes();
-                attr.SetRemapTable(colorMap);
-                // Draw using the color map
-                Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
-                g.DrawImage(bmp, rect, 0, 0, rect.Width, rect.Height, GraphicsUnit.Pixel, attr);
+                // Check if the image exists before trying to change its color
+                if (ItemIconImageBox.Image == null)
+                {
+                    SRInfoHelper.Log("Cannot change color: ItemIconImageBox.Image is null");
+                    return;
+                }
+
+                var sourceImage = FileManager.LoadImageFromFile(activeItemData.m_UIIconName);
+                if (sourceImage == null)
+                {
+                    SRInfoHelper.Log($"Cannot change color: Source image '{activeItemData.m_UIIconName}' could not be loaded");
+                    return;
+                }
+
+                using (Graphics g = Graphics.FromImage(ItemIconImageBox.Image))
+                using (Bitmap bmp = new Bitmap(sourceImage))
+                {
+                    // Set the image attribute's color mappings
+                    ColorMap[] colorMap = new ColorMap[1];
+                    colorMap[0] = new ColorMap();
+                    colorMap[0].OldColor = oldColor;
+                    colorMap[0].NewColor = newColor;
+                    ImageAttributes attr = new ImageAttributes();
+                    attr.SetRemapTable(colorMap);
+                    // Draw using the color map
+                    Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+                    g.DrawImage(bmp, rect, 0, 0, rect.Width, rect.Height, GraphicsUnit.Pixel, attr);
+                }
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log($"Error changing image color: {ex.Message}");
             }
         }
 
@@ -417,23 +516,229 @@ Timeout: {modifier.m_TimeOut}",
 
         private void CopyItemButton_Click(object sender, EventArgs e)
         {
-            activeItemData = new dto.SerializableItemData(SREditor.CopyItem(activeItemData.m_ID));
-            UpdateItemInfo();
-            ItemListBox.SelectedIndex = itemDTOs.IndexOf(activeItemData);
+            try
+            {
+                // Validate preconditions
+                if (activeItemData == null)
+                {
+                    MessageBox.Show("Please select an item to copy first.", "No Item Selected", 
+                                   MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (itemDTOs == null)
+                {
+                    MessageBox.Show("Item list is not initialized.", "System Error", 
+                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (activeItemData.m_ID <= 0)
+                {
+                    MessageBox.Show("Invalid item ID. Cannot copy item.", "Invalid Item", 
+                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Disable UI during copy operation
+                CopyItemButton.Enabled = false;
+                Cursor = Cursors.WaitCursor;
+
+                SRInfoHelper.Log($"User initiated copy of item ID: {activeItemData.m_ID}");
+
+                // Perform the copy using our safe method
+                var copiedItem = SREditor.CopyItemSafe(activeItemData, itemDTOs, _translations);
+                
+                // Add to collections
+                itemDTOs.Add(copiedItem);
+                _allItems.Add(copiedItem);
+
+                SRInfoHelper.Log($"Item added to collections, refreshing UI");
+
+                // Update UI to show new item
+                RefreshUIAndFocusNewItem(copiedItem);
+
+                MessageBox.Show($"Item copied successfully!\n\nOriginal: {activeItemData.m_ID}\nNew Copy: {copiedItem.m_ID}", 
+                               "Copy Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to copy item: {ex.Message}\n\nPlease check the logs for more details.", 
+                               "Copy Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SRInfoHelper.Log($"CopyItem failed: {ex}");
+            }
+            finally
+            {
+                // Re-enable UI
+                CopyItemButton.Enabled = true;
+                Cursor = Cursors.Default;
+            }
         }
 
         private void SaveItemButton_Click(object sender, EventArgs e)
         {
-            var name = _translations.Where(t => t.Key == "ITEM_" + activeItemData.m_ID + "_NAME").First();
-            name.Element.m_Translations[activeLanguage] = ItemNameTextBox.Text;
-            var desc = _translations.Where(t => t.Key == "ITEM_" + activeItemData.m_ID + "_DESCRIPTION").First();
-            desc.Element.m_Translations[activeLanguage] = DescriptionTextBox.Text;
-            Enum.TryParse<ItemSubCategories>(GearSubTypeDropDown.SelectedValue.ToString(), out var m_GearSubCategory);
-            activeItemData.m_GearSubCategory = m_GearSubCategory;
-            Enum.TryParse<WeaponType>(WeaponTypeDropDown.SelectedValue.ToString(), out var m_WeaponType);
-            activeItemData.m_WeaponType = m_WeaponType;
-            Enum.TryParse<ItemSlotTypes>(ItemSlotTypeDropDown.SelectedValue.ToString(), out var slottype);
-            activeItemData.m_Slot = slottype;
+            try
+            {
+                SRInfoHelper.Log($"Starting save process for item {activeItemData.m_ID}...");
+
+                // Save basic item information
+                var name = _translations.Where(t => t.Key == "ITEM_" + activeItemData.m_ID + "_NAME").First();
+                name.Element.m_Translations[activeLanguage] = ItemNameTextBox.Text;
+                var desc = _translations.Where(t => t.Key == "ITEM_" + activeItemData.m_ID + "_DESCRIPTION").First();
+                desc.Element.m_Translations[activeLanguage] = DescriptionTextBox.Text;
+
+                Enum.TryParse<ItemSubCategories>(GearSubTypeDropDown.SelectedValue.ToString(), out var m_GearSubCategory);
+                activeItemData.m_GearSubCategory = m_GearSubCategory;
+                Enum.TryParse<WeaponType>(WeaponTypeDropDown.SelectedValue.ToString(), out var m_WeaponType);
+                activeItemData.m_WeaponType = m_WeaponType;
+                Enum.TryParse<ItemSlotTypes>(ItemSlotTypeDropDown.SelectedValue.ToString(), out var slottype);
+                activeItemData.m_Slot = slottype;
+
+                // Save ALL tab fields with detailed logging
+                SaveCombatFields();
+                SaveResearchFields();
+                SaveEconomicFields();
+
+                // Update the item in both collections to ensure consistency
+                UpdateItemInCollections();
+
+                // DIRECTLY SAVE TO XML FILES
+                SRInfoHelper.Log("Saving to XML files...");
+
+                // Save item data to XML
+                FileManager.SaveAsXML(itemDTOs, _itemDataFileName, FileManager.ExecPath + @"\");
+                SRInfoHelper.Log($"Item data saved to {_itemDataFileName}");
+
+                // Save translations to XML
+                FileManager.SaveAsXML(_translations, "Translations.xml", FileManager.ExecPath + @"\");
+                SRInfoHelper.Log("Translations saved to Translations.xml");
+
+                SRInfoHelper.Log($"Item {activeItemData.m_ID} successfully saved to XML files!");
+                MessageBox.Show($"Item {activeItemData.m_ID} saved successfully to XML files!\n\nBoth item data and translations have been persisted.", "Save Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log($"Error saving item to XML: {ex}");
+                MessageBox.Show($"Error saving item to XML: {ex.Message}\n\nCheck the logs for more details.", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SaveCombatFields()
+        {
+            SRInfoHelper.Log("Saving Combat tab fields...");
+
+            if (stealthVsCombatTextBox != null && float.TryParse(stealthVsCombatTextBox.Text, out float stealthVsCombat))
+            {
+                activeItemData.m_StealthVsCombat = stealthVsCombat;
+                SRInfoHelper.Log($"  StealthVsCombat: {stealthVsCombat}");
+            }
+
+            if (weaponAugMaskTextBox != null && int.TryParse(weaponAugMaskTextBox.Text, out int weaponAugMask))
+            {
+                activeItemData.m_ValidWeaponAugmentationWeaponMask = weaponAugMask;
+                SRInfoHelper.Log($"  WeaponAugmentationMask: {weaponAugMask}");
+            }
+
+            if (overrideAmmoTextBox != null && int.TryParse(overrideAmmoTextBox.Text, out int overrideAmmo))
+            {
+                activeItemData.m_OverrideAmmo = overrideAmmo;
+                SRInfoHelper.Log($"  OverrideAmmo: {overrideAmmo}");
+            }
+
+            SRInfoHelper.Log("Combat fields saved successfully");
+        }
+
+        private void SaveResearchFields()
+        {
+            SRInfoHelper.Log("Saving Research tab fields...");
+
+            if (prereqIdTextBox != null && int.TryParse(prereqIdTextBox.Text, out int prereqId))
+            {
+                activeItemData.m_PrereqID = prereqId;
+                SRInfoHelper.Log($"  PrereqID: {prereqId}");
+            }
+
+            if (prototypeProgressTextBox != null && int.TryParse(prototypeProgressTextBox.Text, out int prototypeProgress))
+            {
+                activeItemData.m_PrototypeProgressionValue = prototypeProgress;
+                SRInfoHelper.Log($"  PrototypeProgressionValue: {prototypeProgress}");
+            }
+
+            if (blueprintProgressTextBox != null && int.TryParse(blueprintProgressTextBox.Text, out int blueprintProgress))
+            {
+                activeItemData.m_BlueprintProgressionValue = blueprintProgress;
+                SRInfoHelper.Log($"  BlueprintProgressionValue: {blueprintProgress}");
+            }
+
+            if (minResearchersTextBox != null && int.TryParse(minResearchersTextBox.Text, out int minResearchers))
+            {
+                activeItemData.m_MinResearchersRequired = minResearchers;
+                SRInfoHelper.Log($"  MinResearchersRequired: {minResearchers}");
+            }
+
+            // IMPORTANT: Checkbox states - these are the critical settings the user requested
+            if (availableToPlayerCheckBox != null)
+            {
+                activeItemData.m_AvailableToPlayer = availableToPlayerCheckBox.Checked;
+                SRInfoHelper.Log($"  AvailableToPlayer (CHECKBOX): {availableToPlayerCheckBox.Checked}");
+            }
+
+            if (playerStartsBlueprintsCheckBox != null)
+            {
+                activeItemData.m_PlayerStartsWithBlueprints = playerStartsBlueprintsCheckBox.Checked;
+                SRInfoHelper.Log($"  PlayerStartsWithBlueprints (CHECKBOX): {playerStartsBlueprintsCheckBox.Checked}");
+            }
+
+            if (playerStartsPrototypeCheckBox != null)
+            {
+                activeItemData.m_PlayerStartsWithPrototype = playerStartsPrototypeCheckBox.Checked;
+                SRInfoHelper.Log($"  PlayerStartsWithPrototype (CHECKBOX): {playerStartsPrototypeCheckBox.Checked}");
+            }
+
+            if (playerCanResearchCheckBox != null)
+            {
+                activeItemData.m_PlayerCanResearchFromStart = playerCanResearchCheckBox.Checked;
+                SRInfoHelper.Log($"  PlayerCanResearchFromStart (CHECKBOX): {playerCanResearchCheckBox.Checked}");
+            }
+
+            SRInfoHelper.Log("Research fields (including checkboxes) saved successfully");
+        }
+
+        private void SaveEconomicFields()
+        {
+            SRInfoHelper.Log("Saving Economic tab fields...");
+
+            if (itemCostTextBox != null && float.TryParse(itemCostTextBox.Text, out float itemCost))
+            {
+                activeItemData.m_Cost = itemCost;
+                SRInfoHelper.Log($"  Cost: {itemCost}");
+            }
+
+            if (blueprintCostTextBox != null && float.TryParse(blueprintCostTextBox.Text, out float blueprintCost))
+            {
+                activeItemData.m_BlueprintCost = blueprintCost;
+                SRInfoHelper.Log($"  BlueprintCost: {blueprintCost}");
+            }
+
+            if (prototypeCostTextBox != null && float.TryParse(prototypeCostTextBox.Text, out float prototypeCost))
+            {
+                activeItemData.m_PrototypeCost = prototypeCost;
+                SRInfoHelper.Log($"  PrototypeCost: {prototypeCost}");
+            }
+
+            if (findBlueprintCostTextBox != null && float.TryParse(findBlueprintCostTextBox.Text, out float findBlueprintCost))
+            {
+                activeItemData.m_FindBlueprintCost = findBlueprintCost;
+                SRInfoHelper.Log($"  FindBlueprintCost: {findBlueprintCost}");
+            }
+
+            if (findPrototypeCostTextBox != null && float.TryParse(findPrototypeCostTextBox.Text, out float findPrototypeCost))
+            {
+                activeItemData.m_FindPrototypeCost = findPrototypeCost;
+                SRInfoHelper.Log($"  FindPrototypeCost: {findPrototypeCost}");
+            }
+
+            SRInfoHelper.Log("Economic fields saved successfully");
         }
 
         float oldAmountValue;
@@ -583,11 +888,31 @@ This item is one of the games original items, deleting it might cause problems f
 
             if (result == DialogResult.Yes)
             {
-                var name = _translations.Where(t => t.Key == "ITEM_" + activeItemData.m_ID + "_NAME").First();
-                var desc = _translations.Where(t => t.Key == "ITEM_" + activeItemData.m_ID + "_DESCRIPTION").First();
-                _translations.Remove(name);
-                _translations.Remove(desc);
-                itemDTOs.Remove(activeItemData);
+                var itemID = activeItemData.m_ID;
+                var name = _translations.Where(t => t.Key == "ITEM_" + itemID + "_NAME").FirstOrDefault();
+                var desc = _translations.Where(t => t.Key == "ITEM_" + itemID + "_DESCRIPTION").FirstOrDefault();
+
+                if (name != null)
+                    _translations.Remove(name);
+                if (desc != null)
+                    _translations.Remove(desc);
+
+                // Remove from main collection by ID (not by reference)
+                var itemToRemove = itemDTOs.FirstOrDefault(i => i.m_ID == itemID);
+                if (itemToRemove != null)
+                {
+                    itemDTOs.Remove(itemToRemove);
+                    SRInfoHelper.Log($"Removed item {itemID} from itemDTOs");
+                }
+
+                // Remove from filtered collection by ID (not by reference)
+                var filteredItemToRemove = _allItems.FirstOrDefault(i => i.m_ID == itemID);
+                if (filteredItemToRemove != null)
+                {
+                    _allItems.Remove(filteredItemToRemove);
+                    SRInfoHelper.Log($"Removed item {itemID} from _allItems");
+                }
+
                 UpdateItemInfo();
                 UpdateUI();
             }
@@ -641,8 +966,64 @@ This item is one of the games original items, deleting it might cause problems f
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FileManager.SaveAsXML(_translations, "Translations.xml", FileManager.ExecPath + @"\");
-            FileManager.SaveAsXML(itemDTOs, _itemDataFileName, FileManager.ExecPath + @"\");
+            try
+            {
+                SRInfoHelper.Log("Starting main Save operation...");
+
+                // If we have an active item, save it first before saving collections
+                if (activeItemData != null)
+                {
+                    SRInfoHelper.Log($"Saving current item {activeItemData.m_ID} before saving all data...");
+
+                    // Save basic item information from UI
+                    var name = _translations.Where(t => t.Key == "ITEM_" + activeItemData.m_ID + "_NAME").FirstOrDefault();
+                    if (name != null)
+                        name.Element.m_Translations[activeLanguage] = ItemNameTextBox.Text;
+
+                    var desc = _translations.Where(t => t.Key == "ITEM_" + activeItemData.m_ID + "_DESCRIPTION").FirstOrDefault();
+                    if (desc != null)
+                        desc.Element.m_Translations[activeLanguage] = DescriptionTextBox.Text;
+
+                    if (GearSubTypeDropDown.SelectedValue != null)
+                    {
+                        Enum.TryParse<ItemSubCategories>(GearSubTypeDropDown.SelectedValue.ToString(), out var m_GearSubCategory);
+                        activeItemData.m_GearSubCategory = m_GearSubCategory;
+                    }
+
+                    if (WeaponTypeDropDown.SelectedValue != null)
+                    {
+                        Enum.TryParse<WeaponType>(WeaponTypeDropDown.SelectedValue.ToString(), out var m_WeaponType);
+                        activeItemData.m_WeaponType = m_WeaponType;
+                    }
+
+                    if (ItemSlotTypeDropDown.SelectedValue != null)
+                    {
+                        Enum.TryParse<ItemSlotTypes>(ItemSlotTypeDropDown.SelectedValue.ToString(), out var slottype);
+                        activeItemData.m_Slot = slottype;
+                    }
+
+                    // Save ALL tab fields with detailed logging
+                    SaveCombatFields();
+                    SaveResearchFields();
+                    SaveEconomicFields();
+
+                    // Update the item in both collections to ensure consistency
+                    UpdateItemInCollections();
+                }
+
+                // Now save all data to XML files
+                SRInfoHelper.Log("Saving all data to XML files...");
+                FileManager.SaveAsXML(_translations, "Translations.xml", FileManager.ExecPath + @"\");
+                FileManager.SaveAsXML(itemDTOs, _itemDataFileName, FileManager.ExecPath + @"\");
+
+                SRInfoHelper.Log("Main Save operation completed successfully!");
+                MessageBox.Show("All data saved successfully to XML files!\n\nBoth item data and translations have been persisted.", "Save Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log($"Error in main Save operation: {ex}");
+                MessageBox.Show($"Error saving data to XML: {ex.Message}\n\nCheck the logs for more details.", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void saveWithDiffToolStripMenuItem_Click(object sender, EventArgs e)
@@ -737,6 +1118,277 @@ This item is one of the games original items, deleting it might cause problems f
                     UpdateUI();
                 }
             }
+        }
+
+        /// <summary>
+        /// Refreshes UI and focuses on the newly copied item
+        /// </summary>
+        /// <param name="newItem">The newly copied item to focus on</param>
+        private void RefreshUIAndFocusNewItem(dto.SerializableItemData newItem)
+        {
+            try
+            {
+                SRInfoHelper.Log($"Refreshing UI and focusing on item {newItem.m_ID}");
+
+                // Clear any search filters to ensure new item is visible
+                if (_toolbar?.SearchText != null && !string.IsNullOrEmpty(_toolbar.SearchText))
+                {
+                    SRInfoHelper.Log("Clearing search filter to show new item");
+                    _toolbar.SearchText = "";
+                    ApplySearch("");
+                }
+
+                // Refresh the item list
+                UpdateItemInfo();
+
+                // Find and select the new item
+                FocusOnItem(newItem);
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log($"RefreshUIAndFocusNewItem failed: {ex.Message}");
+                // At minimum, ensure we have the right active item
+                activeItemData = newItem;
+                UpdateUI();
+            }
+        }
+
+        /// <summary>
+        /// Focuses on a specific item in the list
+        /// </summary>
+        /// <param name="targetItem">Item to focus on</param>
+        private void FocusOnItem(dto.SerializableItemData targetItem)
+        {
+            try
+            {
+                SRInfoHelper.Log($"Attempting to focus on item {targetItem.m_ID}");
+
+                // Get the current display list from the ListBox
+                var displayItems = ItemListBox.DataSource as List<object>;
+                if (displayItems != null)
+                {
+                    for (int i = 0; i < displayItems.Count; i++)
+                    {
+                        var listItem = displayItems[i];
+                        var itemData = listItem.GetMemberValue("Value") as dto.SerializableItemData;
+                        
+                        if (itemData?.m_ID == targetItem.m_ID)
+                        {
+                            SRInfoHelper.Log($"Found item {targetItem.m_ID} at index {i}, selecting it");
+                            
+                            // Temporarily disable the selection event to prevent recursion
+                            ItemListBox.SelectedIndexChanged -= ItemListBox_SelectedIndexChanged;
+                            
+                            // Select and scroll to the item
+                            ItemListBox.SelectedIndex = i;
+                            ItemListBox.TopIndex = Math.Max(0, i - 3); // Scroll to show item with context
+                            
+                            // Re-enable the selection event
+                            ItemListBox.SelectedIndexChanged += ItemListBox_SelectedIndexChanged;
+                            
+                            // Update the active item and UI
+                            activeItemData = targetItem;
+                            UpdateUI();
+                            
+                            SRInfoHelper.Log($"Successfully focused on item {targetItem.m_ID}");
+                            return;
+                        }
+                    }
+                }
+                
+                // Fallback: if we couldn't find it in the list, still update activeItemData
+                SRInfoHelper.Log($"Could not find item {targetItem.m_ID} in list, updating activeItemData anyway");
+                activeItemData = targetItem;
+                UpdateUI();
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log($"FocusOnItem failed: {ex.Message}");
+                // At minimum, ensure we have the right active item
+                activeItemData = targetItem;
+                UpdateUI();
+            }
+        }
+
+        /// <summary>
+        /// Validates item data integrity
+        /// </summary>
+        /// <param name="item">Item to validate</param>
+        /// <returns>True if item is valid</returns>
+        private bool ValidateItemData(dto.SerializableItemData item)
+        {
+            if (item == null) 
+            {
+                SRInfoHelper.Log("Item validation failed: item is null");
+                return false;
+            }
+            
+            if (item.m_ID <= 0) 
+            {
+                SRInfoHelper.Log($"Item validation failed: invalid ID {item.m_ID}");
+                return false;
+            }
+            
+            // Check for duplicate IDs
+            var existingItem = itemDTOs.FirstOrDefault(i => i != item && i.m_ID == item.m_ID);
+            if (existingItem != null)
+            {
+                SRInfoHelper.Log($"Item validation failed: duplicate ID {item.m_ID}");
+                return false;
+            }
+            
+            SRInfoHelper.Log($"Item {item.m_ID} validation passed");
+            return true;
+        }
+
+        private void ItemIconImageBox_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (activeItemData == null || activeItemData.m_ID <= 0)
+                {
+                    MessageBox.Show("Please select an item first.", "No Item Selected", 
+                                   MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                SRInfoHelper.Log($"Opening icon picker for item {activeItemData.m_ID}");
+
+                // Open icon picker dialog
+                using (var iconPicker = new IconPickerDialog(activeItemData.m_UIIconName))
+                {
+                    if (iconPicker.ShowDialog(this) == DialogResult.OK)
+                    {
+                        string newIconName = iconPicker.SelectedIconName;
+                        
+                        if (!string.IsNullOrEmpty(newIconName) && newIconName != activeItemData.m_UIIconName)
+                        {
+                            // Update the item's icon
+                            activeItemData.m_UIIconName = newIconName;
+                            
+                            // Refresh the icon display
+                            RefreshItemIcon();
+                            
+                            // Update the item in the collections
+                            UpdateItemInCollections();
+                            
+                            SRInfoHelper.Log($"Item {activeItemData.m_ID} icon changed to: {newIconName}");
+                            
+                            // Show success message
+                            MessageBox.Show($"Icon updated successfully!\n\nNew icon: {newIconName}", 
+                                           "Icon Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to change icon: {ex.Message}\n\nPlease check the logs for more details.", 
+                               "Icon Change Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SRInfoHelper.Log($"Icon change failed: {ex}");
+            }
+        }
+
+        private void RefreshItemIcon()
+        {
+            try
+            {
+                if (activeItemData != null && !string.IsNullOrEmpty(activeItemData.m_UIIconName))
+                {
+                    var loadedImage = FileManager.LoadImageFromFile(activeItemData.m_UIIconName);
+                    if (loadedImage != null)
+                    {
+                        ItemIconImageBox.Image = loadedImage;
+                        ChangeImageColor(Color.White, Color.Aquamarine);
+                    }
+                    else
+                    {
+                        SRInfoHelper.Log($"Warning: Icon file '{activeItemData.m_UIIconName}' not found or could not be loaded");
+                        ItemIconImageBox.Image = null;
+                    }
+                }
+                else
+                {
+                    ItemIconImageBox.Image = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log($"Failed to refresh icon: {ex.Message}");
+                ItemIconImageBox.Image = null;
+            }
+        }
+
+        private void UpdateItemInCollections()
+        {
+            try
+            {
+                // Find and update the item in the main collection
+                var existingItem = itemDTOs.FirstOrDefault(i => i.m_ID == activeItemData.m_ID);
+                if (existingItem != null)
+                {
+                    CopyItemData(activeItemData, existingItem);
+                }
+
+                // Find and update in the filtered collection
+                var existingFilteredItem = _allItems.FirstOrDefault(i => i.m_ID == activeItemData.m_ID);
+                if (existingFilteredItem != null)
+                {
+                    CopyItemData(activeItemData, existingFilteredItem);
+                }
+
+                SRInfoHelper.Log($"Updated item {activeItemData.m_ID} in all collections with complete data");
+            }
+            catch (Exception ex)
+            {
+                SRInfoHelper.Log($"Failed to update item in collections: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Copies all data from source item to target item
+        /// </summary>
+        private void CopyItemData(dto.SerializableItemData source, dto.SerializableItemData target)
+        {
+            // Basic properties
+            target.m_FriendlyName = source.m_FriendlyName;
+            target.m_UIIconName = source.m_UIIconName;
+            target.m_Slot = source.m_Slot;
+            target.m_GearSubCategory = source.m_GearSubCategory;
+            target.m_WeaponType = source.m_WeaponType;
+
+            // Combat properties
+            target.m_StealthVsCombat = source.m_StealthVsCombat;
+            target.m_ValidWeaponAugmentationWeaponMask = source.m_ValidWeaponAugmentationWeaponMask;
+            target.m_OverrideAmmo = source.m_OverrideAmmo;
+
+            // Research properties
+            target.m_PrereqID = source.m_PrereqID;
+            target.m_PrototypeProgressionValue = source.m_PrototypeProgressionValue;
+            target.m_BlueprintProgressionValue = source.m_BlueprintProgressionValue;
+            target.m_MinResearchersRequired = source.m_MinResearchersRequired;
+            target.m_AvailableToPlayer = source.m_AvailableToPlayer;
+            target.m_PlayerStartsWithBlueprints = source.m_PlayerStartsWithBlueprints;
+            target.m_PlayerStartsWithPrototype = source.m_PlayerStartsWithPrototype;
+            target.m_PlayerCanResearchFromStart = source.m_PlayerCanResearchFromStart;
+
+            // Economic properties
+            target.m_Cost = source.m_Cost;
+            target.m_BlueprintCost = source.m_BlueprintCost;
+            target.m_PrototypeCost = source.m_PrototypeCost;
+            target.m_FindBlueprintCost = source.m_FindBlueprintCost;
+            target.m_FindPrototypeCost = source.m_FindPrototypeCost;
+
+            // Copy collections
+            target.m_Modifiers = source.m_Modifiers != null ?
+                new List<dto.SerializableModifierData>(source.m_Modifiers) :
+                new List<dto.SerializableModifierData>();
+            target.m_AbilityIDs = source.m_AbilityIDs != null ?
+                new List<int>(source.m_AbilityIDs) :
+                new List<int>();
+            target.m_AbilityMasks = source.m_AbilityMasks != null ?
+                new List<int>(source.m_AbilityMasks) :
+                new List<int>();
         }
     }
 }
