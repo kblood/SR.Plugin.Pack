@@ -89,7 +89,13 @@ namespace SRMod.DTOs
         public bool m_Expanded;
         public int m_OverrideAmmo;
 
-        public SerializableItemData() { }
+        public SerializableItemData()
+        {
+            // Initialize all collections to prevent null reference exceptions
+            m_Modifiers = new List<SerializableModifierData>();
+            m_AbilityIDs = new List<int>();
+            m_AbilityMasks = new List<int>();
+        }
 
         public SerializableItemData(ItemManager.ItemData itemData)
         {
