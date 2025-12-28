@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
 using ItemEditorMod.Services;
-using ItemEditorMod.UI.Controls;
+using ItemEditorMod.UIHelper;
 using ItemEditorMod.Models;
 
 namespace ItemEditorMod.UI
 {
     /// <summary>
-    /// ItemEditorUI - Main UI orchestrator for the item editor
-    /// Clones InputBoxUi and manages the overall editor interface with tabs
+    /// ItemEditorUI - Simplified UI using proven UIHelper pattern
+    /// Uses UIHelper.ModalVerticalButtonsRoutine for display
     /// </summary>
     public class ItemEditorUI
     {
@@ -20,23 +20,7 @@ namespace ItemEditorMod.UI
         private ValidationService _validationService;
         private IconManagementService _iconService;
         private ItemCloneService _cloneService;
-
-        private GameObject _rootCanvas;
-        private InputBoxUi _clonedUI;
         private bool _isVisible = false;
-
-        // Tab system
-        private TabManager _tabManager;
-        private CombatTabUI _combatTabUI;
-        private ResearchTabUI _researchTabUI;
-        private EconomicTabUI _economicTabUI;
-        private ModifierEditorUI _modifierEditorUI;
-        private AbilitiesEditorUI _abilitiesEditorUI;
-        private IconGridUI _iconGridUI;
-
-        // Toolbar and list
-        private ToolbarUI _toolbarUI;
-        private ItemListUI _itemListUI;
 
         #endregion
 
@@ -49,19 +33,6 @@ namespace ItemEditorMod.UI
             _validationService = validationService;
             _iconService = iconService;
             _cloneService = cloneService;
-
-            // Create tab UIs
-            _tabManager = new TabManager();
-            _combatTabUI = new CombatTabUI(editorService);
-            _researchTabUI = new ResearchTabUI(editorService);
-            _economicTabUI = new EconomicTabUI(editorService);
-            _modifierEditorUI = new ModifierEditorUI(editorService);
-            _abilitiesEditorUI = new AbilitiesEditorUI(editorService);
-            _iconGridUI = new IconGridUI(iconService);
-
-            // Create toolbar and item list
-            _toolbarUI = new ToolbarUI(editorService, validationService, cloneService);
-            _itemListUI = new ItemListUI(editorService);
         }
 
         #endregion
@@ -69,42 +40,25 @@ namespace ItemEditorMod.UI
         #region Public Methods
 
         /// <summary>
-        /// Show the editor UI
+        /// Show the main item list menu
         /// </summary>
         public void Show()
         {
             try
             {
                 Debug.Log("ItemEditorUI: Show() called");
+                _isVisible = true;
 
-                if (_rootCanvas == null)
-                {
-                    Debug.Log("ItemEditorUI: _rootCanvas is null, initializing...");
-                    InitializeUI();
-                }
-                else
-                {
-                    Debug.Log("ItemEditorUI: _rootCanvas already initialized");
-                }
+                // Reload items from game
+                _editorService.ReloadFromGame();
 
-                if (_rootCanvas != null)
-                {
-                    Debug.Log("ItemEditorUI: _rootCanvas is valid, activating...");
-                    _rootCanvas.SetActive(true);
-                    _isVisible = true;
-                    Debug.Log("ItemEditorUI: Editor shown successfully");
-
-                    // Reload items when showing
-                    _editorService.ReloadFromGame();
-                }
-                else
-                {
-                    Debug.LogError("ItemEditorUI: Show failed - _rootCanvas is still null after initialization");
-                }
+                // Show main menu
+                ShowMainMenu();
             }
             catch (Exception e)
             {
                 Debug.LogError($"ItemEditorUI: Show failed: {e.Message}\n{e.StackTrace}");
+                Manager.GetUIManager()?.ShowMessagePopup($"UI Error: {e.Message}", 5);
             }
         }
 
@@ -115,12 +69,8 @@ namespace ItemEditorMod.UI
         {
             try
             {
-                if (_rootCanvas != null)
-                {
-                    _rootCanvas.SetActive(false);
-                    _isVisible = false;
-                    Debug.Log("ItemEditorUI: Editor hidden");
-                }
+                _isVisible = false;
+                Debug.Log("ItemEditorUI: Editor hidden");
             }
             catch (Exception e)
             {
@@ -130,379 +80,261 @@ namespace ItemEditorMod.UI
 
         #endregion
 
-        #region Private Methods
+        #region Main Menu
 
-        /// <summary>
-        /// Setup event callbacks for toolbar and list
-        /// </summary>
-        private void SetupCallbacks()
+        private void ShowMainMenu()
         {
-            try
-            {
-                // Toolbar close button callback
-                _toolbarUI.SetOnCloseCallback(() => Hide());
+            var buttons = new List<SRModButtonElement>();
 
-                // Toolbar validation callback - show validation results modal
-                _toolbarUI.SetOnValidationCallback((validationResult) =>
-                {
-                    ShowValidationModal(validationResult);
-                });
+            // Browse all items
+            buttons.Add(new SRModButtonElement(
+                "Browse All Items",
+                new UnityAction(() => ShowItemList()),
+                "View and edit all items in the game"));
 
-                // Item list selection callback - refresh UI when item is selected
-                _itemListUI.SetOnItemSelectedCallback((itemId) =>
-                {
-                    RefreshEditorForCurrentItem();
-                });
+            // Create new item
+            buttons.Add(new SRModButtonElement(
+                "Create New Item",
+                new UnityAction(() => CreateNewItem()),
+                "Clone an existing item to create a new one"));
 
-                Debug.Log("ItemEditorUI: Callbacks setup complete");
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"ItemEditorUI: SetupCallbacks failed: {e.Message}");
-            }
+            // Save all items
+            buttons.Add(new SRModButtonElement(
+                "Save All Items",
+                new UnityAction(() => SaveAllItems()),
+                "Save all item changes to XML files"));
+
+            // Validate items
+            buttons.Add(new SRModButtonElement(
+                "Validate All Items",
+                new UnityAction(() => ValidateAllItems()),
+                "Check all items for errors"));
+
+            // Close button
+            buttons.Add(new SRModButtonElement(
+                "Close",
+                new UnityAction(() => Hide()),
+                "Close the item editor"));
+
+            Manager.Get().StartCoroutine(
+                UIHelper.UIHelper.ModalVerticalButtonsRoutine("Item Editor", buttons));
         }
 
-        /// <summary>
-        /// Refresh all editor tabs with current item data
-        /// </summary>
-        private void RefreshEditorForCurrentItem()
+        #endregion
+
+        #region Item List
+
+        private void ShowItemList()
         {
             try
             {
-                if (_editorService.CurrentItem == null)
-                    return;
+                var items = _editorService.GetAllItems();
+                var buttons = new List<SRModButtonElement>();
 
-                // Refresh all tab UIs with current item
-                _combatTabUI.RefreshUI(_editorService.CurrentItem);
-                _researchTabUI.RefreshUI(_editorService.CurrentItem);
-                _economicTabUI.RefreshUI(_editorService.CurrentItem);
-                _modifierEditorUI.RefreshUI(_editorService.CurrentItem);
-                _abilitiesEditorUI.RefreshUI(_editorService.CurrentItem);
-
-                Debug.Log($"ItemEditorUI: Refreshed editor for item {_editorService.CurrentItem.m_ID}");
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"ItemEditorUI: RefreshEditorForCurrentItem failed: {e.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Show validation results in a modal dialog
-        /// </summary>
-        private void ShowValidationModal(ValidationResult validationResult)
-        {
-            try
-            {
-                Debug.Log("ItemEditorUI: Showing validation modal");
-
-                // Create modal background
-                var modalBG = new GameObject("ValidationModal");
-                var modalRect = modalBG.AddComponent<RectTransform>();
-                modalRect.SetParent(_rootCanvas.transform);
-                modalRect.offsetMin = Vector2.zero;
-                modalRect.offsetMax = Vector2.zero;
-
-                var bgImage = modalBG.AddComponent<Image>();
-                bgImage.color = new Color(0, 0, 0, 0.5f); // Semi-transparent black
-
-                // Create modal panel
-                var panelGO = new GameObject("Panel");
-                var panelRect = panelGO.AddComponent<RectTransform>();
-                panelRect.SetParent(modalBG.transform);
-                panelRect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 100, 600);
-                panelRect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 100, 400);
-
-                var panelImage = panelGO.AddComponent<Image>();
-                panelImage.color = new Color(0.2f, 0.2f, 0.2f, 1);
-
-                var panelVLG = panelGO.AddComponent<VerticalLayoutGroup>();
-                panelVLG.padding = new RectOffset(10, 10, 10, 10);
-                panelVLG.spacing = 5;
-                panelVLG.childForceExpandHeight = true;
-
-                // Title
-                var titleGO = new GameObject("Title");
-                titleGO.transform.SetParent(panelGO.transform);
-                var titleText = titleGO.AddComponent<Text>();
-                titleText.text = validationResult.IsValid ? "✓ Validation Passed" : "✗ Validation Failed";
-                titleText.font = Resources.Load<Font>("Arial");
-                titleText.fontSize = 16;
-                titleText.fontStyle = FontStyle.Bold;
-                titleText.color = validationResult.IsValid ? new Color(0.2f, 0.8f, 0.2f, 1) : new Color(0.8f, 0.2f, 0.2f, 1);
-                titleText.alignment = TextAnchor.MiddleCenter;
-
-                var titleLE = titleGO.AddComponent<LayoutElement>();
-                titleLE.preferredHeight = 30;
-
-                // Errors and warnings scroll area
-                var scrollGO = new GameObject("ScrollArea");
-                scrollGO.transform.SetParent(panelGO.transform);
-                var scrollLE = scrollGO.AddComponent<LayoutElement>();
-                scrollLE.flexibleHeight = 1;
-
-                var scrollImage = scrollGO.AddComponent<Image>();
-                scrollImage.color = new Color(0.15f, 0.15f, 0.15f, 1);
-
-                var scroll = scrollGO.AddComponent<ScrollRect>();
-                scroll.horizontal = false;
-                scroll.vertical = true;
-
-                var contentGO = new GameObject("Content");
-                contentGO.transform.SetParent(scrollGO.transform);
-                var contentRect = contentGO.AddComponent<RectTransform>();
-                var contentVLG = contentGO.AddComponent<VerticalLayoutGroup>();
-                contentVLG.padding = new RectOffset(5, 5, 5, 5);
-                contentVLG.spacing = 3;
-                contentVLG.childForceExpandWidth = true;
-
-                scroll.content = contentRect;
-
-                // Display errors
-                if (validationResult.Errors.Count > 0)
+                // Add items grouped by type
+                foreach (var item in items)
                 {
-                    var errorHeaderGO = new GameObject("ErrorHeader");
-                    errorHeaderGO.transform.SetParent(contentGO.transform);
-                    var errorHeaderText = errorHeaderGO.AddComponent<Text>();
-                    errorHeaderText.text = "ERRORS:";
-                    errorHeaderText.font = Resources.Load<Font>("Arial");
-                    errorHeaderText.fontSize = 12;
-                    errorHeaderText.fontStyle = FontStyle.Bold;
-                    errorHeaderText.color = new Color(0.8f, 0.2f, 0.2f, 1);
+                    string itemName = item.m_Name ?? $"Item {item.m_ID}";
+                    string description = $"ID: {item.m_ID} | Type: {item.m_ItemCategory}";
 
-                    foreach (var error in validationResult.Errors)
+                    buttons.Add(new SRModButtonElement(
+                        itemName,
+                        new UnityAction(() => ShowItemMenu(item)),
+                        description));
+
+                    // Limit to 20 items per page to avoid UI clutter
+                    if (buttons.Count >= 20)
                     {
-                        var errorGO = new GameObject("Error");
-                        errorGO.transform.SetParent(contentGO.transform);
-                        var errorText = errorGO.AddComponent<Text>();
-                        errorText.text = "• " + error;
-                        errorText.font = Resources.Load<Font>("Arial");
-                        errorText.fontSize = 11;
-                        errorText.color = new Color(1, 0.5f, 0.5f, 1);
-                        errorText.horizontalOverflow = HorizontalWrapMode.Wrap;
-
-                        var errorLE = errorGO.AddComponent<LayoutElement>();
-                        errorLE.preferredHeight = 25;
+                        buttons.Add(new SRModButtonElement(
+                            "More items...",
+                            new UnityAction(() => Manager.GetUIManager().ShowMessagePopup(
+                                "Too many items! Use search/filter (coming soon)", 3)),
+                            "Browse more items"));
+                        break;
                     }
                 }
 
-                // Display warnings
-                if (validationResult.Warnings.Count > 0)
-                {
-                    var warningHeaderGO = new GameObject("WarningHeader");
-                    warningHeaderGO.transform.SetParent(contentGO.transform);
-                    var warningHeaderText = warningHeaderGO.AddComponent<Text>();
-                    warningHeaderText.text = "WARNINGS:";
-                    warningHeaderText.font = Resources.Load<Font>("Arial");
-                    warningHeaderText.fontSize = 12;
-                    warningHeaderText.fontStyle = FontStyle.Bold;
-                    warningHeaderText.color = new Color(0.8f, 0.8f, 0.2f, 1);
+                // Back button
+                buttons.Add(new SRModButtonElement(
+                    "Back",
+                    new UnityAction(() => ShowMainMenu()),
+                    "Return to main menu"));
 
-                    foreach (var warning in validationResult.Warnings)
-                    {
-                        var warningGO = new GameObject("Warning");
-                        warningGO.transform.SetParent(contentGO.transform);
-                        var warningText = warningGO.AddComponent<Text>();
-                        warningText.text = "⚠ " + warning;
-                        warningText.font = Resources.Load<Font>("Arial");
-                        warningText.fontSize = 11;
-                        warningText.color = new Color(1, 1, 0.5f, 1);
-                        warningText.horizontalOverflow = HorizontalWrapMode.Wrap;
-
-                        var warningLE = warningGO.AddComponent<LayoutElement>();
-                        warningLE.preferredHeight = 25;
-                    }
-                }
-
-                // Close button
-                var buttonGO = new GameObject("CloseButton");
-                buttonGO.transform.SetParent(panelGO.transform);
-                var buttonLE = buttonGO.AddComponent<LayoutElement>();
-                buttonLE.preferredHeight = 35;
-
-                var buttonImage = buttonGO.AddComponent<Image>();
-                buttonImage.color = new Color(0.3f, 0.3f, 0.3f, 1);
-
-                var button = buttonGO.AddComponent<Button>();
-                var buttonTextGO = new GameObject("Text");
-                buttonTextGO.transform.SetParent(buttonGO.transform);
-                var buttonText = buttonTextGO.AddComponent<Text>();
-                buttonText.text = "Close";
-                buttonText.font = Resources.Load<Font>("Arial");
-                buttonText.fontSize = 12;
-                buttonText.fontStyle = FontStyle.Bold;
-                buttonText.color = Color.white;
-                buttonText.alignment = TextAnchor.MiddleCenter;
-
-                var buttonTextRect = buttonTextGO.GetComponent<RectTransform>();
-                buttonTextRect.offsetMin = Vector2.zero;
-                buttonTextRect.offsetMax = Vector2.zero;
-
-                button.onClick.AddListener(() => UnityEngine.Object.Destroy(modalBG));
-
-                Debug.Log("ItemEditorUI: Validation modal shown");
+                Manager.Get().StartCoroutine(
+                    UIHelper.UIHelper.ModalVerticalButtonsRoutine("Select Item", buttons));
             }
             catch (Exception e)
             {
-                Debug.LogError($"ItemEditorUI: ShowValidationModal failed: {e.Message}\n{e.StackTrace}");
+                Debug.LogError($"ItemEditorUI: ShowItemList failed: {e.Message}");
+                Manager.GetUIManager()?.ShowMessagePopup($"Error: {e.Message}", 5);
             }
         }
 
-        /// <summary>
-        /// Initialize the UI by cloning InputBoxUi and building the editor layout
-        /// </summary>
-        private void InitializeUI()
+        #endregion
+
+        #region Item Edit Menu
+
+        private void ShowItemMenu(ItemData item)
         {
             try
             {
-                Debug.Log("ItemEditorUI: Initializing UI");
+                _editorService.SelectItem(item.m_ID);
 
-                // Clone the game's InputBoxUi as base
-                var gameInputBoxUi = Manager.GetUIManager().m_InputBoxUi;
-                if (gameInputBoxUi == null)
-                {
-                    Debug.LogError("ItemEditorUI: Cannot find game's InputBoxUi");
-                    return;
-                }
+                var buttons = new List<SRModButtonElement>();
 
-                _clonedUI = UnityEngine.Object.Instantiate(gameInputBoxUi);
-                _clonedUI.gameObject.name = "ItemEditorUI";
+                string itemName = item.m_Name ?? $"Item {item.m_ID}";
 
-                // Get or create root canvas
-                _rootCanvas = _clonedUI.gameObject;
+                // Edit basic info
+                buttons.Add(new SRModButtonElement(
+                    "Edit Basic Info",
+                    new UnityAction(() => ShowBasicInfoMenu(item)),
+                    "Name, description, cost"));
 
-                // Disable game's input controls and unwanted buttons
-                if (_clonedUI.m_InputControlContainer != null)
-                {
-                    _clonedUI.m_InputControlContainer.gameObject.SetActive(false);
-                }
+                // Edit combat stats
+                buttons.Add(new SRModButtonElement(
+                    "Edit Combat Stats",
+                    new UnityAction(() => ShowCombatStatsMenu(item)),
+                    "Damage, range, accuracy"));
 
-                if (_clonedUI.m_OkButtonContainer != null)
-                {
-                    _clonedUI.m_OkButtonContainer.gameObject.SetActive(false);
-                }
+                // Edit abilities
+                buttons.Add(new SRModButtonElement(
+                    "Edit Abilities",
+                    new UnityAction(() => ShowAbilitiesMenu(item)),
+                    "Add or remove item abilities"));
 
-                // Get the main content area to rebuild it
-                Transform mainContentArea = _clonedUI.transform.Find("Content");
-                if (mainContentArea == null)
-                {
-                    Debug.LogError("ItemEditorUI: Cannot find Content area in cloned UI");
-                    return;
-                }
+                // Clone item
+                buttons.Add(new SRModButtonElement(
+                    "Clone This Item",
+                    new UnityAction(() => CloneItem(item)),
+                    "Create a copy of this item"));
 
-                // Clear existing content
-                foreach (Transform child in mainContentArea)
-                {
-                    UnityEngine.Object.Destroy(child.gameObject);
-                }
+                // Delete item
+                buttons.Add(new SRModButtonElement(
+                    "Delete Item",
+                    new UnityAction(() => DeleteItem(item)),
+                    "Remove this item (cannot be undone)"));
 
-                // Create toolbar first
-                _toolbarUI.CreateUI(mainContentArea);
+                // Back button
+                buttons.Add(new SRModButtonElement(
+                    "Back",
+                    new UnityAction(() => ShowItemList()),
+                    "Return to item list"));
 
-                // Create editor layout (toolbar is pinned to top, so order doesn't matter)
-                BuildEditorLayout(mainContentArea);
-
-                // Setup callbacks
-                SetupCallbacks();
-
-                Debug.Log("ItemEditorUI: UI initialized successfully");
+                Manager.Get().StartCoroutine(
+                    UIHelper.UIHelper.ModalVerticalButtonsRoutine($"Edit: {itemName}", buttons));
             }
             catch (Exception e)
             {
-                Debug.LogError($"ItemEditorUI: InitializeUI failed: {e.Message}\n{e.StackTrace}");
+                Debug.LogError($"ItemEditorUI: ShowItemMenu failed: {e.Message}");
+                Manager.GetUIManager()?.ShowMessagePopup($"Error: {e.Message}", 5);
             }
         }
 
-        /// <summary>
-        /// Build the main editor layout with tabs
-        /// </summary>
-        private void BuildEditorLayout(Transform parent)
+        #endregion
+
+        #region Item Operations
+
+        private void ShowBasicInfoMenu(ItemData item)
+        {
+            Manager.GetUIManager()?.ShowMessagePopup(
+                $"Basic Info for {item.m_Name}\n" +
+                $"ID: {item.m_ID}\n" +
+                $"Cost: {item.m_ItemCost}\n" +
+                $"Category: {item.m_ItemCategory}\n" +
+                $"\nEditing coming soon!", 5);
+        }
+
+        private void ShowCombatStatsMenu(ItemData item)
+        {
+            Manager.GetUIManager()?.ShowMessagePopup(
+                $"Combat Stats for {item.m_Name}\n" +
+                $"Damage: {item.m_DamageValue}\n" +
+                $"Range: {item.m_FireRange}\n" +
+                $"Accuracy: {item.m_Accuracy}\n" +
+                $"\nEditing coming soon!", 5);
+        }
+
+        private void ShowAbilitiesMenu(ItemData item)
+        {
+            string abilities = "None";
+            if (item.m_Abilities != null && item.m_Abilities.Length > 0)
+            {
+                abilities = string.Join(", ", System.Array.ConvertAll(item.m_Abilities, a => a.ToString()));
+            }
+
+            Manager.GetUIManager()?.ShowMessagePopup(
+                $"Abilities for {item.m_Name}\n" +
+                $"Current: {abilities}\n" +
+                $"\nEditing coming soon!", 5);
+        }
+
+        private void CloneItem(ItemData item)
         {
             try
             {
-                Debug.Log("ItemEditorUI: Building editor layout");
+                var newItem = _cloneService.CloneItem(item);
+                _editorService.AddItem(newItem);
 
-                // Create main horizontal layout (item list on left, editor on right)
-                var mainLayout = new GameObject("MainLayout");
-                var mainLayoutRect = mainLayout.AddComponent<RectTransform>();
-                mainLayoutRect.SetParent(parent);
-                // Adjust for toolbar height (45px at top)
-                mainLayoutRect.offsetMin = new Vector2(0, 0);
-                mainLayoutRect.offsetMax = new Vector2(0, -45);
-                mainLayoutRect.anchoredPosition = new Vector2(0, -22.5f);
-
-                var hlg = mainLayout.AddComponent<HorizontalLayoutGroup>();
-                hlg.spacing = 10;
-                hlg.padding = new RectOffset(10, 10, 10, 10);
-                hlg.childForceExpandWidth = true;
-                hlg.childForceExpandHeight = true;
-
-                // Left panel: Item list (30% width)
-                var leftPanel = new GameObject("ItemListPanel");
-                var leftPanelRect = leftPanel.AddComponent<RectTransform>();
-                leftPanelRect.SetParent(mainLayout.transform);
-                leftPanel.AddComponent<Image>().color = new Color(0.15f, 0.15f, 0.15f, 1);
-                var leftLE = leftPanel.AddComponent<LayoutElement>();
-                leftLE.preferredWidth = 200;
-
-                var leftVLG = leftPanel.AddComponent<VerticalLayoutGroup>();
-                leftVLG.padding = new RectOffset(5, 5, 5, 5);
-                leftVLG.spacing = 5;
-                leftVLG.childForceExpandHeight = true;
-
-                // Create item list UI
-                _itemListUI.CreateUI(leftPanel.transform);
-
-                // Right panel: Editor (70% width)
-                var rightPanel = new GameObject("EditorPanel");
-                var rightPanelRect = rightPanel.AddComponent<RectTransform>();
-                rightPanelRect.SetParent(mainLayout.transform);
-                rightPanel.AddComponent<Image>().color = new Color(0.15f, 0.15f, 0.15f, 1);
-
-                var rightVLG = rightPanel.AddComponent<VerticalLayoutGroup>();
-                rightVLG.padding = new RectOffset(5, 5, 5, 5);
-                rightVLG.spacing = 5;
-                rightVLG.childForceExpandHeight = true;
-
-                // Create tabs within right panel
-                _tabManager.CreateTabs(rightPanel.transform);
-
-                // Populate tabs with fields
-                var combatPanel = _tabManager.GetTabContentPanel("Combat");
-                if (combatPanel != null)
-                {
-                    _combatTabUI.CreateUI(rightPanel.transform);
-                }
-
-                var researchPanel = _tabManager.GetTabContentPanel("Research");
-                if (researchPanel != null)
-                {
-                    _researchTabUI.CreateUI(rightPanel.transform);
-                }
-
-                var economicPanel = _tabManager.GetTabContentPanel("Economic");
-                if (economicPanel != null)
-                {
-                    _economicTabUI.CreateUI(rightPanel.transform);
-                }
-
-                var modifiersPanel = _tabManager.GetTabContentPanel("Modifiers");
-                if (modifiersPanel != null)
-                {
-                    _modifierEditorUI.CreateUI(rightPanel.transform);
-                }
-
-                var abilitiesPanel = _tabManager.GetTabContentPanel("Abilities");
-                if (abilitiesPanel != null)
-                {
-                    _abilitiesEditorUI.CreateUI(rightPanel.transform);
-                }
-
-                Debug.Log("ItemEditorUI: Editor layout built successfully");
+                Manager.GetUIManager()?.ShowMessagePopup(
+                    $"Cloned {item.m_Name}\n" +
+                    $"New ID: {newItem.m_ID}\n" +
+                    $"Remember to save!", 5);
             }
             catch (Exception e)
             {
-                Debug.LogError($"ItemEditorUI: BuildEditorLayout failed: {e.Message}\n{e.StackTrace}");
+                Debug.LogError($"ItemEditorUI: CloneItem failed: {e.Message}");
+                Manager.GetUIManager()?.ShowMessagePopup($"Clone failed: {e.Message}", 5);
+            }
+        }
+
+        private void DeleteItem(ItemData item)
+        {
+            // Show confirmation
+            Manager.GetUIManager()?.ShowMessagePopup(
+                $"Delete {item.m_Name}?\n" +
+                $"(Not implemented - for safety)", 3);
+        }
+
+        private void CreateNewItem()
+        {
+            Manager.GetUIManager()?.ShowMessagePopup(
+                "Create New Item\n" +
+                "Select an item to clone from the item list", 3);
+            ShowItemList();
+        }
+
+        private void SaveAllItems()
+        {
+            try
+            {
+                _editorService.SaveAllItems();
+                Manager.GetUIManager()?.ShowMessagePopup(
+                    "All items saved to XML!\n" +
+                    "Restart game to load changes", 5);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"ItemEditorUI: SaveAllItems failed: {e.Message}");
+                Manager.GetUIManager()?.ShowMessagePopup($"Save failed: {e.Message}", 5);
+            }
+        }
+
+        private void ValidateAllItems()
+        {
+            try
+            {
+                var results = _validationService.ValidateAllItems(_editorService.GetAllItems());
+
+                string message = results.IsValid
+                    ? $"✓ All items valid!\n{results.Errors.Count} errors\n{results.Warnings.Count} warnings"
+                    : $"✗ Validation failed!\n{results.Errors.Count} errors\n{results.Warnings.Count} warnings";
+
+                Manager.GetUIManager()?.ShowMessagePopup(message, 5);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"ItemEditorUI: ValidateAllItems failed: {e.Message}");
+                Manager.GetUIManager()?.ShowMessagePopup($"Validation failed: {e.Message}", 5);
             }
         }
 

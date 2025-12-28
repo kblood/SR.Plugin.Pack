@@ -11,3 +11,7 @@ c:\Modding\SR\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.csproj.Core
 c:\Modding\SR\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCust.AF5A35A2.Up2Date
 c:\Modding\SR\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.dll
 c:\Modding\SR\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.pdb
+C:\git\SR\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.csproj.AssemblyReference.cache
+C:\git\SR\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.csproj.CoreCompileInputs.cache
+C:\git\SR\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.dll
+C:\git\SR\SR.Plugin.Pack\LoadCustomData\obj\Debug\LoadCustomData.pdb
